@@ -5,7 +5,7 @@
 [![Stargazers][stars-shield]][stars-url]
 [![Issues][issues-shield]][issues-url]
 [![GPL License][license-shield]][license-url]
-[![Java CI with Gradle][CI-shield]][CI-url]
+
 <br />
 <div align="center">
   <a href="https://github.com/progetto-oop-22-23/HOMER">
@@ -55,8 +55,8 @@
 
 ## About The Project
 HOMER is a smart home emulator. It allows to control multiple devices and sensors through a dashboard, and it's able to automatically
-manage some scenarios to improve things like electrical consumption, air quality and heat waste.
-Of course it's just an emulator, it won't open your windows or turn on any light in your house while you're sleeping.
+manage some scenarios to improve electrical consumption, air quality and heat waste.
+Of course it's just an emulator, it won't open your windows or turn on any light in your house while you're sleeping, hopefully.
 
 ### Built With
 * [Java](https://www.oracle.com/it/java/)
@@ -67,13 +67,42 @@ WIP
 ## Usage
 WIP
 
-## Roadmap (not in order)
+## Roadmap
 - [ ] Implement controller
 - [ ] Create APIs for devices and sensors
 - [ ] Coherent communication between devices and controller
 - [ ] Implement scheduler
 - [ ] Implement logger
 - [ ] Build GUI
+
+<!-- LICENSE -->
+## License
+
+Distributed under the GPL-2.0 License. See [LICENSE](https://github.com/progetto-oop-22-23/HOMER/blob/main/LICENSE) for more information.
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+
+
+<!-- CONTACT -->
+## Contact
+
+- Michele Ceccacci - [ ]
+- Simone Magnani - [ ]
+- Alessandro Monticelli - [LinkedIn](https://www.linkedin.com/in/ale-mont) | [mail](mailto:alessandr.monticell4@studio.unibo.it)
+
+Project Link: [https://github.com/progetto-oop-22-23/HOMER](https://github.com/your_username/repo_name)
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+
+
+<!-- ACKNOWLEDGMENTS -->
+## Acknowledgments
+WIP
+
+
+<!-- Doc end -->
 
 [CI-shield]: https://github.com/progetto-oop-22-23/HOMER/actions/workflows/test.yml/badge.svg?branch=main&
 [CI-url]: https://github.com/progetto-oop-22-23/HOMER/actions/workflows/test.yml
@@ -87,3 +116,4 @@ WIP
 [issues-url]: https://github.com/progetto-oop-22-23/HOMER/issues
 [license-shield]: https://img.shields.io/github/license/progetto-oop-22-23/HOMER?style=for-the-badge
 [license-url]: https://github.com/progetto-oop-22-23/HOMER/blob/master/LICENSE
+[![Java CI with Gradle][CI-shield]][CI-url]
