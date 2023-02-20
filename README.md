@@ -1,11 +1,5 @@
 <!-- README.md start -->
 <a name="readme-top"></a>
-[![Contributors][contributors-shield]][contributors-url]
-[![Forks][forks-shield]][forks-url]
-[![Stargazers][stars-shield]][stars-url]
-[![Issues][issues-shield]][issues-url]
-[![GPL License][license-shield]][license-url]
-
 <br />
 <div align="center">
   <a href="https://github.com/progetto-oop-22-23/HOMER">
@@ -116,4 +110,10 @@ WIP
 [issues-url]: https://github.com/progetto-oop-22-23/HOMER/issues
 [license-shield]: https://img.shields.io/github/license/progetto-oop-22-23/HOMER?style=for-the-badge
 [license-url]: https://github.com/progetto-oop-22-23/HOMER/blob/master/LICENSE
+
+[![Contributors][contributors-shield]][contributors-url]
+[![Forks][forks-shield]][forks-url]
+[![Stargazers][stars-shield]][stars-url]
+[![Issues][issues-shield]][issues-url]
+[![GPL License][license-shield]][license-url]
 [![Java CI with Gradle][CI-shield]][CI-url]
