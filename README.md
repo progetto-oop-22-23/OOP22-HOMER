@@ -1,4 +1,4 @@
-# HOMER
+<!-- README.md start -->
 <a name="readme-top"></a>
 [![Contributors][contributors-shield]][contributors-url]
 [![Forks][forks-shield]][forks-url]
@@ -12,14 +12,14 @@
     <!-- <img src="" alt="Logo" width="80" height="80"> -->
   </a>
 
-  <h3 align="center">HOMER</h3>
+  <h2 align="center">HOMER</h2>
 
   <p align="center">
     HOMER is an Open Source smart home emulator.
     <br />
     <br />
-    <a href="https://github.com/progetto-oop-22-23/HOMER">View Demo</a>
-    ·
+    <!-- <a href="https://github.com/progetto-oop-22-23/HOMER">View Demo</a>
+    · -->
     <a href="https://github.com/progetto-oop-22-23/HOMER/issues">Report Bug</a>
     ·
     <a href="https://github.com/progetto-oop-22-23/HOMER/issues">Request Feature</a>
@@ -102,7 +102,7 @@ Project Link: [https://github.com/progetto-oop-22-23/HOMER](https://github.com/y
 WIP
 
 
-<!-- Doc end -->
+<!-- README.md end -->
 
 [CI-shield]: https://github.com/progetto-oop-22-23/HOMER/actions/workflows/test.yml/badge.svg?branch=main&
 [CI-url]: https://github.com/progetto-oop-22-23/HOMER/actions/workflows/test.yml
