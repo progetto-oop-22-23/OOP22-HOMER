@@ -98,8 +98,7 @@ WIP
 
 <!-- README.md end -->
 
-[CI-shield]: https://github.com/progetto-oop-22-23/HOMER/actions/workflows/test.yml/badge.svg?branch=main&
-[CI-url]: https://github.com/progetto-oop-22-23/HOMER/actions/workflows/test.yml
+<!-- 
 [contributors-shield]: https://img.shields.io/github/contributors/progetto-oop-22-23/HOMER?style=for-the-badge
 [contributors-url]: https://github.com/progetto-oop-22-23/HOMER/graphs/contributors
 [forks-shield]: https://img.shields.io/github/forks/progetto-oop-22-23/HOMER?style=for-the-badge
@@ -115,5 +114,8 @@ WIP
 [![Forks][forks-shield]][forks-url]
 [![Stargazers][stars-shield]][stars-url]
 [![Issues][issues-shield]][issues-url]
-[![GPL License][license-shield]][license-url]
+[![GPL License][license-shield]][license-url] 
+-->
+[CI-shield]: https://github.com/progetto-oop-22-23/HOMER/actions/workflows/test.yml/badge.svg?branch=main&
+[CI-url]: https://github.com/progetto-oop-22-23/HOMER/actions/workflows/test.yml
 [![Java CI with Gradle][CI-shield]][CI-url]
