@@ -42,7 +42,6 @@
     <li><a href="#roadmap">Roadmap</a></li>
     <li><a href="#contributing">Contributing</a></li>
     <li><a href="#license">License</a></li>
-    <li><a href="#contact">Contact</a></li>
     <li><a href="#acknowledgments">Acknowledgments</a></li>
   </ol>
 </details>
@@ -76,14 +75,6 @@ Distributed under the GPL-2.0 License. See [LICENSE](https://github.com/progetto
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-
-
-<!-- CONTACT -->
-## Contact
-
-- Michele Ceccacci - [ ]
-- Simone Magnani - [ ]
-- Alessandro Monticelli - [LinkedIn](https://www.linkedin.com/in/ale-mont) | [mail](mailto:alessandr.monticell4@studio.unibo.it)
 
 Project Link: [https://github.com/progetto-oop-22-23/HOMER](https://github.com/your_username/repo_name)
 
