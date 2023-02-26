@@ -22,6 +22,7 @@ public interface AdjustableDevice<S> extends Device<S> {
 
     /**
      * Sets the device state to the new value.
+     * 
      * @param value The new commanded level.
      */
     void setValue(S value);
