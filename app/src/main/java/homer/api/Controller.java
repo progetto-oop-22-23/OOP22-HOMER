@@ -31,6 +31,6 @@ public interface Controller {
      * 
      * @param device The device to command.
      */
-    void updateDevice(DeviceView<?> device);
+    void signalDevice(DeviceView<?> device);
 
 }
