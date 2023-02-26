@@ -3,13 +3,13 @@ package homer.api;
 public interface AdjustableDevice<S> extends Device<S> {
 
     /**
-     * TODO REVISE THIS
+     * 
      * @return The min value the device state can be set to.
      */
     S getMinValue();
 
     /**
-     * TODO REVISE THIS
+     * 
      * @return The max value the device state can be set to.
      */
     S getMaxValue();
