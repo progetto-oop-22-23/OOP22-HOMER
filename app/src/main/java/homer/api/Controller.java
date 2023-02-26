@@ -12,6 +12,13 @@ public interface Controller {
     void connectDevice(Device<?> device);
 
     /**
+     * Disconnects the device from the controller.
+     * 
+     * @param deviceId The ID of the device to be disconnected.
+     */
+    void disconnectDevice(long deviceId);
+
+    /**
      * Returns a set containing the information of each device to be displayed
      * visually.
      * 
