@@ -1,7 +1,11 @@
 package homer;
 
 public final class App {
-    public static void main(String[] args) {
+    private App() {
+        throw new UnsupportedOperationException("App should not be instantiated");
+    }
+
+    public static void main(final String[] args) {
     }
 
     public static String getGreeting() {
