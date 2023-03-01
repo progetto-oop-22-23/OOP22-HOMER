@@ -1,6 +1,6 @@
 package homer.api;
 
-public interface ElectricMeter<S> {
+public interface ElectricalMeter<S> {
 
     /**
      * Cuts power to the selected device.
