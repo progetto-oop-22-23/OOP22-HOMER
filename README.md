@@ -75,7 +75,6 @@ Distributed under the GPL-2.0 License. See [LICENSE](https://github.com/progetto
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-
 Project Link: [https://github.com/progetto-oop-22-23/HOMER](https://github.com/your_username/repo_name)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
