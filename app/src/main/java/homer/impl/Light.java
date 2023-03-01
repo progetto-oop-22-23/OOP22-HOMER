@@ -3,12 +3,12 @@ package homer.impl;
 import homer.api.DeviceInfo;
 import homer.api.ToggleableDevice;
 
-public final class Light<S> implements ToggleableDevice<S> {
+public final class Light implements ToggleableDevice<Boolean> {
     private final long id;
     private final String type;
-    private S state;
+    private Boolean state;
 
-    public Light(final long id, final S state) {
+    public Light(final long id, final Boolean state) {
         this.id = id;
         this.type = "Light";
         this.state = state;
@@ -30,13 +30,13 @@ public final class Light<S> implements ToggleableDevice<S> {
     }
 
     @Override
-    public S getState() {
+    public Boolean getState() {
         return this.state;
     }
 
     @Override
     public boolean isToggled() {
-        return ((Boolean) this.getState()).booleanValue();
+        return this.getState().booleanValue();
     }
 
     @Override
