@@ -10,7 +10,7 @@ plugins {
     // Apply the application plugin to add support for building a CLI application in Java.
     application
     id("com.github.johnrengelman.shadow") version "7.0.0"
-    id("org.danilopianini.gradle-java-qa") version "0.4.0"
+    id("org.danilopianini.gradle-java-qa") version "0.44.0"
 }
 
 repositories {
