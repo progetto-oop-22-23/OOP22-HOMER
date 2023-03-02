@@ -1,10 +1,13 @@
 package homer.impl;
 
+
+import java.util.HashMap;
+
 import homer.api.Device;
 import homer.api.ElectricalMeter;
 
-public class ElectricalMeterImpl implements ElectricalMeter<Device<?>> {
-
+public class ElectricalMeterImpl implements ElectricalMeter<HashMap<?, Device<?>>> {
+    
     @Override
     public void checkConsumption() {
         // TODO Auto-generated method stub
@@ -36,7 +39,7 @@ public class ElectricalMeterImpl implements ElectricalMeter<Device<?>> {
     }
 
     @Override
-    public void cutPowerTo(Device<?> Device) {
+    public void cutPowerTo(HashMap<?, Device<?>> devices) {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'cutPowerTo'");
     }
