@@ -29,6 +29,10 @@ public final class Light implements ToggleableDevice<Boolean> {
         };
     }
 
+    public void setState(final Boolean state) {
+        this.state = state;
+    }
+
     @Override
     public Boolean getState() {
         return this.state;
@@ -41,5 +45,6 @@ public final class Light implements ToggleableDevice<Boolean> {
 
     @Override
     public void toggle() {
+        this.setState(this.getState() ^ Boolean.TRUE);
     }
 }
