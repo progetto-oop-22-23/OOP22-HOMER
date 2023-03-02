@@ -14,11 +14,10 @@ import homer.api.Clock;
 
 final class TestClockImpl {
 
-    private Clock clock;
+    private final Clock clock = new ClockImpl();
 
     @BeforeEach
-    void createClock() {
-        this.clock = new ClockImpl();
+    void testNotNull() {
         assertNotNull(this.clock);
     }
 
