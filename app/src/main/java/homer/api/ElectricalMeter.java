@@ -24,7 +24,7 @@ public interface ElectricalMeter<S> {
     double getGlobalConsumption();
 
     /**
-     * Sets the value of globalConsumption
+     * Sets the value of globalConsumption.
      * 
      * @param globalConsumption The new value for globalConsumption
      */
@@ -37,7 +37,7 @@ public interface ElectricalMeter<S> {
     double getMaxConsumption();
 
     /**
-     * Sets the value of maxConsumption
+     * Sets the value of maxConsumption.
      * @param maxConsumption The new value for globalConsumption
      */
     void setMaxConsumption(double maxConsumption);

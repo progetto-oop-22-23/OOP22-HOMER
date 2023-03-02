@@ -6,8 +6,8 @@ import java.util.HashMap;
 import homer.api.Device;
 import homer.api.ElectricalMeter;
 
-public class ElectricalMeterImpl implements ElectricalMeter<HashMap<?, Device<?>>> {
-    
+public final class ElectricalMeterImpl implements ElectricalMeter<HashMap<?, Device<?>>> {
+
     @Override
     public void checkConsumption() {
         // TODO Auto-generated method stub
@@ -21,7 +21,7 @@ public class ElectricalMeterImpl implements ElectricalMeter<HashMap<?, Device<?>
     }
 
     @Override
-    public void setGlobalConsumption(double globalConsumption) {
+    public void setGlobalConsumption(final double globalConsumption) {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'setGlobalConsumption'");
     }
@@ -33,13 +33,13 @@ public class ElectricalMeterImpl implements ElectricalMeter<HashMap<?, Device<?>
     }
 
     @Override
-    public void setMaxConsumption(double maxConsumption) {
+    public void setMaxConsumption(final double maxConsumption) {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'setMaxConsumption'");
     }
 
     @Override
-    public void cutPowerTo(HashMap<?, Device<?>> devices) {
+    public void cutPowerTo(final HashMap<?, Device<?>> devices) {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'cutPowerTo'");
     }
