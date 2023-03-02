@@ -5,9 +5,9 @@ public interface ElectricalMeter<S> {
     /**
      * Cuts power to the selected device.
      * 
-     * @param Device The device(s) whose power should be cut off.
+     * @param devices The device(s) whose power should be cut off.
      */
-    void cutPowerTo(S Device);
+    void cutPowerTo(S devices);
 
     /**
      * Checks if the global consumption of all devices
