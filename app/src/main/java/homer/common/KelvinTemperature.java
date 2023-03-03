@@ -1,11 +1,16 @@
 package homer.common;
 
+/**
+ * Temperature implementation that uses kelvin as a base measurement unit.
+ */
 public final class KelvinTemperature implements Temperature {
 
-    final static double DELTA_KELVIN_CELSIUS = 273.15;
-    final static double DELTA_FARENHEIT_KELVIN = 459.67;
     private double temperature;
 
+    /**
+     * 
+     * @param temperature
+     */
     public KelvinTemperature(final double temperature) {
         this.temperature = temperature;
 
@@ -18,12 +23,12 @@ public final class KelvinTemperature implements Temperature {
 
     @Override
     public double getFarenheit() {
-        return 1.8 * (temperature - DELTA_KELVIN_CELSIUS) + 32;
+        return 1 / Temperature.FIVE_NINES * (temperature - Temperature.DELTA_KELVIN_CELSIUS) + Temperature.DELTA_KELVIN_FARENHEIT;
     }
 
     @Override
     public double getCelsius() {
-        return temperature - DELTA_KELVIN_CELSIUS;
+        return temperature - Temperature.DELTA_KELVIN_CELSIUS;
     }
 
 }

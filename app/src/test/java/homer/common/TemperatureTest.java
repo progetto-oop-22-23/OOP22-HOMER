@@ -4,7 +4,11 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.jupiter.api.Test;
 
-public class TemperatureTest {
+/**
+ * Tests Temperature conversions from (and to) farenheit, kelvin
+ * and celsius.
+ */
+public final class TemperatureTest {
     private final TemperatureFactory factory = new TemperatureFactoryImpl();
 
     @Test
@@ -36,7 +40,7 @@ public class TemperatureTest {
         final double kelvin = 20;
         final double celsius = -253.15;
         final double farenheit = -423.67;
-        final Temperature t= factory.fromKelvin(value);
+        final Temperature t = factory.fromKelvin(value);
         assertEquals(celsius, t.getCelsius());
         assertEquals(kelvin, t.getKelvin());
         assertEquals(farenheit, t.getFarenheit());

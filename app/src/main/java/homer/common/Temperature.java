@@ -1,10 +1,33 @@
 package homer.common;
 
+/**
+ * Represents a fixed temperature value, that can be represented
+ * as kelvin, farenheit, or celsius.
+ */
 public interface Temperature {
+    //CHECKSTYLE: JavadocVariable OFF
+    // These names are self explanatory, and have no reason to have an associated docstring
+    double DELTA_KELVIN_CELSIUS = 273.15;
+    double DELTA_FARENHEIT_KELVIN = 459.67;
+    double FIVE_NINES = 5 / 9;
+    double DELTA_KELVIN_FARENHEIT = 32;
+    //CHECKSTYLE: JavadocVariable ON
 
-    public double getKelvin();
+    /**
+     * Returns the temperature in kelvin.
+     * @return kelvin temperature
+     */
+    double getKelvin();
 
-    public double getFarenheit();
+    /**
+     * Returns the temperature in farenheit.
+     * @return farenheit temperature
+     */
+    double getFarenheit();
 
-    public double getCelsius();
+    /**
+     * Returns the temperature in celsius.
+     * @return celsius temperature
+     */
+    double getCelsius();
 }
