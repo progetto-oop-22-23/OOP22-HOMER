@@ -1,4 +1,4 @@
-package homer.devices;
+package homer.common.time;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -9,8 +9,6 @@ import java.time.temporal.TemporalAmount;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
-import homer.api.Clock;
 
 final class TestClockImpl {
 
