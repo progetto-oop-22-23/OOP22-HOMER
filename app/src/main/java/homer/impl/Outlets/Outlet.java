@@ -1,4 +1,4 @@
-package homer.impl;
+package homer.impl.Outlets;
 
 import java.util.Objects;
 
@@ -11,7 +11,7 @@ import homer.api.DeviceInfo;
  * 
  * @author Alessandro Monticelli
  */
-public final class Outlet implements AdjustableDevice<Double> {
+public class Outlet implements AdjustableDevice<Double> {
     private final DeviceInfo info;
     private double state;
     private final double minValue;
