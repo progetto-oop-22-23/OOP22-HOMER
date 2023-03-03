@@ -4,7 +4,7 @@ import homer.api.Device;
 import homer.api.DeviceInfo;
 
 /**
- * Models a standard L-type outlet, which supports a maximum power drain of 2kW.
+ * Models a standard L-type outlet, which supports a maximum power drain of 3.5kW.
  * See {@link homer.impl.Outlets.Outlet}
  */
 
