@@ -1,4 +1,4 @@
-package homer.impl.Outlets;
+package homer.impl.outlets;
 
 import java.util.Objects;
 
@@ -67,7 +67,7 @@ public class Outlet implements AdjustableDevice<Double> {
 
     /**
      * Plugs a device to the outlet.
-     * @param device The {@code device} to plug.
+     * @param device The {@link homer.api.Device} to plug.
      */
     public void plug(final Device<?> device) {
         this.device = Objects.requireNonNull(device);
