@@ -10,7 +10,7 @@ public interface DeviceInfo {
      * 
      * @return An unique identifier of the device.
      */
-    long getID();
+    DeviceId getID();
 
     /**
      * 
