@@ -1,4 +1,4 @@
-package homer.api;
+package homer.common.time;
 
 import java.time.LocalDateTime;
 import java.time.temporal.TemporalAmount;

@@ -1,9 +1,7 @@
-package homer.devices;
+package homer.common.time;
 
 import java.time.LocalDateTime;
 import java.time.temporal.TemporalAmount;
-
-import homer.api.Clock;
 
 /**
  * Simple {@link Clock} implementation.
