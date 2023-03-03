@@ -21,7 +21,7 @@ public class Outlet implements AdjustableDevice<Double> {
      * Constructor for class Outlet.
      * 
      * @param info       See {@link homer.api.DeviceInfo}.
-     * @param state      The istant power absorption on the outlet.
+     * @param state      The instant power absorption on the outlet.
      * @param minValue   The minimum power absorption of the plugged device.
      * @param maxValue   The maximum power absorption of the plugged device.
      * @param device     The {@link homer.api.Device} plugged to the outlet (can be null).
