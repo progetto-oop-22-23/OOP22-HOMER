@@ -17,7 +17,7 @@ public final class COutlet extends Outlet {
      * @param maxValue    2kW
      * @param device
      */
-    public COutlet(DeviceInfo info, double state, double minValue, double maxValue, Device<?> device) {
+    public COutlet(DeviceInfo info, double state, Device<?> device) {
         super(info, state, 0, 2, device);
     }
     
