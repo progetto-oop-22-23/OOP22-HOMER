@@ -17,14 +17,16 @@ public class Outlet implements AdjustableDevice<Double> {
     private final double minValue;
     private final double maxValue;
     private Device<?> device;
+
     /**
      * Constructor for class Outlet.
      * 
-     * @param info       See {@link homer.api.DeviceInfo}.
-     * @param state      The instant power absorption on the outlet.
-     * @param minValue   The minimum power absorption of the plugged device.
-     * @param maxValue   The maximum power absorption of the plugged device.
-     * @param device     The {@link homer.api.Device} plugged to the outlet (can be null).
+     * @param info     See {@link homer.api.DeviceInfo}.
+     * @param state    The instant power absorption on the outlet.
+     * @param minValue The minimum power absorption of the plugged device.
+     * @param maxValue The maximum power absorption of the plugged device.
+     * @param device   The {@link homer.api.Device} plugged to the outlet (can be
+     *                 null).
      */
     public Outlet(final DeviceInfo info, final double state, final double minValue,
             final double maxValue, final Device<?> device) {
@@ -35,31 +37,55 @@ public class Outlet implements AdjustableDevice<Double> {
         this.device = device;
     }
 
+    /**
+     * 
+     * @return The device information: ID, Type.
+     */
     @Override
     public DeviceInfo getInfo() {
         return this.info;
     }
 
+    /**
+     * 
+     * @return The device state parameters for eg. on/off, intensity.
+     */
     @Override
     public Double getState() {
         return this.state;
     }
 
+    /**
+     * 
+     * @return The minimum power absorption.
+     */
     @Override
     public Double getMinValue() {
         return this.minValue;
     }
 
+    /**
+     * 
+     * @return The maximum power absorption.
+     */
     @Override
     public Double getMaxValue() {
         return this.maxValue;
     }
 
+    /**
+     * 
+     * @return The istant power absorption.
+     */
     @Override
     public Double getValue() {
         return this.state;
     }
 
+    /**
+     * Sets the istant power absorption.
+     * @param value The new value of {@code state}.
+     */
     @Override
     public void setValue(final Double value) {
         this.state = value;
@@ -67,6 +93,7 @@ public class Outlet implements AdjustableDevice<Double> {
 
     /**
      * Plugs a device to the outlet.
+     * 
      * @param device The {@link homer.api.Device} to plug.
      */
     public void plug(final Device<?> device) {
