@@ -36,7 +36,7 @@ public class Light implements ToggleableDevice<Boolean> {
 
     @Override
     public boolean isToggled() {
-        return this.state;
+        return this.getState();
     }
 
     @Override
