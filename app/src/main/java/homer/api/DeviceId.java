@@ -18,7 +18,7 @@ public class DeviceId {
     }
 
     @Override
-    public boolean equals(Object arg0) {
+    public boolean equals(final Object arg0) {
         return this.id.equals(arg0);
     }
 
