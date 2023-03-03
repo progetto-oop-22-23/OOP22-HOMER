@@ -1,22 +1,23 @@
 package homer;
 
+import homer.api.DeviceId;
 import homer.api.DeviceInfo;
 
 public final class DeviceInfoImpl implements DeviceInfo {
-    private final long id;
+    private final DeviceId id;
     private final String type;
 
     /**
      * @param id considered final.
      * @param type considered final. 
      */
-    public DeviceInfoImpl(final long id, final String type) {
+    public DeviceInfoImpl(final DeviceId id, final String type) {
         this.id = id;
         this.type = type;
     }
 
     @Override
-    public long getID() {
+    public DeviceId getID() {
         return this.id;
     }
 
