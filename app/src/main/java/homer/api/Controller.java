@@ -2,6 +2,9 @@ package homer.api;
 
 import java.util.Set;
 
+/**
+ * This interface models a domotic controller.
+ */
 public interface Controller {
 
     /**
