@@ -1,5 +1,10 @@
 package homer.api;
 
+/**
+ * This interface models a domotic device.
+ * 
+ * @param <S> The device state.
+ */
 public interface Device<S> {
 
     /**
