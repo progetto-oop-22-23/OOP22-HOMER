@@ -9,16 +9,19 @@ import homer.api.DeviceInfo;
  */
 
 public final class COutlet extends Outlet {
+
+    private static final double MAX_VALUE = 2.0;
+    private static final double MIN_VALUE = 0;
+
     /**
      * COutlet constructor.
+     * 
      * @param info
      * @param state
-     * @param minValue    0kW
-     * @param maxValue    2kW
      * @param device
      */
-    public COutlet(DeviceInfo info, double state, Device<?> device) {
-        super(info, state, 0, 2, device);
+    public COutlet(final DeviceInfo info, final double state, final Device<?> device) {
+        super(info, state, MIN_VALUE, MAX_VALUE, device);
     }
-    
+
 }
