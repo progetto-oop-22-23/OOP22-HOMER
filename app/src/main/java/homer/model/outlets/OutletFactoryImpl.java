@@ -20,7 +20,17 @@ public final class OutletFactoryImpl implements OutletFactory {
     }
 
     @Override
+    public Outlet cOutlet(final DeviceInfo info, final int state) {
+        return new Outlet(info, state, ZERO, MAX_CTYPE_PW);
+    }
+
+    @Override
     public Outlet lOutlet(final DeviceInfo info, final int state, final Device<?> device) {
         return new Outlet(info, state, ZERO, MAX_LTYPE_PW, device);
+    }
+
+    @Override
+    public Outlet lOutlet(final DeviceInfo info, final int state) {
+        return new Outlet(info, state, ZERO, MAX_LTYPE_PW);
     }
 }
