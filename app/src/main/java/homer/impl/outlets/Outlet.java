@@ -8,10 +8,12 @@ import homer.api.DeviceInfo;
 /**
  * Models electrical outlets of the house.
  * 
- * @param S Generic type for plugged device, an Outlet doesn't need a device to be plugged in,
- * since it can be used with device outside the emulated environment.
+ * @param <S> Generic type for plugged device, an Outlet doesn't need a device to be plugged in,
+ * since it can be used with devices outside the emulated environment.
+ * 
  * @author Alessandro Monticelli
  */
+
 public class Outlet<S> implements AdjustableDevice<Double> {
 
     private final DeviceInfo info;
