@@ -11,7 +11,7 @@ import homer.api.DeviceInfo;
 public interface OutletFactory {
 
     /**
-     * Intantiates a standard C-type outlet.
+     * Instantiates a standard C-type outlet.
      * 
      * @param <S>    Device generic type
      * @param info
@@ -23,7 +23,7 @@ public interface OutletFactory {
     <S> Outlet<S> cOutlet(DeviceInfo info, int state, S device);
 
     /**
-     * Intantiates a standard L-type outlet.
+     * Instantiates a standard L-type outlet.
      * 
      * @param <S>    Device generic type
      * @param info
