@@ -8,7 +8,7 @@ import homer.api.DeviceInfo;
 
 /**
  * Models electrical outlets of the house.
-
+ * 
  * 
  * @author Alessandro Monticelli
  */
@@ -38,6 +38,23 @@ public class Outlet implements AdjustableDevice<Double> {
         this.minValue = minValue;
         this.maxValue = maxValue;
         this.device = device;
+    }
+
+    /**
+     * Constructor for class Outlet with no devices to plug in.
+     * 
+     * @param info     See {@link homer.api.DeviceInfo}.
+     * @param state    The instant power absorption on the outlet.
+     * @param minValue The minimum power absorption of the plugged device.
+     * @param maxValue The maximum power absorption of the plugged device.
+     */
+    public Outlet(final DeviceInfo info, final double state, final double minValue,
+            final double maxValue) {
+        this.info = info;
+        this.state = state;
+        this.minValue = minValue;
+        this.maxValue = maxValue;
+        this.device = null;
     }
 
     /**
@@ -87,6 +104,8 @@ public class Outlet implements AdjustableDevice<Double> {
 
     /**
      * Sets the istant power absorption.
+     * 
+     * 
      * @param value The new value of {@code state}.
      */
     @Override
@@ -111,4 +130,5 @@ public class Outlet implements AdjustableDevice<Double> {
         this.device = null;
         this.setValue(0.0);
     }
+
 }
