@@ -1,6 +1,7 @@
 package homer.model.outlets;
 
 import java.util.Objects;
+import java.util.Optional;
 
 import homer.api.AdjustableDevice;
 import homer.api.Device;
@@ -19,7 +20,7 @@ public class Outlet implements AdjustableDevice<Double> {
     private double state;
     private final double minValue;
     private final double maxValue;
-    private Device<?> device;
+    private Optional<Device<?>> device = Optional.empty();
 
     /**
      * Constructor for class Outlet.
@@ -28,29 +29,13 @@ public class Outlet implements AdjustableDevice<Double> {
      * @param state    The instant power absorption on the outlet.
      * @param minValue The minimum power absorption of the plugged device.
      * @param maxValue The maximum power absorption of the plugged device.
-     * @param device   The {@link homer.api.Device} plugged to the outlet (can be
-     *                 null).
-     */
-    public Outlet(final DeviceInfo info, final double state, final double minValue,
-            final double maxValue, final Device<?> device) {
-        this.info = info;
-        this.state = state;
-        this.minValue = minValue;
-        this.maxValue = maxValue;
-        this.device = device;
-    }
-
-    /**
-     * Constructor for class Outlet with no devices to plug in.
-     * 
-     * @param info     See {@link homer.api.DeviceInfo}.
-     * @param state    The instant power absorption on the outlet.
-     * @param minValue The minimum power absorption of the plugged device.
-     * @param maxValue The maximum power absorption of the plugged device.
      */
     public Outlet(final DeviceInfo info, final double state, final double minValue,
             final double maxValue) {
-        this(info, state, minValue, maxValue, null);
+        this.info = Objects.requireNonNull(info);
+        this.state = state;
+        this.minValue = minValue;
+        this.maxValue = maxValue;
     }
 
     /**
@@ -116,7 +101,7 @@ public class Outlet implements AdjustableDevice<Double> {
      * @param device The {@link homer.api.Device} to plug.
      */
     public void plug(final Device<?> device) {
-        this.device = Objects.requireNonNull(device);
+        this.device = Optional.of(Objects.requireNonNull(device));
     }
 
     /**
@@ -132,7 +117,7 @@ public class Outlet implements AdjustableDevice<Double> {
      * @return The plugged device.
      * 
      */
-    public Device<?> getDevice() {
+    public Optional<Device<?>> getDevice() {
         return this.device;
     }
 }
