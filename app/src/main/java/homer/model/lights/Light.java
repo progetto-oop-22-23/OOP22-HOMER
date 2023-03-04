@@ -1,4 +1,4 @@
-package homer.impl.lights;
+package homer.model.lights;
 
 import homer.api.DeviceInfo;
 import homer.api.ToggleableDevice;
