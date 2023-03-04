@@ -1,5 +1,10 @@
 package homer.api;
 
+/**
+ * This interface models a device whose state can be either on or off.
+ * 
+ * @param <S> The device state.
+ */
 public interface ToggleableDevice<S> extends Device<S> {
 
     /**

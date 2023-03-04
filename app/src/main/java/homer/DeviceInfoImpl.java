@@ -2,6 +2,9 @@ package homer;
 
 import homer.api.DeviceInfo;
 
+/**
+ * Implementation of {@link DeviceInfo}.
+ */
 public final class DeviceInfoImpl implements DeviceInfo {
     private final long id;
     private final String type;

@@ -1,5 +1,9 @@
 package homer.api;
 
+/**
+ * Interface for the {@link Device} technical information reported to the
+ * {@link Controller}.
+ */
 public interface DeviceInfo {
 
     /**
