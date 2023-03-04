@@ -50,11 +50,7 @@ public class Outlet implements AdjustableDevice<Double> {
      */
     public Outlet(final DeviceInfo info, final double state, final double minValue,
             final double maxValue) {
-        this.info = info;
-        this.state = state;
-        this.minValue = minValue;
-        this.maxValue = maxValue;
-        this.device = null;
+        this(info, state, minValue, maxValue, null);
     }
 
     /**
