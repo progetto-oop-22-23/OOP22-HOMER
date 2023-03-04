@@ -2,29 +2,35 @@ package homer.impl.outlets;
 
 import homer.api.DeviceInfo;
 
-public class OutletFactory {
+/**
+ * A {@link homer.impl.outlets.Outlet} factory.
+ * 
+ * @author Alessandro Monticelli
+ */
+
+public interface OutletFactory {
 
     /**
-     * Intantiates a standard C-type outlet (max power absorption 2kW).
-     * See {@link homer.impl.outlets.Outlet}
-     * @param info      
-     * @param state
-     * @param device
-     * @return
-     */
-    public static <S> Outlet<S> cOutlet(DeviceInfo info, int state, S device) {
-        return new Outlet<S>(info, state, 0.0, 2.0, device);
-    }
-
-    /**
-     * Intantiates a standard L-type outlet (max power absorption 3.5kW).
+     * Intantiates a standard C-type outlet.
      * 
+     * @param <S>    Device generic type
      * @param info
      * @param state
      * @param device
-     * @return
+     * 
+     * @return An Outlet with {@code minValue = 0.0} and {@code maxValue = 2.0}
      */
-    public static <S> Outlet<S> lOutlet(DeviceInfo info, int state, S device) {
-        return new Outlet<S>(info, state, 0.0, 3.5, device);
-    }
+    <S> Outlet<S> cOutlet(DeviceInfo info, int state, S device);
+
+    /**
+     * Intantiates a standard L-type outlet.
+     * 
+     * @param <S>    Device generic type
+     * @param info
+     * @param state
+     * @param device
+     * 
+     * @return An Outlet with {@code minValue = 0.0} and {@code maxValue = 3.5}
+     */
+    <S> Outlet<S> lOutlet(DeviceInfo info, int state, S device);
 }
