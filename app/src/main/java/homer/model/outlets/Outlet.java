@@ -109,7 +109,7 @@ public class Outlet implements AdjustableDevice<Double> {
      */
     public void unplug() {
         Objects.requireNonNull(this.device);
-        this.device = null;
+        this.device = Optional.empty();
         this.setValue(0.0);
     }
 
