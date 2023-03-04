@@ -1,4 +1,4 @@
-package homer.impl.outlets;
+package homer.model.outlets;
 
 import java.util.Objects;
 

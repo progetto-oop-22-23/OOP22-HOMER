@@ -1,10 +1,10 @@
-package homer.impl.outlets;
+package homer.model.outlets;
 
 import homer.api.Device;
 import homer.api.DeviceInfo;
 
 /**
- * A {@link homer.impl.outlets.Outlet} factory.
+ * A {@link homer.model.outlets.Outlet} factory.
  * 
  * @author Alessandro Monticelli
  */
