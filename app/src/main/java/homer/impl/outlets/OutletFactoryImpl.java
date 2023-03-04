@@ -1,5 +1,6 @@
 package homer.impl.outlets;
 
+import homer.api.Device;
 import homer.api.DeviceInfo;
 
 /**
@@ -14,12 +15,12 @@ public final class OutletFactoryImpl implements OutletFactory {
     private static final double ZERO = 0.0;
 
     @Override
-    public <S> Outlet<S> cOutlet(final DeviceInfo info, final int state, final S device) {
-        return new Outlet<S>(info, state, ZERO, MAX_CTYPE_PW, device);
+    public Outlet cOutlet(final DeviceInfo info, final int state, final Device<?> device) {
+        return new Outlet(info, state, ZERO, MAX_CTYPE_PW, device);
     }
 
     @Override
-    public <S> Outlet<S> lOutlet(final DeviceInfo info, final int state, final S device) {
-        return new Outlet<S>(info, state, ZERO, MAX_LTYPE_PW, device);
+    public Outlet lOutlet(final DeviceInfo info, final int state, final Device<?> device) {
+        return new Outlet(info, state, ZERO, MAX_LTYPE_PW, device);
     }
 }
