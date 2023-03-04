@@ -3,24 +3,23 @@ package homer.impl.outlets;
 import java.util.Objects;
 
 import homer.api.AdjustableDevice;
+import homer.api.Device;
 import homer.api.DeviceInfo;
 
 /**
  * Models electrical outlets of the house.
- * 
- * @param <S> Generic type for plugged device, an Outlet doesn't need a device to be plugged in,
- * since it can be used with devices outside the emulated environment.
+
  * 
  * @author Alessandro Monticelli
  */
 
-public class Outlet<S> implements AdjustableDevice<Double> {
+public class Outlet implements AdjustableDevice<Double> {
 
     private final DeviceInfo info;
     private double state;
     private final double minValue;
     private final double maxValue;
-    private S device;
+    private Device<?> device;
 
     /**
      * Constructor for class Outlet.
@@ -33,7 +32,7 @@ public class Outlet<S> implements AdjustableDevice<Double> {
      *                 null).
      */
     public Outlet(final DeviceInfo info, final double state, final double minValue,
-            final double maxValue, final S device) {
+            final double maxValue, final Device<?> device) {
         this.info = info;
         this.state = state;
         this.minValue = minValue;
@@ -100,7 +99,7 @@ public class Outlet<S> implements AdjustableDevice<Double> {
      * 
      * @param device The {@link homer.api.Device} to plug.
      */
-    public void plug(final S device) {
+    public void plug(final Device<?> device) {
         this.device = Objects.requireNonNull(device);
     }
 
