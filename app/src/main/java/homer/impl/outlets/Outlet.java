@@ -106,6 +106,7 @@ public class Outlet implements AdjustableDevice<Double> {
      * Sets the istant power absorption.
      * 
      * 
+     * 
      * @param value The new value of {@code state}.
      */
     @Override
@@ -131,4 +132,11 @@ public class Outlet implements AdjustableDevice<Double> {
         this.setValue(0.0);
     }
 
+    /**
+     * @return The plugged device (null means no device plugged).
+     * 
+     */
+    public Device<?> getDevice() {
+        return this.device;
+    }
 }
