@@ -133,7 +133,7 @@ public class Outlet implements AdjustableDevice<Double> {
     }
 
     /**
-     * @return The plugged device (null means no device plugged).
+     * @return The plugged device.
      * 
      */
     public Device<?> getDevice() {
