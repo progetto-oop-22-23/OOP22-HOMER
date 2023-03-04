@@ -11,12 +11,12 @@ import homer.api.DeviceInfo;
  * 
  * @author Alessandro Monticelli
  */
-public class Outlet implements AdjustableDevice<Double> {
+public class Outlet<S> implements AdjustableDevice<Double> {
     private final DeviceInfo info;
     private double state;
     private final double minValue;
     private final double maxValue;
-    private Device<?> device;
+    private S device;
 
     /**
      * Constructor for class Outlet.
@@ -29,7 +29,7 @@ public class Outlet implements AdjustableDevice<Double> {
      *                 null).
      */
     public Outlet(final DeviceInfo info, final double state, final double minValue,
-            final double maxValue, final Device<?> device) {
+            final double maxValue, final S device) {
         this.info = info;
         this.state = state;
         this.minValue = minValue;
@@ -96,7 +96,7 @@ public class Outlet implements AdjustableDevice<Double> {
      * 
      * @param device The {@link homer.api.Device} to plug.
      */
-    public void plug(final Device<?> device) {
+    public void plug(final S device) {
         this.device = Objects.requireNonNull(device);
     }
 
