@@ -1,10 +1,18 @@
 package homer;
 
+/**
+ * Main application class.
+ */
 public final class App {
-    public static void main(String[] args) {
+    private App() {
+        throw new UnsupportedOperationException("App should not be instantiated");
     }
 
-    public static String getGreeting() {
-        return "Hello, World!";
+    /**
+     * Application entry point.
+     * 
+     * @param args Command line arguments
+     */
+    public static void main(final String[] args) {
     }
 }
