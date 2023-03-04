@@ -19,7 +19,7 @@ public interface Controller {
      * 
      * @param deviceId The ID of the device to be disconnected.
      */
-    void disconnectDevice(long deviceId);
+    void disconnectDevice(DeviceId deviceId);
 
     /**
      * Returns a set containing the information of each device to be displayed
