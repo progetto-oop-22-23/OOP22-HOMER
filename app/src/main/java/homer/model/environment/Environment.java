@@ -9,8 +9,9 @@ import homer.common.Temperature;
 public interface Environment {
 
     /**
+     * Returns the temperature of the environment.
      * 
-     * @return The current temperature of the environment
+     * @return The current temperature of the environment.
      */
     Temperature getTemperature();
 

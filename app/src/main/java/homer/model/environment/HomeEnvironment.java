@@ -11,9 +11,9 @@ public final class HomeEnvironment implements Environment {
     private Temperature temperature;
 
     /**
-     * Creates a new home environment.
+     * Creates a new {@link HomeEnvironment}.
      * 
-     * @param temperature The initial temperature of the environment
+     * @param temperature The initial temperature of the environment.
      */
     public HomeEnvironment(final Temperature temperature) {
         this.temperature = temperature;
