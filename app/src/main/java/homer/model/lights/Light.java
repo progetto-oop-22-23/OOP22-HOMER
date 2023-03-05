@@ -1,5 +1,7 @@
 package homer.model.lights;
 
+import java.util.Objects;
+
 import homer.api.DeviceInfo;
 import homer.api.ToggleableDevice;
 
@@ -20,12 +22,13 @@ public class Light implements ToggleableDevice<Boolean> {
      * @param state On/Off
      */
     public Light(final DeviceInfo info, final Boolean state) {
-        this.info = info;
-        this.state = state;
+        this.info = Objects.requireNonNull(info);
+        this.state = Objects.requireNonNull(state);
     }
 
     @Override
     public DeviceInfo getInfo() {
+
         return this.info;
     }
 
