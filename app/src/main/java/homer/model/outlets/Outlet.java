@@ -101,7 +101,7 @@ public class Outlet implements AdjustableDevice<Double> {
      * @param device The {@link homer.api.Device} to plug.
      */
     public void plug(final Device<?> device) {
-        this.device = Optional.of(Objects.requireNonNull(device));
+        this.device = Optional.of(device);
     }
 
     /**
