@@ -10,6 +10,7 @@ import java.time.temporal.TemporalAmount;
 public interface Clock {
 
     /**
+     * Returns the clock's current local date and time.
      * 
      * @return The current local date and time of the clock.
      */
