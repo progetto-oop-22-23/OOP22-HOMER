@@ -10,6 +10,9 @@ import homer.api.ToggleableDevice;
  */
 public final class SimpleLock implements ToggleableDevice<Boolean> {
 
+    /**
+     * Type of device.
+     */
     public static final String DEVICE_TYPE = "SimpleLock";
     private boolean isLocked = false;
 
