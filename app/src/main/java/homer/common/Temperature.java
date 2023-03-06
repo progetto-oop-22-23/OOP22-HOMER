@@ -9,7 +9,7 @@ public interface Temperature {
     // These names are self explanatory, and have no reason to have an associated docstring
     double DELTA_KELVIN_CELSIUS = 273.15;
     double DELTA_FARENHEIT_KELVIN = 459.67;
-    double FIVE_NINES = 5 / 9;
+    double FIVE_NINES = 5 / 9f;
     double DELTA_KELVIN_FARENHEIT = 32;
     //CHECKSTYLE: JavadocVariable ON
 

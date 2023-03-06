@@ -12,7 +12,7 @@ public final class TemperatureFactoryImpl implements TemperatureFactory {
 
     @Override
     public Temperature fromFarenheit(final double temperature) {
-        return fromKelvin(temperature * Temperature.FIVE_NINES + Temperature.DELTA_FARENHEIT_KELVIN);
+        return fromKelvin((temperature + Temperature.DELTA_FARENHEIT_KELVIN) * Temperature.FIVE_NINES);
     }
 
     @Override

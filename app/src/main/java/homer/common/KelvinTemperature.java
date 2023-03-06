@@ -5,7 +5,7 @@ package homer.common;
  */
 public final class KelvinTemperature implements Temperature {
 
-    private double temperature;
+    private final double temperature;
 
     /**
      * 
@@ -13,7 +13,6 @@ public final class KelvinTemperature implements Temperature {
      */
     public KelvinTemperature(final double temperature) {
         this.temperature = temperature;
-
     }
 
     @Override
@@ -23,7 +22,7 @@ public final class KelvinTemperature implements Temperature {
 
     @Override
     public double getFarenheit() {
-        return 1 / Temperature.FIVE_NINES * (temperature - Temperature.DELTA_KELVIN_CELSIUS) + Temperature.DELTA_KELVIN_FARENHEIT;
+        return this.getCelsius() / Temperature.FIVE_NINES + Temperature.DELTA_KELVIN_FARENHEIT;
     }
 
     @Override
