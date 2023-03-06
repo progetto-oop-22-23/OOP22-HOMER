@@ -3,7 +3,7 @@ package homer.api;
 import java.util.UUID;
 
 /**
- * {@link DeviceId} implementation
+ * {@link DeviceId} implementation.
  */
 public final class DeviceIdImpl implements DeviceId {
 

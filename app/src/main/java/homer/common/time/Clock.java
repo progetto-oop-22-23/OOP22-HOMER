@@ -3,9 +3,14 @@ package homer.common.time;
 import java.time.LocalDateTime;
 import java.time.temporal.TemporalAmount;
 
+/**
+ * This interface models a clock which reports local date and time and can be
+ * updated with ticks of variable time difference.
+ */
 public interface Clock {
 
     /**
+     * Returns the clock's current local date and time.
      * 
      * @return The current local date and time of the clock.
      */

@@ -8,6 +8,7 @@ import java.util.UUID;
 public interface DeviceId {
 
     /**
+     * Returns the device unique id.
      * 
      * @return The device unique id.
      */
