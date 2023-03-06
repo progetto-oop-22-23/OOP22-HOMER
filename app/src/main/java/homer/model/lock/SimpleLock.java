@@ -30,7 +30,7 @@ public final class SimpleLock implements ToggleableDevice<Boolean> {
 
     @Override
     public void toggle() {
-        this.isLocked = this.isLocked ? false : true;
+        this.isLocked = !this.isLocked;
     }
 
 }
