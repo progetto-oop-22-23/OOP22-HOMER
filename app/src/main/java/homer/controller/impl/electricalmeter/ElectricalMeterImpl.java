@@ -6,7 +6,7 @@ import homer.controller.api.electricalmeter.ElectricalMeter;
 import homer.model.outlets.Outlet;
 
 /**
- * Implements {@link homer.controller.api.electricalmeter.ElectricalMeter}
+ * Implements {@link homer.controller.api.electricalmeter.ElectricalMeter}.
  */
 public final class ElectricalMeterImpl implements ElectricalMeter {
 
@@ -17,13 +17,13 @@ public final class ElectricalMeterImpl implements ElectricalMeter {
     }
 
     @Override
-    public void addOutlet(Outlet outlet) {
+    public void addOutlet(final Outlet outlet) {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'addOutlet'");
     }
 
     @Override
-    public void removeOutlet(Outlet outlet) {
+    public void removeOutlet(final Outlet outlet) {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'removeOutlet'");
     }
@@ -41,15 +41,15 @@ public final class ElectricalMeterImpl implements ElectricalMeter {
     }
 
     @Override
-    public void cutPowerTo(Outlet outlet) {
+    public void cutPowerTo(final Outlet outlet) {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'cutPowerTo'");
     }
 
     @Override
-    public void restorePowerTo(Outlet outlet) {
+    public void restorePowerTo(final Outlet outlet) {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'restorePowerTo'");
     }
-    
+
 }
