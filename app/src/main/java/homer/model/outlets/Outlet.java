@@ -92,7 +92,11 @@ public class Outlet implements AdjustableDevice<Double> {
      */
     @Override
     public void setValue(final Double value) {
-        this.state = value;
+        if (value < this.maxValue || value < 0.0) {
+            this.state = value;
+        } else {
+            throw new IllegalArgumentException("Value must be positive and < " + this.maxValue);
+        }
     }
 
     /**
@@ -101,6 +105,7 @@ public class Outlet implements AdjustableDevice<Double> {
      * @param device The {@link homer.api.Device} to plug.
      */
     public void plug(final Device<?> device) {
+        this.unplug();
         this.device = Optional.of(device);
     }
 
