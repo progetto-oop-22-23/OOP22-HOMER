@@ -10,11 +10,11 @@ import homer.api.DeviceIdImpl;
 /**
  * Tests Light functionalities.
  */
-public final class LightTest {
+final class LightTest {
     private final Light light = new Light(new DeviceInfoImpl(new DeviceIdImpl(), "LIGHT"), false);
 
     @Test
-    
+
     void testToggle() {
         boolean state = false;
         assertEquals(state, light.getState());
