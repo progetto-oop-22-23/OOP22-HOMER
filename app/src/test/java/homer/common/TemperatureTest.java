@@ -9,7 +9,6 @@ import org.junit.jupiter.api.Test;
  * and celsius.
  */
 public final class TemperatureTest {
-    private final TemperatureFactory factory = new TemperatureFactoryImpl();
     private static final double DELTA = 0.01f;
 
     @Test
@@ -18,7 +17,7 @@ public final class TemperatureTest {
         final double celsius = 0;
         final double kelvin = 273.15;
         final double farenheit = 32;
-        final Temperature t = factory.fromCelsius(value);
+        final Temperature t = TemperatureFactory.fromCelsius(value);
         assertEquals(celsius, t.getCelsius(), DELTA);
         assertEquals(kelvin, t.getKelvin(), DELTA);
         assertEquals(farenheit, t.getFarenheit(), DELTA);
@@ -31,7 +30,7 @@ public final class TemperatureTest {
         final double celsius = 11.6667;
         final double kelvin = 284.81; 
         final double farenheit = 53;
-        final Temperature t = factory.fromFarenheit(value);
+        final Temperature t = TemperatureFactory.fromFarenheit(value);
         assertEquals(celsius, t.getCelsius(), DELTA);
         assertEquals(kelvin, t.getKelvin(), DELTA);
         assertEquals(farenheit, t.getFarenheit(), DELTA);
@@ -43,7 +42,7 @@ public final class TemperatureTest {
         final double kelvin = 20;
         final double celsius = -253.15;
         final double farenheit = -423.6699;
-        final Temperature t = factory.fromKelvin(value);
+        final Temperature t = TemperatureFactory.fromKelvin(value);
         assertEquals(celsius, t.getCelsius(), DELTA);
         assertEquals(kelvin, t.getKelvin(), DELTA);
         assertEquals(farenheit, t.getFarenheit(), DELTA);
