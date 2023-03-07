@@ -56,23 +56,25 @@ public final class OutletTest {
         assertEquals("Value must be positive and < 3.5", lOutletException.getMessage());
     }
 
+    @Test
     void testPlug() {
         Light light = new Light(new DeviceInfoImpl(new DeviceIdImpl(), "LIGHT"), false);
         final Outlet cOutlet = factory.cOutlet(new DeviceInfoImpl(new DeviceIdImpl(), "COUTLET"), 0);
         cOutlet.plug(light);
-        assertEquals(light, cOutlet.getDevice());
+        assertEquals(light, cOutlet.getDevice().get());
         assertEquals(light.getInfo(), cOutlet.getDevice().get().getInfo());
         cOutlet.plug(null);
         assertEquals(Optional.empty(), cOutlet.getDevice());
     }
 
+    @Test
     void testUnplug() {
         Light light = new Light(new DeviceInfoImpl(new DeviceIdImpl(), "LIGHT"), false);
         final Outlet cOutlet = factory.cOutlet(new DeviceInfoImpl(new DeviceIdImpl(), "COUTLET"), 0);
         cOutlet.plug(light);
-        assertEquals(light, cOutlet.getDevice());
+        assertEquals(light, cOutlet.getDevice().get());
         cOutlet.unplug();
-        assertEquals(Optional.empty(), cOutlet.getDevice().get());
+        assertEquals(Optional.empty(), cOutlet.getDevice());
         assertEquals(0.0, cOutlet.getValue());
     }
 }
