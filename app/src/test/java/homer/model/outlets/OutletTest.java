@@ -11,7 +11,7 @@ import homer.DeviceInfoImpl;
 import homer.api.DeviceIdImpl;
 import homer.model.lights.Light;
 
-public final class OutletTest {
+final class OutletTest {
 
     private final OutletFactory factory = new OutletFactoryImpl();
 
