@@ -10,13 +10,13 @@ import homer.api.ToggleableDevice;
  * 
  * @author Alessandro Monticelli
  */
-public class Light implements ToggleableDevice<Boolean> {
+public final class Light implements ToggleableDevice<Boolean> {
 
     private final DeviceInfo info;
     private Boolean state;
 
     /**
-     * Constructor for class Light
+     * Constructor for class Light.
      * 
      * @param info  See {@link homer.api.DeviceInfo}
      * @param state On/Off
