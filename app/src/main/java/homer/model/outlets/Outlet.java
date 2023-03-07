@@ -106,7 +106,7 @@ public class Outlet implements AdjustableDevice<Double> {
      */
     public void plug(final Device<?> device) {
         this.unplug();
-        this.device = Optional.of(device);
+        this.device = Optional.ofNullable(device);
     }
 
     /**
