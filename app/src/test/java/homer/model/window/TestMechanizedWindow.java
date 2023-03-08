@@ -11,8 +11,8 @@ import org.junit.jupiter.api.Test;
 
 final class TestMechanizedWindow {
 
-    private static final Integer MIN_VALUE = -50;
-    private static final Integer MAX_VALUE = 100;
+    private static final int MIN_VALUE = -50;
+    private static final int MAX_VALUE = 100;
     private final MechanizedWindow window = new MechanizedWindow(MIN_VALUE, MAX_VALUE);
 
     @Test
@@ -42,7 +42,7 @@ final class TestMechanizedWindow {
         assertEquals(maxValue, window.getState());
     }
 
-    private void checkSetValue(final Integer newValue) {
+    private void checkSetValue(final int newValue) {
         assertTrue(newValue >= MIN_VALUE && newValue <= MAX_VALUE, "value not in range");
         window.setValue(newValue);
         assertEquals(newValue, window.getValue());
