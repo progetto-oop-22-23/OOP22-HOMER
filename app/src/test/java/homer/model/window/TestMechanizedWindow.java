@@ -6,6 +6,9 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
 
+// CHECKSTYLE: MagicNumber OFF
+// Rule disabled in test suite.
+
 final class TestMechanizedWindow {
 
     private static final Integer MIN_VALUE = -50;
