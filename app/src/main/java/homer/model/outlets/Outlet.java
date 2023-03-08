@@ -75,24 +75,15 @@ public class Outlet implements AdjustableDevice<Double> {
     }
 
     /**
-     * 
-     * @return The istant power absorption.
-     */
-    @Override
-    public Double getValue() {
-        return this.state;
-    }
-
-    /**
      * Sets the istant power absorption.
      * 
      * 
      * 
-     * @param value The new value of {@code state}.
+     * @param state The new value of {@code state}.
      */
     @Override
-    public void setValue(final Double value) {
-        this.state = value;
+    public void setState(final Double state) {
+        this.state = state;
     }
 
     /**
@@ -110,7 +101,7 @@ public class Outlet implements AdjustableDevice<Double> {
     public void unplug() {
         Objects.requireNonNull(this.device);
         this.device = Optional.empty();
-        this.setValue(0.0);
+        this.setState(0.0);
     }
 
     /**
