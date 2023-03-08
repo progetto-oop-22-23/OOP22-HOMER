@@ -6,7 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
 
-class TestMechanizedWindow {
+final class TestMechanizedWindow {
 
     private static final Integer MIN_VALUE = -50;
     private static final Integer MAX_VALUE = 100;
