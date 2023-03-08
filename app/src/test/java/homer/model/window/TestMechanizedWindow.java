@@ -31,14 +31,14 @@ final class TestMechanizedWindow {
     @Test
     void testMinValue() {
         final var minValue = window.getMinValue();
-        window.setValue(minValue - MAX_VALUE);
+        window.setValue(minValue - Math.abs(MAX_VALUE));
         assertEquals(minValue, window.getState());
     }
 
     @Test
     void testMaxValue() {
         final var maxValue = window.getMaxValue();
-        window.setValue(maxValue + MAX_VALUE);
+        window.setValue(maxValue + Math.abs(MAX_VALUE));
         assertEquals(maxValue, window.getState());
     }
 
