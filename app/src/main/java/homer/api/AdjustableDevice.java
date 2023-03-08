@@ -21,16 +21,9 @@ public interface AdjustableDevice<S> extends Device<S> {
     S getMaxValue();
 
     /**
-     * 
-     * @return The current value at which the device is operating.
-     */
-    S getValue();
-
-    /**
      * Sets the device state to the new value.
      * 
-     * @param value The new commanded level.
+     * @param state The new commanded level.
      */
-    void setValue(S value);
-
+    void setState(S state);
 }
