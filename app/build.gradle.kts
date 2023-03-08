@@ -7,10 +7,11 @@
  */
 
 plugins {
+    java
     // Apply the application plugin to add support for building a CLI application in Java.
     application
     id("com.github.johnrengelman.shadow") version "7.0.0"
-    id("org.danilopianini.gradle-java-qa") version "0.44.0"
+    id("org.danilopianini.gradle-java-qa") version "1.0.0"
 }
 
 repositories {
@@ -20,10 +21,7 @@ repositories {
 
 dependencies {
     // Use JUnit Jupiter for testing.
-    testImplementation("org.junit.jupiter:junit-jupiter:5.8.2")
-
-    // This dependency is used by the application.
-    implementation("com.google.guava:guava:31.0.1-jre")
+    testImplementation("org.junit.jupiter:junit-jupiter:5.9.2")
 }
 
 application {
