@@ -9,10 +9,7 @@ public final class DeviceIdImpl implements DeviceId {
 
     private final UUID id = UUID.randomUUID();
 
-    /**
-     * 
-     * @return The device unique id.
-     */
+    @Override
     public UUID get() {
         return this.id;
     }
