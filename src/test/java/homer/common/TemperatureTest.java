@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Test;
  * Tests Temperature conversions from (and to) farenheit, kelvin
  * and celsius.
  */
-public final class TemperatureTest {
+final class TemperatureTest {
     private static final double DELTA = 0.01f;
 
     @Test
