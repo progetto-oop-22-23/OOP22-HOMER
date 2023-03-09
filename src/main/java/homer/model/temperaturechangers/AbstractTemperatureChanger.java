@@ -23,6 +23,7 @@ public abstract class AbstractTemperatureChanger implements TemperatureChanger {
         this.maxIntensity = maxIntensity;
         this.intensity = currentIntensity;
         this.environment = environment;
+        this.minTemperature = minTemperature;
         this.maxTemperature = maxTemperature;
     }
 
