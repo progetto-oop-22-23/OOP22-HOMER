@@ -74,7 +74,7 @@ public final class ElectricalMeterImpl implements ElectricalMeter {
 
     @Override
     public void checkConsumption() {
-        if (this.globalConsumption >= ElectricalMeterImpl.MAX_GLOBAL_CONSUMPTION) {
+        if (this.getGlobalConsumption() >= ElectricalMeterImpl.MAX_GLOBAL_CONSUMPTION) {
             this.sortForConsumption();
             this.cutPowerTo(this.outlets.get(0));
         } else {
@@ -82,4 +82,8 @@ public final class ElectricalMeterImpl implements ElectricalMeter {
         }
     }
 
+    @Override
+    public double getGlobalConsumption() {
+        return this.globalConsumption;
+    }
 }
