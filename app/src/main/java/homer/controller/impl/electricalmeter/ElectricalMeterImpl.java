@@ -56,9 +56,12 @@ public final class ElectricalMeterImpl implements ElectricalMeter {
 
     @Override
     public void computeConsumption() {
+        double cons = 0;
         for (Outlet outlet : outlets) {
-            this.globalConsumption += outlet.getValue();
+            cons += outlet.getValue();
         }
+
+        this.globalConsumption = cons;
     }
 
     @Override
@@ -74,16 +77,17 @@ public final class ElectricalMeterImpl implements ElectricalMeter {
 
     @Override
     public void checkConsumption() {
-        if (this.getGlobalConsumption() >= ElectricalMeterImpl.MAX_GLOBAL_CONSUMPTION) {
-            this.sortForConsumption();
-            this.cutPowerTo(this.outlets.get(0));
-        } else {
-            this.computeConsumption();
+        this.sortForConsumption();
+        int i = 0;
+        while (this.getGlobalConsumption() >= ElectricalMeterImpl.MAX_GLOBAL_CONSUMPTION) {
+            this.cutPowerTo(this.outlets.get(i));
+            i++;
         }
     }
 
     @Override
     public double getGlobalConsumption() {
+        this.computeConsumption();
         return this.globalConsumption;
     }
 }
