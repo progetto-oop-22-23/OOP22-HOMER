@@ -6,19 +6,31 @@ import homer.common.Temperature;
 import homer.common.TemperatureFactory;
 import homer.model.environment.Environment;
 
+/**
+ * Models a heating device.
+ */
 public final class Heating extends AbstractTemperatureChanger {
 
-
-    public Heating(double minIntensity, double maxIntensity, double currentIntensity, Environment environment,
-            Temperature minTemperature, Temperature maxTemperature) {
+    /**
+     * Default constructor.
+     * @param minIntensity
+     * @param maxIntensity
+     * @param currentIntensity
+     * @param environment
+     * @param minTemperature
+     * @param maxTemperature
+     */
+    public Heating(final double minIntensity, final double maxIntensity, final double currentIntensity, 
+        final Environment environment, final Temperature minTemperature, final Temperature maxTemperature) {
         super(minIntensity, maxIntensity, currentIntensity, environment, minTemperature, maxTemperature);
     }
 
     @Override
-    public void updateTick(Duration deltaTime) {
-        var oldTemp = this.environment.getTemperature().getCelsius();
-        var newTemp = Math.min(this.maxTemperature.getCelsius(), oldTemp + this.intensity * deltaTime.toMillis() * this.STEP);
-        this.environment.setTemperature(TemperatureFactory.fromCelsius(newTemp));
+    public void updateTick(final Duration deltaTime) {
+        var oldTemp = this.getEnvironment().getTemperature().getCelsius();
+        var updatedTemp = oldTemp + this.getState() * deltaTime.toMillis() * this.getStep();
+        var newTemp = Math.min(this.getMaxTemperature().getCelsius(), updatedTemp);
+        this.getEnvironment().setTemperature(TemperatureFactory.fromCelsius(newTemp));
     }
 
 }

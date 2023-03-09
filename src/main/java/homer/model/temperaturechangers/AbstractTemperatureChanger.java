@@ -6,19 +6,32 @@ import homer.api.DeviceInfo;
 import homer.common.Temperature;
 import homer.model.environment.Environment;
 
+/**
+ * Uses template method on updateTick.
+ */
 public abstract class AbstractTemperatureChanger implements TemperatureChanger {
 
-    protected final double STEP = 1; // used to normalize the intensity
-    protected final double maxIntensity;
-    protected final double minIntensity;
-    protected double intensity;
-    protected Environment environment;
+    private final double step = 1; // used to normalize the intensity
+    private final double maxIntensity;
+    private final double minIntensity;
+    private double intensity;
+    private final Environment environment;
     private DeviceInfo info;
-    protected Temperature minTemperature;
-    protected Temperature maxTemperature;
+    private Temperature minTemperature;
+    private Temperature maxTemperature;
 
+    /**
+     * 
+     * @param minIntensity
+     * @param maxIntensity
+     * @param currentIntensity
+     * @param environment
+     * @param minTemperature
+     * @param maxTemperature
+     */
     public AbstractTemperatureChanger(final double minIntensity, final double maxIntensity, 
-        final double currentIntensity, Environment environment, Temperature minTemperature, Temperature maxTemperature) {
+        final double currentIntensity, final Environment environment, final Temperature minTemperature, 
+        final Temperature maxTemperature) {
         this.minIntensity = minIntensity;
         this.maxIntensity = maxIntensity;
         this.intensity = currentIntensity;
@@ -28,29 +41,61 @@ public abstract class AbstractTemperatureChanger implements TemperatureChanger {
     }
 
     @Override
-    public DeviceInfo getInfo() {
+    public final DeviceInfo getInfo() {
         return this.info;
     }
 
     @Override
-    public Double getState() {
+    public final Double getState() {
         return this.intensity;
     }
 
     @Override
-    public Double getMinValue() {
+    public final Double getMinValue() {
         return this.minIntensity;
     }
 
     @Override
-    public Double getMaxValue() {
+    public final Double getMaxValue() {
         return this.maxIntensity;
     }
 
     @Override
-    public void setState(Double value) {
+    public final void setState(final Double value) {
         this.intensity = Math.max(Math.min(maxIntensity, value), minIntensity);
     }
 
+    /**
+     * @return maximum temperature allowed
+     */
+    public Temperature getMaxTemperature() {
+        return this.maxTemperature;
+    }
+
+    /**
+     * 
+     * @return minimum temperature allowed
+     */
+    public Temperature getMinTemperature() {
+        return this.minTemperature;
+    }
+
+    /**
+     * 
+     * @return the environment associated with the object 
+     */
+    public final Environment getEnvironment() {
+        return this.environment;
+    }
+
+    /**
+     * 
+     * @return normalization value
+     */
+    public double getStep() {
+        return this.step;
+    }
+
+    @Override
     public abstract void updateTick(Duration deltaTime);
 }

@@ -12,10 +12,10 @@ import homer.model.environment.Environment;
 import homer.model.environment.HomeEnvironment;
 
 class AirConditioningTest {
-    final Temperature temperature = TemperatureFactory.fromCelsius(0);
-    final Temperature highTemperature = TemperatureFactory.fromCelsius(100);
-    final Environment environment = new HomeEnvironment(temperature);
-    final TemperatureChanger airConditioning = new AirConditioning(0, 10, 1, environment, temperature, highTemperature);
+    private final Temperature temperature = TemperatureFactory.fromCelsius(0);
+    private final Temperature highTemperature = TemperatureFactory.fromCelsius(100);
+    private final Environment environment = new HomeEnvironment(temperature);
+    private final TemperatureChanger airConditioning = new AirConditioning(0, 10, 1, environment, temperature, highTemperature);
 
     @Test 
     void minTemperatureTest() {

@@ -17,6 +17,7 @@ class HeatingTest {
     private Temperature highTemperature;
     private Environment environment; 
     private TemperatureChanger heating;
+    private final int oneThousand = 1000;
 
     @BeforeEach void setup() {
         this.temperature = TemperatureFactory.fromCelsius(0);
@@ -36,8 +37,8 @@ class HeatingTest {
     }
 
     @Test 
-    void maxTemperatureTest() {
-        heating.updateTick(Duration.ofSeconds(10000));
+    void reachesMaxTemperatureTest() {
+        heating.updateTick(Duration.ofSeconds(oneThousand));
         assertEquals(100, environment.getTemperature().getCelsius());
     }
 }
