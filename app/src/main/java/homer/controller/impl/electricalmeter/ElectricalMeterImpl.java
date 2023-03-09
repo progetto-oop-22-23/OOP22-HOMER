@@ -66,7 +66,7 @@ public final class ElectricalMeterImpl implements ElectricalMeter {
 
     @Override
     public void sortForConsumption() {
-        this.outlets.sort((o1, o2) -> o1.getValue().compareTo(o2.getValue()));
+        this.outlets.sort((o1, o2) -> o2.getValue().compareTo(o1.getValue()));
     }
 
     @Override
