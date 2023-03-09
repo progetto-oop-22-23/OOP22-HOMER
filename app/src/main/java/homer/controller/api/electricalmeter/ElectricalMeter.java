@@ -62,4 +62,10 @@ public interface ElectricalMeter {
      * then cuts the power to the most consuming {@code Outlet}.
      */
     void checkConsumption();
+
+    /**
+     * Returns the value of the global consumption.
+     * @return The value of {@code globalConsumption}.
+     */
+    double getGlobalConsumption();
 }
