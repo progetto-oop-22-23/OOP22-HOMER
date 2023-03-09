@@ -58,8 +58,8 @@ public interface ElectricalMeter {
     void cutPowerTo(Outlet outlet);
 
     /**
-     * 
+     * Checks the value of global consumption. If it's above {@code ElectricalMeterImpl.MAX_GLOBAL_CONSUMPTION}
+     * then cuts the power to the most consuming {@code Outlet}.
      */
     void checkConsumption();
-
 }
