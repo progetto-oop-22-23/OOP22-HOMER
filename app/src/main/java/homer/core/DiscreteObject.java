@@ -1,6 +1,6 @@
 package homer.core;
 
-import java.time.temporal.TemporalAmount;
+import java.time.Duration;
 
 /**
  * This interface models an object which is updated in discrete time steps.
@@ -12,6 +12,6 @@ public interface DiscreteObject {
      * 
      * @param deltaTime The time that has passed since the last tick.
      */
-    void updateTick(TemporalAmount deltaTime);
+    void updateTick(Duration deltaTime);
 
 }
