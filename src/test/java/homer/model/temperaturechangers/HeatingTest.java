@@ -17,28 +17,31 @@ class HeatingTest {
     private Temperature highTemperature;
     private Environment environment; 
     private TemperatureChanger heating;
-    private final int oneBillion = 10000000;
+    private static final int ONE_BILLION = 1_000_000_000;
+    private static final double DELTA = 0.001;
 
-    @BeforeEach void setup() {
-        this.temperature = TemperatureFactory.fromCelsius(0);
+    @BeforeEach
+    void setup() {
+        temperature = TemperatureFactory.fromCelsius(0);
         this.highTemperature =  TemperatureFactory.fromCelsius(100);
         this.environment = new HomeEnvironment(temperature);
         this.heating = new Heating(0, 10, 1, environment, temperature, highTemperature);
     }
 
+    @Test
     void initialValueTest() {
         assertEquals(0, environment.getTemperature().getCelsius());
     }
 
     @Test 
-    void minTemperatureTest() {
-        heating.updateTick(Duration.ofSeconds(1));
-        assertEquals(100, environment.getTemperature().getCelsius());
+    void oneHourUpdateTest() {
+        heating.updateTick(Duration.ofHours(1));
+        assertEquals(1, environment.getTemperature().getCelsius(), HeatingTest.DELTA);
     }
 
     @Test 
     void reachesMaxTemperatureTest() {
-        heating.updateTick(Duration.ofSeconds(oneBillion));
+        heating.updateTick(Duration.ofSeconds(ONE_BILLION));
         assertEquals(100, environment.getTemperature().getCelsius());
     }
 }

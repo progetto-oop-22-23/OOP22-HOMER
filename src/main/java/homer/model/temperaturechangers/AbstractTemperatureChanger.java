@@ -7,18 +7,19 @@ import homer.common.Temperature;
 import homer.model.environment.Environment;
 
 /**
- * Uses template method on updateTick.
+ * Uses template method on updateTick. At a default intensity, it changes the temperature by 
+ * 1 celsius degree each hour;
  */
 public abstract class AbstractTemperatureChanger implements TemperatureChanger {
 
-    private final double step = 1/(1000f * 3600); // used to normalize the intensity
+    private final double normalizer = 1 / (1000f * 3600); // used to normalize the intensity
     private final double maxIntensity;
     private final double minIntensity;
     private double intensity;
     private final Environment environment;
     private DeviceInfo info;
-    private Temperature minTemperature;
-    private Temperature maxTemperature;
+    private final Temperature minTemperature;
+    private final Temperature maxTemperature;
 
     /**
      * 
@@ -92,8 +93,8 @@ public abstract class AbstractTemperatureChanger implements TemperatureChanger {
      * 
      * @return normalization value
      */
-    public double getStep() {
-        return this.step;
+    public double getNormalizer() {
+        return this.normalizer;
     }
 
     @Override

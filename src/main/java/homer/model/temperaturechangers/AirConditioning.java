@@ -28,9 +28,9 @@ public final class AirConditioning extends AbstractTemperatureChanger {
 
     @Override
     public void updateTick(final Duration deltaTime) {
-        var oldTemp = this.getEnvironment().getTemperature().getCelsius();
-        var newTemp = Math.max(this.getMinTemperature().getCelsius(), 
-            oldTemp - this.getState() * deltaTime.toMillis() * this.getStep());
+        final double oldTemp = this.getEnvironment().getTemperature().getCelsius();
+        final double newTemp = Math.max(this.getMinTemperature().getCelsius(), 
+            oldTemp - this.getState() * deltaTime.toMillis() * this.getNormalizer());
         this.getEnvironment().setTemperature(TemperatureFactory.fromCelsius(newTemp));
     }
 

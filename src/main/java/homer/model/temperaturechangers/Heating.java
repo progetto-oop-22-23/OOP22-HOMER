@@ -27,9 +27,9 @@ public final class Heating extends AbstractTemperatureChanger {
 
     @Override
     public void updateTick(final Duration deltaTime) {
-        var oldTemp = this.getEnvironment().getTemperature().getCelsius();
-        var updatedTemp = oldTemp + this.getState() * deltaTime.toMillis() * this.getStep();
-        var newTemp = Math.min(this.getMaxTemperature().getCelsius(), updatedTemp);
+        final double oldTemp = this.getEnvironment().getTemperature().getCelsius();
+        final double updatedTemp = oldTemp + this.getState() * deltaTime.toMillis() * this.getNormalizer();
+        final double newTemp = Math.min(this.getMaxTemperature().getCelsius(), updatedTemp);
         this.getEnvironment().setTemperature(TemperatureFactory.fromCelsius(newTemp));
     }
 
