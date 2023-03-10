@@ -16,6 +16,7 @@ import homer.model.environment.Environment;
 public final class SimpleThermometer implements Device<Temperature> {
 
     private static final String DEVICE_TYPE = "Thermometer";
+    private final DeviceInfo deviceInfo = new DeviceInfoImpl(new DeviceIdImpl(), DEVICE_TYPE);
     private final Environment environment;
 
     /**
@@ -29,7 +30,7 @@ public final class SimpleThermometer implements Device<Temperature> {
 
     @Override
     public DeviceInfo getInfo() {
-        return new DeviceInfoImpl(new DeviceIdImpl(), DEVICE_TYPE);
+        return this.deviceInfo;
     }
 
     @Override
