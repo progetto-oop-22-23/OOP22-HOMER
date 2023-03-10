@@ -11,7 +11,7 @@ import homer.model.environment.Environment;
  */
 public abstract class AbstractTemperatureChanger implements TemperatureChanger {
 
-    private final double step = 1; // used to normalize the intensity
+    private final double step = 1/(1000f * 3600); // used to normalize the intensity
     private final double maxIntensity;
     private final double minIntensity;
     private double intensity;
