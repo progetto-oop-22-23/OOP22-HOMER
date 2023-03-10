@@ -1,5 +1,7 @@
 package homer.model.actuator;
 
+import java.util.Objects;
+
 /**
  * This class provides a template implementation for an {@link Actuator},
  * modelling the minimum and maximum positions of the actuator, and exposing
@@ -19,8 +21,8 @@ public abstract class AbstractActuator<S extends Number> implements Actuator<S> 
      * @param maxPosition The maximum position of the actuator.
      */
     protected AbstractActuator(final S minPosition, final S maxPosition) {
-        this.minPosition = minPosition;
-        this.maxPosition = maxPosition;
+        this.minPosition = Objects.requireNonNull(minPosition);
+        this.maxPosition = Objects.requireNonNull(maxPosition);
     }
 
     /**
