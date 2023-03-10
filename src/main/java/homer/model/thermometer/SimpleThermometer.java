@@ -3,7 +3,6 @@ package homer.model.thermometer;
 import java.util.Objects;
 
 import homer.DeviceInfoImpl;
-import homer.api.Device;
 import homer.api.DeviceIdImpl;
 import homer.api.DeviceInfo;
 import homer.common.Temperature;
@@ -13,7 +12,7 @@ import homer.model.environment.Environment;
  * Implementation of a {@link Device} which returns the temperature of the
  * environment as it is, without errors or lags.
  */
-public final class SimpleThermometer implements Device<Temperature> {
+public final class SimpleThermometer implements Thermometer {
 
     private static final String DEVICE_TYPE = "Thermometer";
     private final DeviceInfo deviceInfo = new DeviceInfoImpl(new DeviceIdImpl(), DEVICE_TYPE);
