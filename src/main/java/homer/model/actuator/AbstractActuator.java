@@ -4,6 +4,8 @@ package homer.model.actuator;
  * This class provides a template implementation for an {@link Actuator},
  * modelling the minimum and maximum positions of the actuator, and exposing
  * getters for retrieving them.
+ * 
+ * @param <S> The type used for the actuator position.
  */
 public abstract class AbstractActuator<S extends Number> implements Actuator<S> {
 
