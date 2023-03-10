@@ -5,7 +5,6 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import java.time.Duration;
 import java.time.LocalDateTime;
-import java.time.temporal.TemporalAmount;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -38,7 +37,7 @@ final class TestClockImpl {
         checkTick(Duration.ofDays(1));
     }
 
-    private void checkTick(final TemporalAmount deltaTime) {
+    private void checkTick(final Duration deltaTime) {
         final LocalDateTime currentDateTime = this.clock.getDateTime();
         this.clock.updateTick(deltaTime);
         assertEquals(this.clock.getDateTime(), currentDateTime.plus(deltaTime));
