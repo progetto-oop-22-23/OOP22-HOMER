@@ -7,14 +7,19 @@ import java.time.Duration;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import homer.DeviceInfoImpl;
+import homer.api.DeviceIdImpl;
+import homer.api.DeviceInfo;
 import homer.common.Temperature;
 import homer.common.TemperatureFactory;
 import homer.model.environment.Environment;
 import homer.model.environment.HomeEnvironment;
 
+@SuppressWarnings("PMD")
 class HeatingTest {
-    private Temperature temperature;
-    private Temperature highTemperature;
+    private static final DeviceInfo INFO = new DeviceInfoImpl(new DeviceIdImpl(), "HEATING");
+    private Temperature temperature = TemperatureFactory.fromCelsius(0);
+    private Temperature highTemperature = TemperatureFactory.fromCelsius(100);
     private Environment environment; 
     private TemperatureChanger heating;
     private static final int ONE_BILLION = 1_000_000_000;
@@ -23,9 +28,10 @@ class HeatingTest {
     @BeforeEach
     void setup() {
         temperature = TemperatureFactory.fromCelsius(0);
-        this.highTemperature =  TemperatureFactory.fromCelsius(100);
         this.environment = new HomeEnvironment(temperature);
-        this.heating = new Heating(0, 10, 1, environment, temperature, highTemperature);
+        this.heating = new Heating(1, 10, environment, INFO);
+        this.heating.setMinTemperature(temperature);
+        this.heating.setMaxTemperature(highTemperature);
     }
 
     @Test

@@ -1,6 +1,7 @@
 package homer.model.temperaturechangers;
 
 import homer.api.AdjustableDevice;
+import homer.common.Temperature;
 import homer.core.DiscreteObject;
 
 /**
@@ -8,4 +9,13 @@ import homer.core.DiscreteObject;
  */
 public interface TemperatureChanger extends AdjustableDevice<Double>, DiscreteObject {
 
+    /**
+     * @param temperature new maximum temperature
+     */
+    void setMaxTemperature(Temperature temperature);
+
+    /**
+     * @param temperature new minimum temperature
+     */
+    void setMinTemperature(Temperature temperature);
 }

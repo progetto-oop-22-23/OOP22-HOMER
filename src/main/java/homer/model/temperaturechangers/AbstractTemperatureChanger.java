@@ -1,44 +1,42 @@
 package homer.model.temperaturechangers;
 
-import java.time.Duration;
-
 import homer.api.DeviceInfo;
 import homer.common.Temperature;
+import homer.common.TemperatureFactory;
 import homer.model.environment.Environment;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+
 
 /**
  * Uses template method on updateTick. At a default intensity, it changes the temperature by 
- * 1 celsius degree each hour;
+ * 1 celsius degree each hour.
  */
 public abstract class AbstractTemperatureChanger implements TemperatureChanger {
 
-    private final double normalizer = 1 / (1000f * 3600); // used to normalize the intensity
+    private static final double SCALER = 1 / (1000d * 3600); // used to scale the intensity
     private final double maxIntensity;
     private final double minIntensity;
     private double intensity;
     private final Environment environment;
-    private DeviceInfo info;
-    private final Temperature minTemperature;
-    private final Temperature maxTemperature;
+    private final DeviceInfo info;
+    private Temperature minTemperature = TemperatureFactory.fromKelvin(0);
+    private Temperature maxTemperature = TemperatureFactory.fromCelsius(1000);
 
     /**
-     * 
      * @param minIntensity
      * @param maxIntensity
-     * @param currentIntensity
      * @param environment
-     * @param minTemperature
-     * @param maxTemperature
+     * @param info
      */
+    @SuppressFBWarnings(value = "EI_EXPOSE_REP", 
+        justification = "Updating a reference is better than reallocating objects on the heap")
     public AbstractTemperatureChanger(final double minIntensity, final double maxIntensity, 
-        final double currentIntensity, final Environment environment, final Temperature minTemperature, 
-        final Temperature maxTemperature) {
+        final Environment environment, final DeviceInfo info)  {
+        this.info = info;
         this.minIntensity = minIntensity;
         this.maxIntensity = maxIntensity;
-        this.intensity = currentIntensity;
+        this.intensity = minIntensity;
         this.environment = environment;
-        this.minTemperature = minTemperature;
-        this.maxTemperature = maxTemperature;
     }
 
     @Override
@@ -69,34 +67,41 @@ public abstract class AbstractTemperatureChanger implements TemperatureChanger {
     /**
      * @return maximum temperature allowed
      */
-    public Temperature getMaxTemperature() {
+    public final Temperature getMaxTemperature() {
         return this.maxTemperature;
     }
 
+    @Override
+    public final void setMaxTemperature(final Temperature temperature) {
+        this.maxTemperature = temperature;
+    }
+
     /**
-     * 
      * @return minimum temperature allowed
      */
-    public Temperature getMinTemperature() {
+    public final Temperature getMinTemperature() {
         return this.minTemperature;
+    }
+
+    @Override
+    public final void setMinTemperature(final Temperature temperature) {
+        this.minTemperature = temperature;
     }
 
     /**
      * 
      * @return the environment associated with the object 
      */
-    public final Environment getEnvironment() {
+    protected final Environment getEnvironment() {
         return this.environment;
     }
 
     /**
      * 
-     * @return normalization value
+     * @return scaler value
      */
-    public double getNormalizer() {
-        return this.normalizer;
+    protected double getScaler() {
+        return AbstractTemperatureChanger.SCALER;
     }
 
-    @Override
-    public abstract void updateTick(Duration deltaTime);
 }
