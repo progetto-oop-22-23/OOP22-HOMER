@@ -11,10 +11,11 @@ final class TestLimit {
 
     @Test
     void testLimitInt() {
-        final var lowerLimit = 10;
-        final var upperLimit = 30;
-        assertEquals(lowerLimit, Limit.limit(0, lowerLimit, upperLimit));
+        final int lowerLimit = 10;
+        final int upperLimit = 30;
+        assertEquals(lowerLimit, Limit.limit(lowerLimit - 10, lowerLimit, upperLimit));
         assertEquals(20, Limit.limit(20, lowerLimit, upperLimit));
+        assertEquals(upperLimit, Limit.limit(upperLimit + 10, lowerLimit, upperLimit));
     }
 
     @Test
