@@ -81,8 +81,8 @@ public class Outlet implements AdjustableDevice<Double> {
      */
     @Override
     public void setState(final Double state) {
-        if (value < this.maxValue || value < 0.0) {
-            this.state = value;
+        if (state < this.maxValue || state < 0.0) {
+            this.state = state;
         } else {
             throw new IllegalArgumentException("Value must be positive and < " + this.maxValue);
         }
