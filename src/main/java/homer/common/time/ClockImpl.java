@@ -1,7 +1,7 @@
 package homer.common.time;
 
 import java.time.LocalDateTime;
-import java.time.temporal.TemporalAmount;
+import java.time.Duration;
 
 /**
  * Simple {@link Clock} implementation.
@@ -23,7 +23,7 @@ public final class ClockImpl implements Clock {
     }
 
     @Override
-    public void updateTick(final TemporalAmount deltaTime) {
+    public void updateTick(final Duration deltaTime) {
         this.dateTime = this.dateTime.plus(deltaTime);
     }
 
