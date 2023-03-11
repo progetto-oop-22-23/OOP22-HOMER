@@ -17,7 +17,7 @@ public final class Limit {
      * @param upperLimit The upper limit.
      * @return The input limited between the lower and upper limits.
      */
-    static int limit(final int input, final int lowerLimit, final int upperLimit) {
+    public static int limit(final int input, final int lowerLimit, final int upperLimit) {
         return Math.max(lowerLimit, Math.min(input, upperLimit));
     }
 
