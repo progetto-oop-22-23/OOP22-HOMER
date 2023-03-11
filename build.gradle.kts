@@ -22,6 +22,7 @@ repositories {
 dependencies {
     // Use JUnit Jupiter for testing.
     testImplementation("org.junit.jupiter:junit-jupiter:5.9.2")
+    implementation("com.github.spotbugs:spotbugs-annotations:4.2.0")
 }
 
 application {
