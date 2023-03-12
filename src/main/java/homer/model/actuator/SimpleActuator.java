@@ -3,6 +3,8 @@ package homer.model.actuator;
 import java.time.Duration;
 import java.util.Objects;
 
+import homer.common.limit.Limit;
+
 /**
  * Implementation of an {@link Actuator} with instant response to the commanded
  * position.
@@ -36,7 +38,7 @@ public final class SimpleActuator extends AbstractActuator {
 
     @Override
     public void updateTick(final Duration deltaTime) {
-        this.currentPosition = commandedPosition;
+        this.currentPosition = Limit.limit(this.commandedPosition, getMinPosition(), getMaxPosition());
     }
 
 }
