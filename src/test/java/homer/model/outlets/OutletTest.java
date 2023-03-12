@@ -13,18 +13,16 @@ import homer.model.lights.Light;
 
 final class OutletTest {
 
-    private final OutletFactory factory = new OutletFactoryImpl();
-
     @Test
     void testSetValue() {
         double cOutletValue = 1.0;
         double lOutletValue = 2.5;
-        final Outlet cOutlet = factory.cOutlet(new DeviceInfoImpl(new DeviceIdImpl(), "COUTLET"), 0);
-        final Outlet lOutlet = factory.lOutlet(new DeviceInfoImpl(new DeviceIdImpl(), "LOUTLET"), 0);
-        cOutlet.setValue(cOutletValue);
-        assertEquals(cOutletValue, cOutlet.getValue());
-        lOutlet.setValue(lOutletValue);
-        assertEquals(lOutletValue, lOutlet.getValue());
+        final Outlet cOutlet = OutletFactory.cOutlet(new DeviceInfoImpl(new DeviceIdImpl(), "COUTLET"), 0);
+        final Outlet lOutlet = OutletFactory.lOutlet(new DeviceInfoImpl(new DeviceIdImpl(), "LOUTLET"), 0);
+        cOutlet.setState(cOutletValue);
+        assertEquals(cOutletValue, cOutlet.getState());
+        lOutlet.setState(lOutletValue);
+        assertEquals(lOutletValue, lOutlet.getState());
 
         cOutletValue = 2.5;
         lOutletValue = 4.0;
@@ -59,7 +57,7 @@ final class OutletTest {
     @Test
     void testPlug() {
         Light light = new Light(new DeviceInfoImpl(new DeviceIdImpl(), "LIGHT"), false);
-        final Outlet cOutlet = factory.cOutlet(new DeviceInfoImpl(new DeviceIdImpl(), "COUTLET"), 0);
+        final Outlet cOutlet = OutletFactory.cOutlet(new DeviceInfoImpl(new DeviceIdImpl(), "COUTLET"), 0);
         cOutlet.plug(light);
         assertEquals(light, cOutlet.getDevice().get());
         assertEquals(light.getInfo(), cOutlet.getDevice().get().getInfo());
@@ -70,11 +68,11 @@ final class OutletTest {
     @Test
     void testUnplug() {
         Light light = new Light(new DeviceInfoImpl(new DeviceIdImpl(), "LIGHT"), false);
-        final Outlet cOutlet = factory.cOutlet(new DeviceInfoImpl(new DeviceIdImpl(), "COUTLET"), 0);
+        final Outlet cOutlet = OutletFactory.cOutlet(new DeviceInfoImpl(new DeviceIdImpl(), "COUTLET"), 0);
         cOutlet.plug(light);
         assertEquals(light, cOutlet.getDevice().get());
         cOutlet.unplug();
         assertEquals(Optional.empty(), cOutlet.getDevice());
-        assertEquals(0.0, cOutlet.getValue());
+        assertEquals(0.0, cOutlet.getState());
     }
 }
