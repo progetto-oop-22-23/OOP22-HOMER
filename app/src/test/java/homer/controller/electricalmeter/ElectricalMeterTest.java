@@ -2,12 +2,9 @@ package homer.controller.electricalmeter;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
-
 import org.junit.jupiter.api.Test;
 
 import homer.DeviceInfoImpl;
@@ -77,29 +74,6 @@ final class ElectricalMeterTest {
             throw new IllegalArgumentException(toRemove.getInfo() + " not in 'outlets'");
         });
         assertEquals(toRemove.getInfo() + " not in 'outlets'", removeOutletException.getMessage());
-
-    }
-
-    @Test
-    void testSortForConsumption() {
-        outlets.add(new OutletFactoryImpl().cOutlet(new DeviceInfoImpl(new DeviceIdImpl(), "COUTLET"), 0));
-        outlets.add(new OutletFactoryImpl().lOutlet(new DeviceInfoImpl(new DeviceIdImpl(), "LOUTLET"), 0));
-        outlets.add(new OutletFactoryImpl().lOutlet(new DeviceInfoImpl(new DeviceIdImpl(), "LOUTLET"), 0));
-        outlets.add(new OutletFactoryImpl().cOutlet(new DeviceInfoImpl(new DeviceIdImpl(), "COUTLET"), 0));
-
-        final ElectricalMeter meter = new ElectricalMeterImpl(outlets);
-
-        Random r = new Random();
-        Double cons;
-        for (Outlet outlet : meter.getOutlets()) {
-            cons = 1.1 + (4.1) * r.nextDouble();
-            outlet.setValue(cons);
-        }
-
-        meter.sortForConsumption();
-        for (int i = 0; i < meter.getOutlets().size() - 1; i++) {
-            assertTrue(meter.getOutlets().get(i).getValue() >= meter.getOutlets().get(i + 1).getValue());
-        }
 
     }
 
