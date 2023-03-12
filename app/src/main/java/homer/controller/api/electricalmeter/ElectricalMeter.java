@@ -46,11 +46,6 @@ public interface ElectricalMeter {
     void computeConsumption();
 
     /**
-     * Sorts the list of outlets from the highest-consuming to the least-consuming.
-     */
-    void sortForConsumption();
-
-    /**
      * Cuts power to a {@link homer.model.outlets.Outlet}.
      * 
      * @param outlet The Outlet which has to be shut.

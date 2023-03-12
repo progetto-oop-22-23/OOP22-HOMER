@@ -45,7 +45,7 @@ public final class ElectricalMeterImpl implements ElectricalMeter {
     }
 
     @Override
-    public void removeOutlet(final Outlet outlet) {
+    public void removeOutlet(final Outlet outlet) throws IllegalArgumentException {
         Objects.requireNonNull(outlet);
         if (this.outlets.contains(outlet)) {
             this.outlets.remove(outlet);
@@ -64,15 +64,14 @@ public final class ElectricalMeterImpl implements ElectricalMeter {
         this.globalConsumption = cons;
     }
 
-    @Override
-    public void sortForConsumption() {
+    private void sortForConsumption() {
         this.outlets.sort((o1, o2) -> o2.getValue().compareTo(o1.getValue()));
     }
 
     @Override
     public void cutPowerTo(final Outlet outlet) {
         Objects.requireNonNull(outlet);
-        outlet.setValue(0.0);
+        outlet.unplug();
     }
 
     @Override
