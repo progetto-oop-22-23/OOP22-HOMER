@@ -1,7 +1,6 @@
 package homer.model.actuator;
 
 import java.time.Duration;
-import java.util.Objects;
 
 import homer.common.limit.Limit;
 
@@ -28,7 +27,7 @@ public final class SimpleActuator extends AbstractActuator {
 
     @Override
     public void command(final int commandedPosition) {
-        this.commandedPosition = Objects.requireNonNull(commandedPosition);
+        this.commandedPosition = commandedPosition;
     }
 
     @Override
