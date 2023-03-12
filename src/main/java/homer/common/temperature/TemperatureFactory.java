@@ -1,4 +1,4 @@
-package homer.common;
+package homer.common.temperature;
 
 /**
  * Returns a Temperature object. 

@@ -1,7 +1,7 @@
 package homer.model.temperaturechangers;
 
 import homer.api.AdjustableDevice;
-import homer.common.Temperature;
+import homer.common.temperature.Temperature;
 import homer.core.DiscreteObject;
 
 /**

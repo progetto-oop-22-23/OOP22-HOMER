@@ -1,4 +1,4 @@
-package homer.common;
+package homer.common.temperature;
 
 /**
  * Temperature implementation that uses kelvin as a base measurement unit.
@@ -28,6 +28,11 @@ public final class KelvinTemperature implements Temperature {
     @Override
     public double getCelsius() {
         return temperature - Temperature.DELTA_KELVIN_CELSIUS;
+    }
+
+    @Override
+    public int compareTo(final Temperature arg0) {
+        return Double.compare(this.getKelvin(), arg0.getKelvin());
     }
 
 }
