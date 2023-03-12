@@ -56,12 +56,9 @@ public final class ElectricalMeterImpl implements ElectricalMeter {
 
     @Override
     public void computeConsumption() {
-        double cons = 0;
-        for (Outlet outlet : outlets) {
-            cons += outlet.getValue();
-        }
-
-        this.globalConsumption = cons;
+        this.globalConsumption = outlets.stream()
+                .mapToDouble(Outlet::getState)
+                .sum();
     }
 
     private void sortForConsumption() {
