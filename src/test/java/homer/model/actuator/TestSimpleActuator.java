@@ -11,7 +11,7 @@ final class TestSimpleActuator {
 
     private static final int MIN_POSITION = 0;
     private static final int MAX_POSITION = 100;
-    private final Actuator<Integer> actuator = new SimpleActuator<>(MIN_POSITION, MAX_POSITION);
+    private final Actuator actuator = new SimpleActuator(MIN_POSITION, MAX_POSITION);
 
     @Test
     void testGetPosition() {

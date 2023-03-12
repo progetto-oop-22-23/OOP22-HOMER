@@ -6,13 +6,11 @@ import java.util.Objects;
 /**
  * Implementation of an {@link Actuator} with instant response to the commanded
  * position.
- * 
- * @param <S> The type used for the actuator position.
  */
-public final class SimpleActuator<S extends Number> extends AbstractActuator<S> {
+public final class SimpleActuator extends AbstractActuator {
 
-    private S commandedPosition;
-    private S currentPosition;
+    private int commandedPosition;
+    private int currentPosition;
 
     /**
      * Creates a new {@link SimpleActuator} with the current position set to the
@@ -21,18 +19,18 @@ public final class SimpleActuator<S extends Number> extends AbstractActuator<S> 
      * @param minPosition The minimum position of the actuator.
      * @param maxPosition The maximum position of the actuator.
      */
-    public SimpleActuator(final S minPosition, final S maxPosition) {
+    public SimpleActuator(final int minPosition, final int maxPosition) {
         super(minPosition, maxPosition);
         this.currentPosition = getMinPosition();
     }
 
     @Override
-    public void command(final S commandedPosition) {
+    public void command(final int commandedPosition) {
         this.commandedPosition = Objects.requireNonNull(commandedPosition);
     }
 
     @Override
-    public S getPosition() {
+    public int getPosition() {
         return this.currentPosition;
     }
 

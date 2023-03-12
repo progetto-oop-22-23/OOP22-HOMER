@@ -6,13 +6,11 @@ import java.util.Objects;
  * This class provides a template implementation for an {@link Actuator},
  * modelling the minimum and maximum positions of the actuator, and exposing
  * getters for retrieving them.
- * 
- * @param <S> The type used for the actuator position.
  */
-public abstract class AbstractActuator<S extends Number> implements Actuator<S> {
+public abstract class AbstractActuator implements Actuator {
 
-    private final S minPosition;
-    private final S maxPosition;
+    private final int minPosition;
+    private final int maxPosition;
 
     /**
      * Constructor for {@link AbstractActuator}.
@@ -20,7 +18,7 @@ public abstract class AbstractActuator<S extends Number> implements Actuator<S> 
      * @param minPosition The minimum position of the actuator.
      * @param maxPosition The maximum position of the actuator.
      */
-    protected AbstractActuator(final S minPosition, final S maxPosition) {
+    protected AbstractActuator(final int minPosition, final int maxPosition) {
         this.minPosition = Objects.requireNonNull(minPosition);
         this.maxPosition = Objects.requireNonNull(maxPosition);
     }
@@ -30,7 +28,7 @@ public abstract class AbstractActuator<S extends Number> implements Actuator<S> 
      * 
      * @return The minimum position of the actuator.
      */
-    protected final S getMinPosition() {
+    protected final int getMinPosition() {
         return this.minPosition;
     }
 
@@ -39,7 +37,7 @@ public abstract class AbstractActuator<S extends Number> implements Actuator<S> 
      * 
      * @return The maximum position of the actuator.
      */
-    protected final S getMaxPosition() {
+    protected final int getMaxPosition() {
         return this.maxPosition;
     }
 
