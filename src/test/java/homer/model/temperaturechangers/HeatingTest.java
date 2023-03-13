@@ -28,7 +28,7 @@ class HeatingTest {
     @BeforeEach
     void setup() {
         temperature = TemperatureFactory.fromCelsius(0);
-        this.environment = new HomeEnvironment(temperature);
+        this.environment = new HomeEnvironment(temperature, null);
         this.heating = new Heating(1, 10, environment, INFO);
         this.heating.setMinTemperature(temperature);
         this.heating.setMaxTemperature(highTemperature);

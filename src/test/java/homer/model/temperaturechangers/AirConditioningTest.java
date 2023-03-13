@@ -22,7 +22,7 @@ class AirConditioningTest {
     void minTemperatureTest() {
         final Temperature temperature = TemperatureFactory.fromCelsius(0);
         final Temperature highTemperature = TemperatureFactory.fromCelsius(100);
-        final Environment environment = new HomeEnvironment(temperature);
+        final Environment environment = new HomeEnvironment(temperature, null);
         final TemperatureChanger airConditioning = new AirConditioning(1, 10, environment, INFO);
         airConditioning.setMinTemperature(temperature);
         airConditioning.setMaxTemperature(highTemperature);
@@ -34,7 +34,7 @@ class AirConditioningTest {
     void oneHourUpdateTest() {
         final Temperature minTemperature = TemperatureFactory.fromCelsius(20);
         final Temperature maxTemperature = TemperatureFactory.fromCelsius(100);
-        final Environment environment = new HomeEnvironment(maxTemperature);
+        final Environment environment = new HomeEnvironment(maxTemperature, null);
         final TemperatureChanger airConditioning = new AirConditioning(1, 10, environment, INFO);
         final double expected = 99;
         airConditioning.setMinTemperature(minTemperature);
@@ -47,7 +47,7 @@ class AirConditioningTest {
     void tenHoursUpdateTest() {
         final Temperature minTemperature = TemperatureFactory.fromCelsius(20);
         final Temperature maxTemperature = TemperatureFactory.fromCelsius(100);
-        final Environment environment = new HomeEnvironment(maxTemperature);
+        final Environment environment = new HomeEnvironment(maxTemperature, null);
         final TemperatureChanger airConditioning = new AirConditioning(1, 10, environment, INFO);
         airConditioning.setMinTemperature(minTemperature);
         airConditioning.setMaxTemperature(maxTemperature);
