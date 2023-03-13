@@ -50,7 +50,7 @@ final class TestMechanizedWindow {
     private void checkSetValue(final int newValue) {
         assertTrue(newValue >= MIN_VALUE && newValue <= MAX_VALUE, "value not in range");
         window.setValue(newValue);
-        assertEquals(newValue, window.getValue());
+        assertEquals(newValue, window.getState());
     }
 
 }

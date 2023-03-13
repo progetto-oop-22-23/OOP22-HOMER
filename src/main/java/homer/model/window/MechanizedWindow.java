@@ -44,11 +44,6 @@ public final class MechanizedWindow implements AdjustableDevice<Integer> {
     }
 
     @Override
-    public Integer getValue() {
-        return getState();
-    }
-
-    @Override
     public void setValue(final Integer value) {
         this.actuatorState = value;
     }
