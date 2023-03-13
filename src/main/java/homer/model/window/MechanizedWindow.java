@@ -4,6 +4,8 @@ import homer.DeviceInfoImpl;
 import homer.api.AdjustableDevice;
 import homer.api.DeviceIdImpl;
 import homer.api.DeviceInfo;
+import homer.model.actuator.Actuator;
+import homer.model.actuator.SimpleActuator;
 
 /**
  * Implementation of a {@link AdjustableDevice} representing a mechanically
@@ -15,12 +17,12 @@ public final class MechanizedWindow implements AdjustableDevice<Integer> {
     private final DeviceInfo info = new DeviceInfoImpl(new DeviceIdImpl(), DEVICE_TYPE);
     private final int minActuatorState;
     private final int maxActuatorState;
-    private int actuatorState;
+    private final Actuator actuator;
 
     public MechanizedWindow(final int minValue, final int maxValue) {
         this.minActuatorState = minValue;
         this.maxActuatorState = maxValue;
-        this.actuatorState = minValue;
+        this.actuator = new SimpleActuator(minValue, maxValue);
     }
 
     @Override
@@ -30,7 +32,7 @@ public final class MechanizedWindow implements AdjustableDevice<Integer> {
 
     @Override
     public Integer getState() {
-        return this.actuatorState;
+        return this.actuator.getPosition();
     }
 
     @Override
@@ -45,7 +47,7 @@ public final class MechanizedWindow implements AdjustableDevice<Integer> {
 
     @Override
     public void setState(final Integer state) {
-        this.actuatorState = state;
+        this.actuator.command(state);
     }
 
 }
