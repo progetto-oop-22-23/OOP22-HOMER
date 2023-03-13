@@ -1,5 +1,6 @@
 package homer.model.window;
 
+import java.security.InvalidParameterException;
 import java.time.Duration;
 import java.util.Objects;
 
@@ -29,8 +30,13 @@ public final class MechanizedWindow implements Window {
      * 
      * @param minValue The minimum position of the window's actuator.
      * @param maxValue The maximum position of the window's actuator.
+     * @throws InvalidParameterException if {@code minValue} is greater than
+     *                                   {@code maxValue}
      */
     public MechanizedWindow(final int minValue, final int maxValue) {
+        if (minValue > maxValue) {
+            throw new InvalidParameterException("minValue and maxValue order is incorrect");
+        }
         this.minActuatorState = minValue;
         this.maxActuatorState = maxValue;
         this.actuator = new SimpleActuator(minValue, maxValue);

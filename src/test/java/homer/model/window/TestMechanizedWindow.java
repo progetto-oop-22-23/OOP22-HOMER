@@ -2,8 +2,10 @@ package homer.model.window;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertThrowsExactly;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.security.InvalidParameterException;
 import java.time.Duration;
 
 import org.junit.jupiter.api.Test;
@@ -59,6 +61,7 @@ final class TestMechanizedWindow {
     @Test
     void testMinMax() {
         assertTrue(window.getMinValue() <= window.getMaxValue());
+        assertThrowsExactly(InvalidParameterException.class, () -> new MechanizedWindow(MAX_VALUE, MIN_VALUE));
     }
 
     private void checkSetValue(final int newValue) {
