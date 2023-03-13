@@ -42,6 +42,9 @@ final class TestMechanizedWindow {
         checkSetValue(100);
     }
 
+    /**
+     * Test for the position lower limit.
+     */
     @Test
     void testMinValue() {
         final var minValue = window.getMinValue();
@@ -50,6 +53,9 @@ final class TestMechanizedWindow {
         assertEquals(minValue, window.getState());
     }
 
+    /**
+     * Test for the position upper limit.
+     */
     @Test
     void testMaxValue() {
         final var maxValue = window.getMaxValue();
@@ -58,6 +64,9 @@ final class TestMechanizedWindow {
         assertEquals(maxValue, window.getState());
     }
 
+    /**
+     * Test for the correct order of the lower and upper limits.
+     */
     @Test
     void testMinMax() {
         assertTrue(window.getMinValue() <= window.getMaxValue());
