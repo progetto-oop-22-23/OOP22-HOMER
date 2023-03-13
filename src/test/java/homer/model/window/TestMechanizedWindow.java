@@ -4,6 +4,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.time.Duration;
+
 import org.junit.jupiter.api.Test;
 
 // CHECKSTYLE: MagicNumber OFF
@@ -32,6 +34,7 @@ final class TestMechanizedWindow {
     void testMinValue() {
         final var minValue = window.getMinValue();
         window.setState(minValue - Math.abs(MAX_VALUE));
+        window.updateTick(Duration.ofMillis(1));
         assertEquals(minValue, window.getState());
     }
 
@@ -39,6 +42,7 @@ final class TestMechanizedWindow {
     void testMaxValue() {
         final var maxValue = window.getMaxValue();
         window.setState(maxValue + Math.abs(MAX_VALUE));
+        window.updateTick(Duration.ofMillis(1));
         assertEquals(maxValue, window.getState());
     }
 
@@ -50,6 +54,7 @@ final class TestMechanizedWindow {
     private void checkSetValue(final int newValue) {
         assertTrue(newValue >= MIN_VALUE && newValue <= MAX_VALUE, "value not in range");
         window.setState(newValue);
+        window.updateTick(Duration.ofMillis(1));
         assertEquals(newValue, window.getState());
     }
 
