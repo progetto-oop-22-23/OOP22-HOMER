@@ -44,7 +44,7 @@ final class TestMechanizedWindow {
 
     @Test
     void testMinMax() {
-        assertTrue(window.getMinValue() >= window.getMaxValue());
+        assertTrue(window.getMinValue() <= window.getMaxValue());
     }
 
     private void checkSetValue(final int newValue) {
