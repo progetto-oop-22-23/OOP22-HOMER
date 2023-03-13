@@ -19,6 +19,14 @@ public final class MechanizedWindow implements Window {
     private final int maxActuatorState;
     private final Actuator actuator;
 
+    /**
+     * Creates a {@link MechanizedWindow} whose position is controlled by a
+     * {@link SimpleActuator} with positions varying between {@code minValue} and
+     * {@code maxValue}.
+     * 
+     * @param minValue The minimum position of the window's actuator.
+     * @param maxValue The maximum position of the window's actuator.
+     */
     public MechanizedWindow(final int minValue, final int maxValue) {
         this.minActuatorState = minValue;
         this.maxActuatorState = maxValue;
