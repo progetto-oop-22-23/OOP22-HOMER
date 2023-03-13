@@ -3,18 +3,15 @@ package homer.model.window;
 import java.time.Duration;
 
 import homer.DeviceInfoImpl;
-import homer.api.AdjustableDevice;
 import homer.api.DeviceIdImpl;
 import homer.api.DeviceInfo;
-import homer.core.DiscreteObject;
 import homer.model.actuator.Actuator;
 import homer.model.actuator.SimpleActuator;
 
 /**
- * Implementation of a {@link AdjustableDevice} representing a mechanically
- * controlled window.
+ * Implementation of a mechanically controlled {@link Window}.
  */
-public final class MechanizedWindow implements AdjustableDevice<Integer>, DiscreteObject {
+public final class MechanizedWindow implements Window {
 
     private static final String DEVICE_TYPE = "MechanizedWindow";
     private final DeviceInfo info = new DeviceInfoImpl(new DeviceIdImpl(), DEVICE_TYPE);
