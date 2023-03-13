@@ -15,8 +15,13 @@ public abstract class AbstractActuator implements Actuator {
      * 
      * @param minPosition The minimum position of the actuator.
      * @param maxPosition The maximum position of the actuator.
+     * @throws IllegalArgumentException if {@code minPosition} is greater than
+     *                                  {@code maxPosition}
      */
     protected AbstractActuator(final int minPosition, final int maxPosition) {
+        if (minPosition > maxPosition) {
+            throw new IllegalArgumentException("minPosition and maxPosition are inverted");
+        }
         this.minPosition = minPosition;
         this.maxPosition = maxPosition;
     }
