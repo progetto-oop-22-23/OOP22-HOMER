@@ -13,8 +13,10 @@ import homer.model.actuator.SimpleActuator;
  * Implementation of a mechanically controlled {@link Window}.
  */
 public final class MechanizedWindow implements Window {
-
-    private static final String DEVICE_TYPE = "MechanizedWindow";
+    /**
+     * The device type label.
+     */
+    public static final String DEVICE_TYPE = "MechanizedWindow";
     private final DeviceInfo info = new DeviceInfoImpl(new DeviceIdImpl(), DEVICE_TYPE);
     private final int minActuatorState;
     private final int maxActuatorState;
