@@ -1,6 +1,7 @@
 package homer.model.window;
 
 import java.time.Duration;
+import java.util.Objects;
 
 import homer.DeviceInfoImpl;
 import homer.api.DeviceIdImpl;
@@ -55,7 +56,7 @@ public final class MechanizedWindow implements Window {
 
     @Override
     public void setState(final Integer state) {
-        this.actuator.command(state);
+        this.actuator.command(Objects.requireNonNull(state));
     }
 
     @Override
