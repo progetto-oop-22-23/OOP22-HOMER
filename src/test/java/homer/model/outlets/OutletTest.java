@@ -15,40 +15,39 @@ final class OutletTest {
 
     @Test
     void testSetValue() {
-        double cOutletValue = 1.0;
-        double lOutletValue = 2.5;
+        final double EXPECTED_COUTLET_VALUE = 1.0;
+        final double EXPECTED_LOUTLET_VALUE = 2.5;
         final Outlet cOutlet = OutletFactory.cOutlet(new DeviceInfoImpl(new DeviceIdImpl(), "COUTLET"), 0);
         final Outlet lOutlet = OutletFactory.lOutlet(new DeviceInfoImpl(new DeviceIdImpl(), "LOUTLET"), 0);
-        cOutlet.setState(cOutletValue);
-        assertEquals(cOutletValue, cOutlet.getState());
-        lOutlet.setState(lOutletValue);
-        assertEquals(lOutletValue, lOutlet.getState());
-
-        cOutletValue = 2.5;
-        lOutletValue = 4.0;
+        cOutlet.setState(EXPECTED_COUTLET_VALUE);
+        assertEquals(EXPECTED_COUTLET_VALUE, cOutlet.getState());
+        lOutlet.setState(EXPECTED_LOUTLET_VALUE);
+        assertEquals(EXPECTED_LOUTLET_VALUE, lOutlet.getState());
 
         Throwable cOutletException = assertThrows(IllegalArgumentException.class, () -> {
-            throw new IllegalArgumentException("Value must be positive and < " + cOutlet.getMaxValue());
+            final double NEW_POSITIVE_COUTLET_STATE = 2.5;
+            cOutlet.setState(NEW_POSITIVE_COUTLET_STATE);
         });
 
         assertEquals("Value must be positive and < 2.0", cOutletException.getMessage());
 
         Throwable lOutletException = assertThrows(IllegalArgumentException.class, () -> {
-            throw new IllegalArgumentException("Value must be positive and < " + lOutlet.getMaxValue());
+            final double NEW_POSITIVE_LOUTLET_STATE = 4.0;
+            lOutlet.setState(NEW_POSITIVE_LOUTLET_STATE);
         });
 
         assertEquals("Value must be positive and < 3.5", lOutletException.getMessage());
 
-        cOutletValue = -2.5;
-        lOutletValue = -4.0;
-
         cOutletException = assertThrows(IllegalArgumentException.class, () -> {
-            throw new IllegalArgumentException("Value must be positive and < " + cOutlet.getMaxValue());
+            final double NEW_NEGATIVE_COUTLET_STATE = -2.5;
+            cOutlet.setState(NEW_NEGATIVE_COUTLET_STATE);
         });
 
         assertEquals("Value must be positive and < 2.0", cOutletException.getMessage());
+
         lOutletException = assertThrows(IllegalArgumentException.class, () -> {
-            throw new IllegalArgumentException("Value must be positive and < " + lOutlet.getMaxValue());
+            final double NEW_NEGATIVE_LOUTLET_STATE = 4.0;
+            lOutlet.setState(NEW_NEGATIVE_LOUTLET_STATE);
         });
 
         assertEquals("Value must be positive and < 3.5", lOutletException.getMessage());
