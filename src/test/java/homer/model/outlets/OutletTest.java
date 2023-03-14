@@ -14,7 +14,7 @@ import homer.model.lights.Light;
 final class OutletTest {
 
     @Test
-    void testSetValue() {
+    void testSetState() {
         final double EXPECTED_COUTLET_VALUE = 1.0;
         final double EXPECTED_LOUTLET_VALUE = 2.5;
         final Outlet cOutlet = OutletFactory.cOutlet(new DeviceInfoImpl(new DeviceIdImpl(), "COUTLET"), 0);
@@ -25,29 +25,29 @@ final class OutletTest {
         assertEquals(EXPECTED_LOUTLET_VALUE, lOutlet.getState());
 
         Throwable cOutletException = assertThrows(IllegalArgumentException.class, () -> {
-            final double NEW_POSITIVE_COUTLET_STATE = 2.5;
-            cOutlet.setState(NEW_POSITIVE_COUTLET_STATE);
+            final double POSITIVE_COUTLET_STATE_OVER_MAX = 2.5;
+            cOutlet.setState(POSITIVE_COUTLET_STATE_OVER_MAX);
         });
 
         assertEquals("Value must be positive and < 2.0", cOutletException.getMessage());
 
         Throwable lOutletException = assertThrows(IllegalArgumentException.class, () -> {
-            final double NEW_POSITIVE_LOUTLET_STATE = 4.0;
-            lOutlet.setState(NEW_POSITIVE_LOUTLET_STATE);
+            final double POSITIVE_LOUTLET_STATE_OVER_MAX = 4.0;
+            lOutlet.setState(POSITIVE_LOUTLET_STATE_OVER_MAX);
         });
 
         assertEquals("Value must be positive and < 3.5", lOutletException.getMessage());
 
         cOutletException = assertThrows(IllegalArgumentException.class, () -> {
-            final double NEW_NEGATIVE_COUTLET_STATE = -2.5;
-            cOutlet.setState(NEW_NEGATIVE_COUTLET_STATE);
+            final double NEGATIVE_COUTLET_STATE_UNDER_MIN = -2.5;
+            cOutlet.setState(NEGATIVE_COUTLET_STATE_UNDER_MIN);
         });
 
         assertEquals("Value must be positive and < 2.0", cOutletException.getMessage());
 
         lOutletException = assertThrows(IllegalArgumentException.class, () -> {
-            final double NEW_NEGATIVE_LOUTLET_STATE = 4.0;
-            lOutlet.setState(NEW_NEGATIVE_LOUTLET_STATE);
+            final double NEGATIVE_LOUTLET_STATE_UNDER_MIN = -4.0;
+            lOutlet.setState(NEGATIVE_LOUTLET_STATE_UNDER_MIN);
         });
 
         assertEquals("Value must be positive and < 3.5", lOutletException.getMessage());
@@ -66,12 +66,13 @@ final class OutletTest {
 
     @Test
     void testUnplug() {
+        final double EXPECTED_OUTLET_STATE_AFTER_UNPLUG = 0.0;
         Light light = new Light(new DeviceInfoImpl(new DeviceIdImpl(), "LIGHT"), false);
         final Outlet cOutlet = OutletFactory.cOutlet(new DeviceInfoImpl(new DeviceIdImpl(), "COUTLET"), 0);
         cOutlet.plug(light);
         assertEquals(light, cOutlet.getDevice().get());
         cOutlet.unplug();
         assertEquals(Optional.empty(), cOutlet.getDevice());
-        assertEquals(0.0, cOutlet.getState());
+        assertEquals(EXPECTED_OUTLET_STATE_AFTER_UNPLUG, cOutlet.getState());
     }
 }
