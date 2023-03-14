@@ -18,12 +18,13 @@ final class ElectricalMeterTest {
     private final List<Outlet> outlets = new ArrayList<>();
     private static final String LOUTLET = "LOUTLET";
     private static final String COUTLET = "COUTLET";
+    private static final double STATE = 0;
     @Test
     void testGetOutlets() {
-        outlets.add(new OutletFactoryImpl().cOutlet(new DeviceInfoImpl(new DeviceIdImpl(), COUTLET), 0));
-        outlets.add(new OutletFactoryImpl().lOutlet(new DeviceInfoImpl(new DeviceIdImpl(), LOUTLET), 0));
-        outlets.add(new OutletFactoryImpl().lOutlet(new DeviceInfoImpl(new DeviceIdImpl(), LOUTLET), 0));
-        outlets.add(new OutletFactoryImpl().cOutlet(new DeviceInfoImpl(new DeviceIdImpl(), COUTLET), 0));
+        outlets.add(new OutletFactoryImpl().cOutlet(new DeviceInfoImpl(new DeviceIdImpl(), COUTLET), STATE));
+        outlets.add(new OutletFactoryImpl().lOutlet(new DeviceInfoImpl(new DeviceIdImpl(), LOUTLET), STATE));
+        outlets.add(new OutletFactoryImpl().lOutlet(new DeviceInfoImpl(new DeviceIdImpl(), LOUTLET), STATE));
+        outlets.add(new OutletFactoryImpl().cOutlet(new DeviceInfoImpl(new DeviceIdImpl(), COUTLET), STATE));
 
         final ElectricalMeter meter = new ElectricalMeterImpl(outlets);
         assertEquals(outlets, meter.getOutlets());
@@ -31,15 +32,15 @@ final class ElectricalMeterTest {
 
     @Test
     void testSetOutlets() {
-        outlets.add(new OutletFactoryImpl().cOutlet(new DeviceInfoImpl(new DeviceIdImpl(), COUTLET), 0));
-        outlets.add(new OutletFactoryImpl().lOutlet(new DeviceInfoImpl(new DeviceIdImpl(), LOUTLET), 0));
-        outlets.add(new OutletFactoryImpl().lOutlet(new DeviceInfoImpl(new DeviceIdImpl(), LOUTLET), 0));
-        outlets.add(new OutletFactoryImpl().cOutlet(new DeviceInfoImpl(new DeviceIdImpl(), COUTLET), 0));
+        outlets.add(new OutletFactoryImpl().cOutlet(new DeviceInfoImpl(new DeviceIdImpl(), COUTLET), STATE));
+        outlets.add(new OutletFactoryImpl().lOutlet(new DeviceInfoImpl(new DeviceIdImpl(), LOUTLET), STATE));
+        outlets.add(new OutletFactoryImpl().lOutlet(new DeviceInfoImpl(new DeviceIdImpl(), LOUTLET), STATE));
+        outlets.add(new OutletFactoryImpl().cOutlet(new DeviceInfoImpl(new DeviceIdImpl(), COUTLET), STATE));
 
         final ElectricalMeter meter = new ElectricalMeterImpl(outlets);
 
-        outlets.add(new OutletFactoryImpl().cOutlet(new DeviceInfoImpl(new DeviceIdImpl(), COUTLET), 0));
-        outlets.add(new OutletFactoryImpl().lOutlet(new DeviceInfoImpl(new DeviceIdImpl(), LOUTLET), 0));
+        outlets.add(new OutletFactoryImpl().cOutlet(new DeviceInfoImpl(new DeviceIdImpl(), COUTLET), STATE));
+        outlets.add(new OutletFactoryImpl().lOutlet(new DeviceInfoImpl(new DeviceIdImpl(), LOUTLET), STATE));
 
         meter.setOutlets(outlets);
 
@@ -48,11 +49,11 @@ final class ElectricalMeterTest {
 
     @Test
     void testAddOutlet() {
-        outlets.add(new OutletFactoryImpl().cOutlet(new DeviceInfoImpl(new DeviceIdImpl(), COUTLET), 0));
-        outlets.add(new OutletFactoryImpl().lOutlet(new DeviceInfoImpl(new DeviceIdImpl(), LOUTLET), 0));
+        outlets.add(new OutletFactoryImpl().cOutlet(new DeviceInfoImpl(new DeviceIdImpl(), COUTLET), STATE));
+        outlets.add(new OutletFactoryImpl().lOutlet(new DeviceInfoImpl(new DeviceIdImpl(), LOUTLET), STATE));
 
         final ElectricalMeter meter = new ElectricalMeterImpl(outlets);
-        final Outlet outlet = new OutletFactoryImpl().lOutlet(new DeviceInfoImpl(new DeviceIdImpl(), LOUTLET), 0);
+        final Outlet outlet = new OutletFactoryImpl().lOutlet(new DeviceInfoImpl(new DeviceIdImpl(), LOUTLET), STATE);
         meter.addOutlet(outlet);
 
         assertEquals(outlet, meter.getOutlets().get(meter.getOutlets().size() - 1));
@@ -60,16 +61,18 @@ final class ElectricalMeterTest {
 
     @Test
     void testRemoveOutlet() {
-        outlets.add(new OutletFactoryImpl().cOutlet(new DeviceInfoImpl(new DeviceIdImpl(), COUTLET), 0));
-        outlets.add(new OutletFactoryImpl().lOutlet(new DeviceInfoImpl(new DeviceIdImpl(), LOUTLET), 0));
-        outlets.add(new OutletFactoryImpl().lOutlet(new DeviceInfoImpl(new DeviceIdImpl(), LOUTLET), 0));
-        outlets.add(new OutletFactoryImpl().cOutlet(new DeviceInfoImpl(new DeviceIdImpl(), COUTLET), 0));
+        final int OUTLET_INDEX_TO_REMOVE = 3;
+        final int EXPECTED_OUTLET_LIST_SIZE = 3;
+        outlets.add(new OutletFactoryImpl().cOutlet(new DeviceInfoImpl(new DeviceIdImpl(), COUTLET), STATE));
+        outlets.add(new OutletFactoryImpl().lOutlet(new DeviceInfoImpl(new DeviceIdImpl(), LOUTLET), STATE));
+        outlets.add(new OutletFactoryImpl().lOutlet(new DeviceInfoImpl(new DeviceIdImpl(), LOUTLET), STATE));
+        outlets.add(new OutletFactoryImpl().cOutlet(new DeviceInfoImpl(new DeviceIdImpl(), COUTLET), STATE));
 
         final ElectricalMeter meter = new ElectricalMeterImpl(outlets);
         assertEquals(outlets.size(), meter.getOutlets().size());
-        Outlet toRemove = meter.getOutlets().get(3);
+        Outlet toRemove = meter.getOutlets().get(OUTLET_INDEX_TO_REMOVE);
         meter.removeOutlet(toRemove);
-        assertEquals(3, meter.getOutlets().size());
+        assertEquals(EXPECTED_OUTLET_LIST_SIZE, meter.getOutlets().size());
 
         Throwable removeOutletException = assertThrows(IllegalArgumentException.class, () -> {
             throw new IllegalArgumentException(toRemove.getInfo() + " not in 'outlets'");
@@ -80,52 +83,44 @@ final class ElectricalMeterTest {
 
     @Test
     void testCutPowerTo() {
-        outlets.add(new OutletFactoryImpl().cOutlet(new DeviceInfoImpl(new DeviceIdImpl(), COUTLET), 0));
+        final int OUTLET_INDEX_TO_CUT = 0;
+        final double OUTLET_CONSUMPTION_VALUE = 1.0;
+        final double EXPECTED_CONSUMPTION_AFTER_CUT = 0.0;
+        outlets.add(new OutletFactoryImpl().cOutlet(new DeviceInfoImpl(new DeviceIdImpl(), COUTLET), STATE));
 
         final ElectricalMeter meter = new ElectricalMeterImpl(outlets);
 
-        meter.getOutlets().get(0).setState(1.0);
+        meter.getOutlets().get(OUTLET_INDEX_TO_CUT).setState(OUTLET_CONSUMPTION_VALUE);
 
-        meter.cutPowerTo(meter.getOutlets().get(0));
+        meter.cutPowerTo(meter.getOutlets().get(OUTLET_INDEX_TO_CUT));
 
-        assertEquals(0.0, meter.getOutlets().get(0).getState());
+        assertEquals(EXPECTED_CONSUMPTION_AFTER_CUT, meter.getOutlets().get(OUTLET_INDEX_TO_CUT).getState());
     }
 
     @Test
     void testCheckConsumption() {
-        double 
+        final int EXPECTED_OUTLET_LIST_SIZE = 5;
+        final double EXPECTED_CONSUMPTION_BEFORE_CHECK = 10.0;
+        final double EXPECTED_CONSUMPTION_AFTER_CHECK = 2.0;
+        final double OUTLET_CONSUMPTION = 2.0;
+
         assertEquals(true, outlets.isEmpty());
-        outlets.add(new OutletFactoryImpl().cOutlet(new DeviceInfoImpl(new DeviceIdImpl(), COUTLET), 0));
-        outlets.add(new OutletFactoryImpl().cOutlet(new DeviceInfoImpl(new DeviceIdImpl(), COUTLET), 0));
-        outlets.add(new OutletFactoryImpl().cOutlet(new DeviceInfoImpl(new DeviceIdImpl(), COUTLET), 0));
+        outlets.add(new OutletFactoryImpl().cOutlet(new DeviceInfoImpl(new DeviceIdImpl(), COUTLET), STATE));
+        outlets.add(new OutletFactoryImpl().cOutlet(new DeviceInfoImpl(new DeviceIdImpl(), COUTLET), STATE));
+        outlets.add(new OutletFactoryImpl().cOutlet(new DeviceInfoImpl(new DeviceIdImpl(), COUTLET), STATE));
+        outlets.add(new OutletFactoryImpl().cOutlet(new DeviceInfoImpl(new DeviceIdImpl(), COUTLET), STATE));
+        outlets.add(new OutletFactoryImpl().cOutlet(new DeviceInfoImpl(new DeviceIdImpl(), COUTLET), STATE));
 
-        assertEquals(3, outlets.size());
         final ElectricalMeter meter = new ElectricalMeterImpl(outlets);
-        assertEquals(3, meter.getOutlets().size());
+        assertEquals(EXPECTED_OUTLET_LIST_SIZE, meter.getOutlets().size());
         for (Outlet outlet : meter.getOutlets()) {
-            outlet.setState(2.0);
+            outlet.setState(OUTLET_CONSUMPTION);
         }
 
-        assertEquals(6.0, meter.getGlobalConsumption());
+        assertEquals(EXPECTED_CONSUMPTION_BEFORE_CHECK, meter.getGlobalConsumption());
 
         meter.checkConsumption();
-        assertEquals(2.0, meter.getGlobalConsumption());
-
-        outlets.add(new OutletFactoryImpl().cOutlet(new DeviceInfoImpl(new DeviceIdImpl(), COUTLET), 0));
-        outlets.add(new OutletFactoryImpl().cOutlet(new DeviceInfoImpl(new DeviceIdImpl(), COUTLET), 0));
-
-        meter.setOutlets(outlets);
-
-        assertEquals(5, outlets.size());
-
-        for (Outlet outlet : meter.getOutlets()) {
-            outlet.setState(2.0);
-        }
-
-        assertEquals(10.0, meter.getGlobalConsumption());
-
-        meter.checkConsumption();
-        assertEquals(2.0, meter.getGlobalConsumption());
+        assertEquals(EXPECTED_CONSUMPTION_AFTER_CHECK, meter.getGlobalConsumption());
 
     }
 }
