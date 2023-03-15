@@ -2,6 +2,8 @@ package homer.common.limit;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import java.math.BigInteger;
+
 import org.junit.jupiter.api.Test;
 
 final class TestLimit {
@@ -37,6 +39,18 @@ final class TestLimit {
         final float belowRange = lowerLimit - 10.0f;
         final float inRange = 20.0f;
         final float aboveRange = upperLimit + 10.0f;
+        assertEquals(lowerLimit, Limit.limit(belowRange, lowerLimit, upperLimit));
+        assertEquals(inRange, Limit.limit(inRange, lowerLimit, upperLimit));
+        assertEquals(upperLimit, Limit.limit(aboveRange, lowerLimit, upperLimit));
+    }
+
+    @Test
+    void testLimitBigInt() {
+        final var lowerLimit = BigInteger.valueOf(-100);
+        final var upperLimit = BigInteger.valueOf(100);
+        final var belowRange = lowerLimit.add(BigInteger.valueOf(-100));
+        final var inRange = BigInteger.valueOf(50);
+        final var aboveRange = upperLimit.add(BigInteger.valueOf(100));
         assertEquals(lowerLimit, Limit.limit(belowRange, lowerLimit, upperLimit));
         assertEquals(inRange, Limit.limit(inRange, lowerLimit, upperLimit));
         assertEquals(upperLimit, Limit.limit(aboveRange, lowerLimit, upperLimit));
