@@ -4,12 +4,16 @@ import homer.api.DeviceInfo;
 import homer.common.temperature.Temperature;
 import homer.common.temperature.TemperatureFactory;
 import homer.model.environment.Environment;
+
+import java.util.Optional;
+
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 
 /**
  * Uses template method on updateTick. At a default intensity, it changes the temperature by 
- * 1 celsius degree each hour.
+ * 1 celsius degree each hour. By default, minimum temperature is the absolute 0, and the maximum temperature
+ * is not set.
  */
 public abstract class AbstractTemperatureChanger implements TemperatureChanger {
 
@@ -20,7 +24,7 @@ public abstract class AbstractTemperatureChanger implements TemperatureChanger {
     private final Environment environment;
     private final DeviceInfo info;
     private Temperature minTemperature = TemperatureFactory.fromKelvin(0);
-    private Temperature maxTemperature = TemperatureFactory.fromCelsius(1000);
+    private Optional<Temperature> maxTemperature = Optional.empty();
 
     /**
      * @param minIntensity
@@ -67,13 +71,13 @@ public abstract class AbstractTemperatureChanger implements TemperatureChanger {
     /**
      * @return maximum temperature allowed
      */
-    public final Temperature getMaxTemperature() {
+    public final Optional<Temperature> getMaxTemperature() {
         return this.maxTemperature;
     }
 
     @Override
     public final void setMaxTemperature(final Temperature temperature) {
-        this.maxTemperature = temperature;
+        this.maxTemperature = Optional.of(temperature);
     }
 
     /**
