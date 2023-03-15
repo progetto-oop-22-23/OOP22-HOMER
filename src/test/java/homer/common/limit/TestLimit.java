@@ -1,6 +1,7 @@
 package homer.common.limit;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrowsExactly;
 
 import java.math.BigInteger;
 
@@ -54,6 +55,16 @@ final class TestLimit {
         assertEquals(lowerLimit, Limit.limit(belowRange, lowerLimit, upperLimit));
         assertEquals(inRange, Limit.limit(inRange, lowerLimit, upperLimit));
         assertEquals(upperLimit, Limit.limit(aboveRange, lowerLimit, upperLimit));
+    }
+
+    @Test
+    void testNull() {
+        assertThrowsExactly(NullPointerException.class, () -> Limit.limit(null, null, null));
+    }
+
+    @Test
+    void testLimitsOrder() {
+        assertThrowsExactly(IllegalArgumentException.class, () -> Limit.limit(1, 3, 0));
     }
 
 }
