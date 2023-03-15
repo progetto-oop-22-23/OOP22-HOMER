@@ -19,6 +19,16 @@ final class ElectricalMeterTest {
     private static final String LOUTLET = "LOUTLET";
     private static final String COUTLET = "COUTLET";
     private static final double STATE = 0;
+    private static final int OUTLET_INDEX_TO_REMOVE = 3;
+    private static final int EXPECTED_OUTLET_LIST_SIZE = 3;
+    private static final int OUTLET_INDEX_TO_CUT = 0;
+    private static final double OUTLET_CONSUMPTION_VALUE = 1.0;
+    private static final double EXPECTED_CONSUMPTION_AFTER_CUT = 0.0;
+    private static final int EXPECTED_OUTLET_LIST_SIZE_ = 5;
+    private static final double EXPECTED_CONSUMPTION_BEFORE_CHECK = 10.0;
+    private static final double EXPECTED_CONSUMPTION_AFTER_CHECK = 2.0;
+    private static final double OUTLET_CONSUMPTION = 2.0;
+
     @Test
     void testGetOutlets() {
         outlets.add(new OutletFactoryImpl().cOutlet(new DeviceInfoImpl(new DeviceIdImpl(), COUTLET), STATE));
@@ -61,8 +71,6 @@ final class ElectricalMeterTest {
 
     @Test
     void testRemoveOutlet() {
-        final int OUTLET_INDEX_TO_REMOVE = 3;
-        final int EXPECTED_OUTLET_LIST_SIZE = 3;
         outlets.add(new OutletFactoryImpl().cOutlet(new DeviceInfoImpl(new DeviceIdImpl(), COUTLET), STATE));
         outlets.add(new OutletFactoryImpl().lOutlet(new DeviceInfoImpl(new DeviceIdImpl(), LOUTLET), STATE));
         outlets.add(new OutletFactoryImpl().lOutlet(new DeviceInfoImpl(new DeviceIdImpl(), LOUTLET), STATE));
@@ -83,9 +91,6 @@ final class ElectricalMeterTest {
 
     @Test
     void testCutPowerTo() {
-        final int OUTLET_INDEX_TO_CUT = 0;
-        final double OUTLET_CONSUMPTION_VALUE = 1.0;
-        final double EXPECTED_CONSUMPTION_AFTER_CUT = 0.0;
         outlets.add(new OutletFactoryImpl().cOutlet(new DeviceInfoImpl(new DeviceIdImpl(), COUTLET), STATE));
 
         final ElectricalMeter meter = new ElectricalMeterImpl(outlets);
@@ -99,10 +104,6 @@ final class ElectricalMeterTest {
 
     @Test
     void testCheckConsumption() {
-        final int EXPECTED_OUTLET_LIST_SIZE = 5;
-        final double EXPECTED_CONSUMPTION_BEFORE_CHECK = 10.0;
-        final double EXPECTED_CONSUMPTION_AFTER_CHECK = 2.0;
-        final double OUTLET_CONSUMPTION = 2.0;
 
         assertEquals(true, outlets.isEmpty());
         outlets.add(new OutletFactoryImpl().cOutlet(new DeviceInfoImpl(new DeviceIdImpl(), COUTLET), STATE));
