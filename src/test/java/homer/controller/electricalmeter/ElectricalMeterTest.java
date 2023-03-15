@@ -24,7 +24,6 @@ final class ElectricalMeterTest {
     private static final int OUTLET_INDEX_TO_CUT = 0;
     private static final double OUTLET_CONSUMPTION_VALUE = 1.0;
     private static final double EXPECTED_CONSUMPTION_AFTER_CUT = 0.0;
-    private static final int EXPECTED_OUTLET_LIST_SIZE_ = 5;
     private static final double EXPECTED_CONSUMPTION_BEFORE_CHECK = 10.0;
     private static final double EXPECTED_CONSUMPTION_AFTER_CHECK = 2.0;
     private static final double OUTLET_CONSUMPTION = 2.0;
