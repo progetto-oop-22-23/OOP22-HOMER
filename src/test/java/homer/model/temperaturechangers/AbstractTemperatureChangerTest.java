@@ -12,14 +12,14 @@ import homer.common.temperature.TemperatureFactory;
 import homer.model.environment.Environment;
 import homer.model.environment.HomeEnvironment;
 
-class AbstractTemperatureTest {
+class AbstractTemperatureChangerTest {
     private static final DeviceInfo INFO = new DeviceInfoImpl(new DeviceIdImpl(), "HEATING");
     private static final Temperature TEMPERATURE = TemperatureFactory.fromCelsius(0);
     private static final Environment ENVIRONMENT = new HomeEnvironment(TEMPERATURE);
 
     @Test
     void noMaximumTemperatureByDefault() {
-        final AbstractTemperatureChanger defaultHeating = new Heating(1, 10, ENVIRONMENT, INFO);
-        assertTrue(defaultHeating.getMaxTemperature().isEmpty());
+        final AbstractTemperatureChanger defaultChanger = new Heating(1, 10, ENVIRONMENT, INFO);
+        assertTrue(defaultChanger.getMaxTemperature().isEmpty());
     }
 }
