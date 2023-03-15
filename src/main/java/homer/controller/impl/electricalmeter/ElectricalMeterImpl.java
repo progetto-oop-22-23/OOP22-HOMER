@@ -1,6 +1,5 @@
 package homer.controller.impl.electricalmeter;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -13,7 +12,7 @@ import homer.model.outlets.Outlet;
  * @author Alessandro Monticelli
  */
 public final class ElectricalMeterImpl implements ElectricalMeter {
-    private List<Outlet> outlets = new ArrayList<>();
+    private List<Outlet> outlets;
     private double globalConsumption;
     private static final double MAX_GLOBAL_CONSUMPTION = 4.0; // kW
 
@@ -45,7 +44,7 @@ public final class ElectricalMeterImpl implements ElectricalMeter {
     }
 
     @Override
-    public void removeOutlet(final Outlet outlet) throws IllegalArgumentException {
+    public void removeOutlet(final Outlet outlet) {
         Objects.requireNonNull(outlet);
         if (this.outlets.contains(outlet)) {
             this.outlets.remove(outlet);
