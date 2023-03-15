@@ -1,12 +1,22 @@
 package homer.model.airquality;
 
-public class AirQualityStateImpl implements AirQualityState {
+/**
+ * Implementation of AirQualityState. 
+ */
+public final class AirQualityStateImpl implements AirQualityState {
 
     private double co2;
     private double pm10;
     private double toxicGasPercentage;
     private double pm25;
 
+    /**
+     * 
+     * @param co2
+     * @param pm10
+     * @param toxicGasPercentage
+     * @param pm25
+     */
     public AirQualityStateImpl(final double co2, final double pm10, final double toxicGasPercentage, final double pm25) {
         this.co2 = co2;
         this.pm10 = pm10;
@@ -14,6 +24,10 @@ public class AirQualityStateImpl implements AirQualityState {
         this.pm25 = pm25;
     }
 
+    /**
+     * 
+     * @param airQualityState the state to copy
+     */
     public AirQualityStateImpl(final AirQualityState airQualityState) {
         this.co2 = airQualityState.getCO2();
         this.pm10 = airQualityState.getPM10();
@@ -27,7 +41,7 @@ public class AirQualityStateImpl implements AirQualityState {
     }
 
     @Override
-    public void setCO2(double co2) {
+    public void setCO2(final double co2) {
         this.co2 = co2;
     }
 
@@ -37,8 +51,8 @@ public class AirQualityStateImpl implements AirQualityState {
     }
 
     @Override
-    public void setPM10(double PM10) {
-        this.pm10 = PM10;
+    public void setPM10(final double pm10) {
+        this.pm10 = pm10;
     }
 
     @Override
@@ -47,7 +61,7 @@ public class AirQualityStateImpl implements AirQualityState {
     }
 
     @Override
-    public void setToxicGasPercentage(double toxicGasPercentage) {
+    public void setToxicGasPercentage(final double toxicGasPercentage) {
         this.toxicGasPercentage = toxicGasPercentage;
     }
 
@@ -57,8 +71,8 @@ public class AirQualityStateImpl implements AirQualityState {
     }
 
     @Override
-    public void setPM25(double PM25) {
-        this.pm25 = PM25;
+    public void setPM25(final double pm25) {
+        this.pm25 = pm25;
     }
-    
+
 }
