@@ -76,14 +76,16 @@ public class Outlet implements AdjustableDevice<Double> {
 
     /**
      * Sets the istant power absorption.
-     * 
-     * 
-     * 
+     *
      * @param state The new value of {@code state}.
      */
     @Override
     public void setState(final Double state) {
-        this.state = state;
+        if (state >= this.minValue && state < this.maxValue) {
+            this.state = state;
+        } else {
+            throw new IllegalArgumentException("Value must be positive and < " + this.maxValue);
+        }
     }
 
     /**
@@ -92,7 +94,8 @@ public class Outlet implements AdjustableDevice<Double> {
      * @param device The {@link homer.api.Device} to plug.
      */
     public void plug(final Device<?> device) {
-        this.device = Optional.of(device);
+        this.unplug();
+        this.device = Optional.ofNullable(device);
     }
 
     /**
