@@ -1,6 +1,6 @@
 package homer.model.environment;
 
-import homer.common.Temperature;
+import homer.common.temperature.Temperature;
 
 /**
  * The environment represents a physical location in the simulation, with its
