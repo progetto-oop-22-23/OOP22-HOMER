@@ -2,6 +2,7 @@ package homer.controller.electricalmeter;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -71,11 +72,11 @@ final class ElectricalMeterTest {
 
         final ElectricalMeter meter = new ElectricalMeterImpl(outlets);
         assertEquals(outlets.size(), meter.getOutlets().size());
-        Outlet toRemove = meter.getOutlets().get(outletIndexToRemove);
+        final Outlet toRemove = meter.getOutlets().get(outletIndexToRemove);
         meter.removeOutlet(toRemove);
         assertEquals(expectedOutletListSizeAfterRemoval, meter.getOutlets().size());
 
-        Throwable removeOutletException = assertThrows(IllegalArgumentException.class, () -> {
+        final Throwable removeOutletException = assertThrows(IllegalArgumentException.class, () -> {
             throw new IllegalArgumentException(toRemove.getInfo() + " not in 'outlets'");
         });
         assertEquals(toRemove.getInfo() + " not in 'outlets'", removeOutletException.getMessage());
@@ -105,7 +106,7 @@ final class ElectricalMeterTest {
         final double expectedConsumptionBeforeCheck = 7.5;
         final double expectedConsumptionAfterCheck = 3.0;
 
-        assertEquals(true, outlets.isEmpty());
+        assertTrue(outlets.isEmpty());
         outlets.add(OutletFactory.cOutlet(new DeviceInfoImpl(new DeviceIdImpl(), COUTLET), STATE));
         outlets.add(OutletFactory.cOutlet(new DeviceInfoImpl(new DeviceIdImpl(), COUTLET), STATE));
         outlets.add(OutletFactory.cOutlet(new DeviceInfoImpl(new DeviceIdImpl(), COUTLET), STATE));
@@ -114,7 +115,7 @@ final class ElectricalMeterTest {
 
         final ElectricalMeter meter = new ElectricalMeterImpl(outlets);
         assertEquals(expectedOutletListSize, meter.getOutlets().size());
-        for (Outlet outlet : meter.getOutlets()) {
+        for (final Outlet outlet : meter.getOutlets()) {
             outlet.setState(outletConsumption);
         }
 
