@@ -33,4 +33,23 @@ public final class Limit {
         return Math.max(lowerLimit, Math.min(input, upperLimit));
     }
 
+    /**
+     * Limits the input between lower and upper limits.
+     * 
+     * @param <S>        The comparable numeric type.
+     * @param input      The input to limit.
+     * @param lowerLimit The lower limit.
+     * @param upperLimit The upper limit.
+     * @return The input limited between the lower and upper limits.
+     */
+    public static <S extends Number & Comparable<S>> S limit(final S input, final S lowerLimit, final S upperLimit) {
+        if (input.compareTo(lowerLimit) < 0) {
+            return lowerLimit;
+        } else if (input.compareTo(upperLimit) > 0) {
+            return upperLimit;
+        } else {
+            return input;
+        }
+    }
+
 }
