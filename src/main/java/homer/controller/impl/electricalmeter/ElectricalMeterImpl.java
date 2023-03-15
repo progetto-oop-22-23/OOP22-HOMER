@@ -1,5 +1,6 @@
 package homer.controller.impl.electricalmeter;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -24,17 +25,17 @@ public final class ElectricalMeterImpl implements ElectricalMeter {
      */
     public ElectricalMeterImpl(final List<Outlet> outlets) {
         this.globalConsumption = 0.0;
-        this.outlets = outlets;
+        this.outlets = new ArrayList<>(outlets);
     }
 
     @Override
     public List<Outlet> getOutlets() {
-        return this.outlets;
+        return new ArrayList<>(this.outlets);
     }
 
     @Override
     public void setOutlets(final List<Outlet> outlets) {
-        this.outlets = outlets;
+        this.outlets = new ArrayList<>(outlets);
     }
 
     @Override
