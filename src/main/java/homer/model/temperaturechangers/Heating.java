@@ -28,8 +28,12 @@ public final class Heating extends AbstractTemperatureChanger {
     public void updateTick(final Duration deltaTime) {
         final double oldTemp = this.getEnvironment().getTemperature().getCelsius();
         final double updatedTemp = oldTemp + this.getState() * deltaTime.toMillis() * this.getScaler();
-        final double newTemp = Math.min(this.getMaxTemperature().getCelsius(), updatedTemp);
-        this.getEnvironment().setTemperature(TemperatureFactory.fromCelsius(newTemp));
+        if (this.getMaxTemperature().isEmpty()) {
+            this.getEnvironment().setTemperature(TemperatureFactory.fromCelsius(updatedTemp));
+        } else {
+            final double cappedTemp = Math.min(this.getMaxTemperature().get().getCelsius(), updatedTemp);
+            this.getEnvironment().setTemperature(TemperatureFactory.fromCelsius(cappedTemp));
+        }
     }
 
 }
