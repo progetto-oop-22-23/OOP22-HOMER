@@ -30,6 +30,8 @@ public interface ElectricalMeter {
      * Adds an outlet to the list of outlets controlled by the meter.
      * 
      * @param outlet The Outlet to add.
+     * 
+     * @throws IllegalArgumentException
      */
     void addOutlet(Outlet outlet);
 
