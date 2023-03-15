@@ -30,4 +30,16 @@ final class TestLimit {
         assertEquals(upperLimit, Limit.limit(aboveRange, lowerLimit, upperLimit));
     }
 
+    @Test
+    void testLimitFloat() {
+        final float lowerLimit = 10.0f;
+        final float upperLimit = 30.0f;
+        final float belowRange = lowerLimit - 10.0f;
+        final float inRange = 20.0f;
+        final float aboveRange = upperLimit + 10.0f;
+        assertEquals(lowerLimit, Limit.limit(belowRange, lowerLimit, upperLimit));
+        assertEquals(inRange, Limit.limit(inRange, lowerLimit, upperLimit));
+        assertEquals(upperLimit, Limit.limit(aboveRange, lowerLimit, upperLimit));
+    }
+
 }
