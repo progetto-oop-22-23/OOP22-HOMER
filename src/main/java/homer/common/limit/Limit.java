@@ -1,5 +1,7 @@
 package homer.common.limit;
 
+import java.util.Objects;
+
 /**
  * Utility class for numerical range limits.
  */
@@ -45,6 +47,9 @@ public final class Limit {
      * @return The input limited between the lower and upper limits.
      */
     public static <S extends Number & Comparable<S>> S limit(final S input, final S lowerLimit, final S upperLimit) {
+        Objects.requireNonNull(input);
+        Objects.requireNonNull(lowerLimit);
+        Objects.requireNonNull(upperLimit);
         checkLimitsOrder(lowerLimit, upperLimit);
         if (input.compareTo(lowerLimit) < 0) {
             return lowerLimit;
