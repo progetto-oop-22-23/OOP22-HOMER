@@ -4,6 +4,9 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.jupiter.api.Test;
 
+import homer.common.temperature.Temperature;
+import homer.common.temperature.TemperatureFactory;
+
 /**
  * Tests Temperature conversions from (and to) farenheit, kelvin
  * and celsius.
@@ -46,5 +49,15 @@ final class TemperatureTest {
         assertEquals(celsius, t.getCelsius(), DELTA);
         assertEquals(kelvin, t.getKelvin(), DELTA);
         assertEquals(farenheit, t.getFarenheit(), DELTA);
+    }
+
+    @Test 
+    void testComparison() {
+        final Temperature absoluteZero = TemperatureFactory.fromKelvin(0);
+        final Temperature zeroCelsius = TemperatureFactory.fromCelsius(0);
+        final Temperature oneHundredCelsius = TemperatureFactory.fromCelsius(100);
+        assertEquals(-1, absoluteZero.compareTo(zeroCelsius));
+        assertEquals(-1, zeroCelsius.compareTo(oneHundredCelsius));
+        assertEquals(-1, absoluteZero.compareTo(oneHundredCelsius));
     }
 }
