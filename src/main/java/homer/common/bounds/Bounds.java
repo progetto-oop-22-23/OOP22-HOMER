@@ -3,7 +3,7 @@ package homer.common.bounds;
 /**
  * This class encapsulates the concept of numerical boundaries.
  * 
- * @param <S> The comparable number type.
+ * @param <N> The comparable number type.
  */
 public final class Bounds<N extends Number & Comparable<N>> {
 
