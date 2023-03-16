@@ -20,7 +20,7 @@ public final class Limit {
      * @return The input limited between the lower and upper bounds.
      */
     public static int limit(final int input, final int lowerBound, final int upperBound) {
-        checkLimitsOrder(lowerBound, upperBound);
+        checkBoundsOrder(lowerBound, upperBound);
         return Math.max(lowerBound, Math.min(input, upperBound));
     }
 
@@ -33,7 +33,7 @@ public final class Limit {
      * @return The input limited between the lower and upper bounds.
      */
     public static double limit(final double input, final double lowerBound, final double upperBound) {
-        checkLimitsOrder(lowerBound, upperBound);
+        checkBoundsOrder(lowerBound, upperBound);
         return Math.max(lowerBound, Math.min(input, upperBound));
     }
 
@@ -50,7 +50,7 @@ public final class Limit {
         Objects.requireNonNull(input);
         Objects.requireNonNull(lowerBound);
         Objects.requireNonNull(upperBound);
-        checkLimitsOrder(lowerBound, upperBound);
+        checkBoundsOrder(lowerBound, upperBound);
         if (input.compareTo(lowerBound) < 0) {
             return lowerBound;
         } else if (input.compareTo(upperBound) > 0) {
@@ -60,7 +60,7 @@ public final class Limit {
         }
     }
 
-    private static <S extends Comparable<S>> void checkLimitsOrder(final S lowerBound, final S upperBound) {
+    private static <S extends Comparable<S>> void checkBoundsOrder(final S lowerBound, final S upperBound) {
         if (lowerBound.compareTo(upperBound) > 0) {
             throw new IllegalArgumentException("lowerBound and upperBound are inverted");
         }
