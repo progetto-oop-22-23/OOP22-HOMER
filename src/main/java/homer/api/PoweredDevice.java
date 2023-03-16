@@ -6,7 +6,7 @@ package homer.api;
  * 
  * @author Alessandro Monticelli
  */
-public interface PoweredDevice extends Device<Void> {
+public interface PoweredDevice {
 
     /**
      * Returns the minimum device's consumption.
