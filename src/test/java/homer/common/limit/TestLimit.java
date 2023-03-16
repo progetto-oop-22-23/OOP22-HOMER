@@ -64,7 +64,10 @@ final class TestLimit {
 
     @Test
     void testLimitsOrder() {
-        assertThrowsExactly(IllegalArgumentException.class, () -> Limit.limit(1, 3, 0));
+        final var lowerBound = 0;
+        final var upperBound = 3;
+        final var inRange = 1;
+        assertThrowsExactly(IllegalArgumentException.class, () -> Limit.limit(inRange, upperBound, lowerBound));
     }
 
 }
