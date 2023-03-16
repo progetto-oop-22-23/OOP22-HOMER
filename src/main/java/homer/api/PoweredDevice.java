@@ -35,6 +35,8 @@ public interface PoweredDevice<S> extends Device<S>, DiscreteObject {
 
     /**
      * Sets the istant device's consumption.
+     * 
+     * @param istantConsumption The new istantConsumption value.
      */
     void setIstantConsumption(double istantConsumption);
 }
