@@ -20,21 +20,11 @@ public interface PoweredDevice<S> extends Device<S>, DiscreteObject {
     double getMinConsumption();
 
     /**
-     * Sets the minimum device's consumption.
-     */
-    void setMinConsumption();
-
-    /**
      * Returns the maximum device's consumption.
      * 
      * @return maxConsumption
      */
     double getMaxConsumption();
-
-    /**
-     * Sets the maximum device's consumption.
-     */
-    void setMaxConsumption();
 
     /**
      * Returns the istant device's consumption.
@@ -46,5 +36,5 @@ public interface PoweredDevice<S> extends Device<S>, DiscreteObject {
     /**
      * Sets the istant device's consumption.
      */
-    void setIstantConsumption();
+    void setIstantConsumption(double istantConsumption);
 }
