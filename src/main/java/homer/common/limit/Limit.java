@@ -12,57 +12,57 @@ public final class Limit {
     }
 
     /**
-     * Limits the input between lower and upper limits.
+     * Limits the input between lower and upper bounds.
      * 
      * @param input      The input to limit.
-     * @param lowerLimit The lower limit.
-     * @param upperLimit The upper limit.
-     * @return The input limited between the lower and upper limits.
+     * @param lowerBound The lower bound.
+     * @param upperBound The upper bound.
+     * @return The input limited between the lower and upper bounds.
      */
-    public static int limit(final int input, final int lowerLimit, final int upperLimit) {
-        checkLimitsOrder(lowerLimit, upperLimit);
-        return Math.max(lowerLimit, Math.min(input, upperLimit));
+    public static int limit(final int input, final int lowerBound, final int upperBound) {
+        checkLimitsOrder(lowerBound, upperBound);
+        return Math.max(lowerBound, Math.min(input, upperBound));
     }
 
     /**
-     * Limits the input between lower and upper limits.
+     * Limits the input between lower and upper bounds.
      * 
      * @param input      The input to limit.
-     * @param lowerLimit The lower limit.
-     * @param upperLimit The upper limit.
-     * @return The input limited between the lower and upper limits.
+     * @param lowerBound The lower bound.
+     * @param upperBound The upper bound.
+     * @return The input limited between the lower and upper bounds.
      */
-    public static double limit(final double input, final double lowerLimit, final double upperLimit) {
-        checkLimitsOrder(lowerLimit, upperLimit);
-        return Math.max(lowerLimit, Math.min(input, upperLimit));
+    public static double limit(final double input, final double lowerBound, final double upperBound) {
+        checkLimitsOrder(lowerBound, upperBound);
+        return Math.max(lowerBound, Math.min(input, upperBound));
     }
 
     /**
-     * Limits the input between lower and upper limits.
+     * Limits the input between lower and upper bounds.
      * 
      * @param <S>        The comparable type.
      * @param input      The input to limit.
-     * @param lowerLimit The lower limit.
-     * @param upperLimit The upper limit.
-     * @return The input limited between the lower and upper limits.
+     * @param lowerBound The lower bound.
+     * @param upperBound The upper bound.
+     * @return The input limited between the lower and upper bounds.
      */
-    public static <S extends Comparable<S>> S limit(final S input, final S lowerLimit, final S upperLimit) {
+    public static <S extends Comparable<S>> S limit(final S input, final S lowerBound, final S upperBound) {
         Objects.requireNonNull(input);
-        Objects.requireNonNull(lowerLimit);
-        Objects.requireNonNull(upperLimit);
-        checkLimitsOrder(lowerLimit, upperLimit);
-        if (input.compareTo(lowerLimit) < 0) {
-            return lowerLimit;
-        } else if (input.compareTo(upperLimit) > 0) {
-            return upperLimit;
+        Objects.requireNonNull(lowerBound);
+        Objects.requireNonNull(upperBound);
+        checkLimitsOrder(lowerBound, upperBound);
+        if (input.compareTo(lowerBound) < 0) {
+            return lowerBound;
+        } else if (input.compareTo(upperBound) > 0) {
+            return upperBound;
         } else {
             return input;
         }
     }
 
-    private static <S extends Comparable<S>> void checkLimitsOrder(final S lowerLimit, final S upperLimit) {
-        if (lowerLimit.compareTo(upperLimit) > 0) {
-            throw new IllegalArgumentException("lowerLimit and upperLimit are inverted");
+    private static <S extends Comparable<S>> void checkLimitsOrder(final S lowerBound, final S upperBound) {
+        if (lowerBound.compareTo(upperBound) > 0) {
+            throw new IllegalArgumentException("lowerBound and upperBound are inverted");
         }
     }
 
