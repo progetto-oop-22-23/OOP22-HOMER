@@ -3,7 +3,7 @@ package homer.common.limit;
 import java.util.Objects;
 
 /**
- * Utility class for numerical range limits.
+ * Utility class for range limits.
  */
 public final class Limit {
 
@@ -40,13 +40,13 @@ public final class Limit {
     /**
      * Limits the input between lower and upper limits.
      * 
-     * @param <S>        The comparable numeric type.
+     * @param <S>        The comparable type.
      * @param input      The input to limit.
      * @param lowerLimit The lower limit.
      * @param upperLimit The upper limit.
      * @return The input limited between the lower and upper limits.
      */
-    public static <S extends Number & Comparable<S>> S limit(final S input, final S lowerLimit, final S upperLimit) {
+    public static <S extends Comparable<S>> S limit(final S input, final S lowerLimit, final S upperLimit) {
         Objects.requireNonNull(input);
         Objects.requireNonNull(lowerLimit);
         Objects.requireNonNull(upperLimit);
@@ -60,7 +60,7 @@ public final class Limit {
         }
     }
 
-    private static <S extends Number & Comparable<S>> void checkLimitsOrder(final S lowerLimit, final S upperLimit) {
+    private static <S extends Comparable<S>> void checkLimitsOrder(final S lowerLimit, final S upperLimit) {
         if (lowerLimit.compareTo(upperLimit) > 0) {
             throw new IllegalArgumentException("lowerLimit and upperLimit are inverted");
         }
