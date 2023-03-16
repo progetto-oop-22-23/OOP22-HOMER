@@ -1,10 +1,10 @@
-package homer.common;
+package homer.common.temperature;
 
 /**
  * Represents a fixed temperature value, that can be represented
  * as kelvin, farenheit, or celsius.
  */
-public interface Temperature {
+public interface Temperature extends Comparable<Temperature> {
     //CHECKSTYLE: JavadocVariable OFF
     // These names are self explanatory, and have no reason to have an associated docstring
     double DELTA_KELVIN_CELSIUS = 273.15;

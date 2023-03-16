@@ -26,7 +26,7 @@ public final class OutletFactory {
      * 
      * @return An Outlet with {@code minValue = 0.0} and {@code maxValue = 2.0}
      */
-    static Outlet cOutlet(final DeviceInfo info, final int state) {
+    public static Outlet cOutlet(final DeviceInfo info, final double state) {
         return new Outlet(info, state, ZERO, MAX_CTYPE_PW);
     }
 
@@ -38,7 +38,7 @@ public final class OutletFactory {
      * 
      * @return An Outlet with {@code minValue = 0.0} and {@code maxValue = 3.5}
      */
-    static Outlet lOutlet(final DeviceInfo info, final int state) {
+    public static Outlet lOutlet(final DeviceInfo info, final double state) {
         return new Outlet(info, state, ZERO, MAX_LTYPE_PW);
     }
 }

@@ -14,41 +14,41 @@ import homer.model.lights.Light;
 final class OutletTest {
 
     @Test
-    void testSetValue() {
-        double cOutletValue = 1.0;
-        double lOutletValue = 2.5;
+    void testSetState() {
+        final double expectedCoutletState = 1.0;
+        final double expectedLoutletState = 2.5;
+        final double positiveCoutletStateOverMax = 2.5;
+        final double positiveLoutletStateOverMax = 4.0;
+        final double negativeCoutletStateUnderMin = -2.5;
+        final double negativeLoutletStateUnderMin = -4.0;
+
         final Outlet cOutlet = OutletFactory.cOutlet(new DeviceInfoImpl(new DeviceIdImpl(), "COUTLET"), 0);
         final Outlet lOutlet = OutletFactory.lOutlet(new DeviceInfoImpl(new DeviceIdImpl(), "LOUTLET"), 0);
-        cOutlet.setState(cOutletValue);
-        assertEquals(cOutletValue, cOutlet.getState());
-        lOutlet.setState(lOutletValue);
-        assertEquals(lOutletValue, lOutlet.getState());
-
-        cOutletValue = 2.5;
-        lOutletValue = 4.0;
+        cOutlet.setState(expectedCoutletState);
+        assertEquals(expectedCoutletState, cOutlet.getState());
+        lOutlet.setState(expectedLoutletState);
+        assertEquals(expectedLoutletState, lOutlet.getState());
 
         Throwable cOutletException = assertThrows(IllegalArgumentException.class, () -> {
-            throw new IllegalArgumentException("Value must be positive and < " + cOutlet.getMaxValue());
+            cOutlet.setState(positiveCoutletStateOverMax);
         });
 
         assertEquals("Value must be positive and < 2.0", cOutletException.getMessage());
 
         Throwable lOutletException = assertThrows(IllegalArgumentException.class, () -> {
-            throw new IllegalArgumentException("Value must be positive and < " + lOutlet.getMaxValue());
+            lOutlet.setState(positiveLoutletStateOverMax);
         });
 
         assertEquals("Value must be positive and < 3.5", lOutletException.getMessage());
 
-        cOutletValue = -2.5;
-        lOutletValue = -4.0;
-
         cOutletException = assertThrows(IllegalArgumentException.class, () -> {
-            throw new IllegalArgumentException("Value must be positive and < " + cOutlet.getMaxValue());
+            cOutlet.setState(negativeCoutletStateUnderMin);
         });
 
         assertEquals("Value must be positive and < 2.0", cOutletException.getMessage());
+
         lOutletException = assertThrows(IllegalArgumentException.class, () -> {
-            throw new IllegalArgumentException("Value must be positive and < " + lOutlet.getMaxValue());
+            lOutlet.setState(negativeLoutletStateUnderMin);
         });
 
         assertEquals("Value must be positive and < 3.5", lOutletException.getMessage());
@@ -56,7 +56,7 @@ final class OutletTest {
 
     @Test
     void testPlug() {
-        Light light = new Light(new DeviceInfoImpl(new DeviceIdImpl(), "LIGHT"), false);
+        final Light light = new Light(new DeviceInfoImpl(new DeviceIdImpl(), "LIGHT"), false);
         final Outlet cOutlet = OutletFactory.cOutlet(new DeviceInfoImpl(new DeviceIdImpl(), "COUTLET"), 0);
         cOutlet.plug(light);
         assertEquals(light, cOutlet.getDevice().get());
@@ -67,7 +67,7 @@ final class OutletTest {
 
     @Test
     void testUnplug() {
-        Light light = new Light(new DeviceInfoImpl(new DeviceIdImpl(), "LIGHT"), false);
+        final Light light = new Light(new DeviceInfoImpl(new DeviceIdImpl(), "LIGHT"), false);
         final Outlet cOutlet = OutletFactory.cOutlet(new DeviceInfoImpl(new DeviceIdImpl(), "COUTLET"), 0);
         cOutlet.plug(light);
         assertEquals(light, cOutlet.getDevice().get());

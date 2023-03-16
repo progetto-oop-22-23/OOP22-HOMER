@@ -9,8 +9,8 @@ import org.junit.jupiter.api.Test;
 import homer.DeviceInfoImpl;
 import homer.api.DeviceIdImpl;
 import homer.api.DeviceInfo;
-import homer.common.Temperature;
-import homer.common.TemperatureFactory;
+import homer.common.temperature.Temperature;
+import homer.common.temperature.TemperatureFactory;
 import homer.model.environment.Environment;
 import homer.model.environment.HomeEnvironment;
 

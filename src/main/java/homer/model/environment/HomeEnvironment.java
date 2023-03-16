@@ -1,6 +1,6 @@
 package homer.model.environment;
 
-import homer.common.Temperature;
+import homer.common.temperature.Temperature;
 
 /**
  * {@link Environment} implementation by modelling the home as one block with no
