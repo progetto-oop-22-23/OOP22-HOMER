@@ -1,8 +1,10 @@
 package homer.model.lights;
 
+import java.time.Duration;
 import java.util.Objects;
 
 import homer.api.DeviceInfo;
+import homer.api.PoweredDevice;
 import homer.api.ToggleableDevice;
 
 /**
@@ -10,8 +12,11 @@ import homer.api.ToggleableDevice;
  * 
  * @author Alessandro Monticelli
  */
-public final class Light implements ToggleableDevice<Boolean> {
+public final class Light implements ToggleableDevice<Boolean>, PoweredDevice<Boolean> {
 
+    private final double minConsumption;
+    private final double maxConsumption;
+    private double istantConsumption;
     private final DeviceInfo info;
     private Boolean state;
 
@@ -21,9 +26,12 @@ public final class Light implements ToggleableDevice<Boolean> {
      * @param info  See {@link homer.api.DeviceInfo}
      * @param state On/Off
      */
-    public Light(final DeviceInfo info, final Boolean state) {
+    public Light(final DeviceInfo info, final Boolean state, final double minConsumption, final double maxConsumption) {
         this.info = Objects.requireNonNull(info);
         this.state = Objects.requireNonNull(state);
+        this.minConsumption = minConsumption;
+        this.maxConsumption = maxConsumption;
+        this.istantConsumption = 0.0;
     }
 
     @Override
@@ -45,6 +53,32 @@ public final class Light implements ToggleableDevice<Boolean> {
     @Override
     public void toggle() {
         this.state ^= true;
+    }
+
+    @Override
+    public void updateTick(Duration deltaTime) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'updateTick'");
+    }
+
+    @Override
+    public double getMinConsumption() {
+        return this.minConsumption;
+    }
+
+    @Override
+    public double getMaxConsumption() {
+        return this.maxConsumption;
+    }
+
+    @Override
+    public double getIstantConsumption() {
+        return this.istantConsumption;
+    }
+
+    @Override
+    public void setIstantConsumption(final double istantConsumption) {
+        this.istantConsumption = istantConsumption;
     }
 
 }
