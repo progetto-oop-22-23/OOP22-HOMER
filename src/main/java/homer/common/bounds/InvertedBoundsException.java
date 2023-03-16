@@ -8,12 +8,13 @@ public class InvertedBoundsException extends RuntimeException {
 
     @java.io.Serial
     private static final long serialVersionUID = 1L;
+    private static final String DEFAULT_MESSAGE = "lower and upper bounds are inverted";
 
     /**
-     * Constructs an {@code InvertedBoundsException} with no message.
+     * Constructs an {@code InvertedBoundsException} with a default error message.
      */
     public InvertedBoundsException() {
-        super();
+        super(DEFAULT_MESSAGE);
     }
 
     /**
