@@ -7,16 +7,12 @@ import homer.model.environment.Environment;
 import homer.model.environment.HomeEnvironment;
 
 /**
- * Next steps are randomly chosen.
+ * Every value is updated with random gaussian values, and will always be above zero.
  */
 public final class AirQualityImpl implements AirQuality {
 
     private final Environment environment;
     private final Random random = new Random();
-    private static final double CO2DELTA = 1;
-    private static final double  PM10DELTA = 1;
-    private static final double TOXICDELTA = 1;
-    private static final double PM25DELTA = 1;
 
     /**
      * 
@@ -28,11 +24,12 @@ public final class AirQualityImpl implements AirQuality {
 
     @Override
     public void updateTick(final Duration deltaTime) {
-        final var old  = this.environment.getAirQualityState();
-        final var newco2 = (random.nextGaussian() - 0.5) * CO2DELTA +  old.getCO2();
-        final var newpm10 = (random.nextGaussian() - 0.5) * PM10DELTA +  old.getPM10();
-        final var newtoxic = (random.nextGaussian() - 0.5) * TOXICDELTA +  old.getToxicGasPercentage();
-        final var newpm25 = (random.nextGaussian() - 0.5) * PM25DELTA +  old.getPM25();
-        this.environment.setAirQualityState(new AirQualityStateImpl(newco2, newpm10, newtoxic, newpm25));
+        final AirQualityState old  = this.environment.getAirQualityState();
+        final double newco2 = random.nextGaussian()  * deltaTime.toHours() +  old.getCO2();
+        final double newpm10 = random.nextGaussian() * deltaTime.toHours() + old.getPM10();
+        final double newtoxic = random.nextGaussian() * deltaTime.toHours() + old.getToxicGasPercentage();
+        final double newpm25 = random.nextGaussian() * deltaTime.toHours() + old.getPM25();
+        this.environment.setAirQualityState(new AirQualityStateImpl(
+            Math.max(newco2, 0), Math.max(0, newpm10), Math.max(0, newtoxic), Math.max(0, newpm25)));
     }
 }
