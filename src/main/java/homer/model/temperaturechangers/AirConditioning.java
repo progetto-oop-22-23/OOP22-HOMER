@@ -26,7 +26,7 @@ public final class AirConditioning extends AbstractTemperatureChanger {
     public void updateTick(final Duration deltaTime) {
         final double oldTemp = this.getEnvironment().getTemperature().getCelsius();
         final double newTemp = Math.max(this.getMinTemperature().getCelsius(), 
-            oldTemp - this.getState() * deltaTime.toMillis() * this.getScaler());
+            oldTemp - this.getState() * deltaTime.toHours());
         this.getEnvironment().setTemperature(TemperatureFactory.fromCelsius(newTemp));
     }
 
