@@ -11,7 +11,7 @@ public final class PoweredDeviceImpl implements PoweredDevice {
 
     private final double minConsumption;
     private final double maxConsumption;
-    private double istantConsumption;
+    private double instantConsumption;
 
     /**
      * PoweredDeviceImpl constructor.
@@ -21,7 +21,7 @@ public final class PoweredDeviceImpl implements PoweredDevice {
     public PoweredDeviceImpl(final double minConsumption, final double maxConsumption) {
         this.minConsumption = minConsumption;
         this.maxConsumption = maxConsumption;
-        this.istantConsumption = 0.0;
+        this.instantConsumption = 0.0;
     }
 
     @Override
@@ -42,12 +42,12 @@ public final class PoweredDeviceImpl implements PoweredDevice {
 
     @Override
     public double getIstantConsumption() {
-        return this.istantConsumption;
+        return this.instantConsumption;
     }
 
     @Override
-    public void setIstantConsumption(final double istantConsumption) {
-        this.istantConsumption = istantConsumption;
+    public void setIstantConsumption(final double instantConsumption) {
+        this.instantConsumption = instantConsumption;
     }
 
 }
