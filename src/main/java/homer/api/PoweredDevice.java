@@ -1,16 +1,12 @@
 package homer.api;
 
-import homer.core.DiscreteObject;
-
 /**
  * Models a {@link homer.api.Device} that consumes power.
  * Every PoweredDevice must be plugged into a {@link homer.model.outlets.Outlet}.
  * 
- * @param <S> The device state.
- * 
  * @author Alessandro Monticelli
  */
-public interface PoweredDevice<S> extends Device<S>, DiscreteObject {
+public interface PoweredDevice {
 
     /**
      * Returns the minimum device's consumption.
@@ -27,16 +23,16 @@ public interface PoweredDevice<S> extends Device<S>, DiscreteObject {
     double getMaxConsumption();
 
     /**
-     * Returns the istant device's consumption.
+     * Returns the instant device's consumption.
      * 
-     * @return istantConsumption
+     * @return instantConsumption
      */
     double getIstantConsumption();
 
     /**
-     * Sets the istant device's consumption.
+     * Sets the instant device's consumption.
      * 
-     * @param istantConsumption The new istantConsumption value.
+     * @param instantConsumption The new instantConsumption value.
      */
-    void setIstantConsumption(double istantConsumption);
+    void setIstantConsumption(double instantConsumption);
 }
