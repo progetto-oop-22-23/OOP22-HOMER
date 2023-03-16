@@ -6,13 +6,14 @@ import java.util.Objects;
 import homer.api.DeviceInfo;
 import homer.api.PoweredDevice;
 import homer.api.ToggleableDevice;
+import homer.core.DiscreteObject;
 
 /**
  * Models lights in the house.
  * 
  * @author Alessandro Monticelli
  */
-public final class Light implements ToggleableDevice<Boolean>, PoweredDevice<Boolean> {
+public final class Light implements ToggleableDevice<Boolean>, PoweredDevice, DiscreteObject {
 
     private final double minConsumption;
     private final double maxConsumption;
@@ -23,8 +24,8 @@ public final class Light implements ToggleableDevice<Boolean>, PoweredDevice<Boo
     /**
      * Constructor for class Light.
      * 
-     * @param info  See {@link homer.api.DeviceInfo}.
-     * @param state On/Off.
+     * @param info           See {@link homer.api.DeviceInfo}.
+     * @param state          On/Off.
      * @param minConsumption The minimum electrical consumption.
      * @param maxConsumption The maximum electrical consumption.
      */
@@ -73,8 +74,11 @@ public final class Light implements ToggleableDevice<Boolean>, PoweredDevice<Boo
 
     @Override
     public void updateTick(final Duration deltaTime) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'updateTick'");
+        final double intensity = this.getState() ? 1.0 : 0.0;
+        final double delta = 2.5;
+        final double powerConsumption = Math.min(Math.max(this.getMaxConsumption() - delta * intensity, 0.0),
+                this.getMaxConsumption());
+        this.setIstantConsumption(powerConsumption);
     }
 
     @Override
