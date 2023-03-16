@@ -17,6 +17,9 @@ public final class Bounds<N extends Number & Comparable<N>> {
      * @param upper the upper boundary value.
      */
     public Bounds(final N lower, final N upper) {
+        if (lower.compareTo(upper) > 0) {
+            throw new InvertedBoundsException();
+        }
         this.lower = lower;
         this.upper = upper;
     }
