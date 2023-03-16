@@ -7,21 +7,21 @@ package homer.common.bounds;
  */
 public final class Bounds<N extends Number & Comparable<N>> {
 
-    private final N lower;
-    private final N upper;
+    private final N lowerBound;
+    private final N upperBound;
 
     /**
      * Constructs a pair of bounds.
      * 
-     * @param lower the lower boundary value.
-     * @param upper the upper boundary value.
+     * @param lowerBound the lower boundary value.
+     * @param upperBound the upper boundary value.
      */
-    public Bounds(final N lower, final N upper) {
-        if (lower.compareTo(upper) > 0) {
+    public Bounds(final N lowerBound, final N upperBound) {
+        if (lowerBound.compareTo(upperBound) > 0) {
             throw new InvertedBoundsException();
         }
-        this.lower = lower;
-        this.upper = upper;
+        this.lowerBound = lowerBound;
+        this.upperBound = upperBound;
     }
 
     /**
@@ -29,8 +29,8 @@ public final class Bounds<N extends Number & Comparable<N>> {
      * 
      * @return the lower boundary value.
      */
-    public N getLower() {
-        return this.lower;
+    public N getLowerBound() {
+        return this.lowerBound;
     }
 
     /**
@@ -38,8 +38,8 @@ public final class Bounds<N extends Number & Comparable<N>> {
      * 
      * @return the upper boundary value.
      */
-    public N getUpper() {
-        return this.upper;
+    public N getUpperBound() {
+        return this.upperBound;
     }
 
 }
