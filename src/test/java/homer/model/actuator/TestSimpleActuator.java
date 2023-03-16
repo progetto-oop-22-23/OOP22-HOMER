@@ -2,17 +2,18 @@ package homer.model.actuator;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertThrowsExactly;
 
 import java.time.Duration;
 
 import org.junit.jupiter.api.Test;
 
+import homer.common.bounds.Bounds;
+
 final class TestSimpleActuator {
 
     private static final int MIN_POSITION = 0;
     private static final int MAX_POSITION = 100;
-    private final Actuator actuator = new SimpleActuator(MIN_POSITION, MAX_POSITION);
+    private final Actuator actuator = new SimpleActuator(new Bounds<>(MIN_POSITION, MAX_POSITION));
 
     @Test
     void testGetPosition() {
@@ -36,11 +37,6 @@ final class TestSimpleActuator {
     void testMaxPosition() {
         commandAndUpdate(MAX_POSITION + 100);
         assertEquals(MAX_POSITION, this.actuator.getPosition());
-    }
-
-    @Test
-    void testLimitsOrder() {
-        assertThrowsExactly(IllegalArgumentException.class, () -> new SimpleActuator(MAX_POSITION, MIN_POSITION));
     }
 
     private void commandAndUpdate(final int commandedPosition) {
