@@ -7,12 +7,17 @@ import java.time.Duration;
  * 
  */
 
-public class PoweredDeviceImpl implements PoweredDevice {
+public final class PoweredDeviceImpl implements PoweredDevice {
 
     private final double minConsumption;
     private final double maxConsumption;
     private double istantConsumption;
 
+    /**
+     * PoweredDeviceImpl constructor.
+     * @param minConsumption min consumption
+     * @param maxConsumption max consumption
+     */
     public PoweredDeviceImpl(final double minConsumption, final double maxConsumption) {
         this.minConsumption = minConsumption;
         this.maxConsumption = maxConsumption;
@@ -20,7 +25,7 @@ public class PoweredDeviceImpl implements PoweredDevice {
     }
 
     @Override
-    public void updateTick(Duration deltaTime) {
+    public void updateTick(final Duration deltaTime) {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'updateTick'");
     }
@@ -41,7 +46,7 @@ public class PoweredDeviceImpl implements PoweredDevice {
     }
 
     @Override
-    public void setIstantConsumption(double istantConsumption) {
+    public void setIstantConsumption(final double istantConsumption) {
         this.istantConsumption = istantConsumption;
     }
 
