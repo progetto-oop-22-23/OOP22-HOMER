@@ -23,14 +23,30 @@ public final class Light implements ToggleableDevice<Boolean>, PoweredDevice<Boo
     /**
      * Constructor for class Light.
      * 
-     * @param info  See {@link homer.api.DeviceInfo}
-     * @param state On/Off
+     * @param info  See {@link homer.api.DeviceInfo}.
+     * @param state On/Off.
+     * @param minConsumption The minimum electrical consumption.
+     * @param maxConsumption The maximum electrical consumption.
      */
     public Light(final DeviceInfo info, final Boolean state, final double minConsumption, final double maxConsumption) {
         this.info = Objects.requireNonNull(info);
         this.state = Objects.requireNonNull(state);
         this.minConsumption = minConsumption;
         this.maxConsumption = maxConsumption;
+        this.istantConsumption = 0.0;
+    }
+
+    /**
+     * Constructor for class Light. TO BE REMOVED OR MODIFIED.
+     * 
+     * @param info  See {@link homer.api.DeviceInfo}.
+     * @param state On/Off.
+     */
+    public Light(final DeviceInfo info, final Boolean state) {
+        this.info = Objects.requireNonNull(info);
+        this.state = Objects.requireNonNull(state);
+        this.minConsumption = 0.0;
+        this.maxConsumption = 0.0;
         this.istantConsumption = 0.0;
     }
 
@@ -56,7 +72,7 @@ public final class Light implements ToggleableDevice<Boolean>, PoweredDevice<Boo
     }
 
     @Override
-    public void updateTick(Duration deltaTime) {
+    public void updateTick(final Duration deltaTime) {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'updateTick'");
     }
