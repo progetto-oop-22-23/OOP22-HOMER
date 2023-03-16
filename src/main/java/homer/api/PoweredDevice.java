@@ -6,11 +6,9 @@ import homer.core.DiscreteObject;
  * Models a {@link homer.api.Device} that consumes power.
  * Every PoweredDevice must be plugged into a {@link homer.model.outlets.Outlet}.
  * 
- * @param <S> The device state.
- * 
  * @author Alessandro Monticelli
  */
-public interface PoweredDevice<S> extends Device<S>, DiscreteObject {
+public interface PoweredDevice extends DiscreteObject {
 
     /**
      * Returns the minimum device's consumption.
