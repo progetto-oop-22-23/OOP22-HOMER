@@ -1,8 +1,11 @@
 package homer.api;
 
+import homer.model.outlets.Outlet;
+
 /**
  * Models a {@link homer.api.Device} that consumes power.
- * Every PoweredDevice must be plugged into a {@link homer.model.outlets.Outlet}.
+ * Every PoweredDevice must be plugged into a
+ * {@link homer.model.outlets.Outlet}.
  * 
  * @author Alessandro Monticelli
  */
@@ -35,4 +38,11 @@ public interface PoweredDevice {
      * @param instantConsumption The new instantConsumption value.
      */
     void setIstantConsumption(double instantConsumption);
+
+    /**
+     * Plugs the {@code PoweredDevice} in a {@link home.model.outlets.Outlet}.
+     * 
+     * @param outlet
+     */
+    void plug(Outlet outlet);
 }
