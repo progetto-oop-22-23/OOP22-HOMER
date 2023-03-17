@@ -30,10 +30,14 @@ public final class Light implements ToggleableDevice<Boolean>, PoweredDevice, Di
      * @param state          On/Off.
      * @param minConsumption The minimum electrical consumption.
      * @param maxConsumption The maximum electrical consumption.
+     * @param outlet         The {@link homer.model.outlets.Outlet} the
+     *                       {@code Light} is plugged to.
      */
-    public Light(final DeviceInfo info, final Boolean state, final double minConsumption, final double maxConsumption) {
+    public Light(final DeviceInfo info, final Boolean state, final double minConsumption, final double maxConsumption,
+            final Outlet outlet) {
         this.info = Objects.requireNonNull(info);
         this.state = Objects.requireNonNull(state);
+        this.outlet = new Outlet(outlet.getInfo(), outlet.getState(), outlet.getMinValue(), outlet.getMaxValue());
         this.minConsumption = minConsumption;
         this.maxConsumption = maxConsumption;
         this.istantConsumption = 0.0;
@@ -77,7 +81,8 @@ public final class Light implements ToggleableDevice<Boolean>, PoweredDevice, Di
     @Override
     public void updateTick(final Duration deltaTime) {
         final double intensity = this.getState() ? 1.0 : 0.0;
-        final double powerConsumption = Math.min(Math.max(this.getMaxConsumption() - deltaTime.toSeconds() * intensity, 0.0),
+        final double powerConsumption = Math.min(
+                Math.max(this.getMaxConsumption() - deltaTime.toSeconds() * intensity, 0.0),
                 this.getMaxConsumption());
         this.setIstantConsumption(powerConsumption);
     }
@@ -103,8 +108,18 @@ public final class Light implements ToggleableDevice<Boolean>, PoweredDevice, Di
     }
 
     @Override
-    public void plug(Outlet outlet) {
-        this.outlet = outlet;
+    public void plug(final Outlet outlet) {
+        this.outlet = new Outlet(outlet.getInfo(), outlet.getState(), outlet.getMinValue(), outlet.getMaxValue());
+    }
+
+    /**
+     * Returns the {@link homer.model.outlets.Outlet} the device is plugged to.
+     * 
+     * @return outlet.
+     */
+    public Outlet getOutlet() {
+        return new Outlet(this.outlet.getInfo(), this.outlet.getState(), this.outlet.getMinValue(),
+                this.outlet.getMaxValue());
     }
 
 }
