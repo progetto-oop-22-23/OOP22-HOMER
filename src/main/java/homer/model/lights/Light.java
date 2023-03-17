@@ -7,6 +7,7 @@ import homer.api.DeviceInfo;
 import homer.api.PoweredDevice;
 import homer.api.ToggleableDevice;
 import homer.core.DiscreteObject;
+import homer.model.outlets.Outlet;
 
 /**
  * Models lights in the house.
@@ -17,6 +18,7 @@ public final class Light implements ToggleableDevice<Boolean>, PoweredDevice, Di
 
     private final double minConsumption;
     private final double maxConsumption;
+    private Outlet outlet;
     private double istantConsumption;
     private final DeviceInfo info;
     private Boolean state;
@@ -98,6 +100,11 @@ public final class Light implements ToggleableDevice<Boolean>, PoweredDevice, Di
     @Override
     public void setIstantConsumption(final double istantConsumption) {
         this.istantConsumption = istantConsumption;
+    }
+
+    @Override
+    public void plug(Outlet outlet) {
+        this.outlet = outlet;
     }
 
 }
