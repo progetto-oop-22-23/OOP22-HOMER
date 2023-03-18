@@ -54,7 +54,7 @@ public final class Light implements ToggleableDevice<Boolean>, PoweredDevice, Di
         this.info = Objects.requireNonNull(info);
         this.state = Objects.requireNonNull(state);
         this.minConsumption = 0.0;
-        this.maxConsumption = 0.0;
+        this.maxConsumption = 10;   //Watts
         this.istantConsumption = 0.0;
     }
 
