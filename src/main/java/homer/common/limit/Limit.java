@@ -20,7 +20,7 @@ public final class Limit {
      * @param upperBound The upper bound.
      * @return The input limited between the lower and upper bounds.
      */
-    public static <S extends Comparable<S>> S limit(final S input, final S lowerBound, final S upperBound) {
+    public static <S extends Comparable<S>> S clamp(final S input, final S lowerBound, final S upperBound) {
         Objects.requireNonNull(input);
         Objects.requireNonNull(lowerBound);
         Objects.requireNonNull(upperBound);

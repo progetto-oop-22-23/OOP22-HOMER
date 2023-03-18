@@ -16,9 +16,9 @@ final class TestLimit {
         final int belowRange = lowerBound - 10;
         final int inRange = 20;
         final int aboveRange = upperBound + 10;
-        assertEquals(lowerBound, Limit.limit(belowRange, lowerBound, upperBound));
-        assertEquals(inRange, Limit.limit(inRange, lowerBound, upperBound));
-        assertEquals(upperBound, Limit.limit(aboveRange, lowerBound, upperBound));
+        assertEquals(lowerBound, Limit.clamp(belowRange, lowerBound, upperBound));
+        assertEquals(inRange, Limit.clamp(inRange, lowerBound, upperBound));
+        assertEquals(upperBound, Limit.clamp(aboveRange, lowerBound, upperBound));
     }
 
     @Test
@@ -28,9 +28,9 @@ final class TestLimit {
         final double belowRange = lowerBound - 10.0d;
         final double inRange = 24.5d;
         final double aboveRange = upperBound + 10.0d;
-        assertEquals(lowerBound, Limit.limit(belowRange, lowerBound, upperBound));
-        assertEquals(inRange, Limit.limit(inRange, lowerBound, upperBound));
-        assertEquals(upperBound, Limit.limit(aboveRange, lowerBound, upperBound));
+        assertEquals(lowerBound, Limit.clamp(belowRange, lowerBound, upperBound));
+        assertEquals(inRange, Limit.clamp(inRange, lowerBound, upperBound));
+        assertEquals(upperBound, Limit.clamp(aboveRange, lowerBound, upperBound));
     }
 
     @Test
@@ -40,9 +40,9 @@ final class TestLimit {
         final float belowRange = lowerBound - 10.0f;
         final float inRange = 20.0f;
         final float aboveRange = upperBound + 10.0f;
-        assertEquals(lowerBound, Limit.limit(belowRange, lowerBound, upperBound));
-        assertEquals(inRange, Limit.limit(inRange, lowerBound, upperBound));
-        assertEquals(upperBound, Limit.limit(aboveRange, lowerBound, upperBound));
+        assertEquals(lowerBound, Limit.clamp(belowRange, lowerBound, upperBound));
+        assertEquals(inRange, Limit.clamp(inRange, lowerBound, upperBound));
+        assertEquals(upperBound, Limit.clamp(aboveRange, lowerBound, upperBound));
     }
 
     @Test
@@ -52,14 +52,14 @@ final class TestLimit {
         final var belowRange = lowerBound.add(BigInteger.valueOf(-100));
         final var inRange = BigInteger.valueOf(50);
         final var aboveRange = upperBound.add(BigInteger.valueOf(100));
-        assertEquals(lowerBound, Limit.limit(belowRange, lowerBound, upperBound));
-        assertEquals(inRange, Limit.limit(inRange, lowerBound, upperBound));
-        assertEquals(upperBound, Limit.limit(aboveRange, lowerBound, upperBound));
+        assertEquals(lowerBound, Limit.clamp(belowRange, lowerBound, upperBound));
+        assertEquals(inRange, Limit.clamp(inRange, lowerBound, upperBound));
+        assertEquals(upperBound, Limit.clamp(aboveRange, lowerBound, upperBound));
     }
 
     @Test
     void testNull() {
-        assertThrowsExactly(NullPointerException.class, () -> Limit.limit(null, null, null));
+        assertThrowsExactly(NullPointerException.class, () -> Limit.clamp(null, null, null));
     }
 
     @Test
@@ -67,7 +67,7 @@ final class TestLimit {
         final var lowerBound = 0;
         final var upperBound = 3;
         final var inRange = 1;
-        assertThrowsExactly(IllegalArgumentException.class, () -> Limit.limit(inRange, upperBound, lowerBound));
+        assertThrowsExactly(IllegalArgumentException.class, () -> Limit.clamp(inRange, upperBound, lowerBound));
     }
 
 }
