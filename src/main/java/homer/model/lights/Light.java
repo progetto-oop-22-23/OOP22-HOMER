@@ -6,6 +6,7 @@ import java.util.Objects;
 import homer.api.DeviceInfo;
 import homer.api.PoweredDevice;
 import homer.api.ToggleableDevice;
+import homer.common.limit.Limit;
 import homer.core.DiscreteObject;
 import homer.model.outlets.Outlet;
 
@@ -33,13 +34,13 @@ public final class Light implements ToggleableDevice<Boolean>, PoweredDevice, Di
      * @param outlet         The {@link homer.model.outlets.Outlet} the
      *                       {@code Light} is plugged to.
      */
-    public Light(final DeviceInfo info, final Boolean state, final double minConsumption, final double maxConsumption,
+    public Light(final DeviceInfo info, final Boolean state, final double maxConsumption,
             final Outlet outlet) {
         this.info = Objects.requireNonNull(info);
         this.state = Objects.requireNonNull(state);
         this.outlet = new Outlet(outlet.getInfo(), outlet.getState(), outlet.getMinValue(), outlet.getMaxValue());
-        this.minConsumption = minConsumption;
-        this.maxConsumption = maxConsumption;
+        this.minConsumption = 0.0;
+        this.maxConsumption = Limit.limit(maxConsumption, outlet.getMinValue(), outlet.getMaxValue());
         this.istantConsumption = 0.0;
     }
 
