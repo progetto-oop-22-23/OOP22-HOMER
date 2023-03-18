@@ -12,6 +12,8 @@ import homer.api.DeviceIdImpl;
 import homer.api.DeviceInfo;
 import homer.common.temperature.Temperature;
 import homer.common.temperature.TemperatureFactory;
+import homer.model.airquality.AirQualityState;
+import homer.model.airquality.AirQualityStateFactory;
 import homer.model.environment.Environment;
 import homer.model.environment.HomeEnvironment;
 
@@ -24,11 +26,12 @@ class HeatingTest {
     private TemperatureChanger heating;
     private static final int ONE_BILLION = 1_000_000_000;
     private static final double DELTA = 0.001;
+    private static final AirQualityState AIR_QUALITY_STATE = AirQualityStateFactory.normalAirQuality();
 
     @BeforeEach
     void setup() {
         temperature = TemperatureFactory.fromCelsius(0);
-        this.environment = new HomeEnvironment(temperature);
+        this.environment = new HomeEnvironment(temperature, AIR_QUALITY_STATE);
         this.heating = new Heating(1, 10, environment, INFO);
         this.heating.setMinTemperature(temperature);
         this.heating.setMaxTemperature(highTemperature);
@@ -49,5 +52,11 @@ class HeatingTest {
     void reachesMaxTemperatureTest() {
         heating.updateTick(Duration.ofSeconds(ONE_BILLION));
         assertEquals(100, environment.getTemperature().getCelsius());
+    }
+
+    void intensityChangeTest() {
+        heating.setState(3.0);
+        heating.updateTick(Duration.ofHours(1));
+        assertEquals(3, environment.getTemperature().getCelsius(), HeatingTest.DELTA);
     }
 }
