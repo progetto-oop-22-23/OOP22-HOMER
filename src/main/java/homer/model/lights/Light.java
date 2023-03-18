@@ -29,7 +29,6 @@ public final class Light implements ToggleableDevice<Boolean>, PoweredDevice, Di
      * 
      * @param info           See {@link homer.api.DeviceInfo}.
      * @param state          On/Off.
-     * @param minConsumption The minimum electrical consumption.
      * @param maxConsumption The maximum electrical consumption.
      * @param outlet         The {@link homer.model.outlets.Outlet} the
      *                       {@code Light} is plugged to.
