@@ -13,4 +13,10 @@ public interface DeviceView<S> {
      */
     S getState();
 
+    /**
+     * 
+     * @param state the new state for the device's parameter
+     */
+    void updateState(S state);
+
 }

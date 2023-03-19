@@ -12,7 +12,7 @@ public interface Controller {
      * 
      * @param device The device to connect.
      */
-    void connectDevice(Device<?> device);
+    DeviceId connectDevice(String deviceType);
 
     /**
      * Disconnects the device from the controller.
@@ -36,4 +36,5 @@ public interface Controller {
      */
     void signalDevice(DeviceView<?> device);
 
+    Set<String> getConnectableDeviceTypes();
 }
