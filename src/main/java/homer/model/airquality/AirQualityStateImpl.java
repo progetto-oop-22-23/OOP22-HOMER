@@ -18,14 +18,10 @@ public final class AirQualityStateImpl implements AirQualityState {
      * @param pm25
      */
     public AirQualityStateImpl(final double co2, final double pm10, final double toxicGasPercentage, final double pm25) {
-        requireGreaterOrEqualThanZero(co2); 
-        requireGreaterOrEqualThanZero(pm10); 
-        requireGreaterOrEqualThanZero(toxicGasPercentage);
-        requireGreaterOrEqualThanZero(pm25); 
-        this.co2 =  co2;
-        this.pm10 = pm10;
-        this.toxicGasPercentage = toxicGasPercentage;
-        this.pm25 = pm25;
+        this.setCO2(co2);
+        this.setPM10(pm10);
+        this.setToxicGasPercentage(toxicGasPercentage);
+        this.setPM25(pm25);
     }
 
     /**
