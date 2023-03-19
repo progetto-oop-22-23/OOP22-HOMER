@@ -18,10 +18,10 @@ public final class AirQualityStateImpl implements AirQualityState {
      * @param pm25
      */
     public AirQualityStateImpl(final double co2, final double pm10, final double toxicGasPercentage, final double pm25) {
-        this.co2 = co2;
-        this.pm10 = pm10;
-        this.toxicGasPercentage = toxicGasPercentage;
-        this.pm25 = pm25;
+        this.setCO2(co2);
+        this.setPM10(pm10);
+        this.setToxicGasPercentage(toxicGasPercentage);
+        this.setPM25(pm25);
     }
 
     /**
@@ -42,6 +42,7 @@ public final class AirQualityStateImpl implements AirQualityState {
 
     @Override
     public void setCO2(final double co2) {
+        requireGreaterOrEqualThanZero(co2);
         this.co2 = co2;
     }
 
@@ -52,6 +53,7 @@ public final class AirQualityStateImpl implements AirQualityState {
 
     @Override
     public void setPM10(final double pm10) {
+        requireGreaterOrEqualThanZero(pm10);
         this.pm10 = pm10;
     }
 
@@ -62,6 +64,7 @@ public final class AirQualityStateImpl implements AirQualityState {
 
     @Override
     public void setToxicGasPercentage(final double toxicGasPercentage) {
+        requireGreaterOrEqualThanZero(toxicGasPercentage);
         this.toxicGasPercentage = toxicGasPercentage;
     }
 
@@ -72,7 +75,14 @@ public final class AirQualityStateImpl implements AirQualityState {
 
     @Override
     public void setPM25(final double pm25) {
+        requireGreaterOrEqualThanZero(pm25);
         this.pm25 = pm25;
+    }
+
+    private void requireGreaterOrEqualThanZero(final double value) {
+        if (value < 0) {
+            throw new IllegalArgumentException("Value must be greater than 0");
+        }
     }
 
 }
