@@ -25,11 +25,21 @@ public final class AirQualityImpl implements AirQuality {
     @Override
     public void updateTick(final Duration deltaTime) {
         final AirQualityState old  = this.environment.getAirQualityState();
-        final double newco2 = random.nextGaussian()  * deltaTime.toHours() +  old.getCO2();
-        final double newpm10 = random.nextGaussian() * deltaTime.toHours() + old.getPM10();
-        final double newtoxic = random.nextGaussian() * deltaTime.toHours() + old.getToxicGasPercentage();
-        final double newpm25 = random.nextGaussian() * deltaTime.toHours() + old.getPM25();
+        final double newco2 = updatedValue(old.getCO2(), deltaTime);
+        final double newpm10 = updatedValue(old.getPM10(), deltaTime);
+        final double newtoxic = updatedValue(old.getToxicGasPercentage(), deltaTime);
+        final double newpm25 = updatedValue(old.getPM25(), deltaTime);
         this.environment.setAirQualityState(new AirQualityStateImpl(
             Math.max(newco2, 0), Math.max(0, newpm10), Math.max(0, newtoxic), Math.max(0, newpm25)));
+    }
+
+    /**
+     * 
+     * @param previous previous value
+     * @param deltaTime time elapsed since last update
+     * @return value after time elapsed. Will be greater or equal than 0
+     */
+    private double updatedValue(final double previous, final Duration deltaTime) {
+        return Math.max(0, random.nextGaussian() * deltaTime.toHours() + previous);
     }
 }

@@ -1,5 +1,7 @@
 package homer.common.bounds;
 
+import java.util.Objects;
+
 /**
  * This class encapsulates the concept of numerical boundaries.
  * 
@@ -17,6 +19,8 @@ public final class Bounds<N extends Number & Comparable<N>> {
      * @param upperBound the upper boundary value.
      */
     public Bounds(final N lowerBound, final N upperBound) {
+        Objects.requireNonNull(lowerBound);
+        Objects.requireNonNull(upperBound);
         if (lowerBound.compareTo(upperBound) > 0) {
             throw new InvertedBoundsException();
         }
