@@ -3,12 +3,17 @@ package homer.model.lights;
 import java.time.Duration;
 import java.util.Objects;
 
+import homer.DeviceInfoImpl;
+import homer.api.DeviceIdImpl;
 import homer.api.DeviceInfo;
 import homer.api.PoweredDevice;
+import homer.api.PoweredDeviceInfo;
+import homer.api.PoweredDeviceInfoImpl;
 import homer.api.ToggleableDevice;
 import homer.common.limit.Limit;
 import homer.core.DiscreteObject;
 import homer.model.outlets.Outlet;
+import homer.model.outlets.OutletFactory;
 
 /**
  * Models lights in the house.
@@ -17,12 +22,9 @@ import homer.model.outlets.Outlet;
  */
 public final class Light implements ToggleableDevice<Boolean>, PoweredDevice, DiscreteObject {
 
-    private final double minConsumption;
-    private final double maxConsumption;
-    private Outlet outlet;
-    private double istantConsumption;
     private final DeviceInfo info;
     private Boolean state;
+    private final PoweredDeviceInfo power;
 
     /**
      * Constructor for class Light.
@@ -33,14 +35,10 @@ public final class Light implements ToggleableDevice<Boolean>, PoweredDevice, Di
      * @param outlet         The {@link homer.model.outlets.Outlet} the
      *                       {@code Light} is plugged to.
      */
-    public Light(final DeviceInfo info, final Boolean state, final double maxConsumption,
-            final Outlet outlet) {
+    public Light(final DeviceInfo info, final Boolean state, PoweredDeviceInfo power) {
         this.info = Objects.requireNonNull(info);
         this.state = Objects.requireNonNull(state);
-        this.outlet = new Outlet(outlet.getInfo(), outlet.getState(), outlet.getMinValue(), outlet.getMaxValue());
-        this.minConsumption = 0.0;
-        this.maxConsumption = Limit.clamp(maxConsumption, outlet.getMinValue(), outlet.getMaxValue());
-        this.istantConsumption = 0.0;
+        this.power = Objects.requireNonNull(power);
     }
 
     /**
@@ -52,14 +50,12 @@ public final class Light implements ToggleableDevice<Boolean>, PoweredDevice, Di
     public Light(final DeviceInfo info, final Boolean state) {
         this.info = Objects.requireNonNull(info);
         this.state = Objects.requireNonNull(state);
-        this.minConsumption = 0.0;
-        this.maxConsumption = 10;   //Watts
-        this.istantConsumption = 0.0;
+        this.power = new PoweredDeviceInfoImpl(this.info.getID(), this.info.getType(), 10,
+                OutletFactory.cOutlet(new DeviceInfoImpl(new DeviceIdImpl(), "COUTLET"), 0));
     }
 
     @Override
     public DeviceInfo getInfo() {
-
         return this.info;
     }
 
@@ -85,41 +81,6 @@ public final class Light implements ToggleableDevice<Boolean>, PoweredDevice, Di
                 Math.max(this.getMaxConsumption() - deltaTime.toSeconds() * intensity, 0.0),
                 this.getMaxConsumption());
         this.setIstantConsumption(powerConsumption);
-    }
-
-    @Override
-    public double getMinConsumption() {
-        return this.minConsumption;
-    }
-
-    @Override
-    public double getMaxConsumption() {
-        return this.maxConsumption;
-    }
-
-    @Override
-    public double getIstantConsumption() {
-        return this.istantConsumption;
-    }
-
-    @Override
-    public void setIstantConsumption(final double istantConsumption) {
-        this.istantConsumption = istantConsumption;
-    }
-
-    @Override
-    public void plug(final Outlet outlet) {
-        this.outlet = new Outlet(outlet.getInfo(), outlet.getState(), outlet.getMinValue(), outlet.getMaxValue());
-    }
-
-    /**
-     * Returns the {@link homer.model.outlets.Outlet} the device is plugged to.
-     * 
-     * @return outlet.
-     */
-    public Outlet getOutlet() {
-        return new Outlet(this.outlet.getInfo(), this.outlet.getState(), this.outlet.getMinValue(),
-                this.outlet.getMaxValue());
     }
 
 }
