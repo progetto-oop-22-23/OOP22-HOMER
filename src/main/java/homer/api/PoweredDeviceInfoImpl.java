@@ -13,7 +13,7 @@ public final class PoweredDeviceInfoImpl extends DeviceInfoImpl implements Power
 
     private final double minConsumption;
     private final double maxConsumption;
-    private final Outlet outlet;
+    private Outlet outlet;
 
     /**
      * Creates a new instance of {@code PoweredDeviceInfoImpl}.
@@ -45,6 +45,11 @@ public final class PoweredDeviceInfoImpl extends DeviceInfoImpl implements Power
     @Override
     public double getMaxConsumption() {
         return this.maxConsumption;
+    }
+
+    @Override
+    public void setOutlet(final Outlet outlet) {
+        this.outlet = new Outlet(outlet);
     }
 
 }
