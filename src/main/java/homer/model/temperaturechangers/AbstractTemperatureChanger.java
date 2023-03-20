@@ -17,7 +17,6 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
  */
 public abstract class AbstractTemperatureChanger implements TemperatureChanger {
 
-    private static final double SCALER = 1 / (1000d * 3600); // used to scale the intensity
     private final double maxIntensity;
     private final double minIntensity;
     private double intensity;
@@ -98,14 +97,6 @@ public abstract class AbstractTemperatureChanger implements TemperatureChanger {
      */
     protected final Environment getEnvironment() {
         return this.environment;
-    }
-
-    /**
-     * 
-     * @return scaler value
-     */
-    protected double getScaler() {
-        return AbstractTemperatureChanger.SCALER;
     }
 
 }

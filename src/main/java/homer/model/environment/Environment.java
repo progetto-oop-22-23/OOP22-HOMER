@@ -1,5 +1,6 @@
 package homer.model.environment;
 
+import homer.model.airquality.AirQualityState;
 import homer.common.temperature.Temperature;
 
 /**
@@ -22,4 +23,13 @@ public interface Environment {
      */
     void setTemperature(Temperature temperature);
 
+    /**
+     * @param airQualityState The new air quality state
+     */
+    void setAirQualityState(AirQualityState airQualityState);
+
+    /**
+     * @return The current air quality state
+     */
+    AirQualityState getAirQualityState();
 }
