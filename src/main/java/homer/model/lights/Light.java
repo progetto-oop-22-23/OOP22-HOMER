@@ -10,7 +10,6 @@ import homer.api.PoweredDevice;
 import homer.api.PoweredDeviceInfo;
 import homer.api.PoweredDeviceInfoImpl;
 import homer.api.ToggleableDevice;
-import homer.common.limit.Limit;
 import homer.core.DiscreteObject;
 import homer.model.outlets.Outlet;
 import homer.model.outlets.OutletFactory;
@@ -32,14 +31,12 @@ public final class Light implements ToggleableDevice<Boolean>, PoweredDevice, Di
      * 
      * @param info           See {@link homer.api.DeviceInfo}.
      * @param state          On/Off.
-     * @param maxConsumption The maximum electrical consumption.
-     * @param outlet         The {@link homer.model.outlets.Outlet} the
-     *                       {@code Light} is plugged to.
+     * @param power          See {@link homer.api.PoweredDeviceInfo}.
      */
-    public Light(final DeviceInfo info, final Boolean state, PoweredDeviceInfo power) {
+    public Light(final DeviceInfo info, final Boolean state, final PoweredDeviceInfo power) {
         this.info = Objects.requireNonNull(info);
         this.state = Objects.requireNonNull(state);
-        this.power = Objects.requireNonNull(power);
+        this.power = new PoweredDeviceInfoImpl(power.getMaxConsumption(), power.getOutlet());
         this.instantConsumption = 0.0;
     }
 
@@ -52,7 +49,7 @@ public final class Light implements ToggleableDevice<Boolean>, PoweredDevice, Di
     public Light(final DeviceInfo info, final Boolean state) {
         this.info = Objects.requireNonNull(info);
         this.state = Objects.requireNonNull(state);
-        this.power = new PoweredDeviceInfoImpl(this.info.getID(), this.info.getType(), 10,
+        this.power = new PoweredDeviceInfoImpl(10,
                 OutletFactory.cOutlet(new DeviceInfoImpl(new DeviceIdImpl(), "COUTLET"), 0));
         this.instantConsumption = 0.0;
     }
@@ -97,15 +94,13 @@ public final class Light implements ToggleableDevice<Boolean>, PoweredDevice, Di
     }
 
     @Override
-    public void plug(Outlet outlet) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'plug'");
+    public void plug(final Outlet outlet) {
+        this.getPowerInfo().setOutlet(outlet);
     }
 
     @Override
     public PoweredDeviceInfo getPowerInfo() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getPowerInfo'");
+        return new PoweredDeviceInfoImpl(this.power.getMaxConsumption(), this.power.getOutlet());
     }
 
 }
