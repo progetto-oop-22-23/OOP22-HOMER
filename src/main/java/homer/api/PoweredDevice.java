@@ -12,20 +12,6 @@ import homer.model.outlets.Outlet;
 public interface PoweredDevice {
 
     /**
-     * Returns the minimum device's consumption.
-     * 
-     * @return minConsumption
-     */
-    double getMinConsumption();
-
-    /**
-     * Returns the maximum device's consumption.
-     * 
-     * @return maxConsumption
-     */
-    double getMaxConsumption();
-
-    /**
      * Returns the instant device's consumption.
      * 
      * @return instantConsumption
