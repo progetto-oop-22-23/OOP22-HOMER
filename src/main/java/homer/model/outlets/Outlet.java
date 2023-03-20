@@ -39,6 +39,18 @@ public class Outlet implements AdjustableDevice<Double> {
     }
 
     /**
+     * Constructor for class Outlet. Instantiates a copy of the passed Outlet.
+     * @param outlet the Outlet to copy.
+     */
+    public Outlet(final Outlet outlet) {
+        Objects.requireNonNull(outlet);
+        this.info = outlet.getInfo();
+        this.state = outlet.getState();
+        this.minValue = outlet.getMinValue();
+        this.maxValue = outlet.getMaxValue();
+    }
+
+    /**
      * 
      * @return The device information: ID, Type.
      */
