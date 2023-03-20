@@ -28,7 +28,15 @@ public interface PoweredDevice {
     /**
      * Plugs the {@code PoweredDevice} in a {@link home.model.outlets.Outlet}.
      * 
-     * @param outlet
+     * @param outlet the outlet where to plug the {@code PoweredDevice}
      */
     void plug(Outlet outlet);
+
+    /**
+     * Returns infos about power consumption and the outlet the device is plugged
+     * into.
+     * 
+     * @return {@link homer.api.PoweredDeviceInfo}.
+     */
+    PoweredDeviceInfo getPowerInfo();
 }
