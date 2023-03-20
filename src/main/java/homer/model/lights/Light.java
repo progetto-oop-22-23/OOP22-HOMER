@@ -78,18 +78,18 @@ public final class Light implements ToggleableDevice<Boolean>, PoweredDevice, Di
     public void updateTick(final Duration deltaTime) {
         final double intensity = this.getState() ? 1.0 : 0.0;
         final double powerConsumption = Math.min(
-                Math.max(this.power.getMaxConsumption() - deltaTime.toSeconds() * intensity, 0.0),
-                this.power.getMaxConsumption());
-        this.setIstantConsumption(powerConsumption);
+                Math.max(this.getPowerInfo().getMaxConsumption() - deltaTime.toSeconds() * intensity, 0.0),
+                this.getPowerInfo().getMaxConsumption());
+        this.setInstantConsumption(powerConsumption);
     }
 
     @Override
-    public double getIstantConsumption() {
+    public double getInstantConsumption() {
         return this.instantConsumption;
     }
 
     @Override
-    public void setIstantConsumption(final double instantConsumption) {
+    public void setInstantConsumption(final double instantConsumption) {
         this.instantConsumption = instantConsumption;
     }
 
