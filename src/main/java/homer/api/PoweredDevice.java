@@ -16,14 +16,14 @@ public interface PoweredDevice {
      * 
      * @return instantConsumption
      */
-    double getIstantConsumption();
+    double getInstantConsumption();
 
     /**
      * Sets the instant device's consumption.
      * 
      * @param instantConsumption The new instantConsumption value.
      */
-    void setIstantConsumption(double instantConsumption);
+    void setInstantConsumption(double instantConsumption);
 
     /**
      * Plugs the {@code PoweredDevice} in a {@link home.model.outlets.Outlet}.
