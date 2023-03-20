@@ -78,9 +78,27 @@ public final class Light implements ToggleableDevice<Boolean>, PoweredDevice, Di
     public void updateTick(final Duration deltaTime) {
         final double intensity = this.getState() ? 1.0 : 0.0;
         final double powerConsumption = Math.min(
-                Math.max(this.getMaxConsumption() - deltaTime.toSeconds() * intensity, 0.0),
-                this.getMaxConsumption());
+                Math.max(this.power.getMaxConsumption() - deltaTime.toSeconds() * intensity, 0.0),
+                this.power.getMaxConsumption());
         this.setIstantConsumption(powerConsumption);
+    }
+
+    @Override
+    public double getIstantConsumption() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'getIstantConsumption'");
+    }
+
+    @Override
+    public void setIstantConsumption(double instantConsumption) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'setIstantConsumption'");
+    }
+
+    @Override
+    public void plug(Outlet outlet) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'plug'");
     }
 
 }
