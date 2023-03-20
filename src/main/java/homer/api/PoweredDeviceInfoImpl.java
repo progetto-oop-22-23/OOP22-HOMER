@@ -29,7 +29,7 @@ public final class PoweredDeviceInfoImpl extends DeviceInfoImpl implements Power
         super(id, type);
         this.outlet = new Outlet(outlet.getInfo(), outlet.getState(), outlet.getMinValue(), outlet.getMaxValue());
         this.minConsumption = 0.0;
-        this.maxConsumption = Limit.limit(maxConsumption, this.outlet.getMinValue(), this.outlet.getMaxValue());
+        this.maxConsumption = Limit.clamp(maxConsumption, this.outlet.getMinValue(), this.outlet.getMaxValue());
     }
 
     @Override
