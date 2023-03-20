@@ -36,5 +36,10 @@ public interface Controller {
      */
     void signalDevice(DeviceView<?> device);
 
+    /**
+     * 
+     * @return all the types of devices that can be connected.
+     */
     Set<String> getConnectableDeviceTypes();
+
 }

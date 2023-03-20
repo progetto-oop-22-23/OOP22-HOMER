@@ -16,7 +16,7 @@ public final class ButtonComponent<T> extends VBox implements StateSelector<T> {
     private Function<T, T> function;
     private T state;
 
-    public ButtonComponent(final Controller controller, final Function<T, T> function) {
+    public ButtonComponent(Controller controller, final Function<T, T> function) {
         this.function = function;
         this.getChildren().add(text);
         this.getChildren().add(button);

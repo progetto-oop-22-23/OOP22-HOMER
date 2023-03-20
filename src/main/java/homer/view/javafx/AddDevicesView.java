@@ -7,15 +7,20 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.layout.VBox;
 
-public class AddDevicesView extends VBox {
+public final class AddDevicesView extends VBox {
     private Controller controller;
     private ChoiceBox<String> choiceBox = new ChoiceBox<>();
-    private Button addDeviceButton = new Button();
+    private Button addDeviceButton = new Button("Add");
 
     public AddDevicesView(final Controller controller) {
         this.getChildren().addAll(choiceBox, addDeviceButton);
-        this.controller = controller;
-        this.controller.getConnectableDeviceTypes().stream().forEach(x -> choiceBox.getItems().add(x));
+        this.update();
         this.addDeviceButton.setOnMouseClicked(e -> controller.connectDevice(choiceBox.getValue()));
     }
+
+    public void update() {
+        this.choiceBox.getItems().clear();;
+        this.controller.getConnectableDeviceTypes().stream().forEach(x -> choiceBox.getItems().add(x));
+    }
+
 }
