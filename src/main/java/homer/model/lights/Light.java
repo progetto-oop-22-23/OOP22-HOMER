@@ -25,6 +25,7 @@ public final class Light implements ToggleableDevice<Boolean>, PoweredDevice, Di
     private final DeviceInfo info;
     private Boolean state;
     private final PoweredDeviceInfo power;
+    private double instantConsumption;
 
     /**
      * Constructor for class Light.
@@ -39,10 +40,11 @@ public final class Light implements ToggleableDevice<Boolean>, PoweredDevice, Di
         this.info = Objects.requireNonNull(info);
         this.state = Objects.requireNonNull(state);
         this.power = Objects.requireNonNull(power);
+        this.instantConsumption = 0.0;
     }
 
     /**
-     * Constructor for class Light. TO BE REMOVED OR MODIFIED.
+     * Constructor for class Light. TO BE MODIFIED.
      * 
      * @param info  See {@link homer.api.DeviceInfo}.
      * @param state On/Off.
@@ -52,6 +54,7 @@ public final class Light implements ToggleableDevice<Boolean>, PoweredDevice, Di
         this.state = Objects.requireNonNull(state);
         this.power = new PoweredDeviceInfoImpl(this.info.getID(), this.info.getType(), 10,
                 OutletFactory.cOutlet(new DeviceInfoImpl(new DeviceIdImpl(), "COUTLET"), 0));
+        this.instantConsumption = 0.0;
     }
 
     @Override
@@ -85,20 +88,24 @@ public final class Light implements ToggleableDevice<Boolean>, PoweredDevice, Di
 
     @Override
     public double getIstantConsumption() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getIstantConsumption'");
+        return this.instantConsumption;
     }
 
     @Override
-    public void setIstantConsumption(double instantConsumption) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'setIstantConsumption'");
+    public void setIstantConsumption(final double instantConsumption) {
+        this.instantConsumption = instantConsumption;
     }
 
     @Override
     public void plug(Outlet outlet) {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'plug'");
+    }
+
+    @Override
+    public PoweredDeviceInfo getPowerInfo() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'getPowerInfo'");
     }
 
 }
