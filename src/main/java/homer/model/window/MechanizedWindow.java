@@ -6,6 +6,7 @@ import java.util.Objects;
 import homer.DeviceInfoImpl;
 import homer.api.DeviceIdImpl;
 import homer.api.DeviceInfo;
+import homer.common.bounds.Bounds;
 import homer.model.actuator.Actuator;
 import homer.model.actuator.SimpleActuator;
 
@@ -18,8 +19,7 @@ public final class MechanizedWindow implements Window {
      */
     public static final String DEVICE_TYPE = "MechanizedWindow";
     private final DeviceInfo info = new DeviceInfoImpl(new DeviceIdImpl(), DEVICE_TYPE);
-    private final int minActuatorState;
-    private final int maxActuatorState;
+    private final Bounds<Integer> actuatorBounds;
     private final Actuator actuator;
 
     /**
@@ -27,18 +27,14 @@ public final class MechanizedWindow implements Window {
      * {@link SimpleActuator} with positions varying between {@code minValue} and
      * {@code maxValue}.
      * 
-     * @param minValue The minimum position of the window's actuator.
-     * @param maxValue The maximum position of the window's actuator.
+     * @param actuatorBounds The minimum and maximum position of the window's
+     *                       actuator.
      * @throws IllegalArgumentException if {@code minValue} is greater than
      *                                  {@code maxValue}
      */
-    public MechanizedWindow(final int minValue, final int maxValue) {
-        if (minValue > maxValue) {
-            throw new IllegalArgumentException("minValue and maxValue order is incorrect");
-        }
-        this.minActuatorState = minValue;
-        this.maxActuatorState = maxValue;
-        this.actuator = new SimpleActuator(minValue, maxValue);
+    public MechanizedWindow(final Bounds<Integer> actuatorBounds) {
+        this.actuatorBounds = Objects.requireNonNull(actuatorBounds);
+        this.actuator = new SimpleActuator(actuatorBounds);
     }
 
     @Override
@@ -53,12 +49,12 @@ public final class MechanizedWindow implements Window {
 
     @Override
     public Integer getMinValue() {
-        return this.minActuatorState;
+        return this.actuatorBounds.getLowerBound();
     }
 
     @Override
     public Integer getMaxValue() {
-        return this.maxActuatorState;
+        return this.actuatorBounds.getUpperBound();
     }
 
     @Override

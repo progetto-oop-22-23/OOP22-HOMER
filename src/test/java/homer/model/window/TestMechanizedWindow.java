@@ -10,6 +10,8 @@ import java.time.Duration;
 import org.junit.jupiter.api.Test;
 
 import homer.api.DeviceInfo;
+import homer.common.bounds.Bounds;
+import homer.common.bounds.InvertedBoundsException;
 
 // CHECKSTYLE: MagicNumber OFF
 // Rule disabled in test suite.
@@ -18,7 +20,8 @@ final class TestMechanizedWindow {
 
     private static final int MIN_VALUE = -50;
     private static final int MAX_VALUE = 100;
-    private final MechanizedWindow window = new MechanizedWindow(MIN_VALUE, MAX_VALUE);
+    private static final Bounds<Integer> BOUNDS = new Bounds<>(MIN_VALUE, MAX_VALUE);
+    private final MechanizedWindow window = new MechanizedWindow(BOUNDS);
 
     @Test
     void testGetInfo() {
@@ -69,7 +72,8 @@ final class TestMechanizedWindow {
     @Test
     void testMinMax() {
         assertTrue(window.getMinValue() <= window.getMaxValue());
-        assertThrowsExactly(IllegalArgumentException.class, () -> new MechanizedWindow(MAX_VALUE, MIN_VALUE));
+        assertThrowsExactly(InvertedBoundsException.class,
+                () -> new MechanizedWindow(new Bounds<>(MAX_VALUE, MIN_VALUE)));
     }
 
     private void checkSetValue(final int newValue) {
