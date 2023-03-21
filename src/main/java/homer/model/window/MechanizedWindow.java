@@ -24,13 +24,10 @@ public final class MechanizedWindow implements Window {
 
     /**
      * Creates a {@link MechanizedWindow} whose position is controlled by a
-     * {@link SimpleActuator} with positions varying between {@code minValue} and
-     * {@code maxValue}.
+     * {@link SimpleActuator} with positions varying between {@code actuatorBounds}.
      * 
      * @param actuatorBounds The minimum and maximum position of the window's
      *                       actuator.
-     * @throws IllegalArgumentException if {@code minValue} is greater than
-     *                                  {@code maxValue}
      */
     public MechanizedWindow(final Bounds<Integer> actuatorBounds) {
         this.actuatorBounds = Objects.requireNonNull(actuatorBounds);
