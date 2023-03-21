@@ -7,11 +7,13 @@ import java.time.Duration;
 
 import org.junit.jupiter.api.Test;
 
+import homer.common.bounds.Bounds;
+
 final class TestSimpleActuator {
 
     private static final int MIN_POSITION = 0;
     private static final int MAX_POSITION = 100;
-    private final Actuator actuator = new SimpleActuator(MIN_POSITION, MAX_POSITION);
+    private final Actuator actuator = new SimpleActuator(new Bounds<>(MIN_POSITION, MAX_POSITION));
 
     @Test
     void testGetPosition() {

@@ -2,6 +2,7 @@ package homer.model.actuator;
 
 import java.time.Duration;
 
+import homer.common.bounds.Bounds;
 import homer.common.limit.Limit;
 
 /**
@@ -17,11 +18,10 @@ public final class SimpleActuator extends AbstractActuator {
      * Creates a new {@link SimpleActuator} with the current position set to the
      * minimum position.
      * 
-     * @param minPosition The minimum position of the actuator.
-     * @param maxPosition The maximum position of the actuator.
+     * @param positionBounds The minimum and maximum positions of the actuator.
      */
-    public SimpleActuator(final int minPosition, final int maxPosition) {
-        super(minPosition, maxPosition);
+    public SimpleActuator(final Bounds<Integer> positionBounds) {
+        super(positionBounds);
         this.currentPosition = getMinPosition();
     }
 
@@ -37,7 +37,7 @@ public final class SimpleActuator extends AbstractActuator {
 
     @Override
     public void updateTick(final Duration deltaTime) {
-        this.currentPosition = Limit.limit(this.commandedPosition, getMinPosition(), getMaxPosition());
+        this.currentPosition = Limit.clamp(this.commandedPosition, getMinPosition(), getMaxPosition());
     }
 
 }

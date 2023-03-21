@@ -1,5 +1,9 @@
 package homer.model.actuator;
 
+import java.util.Objects;
+
+import homer.common.bounds.Bounds;
+
 /**
  * This class provides a template implementation for an {@link Actuator},
  * modelling the minimum and maximum positions of the actuator, and exposing
@@ -7,18 +11,15 @@ package homer.model.actuator;
  */
 public abstract class AbstractActuator implements Actuator {
 
-    private final int minPosition;
-    private final int maxPosition;
+    private final Bounds<Integer> positionBounds;
 
     /**
      * Constructor for {@link AbstractActuator}.
      * 
-     * @param minPosition The minimum position of the actuator.
-     * @param maxPosition The maximum position of the actuator.
+     * @param positionBounds The minimum and maximum positions of the actuator.
      */
-    protected AbstractActuator(final int minPosition, final int maxPosition) {
-        this.minPosition = minPosition;
-        this.maxPosition = maxPosition;
+    protected AbstractActuator(final Bounds<Integer> positionBounds) {
+        this.positionBounds = Objects.requireNonNull(positionBounds);
     }
 
     /**
@@ -27,7 +28,7 @@ public abstract class AbstractActuator implements Actuator {
      * @return The minimum position of the actuator.
      */
     protected final int getMinPosition() {
-        return this.minPosition;
+        return this.positionBounds.getLowerBound();
     }
 
     /**
@@ -36,7 +37,7 @@ public abstract class AbstractActuator implements Actuator {
      * @return The maximum position of the actuator.
      */
     protected final int getMaxPosition() {
-        return this.maxPosition;
+        return this.positionBounds.getUpperBound();
     }
 
 }
