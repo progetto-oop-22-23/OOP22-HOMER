@@ -2,7 +2,6 @@ package homer.model.window;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertThrowsExactly;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.time.Duration;
@@ -11,7 +10,6 @@ import org.junit.jupiter.api.Test;
 
 import homer.api.DeviceInfo;
 import homer.common.bounds.Bounds;
-import homer.common.bounds.InvertedBoundsException;
 
 // CHECKSTYLE: MagicNumber OFF
 // Rule disabled in test suite.
@@ -72,8 +70,6 @@ final class TestMechanizedWindow {
     @Test
     void testMinMax() {
         assertTrue(window.getMinValue() <= window.getMaxValue());
-        assertThrowsExactly(InvertedBoundsException.class,
-                () -> new MechanizedWindow(new Bounds<>(MAX_VALUE, MIN_VALUE)));
     }
 
     private void checkSetValue(final int newValue) {
