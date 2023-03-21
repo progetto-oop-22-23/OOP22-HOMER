@@ -15,6 +15,7 @@ import homer.controller.command.Command;
 import homer.controller.command.ConnectDevice;
 import homer.controller.command.DisconnectAllDevices;
 import homer.controller.command.DisconnectDevice;
+import homer.controller.command.UpdateDeviceState;
 import homer.model.lights.Light;
 import homer.model.outlets.OutletFactory;
 
@@ -51,14 +52,21 @@ public final class ControllerImpl implements Controller {
     private void execute(final Command command) {
         if (command instanceof ConnectDevice) {
             final ConnectDevice connect = (ConnectDevice) command;
-            final String deviceType = (String) connect.getNewState().get();
+            final String deviceType = connect.deviceType();
             final DeviceId deviceId = new DeviceIdImpl();
             devices.put(deviceId, OutletFactory.cOutlet(new DeviceInfoImpl(deviceId, deviceType), 0));
         } else if (command instanceof DisconnectDevice) {
             final DisconnectDevice remove = (DisconnectDevice) command;
-            devices.remove((DeviceId) remove.getNewState().get());
+            devices.remove(remove.deviceId());
         } else if (command instanceof DisconnectAllDevices) {
             devices.clear();
+        } else if (command instanceof UpdateDeviceState) {
+            final UpdateDeviceState updatestate = (UpdateDeviceState) command;
+            final Device<?> targetDevice = devices.get(updatestate.deviceId());
+            Object oldState = targetDevice.getState();
+            // TODO cast and set state accordingly
+        } else {
+            throw new IllegalArgumentException();
         }
     }
 
