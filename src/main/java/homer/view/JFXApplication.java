@@ -2,7 +2,6 @@ package homer.view;
 
 import java.util.Set;
 
-import homer.api.Controller;
 import homer.api.DeviceId;
 import homer.api.DeviceView;
 import homer.view.javafx.AddDevicesView;

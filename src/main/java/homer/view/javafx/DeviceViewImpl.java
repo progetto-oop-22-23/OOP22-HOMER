@@ -1,6 +1,6 @@
 package homer.view.javafx;
 
-import homer.api.Controller;
+import homer.controller.Controller;
 import homer.view.StateSelector;
 import javafx.scene.Node;
 import javafx.scene.layout.Border;

@@ -1,7 +1,9 @@
 package homer.view.javafx;
 
-import homer.api.Controller;
+import homer.api.DeviceIdImpl;
 import homer.api.DeviceInfo;
+import homer.controller.Controller;
+import homer.controller.command.DisconnectDevice;
 import javafx.scene.control.Button;
 
 public final class DisconnectDeviceButton extends Button {
@@ -12,6 +14,6 @@ public final class DisconnectDeviceButton extends Button {
         this.setText("Remove Device");
         this.info = info;
         this.controller = controller;
-        this.setOnMouseClicked(e -> controller.disconnectDevice(info.getID()));
+        this.setOnMouseClicked(e -> controller.receiveCommand(new DisconnectDevice(new DeviceIdImpl()))); // TODO FIX
     }
 }

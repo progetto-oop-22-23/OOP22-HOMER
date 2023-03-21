@@ -2,7 +2,7 @@ package homer.view.javafx;
 
 import java.util.function.Function;
 
-import homer.api.Controller;
+import homer.controller.Controller;
 import homer.view.StateSelector;
 import javafx.scene.control.Button;
 import javafx.scene.layout.VBox;
@@ -16,7 +16,7 @@ public final class ButtonComponent<T> extends VBox implements StateSelector<T> {
     private Function<T, T> function;
     private T state;
 
-    public ButtonComponent(Controller controller, final Function<T, T> function) {
+    public ButtonComponent(final Controller controller, final Function<T, T> function) {
         this.function = function;
         this.getChildren().add(text);
         this.getChildren().add(button);

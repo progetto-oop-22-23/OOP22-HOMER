@@ -1,11 +1,11 @@
 package homer.view.javafx;
 
-import java.util.List;
-
-import homer.api.Controller;
+import homer.controller.Controller;
+import homer.controller.command.ConnectDevice;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.layout.VBox;
+
 
 public final class AddDevicesView extends VBox {
     private Controller controller;
@@ -15,7 +15,9 @@ public final class AddDevicesView extends VBox {
     public AddDevicesView(final Controller controller) {
         this.getChildren().addAll(choiceBox, addDeviceButton);
         this.update();
-        this.addDeviceButton.setOnMouseClicked(e -> controller.connectDevice(choiceBox.getValue()));
+        this.addDeviceButton.setOnMouseClicked(e -> 
+            controller.receiveCommand(new ConnectDevice(choiceBox.getValue()))
+        );
     }
 
     public void update() {
