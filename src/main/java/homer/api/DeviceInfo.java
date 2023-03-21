@@ -1,5 +1,7 @@
 package homer.api;
 
+import homer.controller.Controller;
+
 /**
  * Interface for the {@link Device} technical information reported to the
  * {@link Controller}.

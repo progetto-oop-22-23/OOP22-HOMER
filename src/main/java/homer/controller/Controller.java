@@ -1,6 +1,9 @@
-package homer.api;
+package homer.controller;
 
 import java.util.Set;
+
+import homer.api.DeviceId;
+import homer.api.DeviceView;
 
 /**
  * This interface models a domotic controller.
@@ -8,11 +11,11 @@ import java.util.Set;
 public interface Controller {
 
     /**
-     * Connects a new device to the controller.
+     * Creates and Connects a new device to the controller.
      * 
-     * @param device The device to connect.
+     * 
      */
-    void connectDevice(Device<?> device);
+    void connectDevice(String deviceType);
 
     /**
      * Disconnects the device from the controller.
