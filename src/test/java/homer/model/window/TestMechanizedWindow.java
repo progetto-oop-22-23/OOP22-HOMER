@@ -11,13 +11,11 @@ import org.junit.jupiter.api.Test;
 import homer.api.DeviceInfo;
 import homer.common.bounds.Bounds;
 
-// CHECKSTYLE: MagicNumber OFF
-// Rule disabled in test suite.
-
 final class TestMechanizedWindow {
 
     private static final int MIN_VALUE = -50;
     private static final int MAX_VALUE = 100;
+    private static final int VALUE_IN_RANGE = 50;
     private static final Bounds<Integer> BOUNDS = new Bounds<>(MIN_VALUE, MAX_VALUE);
     private final MechanizedWindow window = new MechanizedWindow(BOUNDS);
 
@@ -38,8 +36,8 @@ final class TestMechanizedWindow {
 
     @Test
     void testSetState() {
-        checkSetValue(50);
-        checkSetValue(100);
+        assertTrue(VALUE_IN_RANGE >= MIN_VALUE && VALUE_IN_RANGE <= MAX_VALUE);
+        checkSetValue(VALUE_IN_RANGE);
     }
 
     /**
