@@ -24,7 +24,7 @@ public final class PoweredDeviceInfoImpl implements PoweredDeviceInfo {
     public PoweredDeviceInfoImpl(final double maxConsumption, final Outlet outlet) {
         this.outlet = new Outlet(outlet);
         this.minConsumption = 0.0;
-        this.maxConsumption = Limit.clamp(maxConsumption, this.getOutlet().getMinValue(), this.getOutlet().getMaxValue());
+        this.maxConsumption = Limit.clamp(maxConsumption, outlet.getMinValue()*1000, outlet.getMaxValue()*1000);
     }
 
     @Override
