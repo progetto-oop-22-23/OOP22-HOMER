@@ -16,7 +16,6 @@ import homer.controller.command.ConnectDevice;
 import homer.controller.command.DisconnectAllDevices;
 import homer.controller.command.DisconnectDevice;
 import homer.controller.command.UpdateDeviceState;
-import homer.model.lights.Light;
 import homer.model.outlets.OutletFactory;
 
 /**
@@ -26,17 +25,6 @@ public final class ControllerImpl implements Controller {
 
     private final Map<DeviceId, Device<?>> devices = new LinkedHashMap<>();
     private final List<Command> commands = new LinkedList<>();
-
-    @Override
-    public void connectDevice(final String deviceType) {
-        final DeviceId device = new DeviceIdImpl();
-        devices.put(device, new Light(new DeviceInfoImpl(device, deviceType), true));
-    }
-
-    @Override
-    public void disconnectDevice(final DeviceId deviceId) {
-        devices.remove(deviceId);
-    }
 
     @Override
     public Set<DeviceView<?>> getDevices() {
