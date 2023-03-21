@@ -4,6 +4,7 @@ import java.util.Set;
 
 import homer.api.DeviceId;
 import homer.api.DeviceView;
+import homer.controller.command.Command;
 
 /**
  * This interface models a domotic controller.
@@ -12,7 +13,7 @@ public interface Controller {
 
     /**
      * Creates and Connects a new device to the controller.
-     * 
+     * @param deviceType
      * 
      */
     void connectDevice(String deviceType);
@@ -33,10 +34,10 @@ public interface Controller {
     Set<DeviceView<?>> getDevices();
 
     /**
-     * Command an update to the given device.
+     * Register the user sending the {@link Command} command.
      * 
-     * @param device The device to command.
+     * @param command
      */
-    void signalDevice(DeviceView<?> device);
+    void receiveCommand(Command command);
 
 }
