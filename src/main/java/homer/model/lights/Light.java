@@ -29,9 +29,9 @@ public final class Light implements ToggleableDevice<Boolean>, PoweredDevice, Di
     /**
      * Constructor for class Light.
      * 
-     * @param info           See {@link homer.api.DeviceInfo}.
-     * @param state          On/Off.
-     * @param power          See {@link homer.api.PoweredDeviceInfo}.
+     * @param info  See {@link homer.api.DeviceInfo}.
+     * @param state On/Off.
+     * @param power See {@link homer.api.PoweredDeviceInfo}.
      */
     public Light(final DeviceInfo info, final Boolean state, final PoweredDeviceInfo power) {
         this.info = Objects.requireNonNull(info);
@@ -76,11 +76,7 @@ public final class Light implements ToggleableDevice<Boolean>, PoweredDevice, Di
 
     @Override
     public void updateTick(final Duration deltaTime) {
-        final double intensity = this.getState() ? 1.0 : 0.0;
-        final double powerConsumption = Math.min(
-                Math.max(this.getPowerInfo().getMaxConsumption() + deltaTime.toHours() * intensity, 0.0),
-                this.getPowerInfo().getMaxConsumption());       //Watt-hours
-        this.setInstantConsumption(powerConsumption);
+
     }
 
     @Override
