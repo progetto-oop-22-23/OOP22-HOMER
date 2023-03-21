@@ -9,7 +9,7 @@ import homer.api.DeviceType;
  */
 public final class DeviceInfoImpl implements DeviceInfo {
     private final DeviceId id;
-    private DeviceType type;
+    private final DeviceType type;
 
     /**
      * @param id considered final.
