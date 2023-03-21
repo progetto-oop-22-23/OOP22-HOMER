@@ -13,6 +13,7 @@ import homer.api.AdjustableDevice;
 import homer.api.Device;
 import homer.api.DeviceId;
 import homer.api.DeviceIdImpl;
+import homer.api.DeviceType;
 import homer.api.DeviceView;
 import homer.api.ToggleableDevice;
 import homer.controller.command.Command;
@@ -49,7 +50,7 @@ public final class ControllerImpl implements Controller {
     private void execute(final Command command) {
         if (command instanceof ConnectDevice) { // TODO still not finished
             final ConnectDevice connect = (ConnectDevice) command;
-            final String deviceType = connect.deviceType();
+            final DeviceType deviceType = connect.deviceType();
             final DeviceId deviceId = new DeviceIdImpl();
             devices.put(deviceId, OutletFactory.cOutlet(new DeviceInfoImpl(deviceId, deviceType), 0));
         } else if (command instanceof DisconnectDevice) {

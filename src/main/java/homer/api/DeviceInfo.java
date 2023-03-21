@@ -16,6 +16,6 @@ public interface DeviceInfo {
      * 
      * @return The type of the device eg. Light, Door, Lock.
      */
-    String getType();
+    DeviceType getType();
 
 }

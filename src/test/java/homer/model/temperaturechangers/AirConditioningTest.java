@@ -9,6 +9,7 @@ import org.junit.jupiter.api.Test;
 import homer.DeviceInfoImpl;
 import homer.api.DeviceIdImpl;
 import homer.api.DeviceInfo;
+import homer.api.DeviceType;
 import homer.common.temperature.Temperature;
 import homer.common.temperature.TemperatureFactory;
 import homer.model.airquality.AirQualityState;
@@ -18,7 +19,7 @@ import homer.model.environment.HomeEnvironment;
 
 class AirConditioningTest {
     private static final double DELTA = 0.001f;
-    private static final DeviceInfo INFO = new DeviceInfoImpl(new DeviceIdImpl(), "AIRCONDITIONING");
+    private static final DeviceInfo INFO = new DeviceInfoImpl(new DeviceIdImpl(), DeviceType.AIR_CONDITIONING);
     private static final AirQualityState AIR_QUALITY_STATE = AirQualityStateFactory.normalAirQuality();
 
     @Test 

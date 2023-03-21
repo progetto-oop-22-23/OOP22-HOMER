@@ -10,6 +10,7 @@ import org.junit.jupiter.api.Test;
 import homer.DeviceInfoImpl;
 import homer.api.DeviceIdImpl;
 import homer.api.DeviceInfo;
+import homer.api.DeviceType;
 import homer.common.temperature.Temperature;
 import homer.common.temperature.TemperatureFactory;
 import homer.model.airquality.AirQualityState;
@@ -19,7 +20,7 @@ import homer.model.environment.HomeEnvironment;
 
 @SuppressWarnings("PMD")
 class HeatingTest {
-    private static final DeviceInfo INFO = new DeviceInfoImpl(new DeviceIdImpl(), "HEATING");
+    private static final DeviceInfo INFO = new DeviceInfoImpl(new DeviceIdImpl(), DeviceType.HEATING);
     private Temperature temperature = TemperatureFactory.fromCelsius(0);
     private Temperature highTemperature = TemperatureFactory.fromCelsius(100);
     private Environment environment; 

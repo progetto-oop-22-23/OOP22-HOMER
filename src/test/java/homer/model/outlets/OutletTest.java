@@ -9,6 +9,8 @@ import java.util.Optional;
 
 import homer.DeviceInfoImpl;
 import homer.api.DeviceIdImpl;
+import homer.api.DeviceType;
+
 import homer.model.lights.Light;
 
 final class OutletTest {
@@ -22,8 +24,8 @@ final class OutletTest {
         final double negativeCoutletStateUnderMin = -2.5;
         final double negativeLoutletStateUnderMin = -4.0;
 
-        final Outlet cOutlet = OutletFactory.cOutlet(new DeviceInfoImpl(new DeviceIdImpl(), "COUTLET"), 0);
-        final Outlet lOutlet = OutletFactory.lOutlet(new DeviceInfoImpl(new DeviceIdImpl(), "LOUTLET"), 0);
+        final Outlet cOutlet = OutletFactory.cOutlet(new DeviceInfoImpl(new DeviceIdImpl(), DeviceType.COUTLET), 0);
+        final Outlet lOutlet = OutletFactory.lOutlet(new DeviceInfoImpl(new DeviceIdImpl(), DeviceType.LOUTLET), 0);
         cOutlet.setState(expectedCoutletState);
         assertEquals(expectedCoutletState, cOutlet.getState());
         lOutlet.setState(expectedLoutletState);
@@ -56,8 +58,8 @@ final class OutletTest {
 
     @Test
     void testPlug() {
-        final Light light = new Light(new DeviceInfoImpl(new DeviceIdImpl(), "LIGHT"), false);
-        final Outlet cOutlet = OutletFactory.cOutlet(new DeviceInfoImpl(new DeviceIdImpl(), "COUTLET"), 0);
+        final Light light = new Light(new DeviceInfoImpl(new DeviceIdImpl(), DeviceType.LIGHT), false);
+        final Outlet cOutlet = OutletFactory.cOutlet(new DeviceInfoImpl(new DeviceIdImpl(), DeviceType.LOUTLET), 0);
         cOutlet.plug(light);
         assertEquals(light, cOutlet.getDevice().get());
         assertEquals(light.getInfo(), cOutlet.getDevice().get().getInfo());
@@ -67,8 +69,8 @@ final class OutletTest {
 
     @Test
     void testUnplug() {
-        final Light light = new Light(new DeviceInfoImpl(new DeviceIdImpl(), "LIGHT"), false);
-        final Outlet cOutlet = OutletFactory.cOutlet(new DeviceInfoImpl(new DeviceIdImpl(), "COUTLET"), 0);
+        final Light light = new Light(new DeviceInfoImpl(new DeviceIdImpl(), DeviceType.LIGHT), false);
+        final Outlet cOutlet = OutletFactory.cOutlet(new DeviceInfoImpl(new DeviceIdImpl(), DeviceType.COUTLET), 0);
         cOutlet.plug(light);
         assertEquals(light, cOutlet.getDevice().get());
         cOutlet.unplug();

@@ -6,12 +6,13 @@ import org.junit.jupiter.api.Test;
 
 import homer.DeviceInfoImpl;
 import homer.api.DeviceIdImpl;
+import homer.api.DeviceType;
 
 /**
  * Tests Light functionalities.
  */
 final class LightTest {
-    private final Light light = new Light(new DeviceInfoImpl(new DeviceIdImpl(), "LIGHT"), false);
+    private final Light light = new Light(new DeviceInfoImpl(new DeviceIdImpl(), DeviceType.LIGHT), false);
 
     @Test
 
