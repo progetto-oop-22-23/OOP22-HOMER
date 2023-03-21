@@ -39,6 +39,18 @@ public class Outlet implements AdjustableDevice<Double> {
     }
 
     /**
+     * Constructor for class Outlet. Instantiates a copy of the passed Outlet.
+     * @param outlet the Outlet to copy.
+     */
+    public Outlet(final Outlet outlet) {
+        Objects.requireNonNull(outlet);
+        this.info = outlet.getInfo();
+        this.state = outlet.getState();
+        this.minValue = outlet.getMinValue();
+        this.maxValue = outlet.getMaxValue();
+    }
+
+    /**
      * 
      * @return The device information: ID, Type.
      */
@@ -81,7 +93,7 @@ public class Outlet implements AdjustableDevice<Double> {
      */
     @Override
     public void setState(final Double state) {
-        if (state < this.maxValue || state < 0.0) {
+        if (state >= this.minValue && state < this.maxValue) {
             this.state = state;
         } else {
             throw new IllegalArgumentException("Value must be positive and < " + this.maxValue);
