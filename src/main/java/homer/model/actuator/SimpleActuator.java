@@ -37,7 +37,7 @@ public final class SimpleActuator extends AbstractActuator {
 
     @Override
     public void updateTick(final Duration deltaTime) {
-        this.currentPosition = Limit.limit(this.commandedPosition, getMinPosition(), getMaxPosition());
+        this.currentPosition = Limit.clamp(this.commandedPosition, getMinPosition(), getMaxPosition());
     }
 
 }
