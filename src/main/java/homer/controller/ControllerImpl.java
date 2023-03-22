@@ -79,4 +79,9 @@ public final class ControllerImpl implements Controller {
         }
     }
 
+    @Override
+    public Set<String> getConnectableDeviceTypes() {
+        return Set.of("COUTLET", "LOUTLET");
+    }
+
 }

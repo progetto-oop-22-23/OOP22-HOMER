@@ -25,4 +25,10 @@ public interface Controller {
      */
     void receiveCommand(Command command);
 
+    /**
+     * 
+     * @return The types of connectable devices
+     */
+    Set<String> getConnectableDeviceTypes();
+
 }
