@@ -1,5 +1,6 @@
 package homer.model.outlets;
 
+import java.time.Duration;
 import java.util.Objects;
 import java.util.Optional;
 
@@ -7,6 +8,8 @@ import homer.api.AdjustableDevice;
 import homer.api.Device;
 import homer.api.DeviceInfo;
 import homer.api.PoweredDevice;
+import homer.common.limit.Limit;
+import homer.core.DiscreteObject;
 
 /**
  * Models electrical outlets of the house.
@@ -15,13 +18,13 @@ import homer.api.PoweredDevice;
  * @author Alessandro Monticelli
  */
 
-public class Outlet implements AdjustableDevice<Double> {
+public class Outlet implements AdjustableDevice<Double>, DiscreteObject {
 
     private final DeviceInfo info;
     private double state;
     private final double minValue;
     private final double maxValue;
-    private Optional<PoweredDevice> device = Optional.empty();
+    private Optional<Device<?>> device = Optional.empty();
 
     /**
      * Constructor for class Outlet.
@@ -90,23 +93,27 @@ public class Outlet implements AdjustableDevice<Double> {
 
     /**
      * Sets the istant power absorption.
-     * If a {@link homer.api.PoweredDevice} is plugged, get its instant consumption.
-     * Otherwise set it to "state".
-     * WILL BE PROBABLY SPLIT IN 2 METHODS.
+     * 
+     * If a parameter is passed, set {@code this.state}
+     * to {@code state}.
+     * Otherwise, if a {@link homer.api.PoweredDevice} is plugged
+     * set {@code this.state} to {@code PoweredDevice.getInstantConsumption()}.
+     * If no parameter is passed, and no {@link homer.api.PoweredDevice} is plugged,
+     * then throw an {@code IllegalStateException}.
      *
      * @param state The new value of {@code state}.
      */
     @Override
     public void setState(final Double state) {
-        this.state = this.getDevice()
-                .map(device -> device.getInstantConsumption())
-                .orElseGet(() -> {
-                    if (state >= this.getMinValue() && state < this.getMaxValue()) {
-                        return state;
-                    } else {
-                        throw new IllegalArgumentException("Value must be positive and < " + this.getMaxValue());
-                    }
-                });
+        if (state != null) {
+            this.state = Limit.clamp(state, this.getMinValue(), this.getMaxValue());
+        } else {
+            this.getDevice().ifPresentOrElse(
+                    device -> this.state = ((PoweredDevice) device).getInstantConsumption(),
+                    () -> {
+                        throw new IllegalStateException("Cannot set state without a device or a value");
+                    });
+        }
     }
 
     /**
@@ -114,7 +121,7 @@ public class Outlet implements AdjustableDevice<Double> {
      * 
      * @param device The {@link homer.api.Device} to plug.
      */
-    public void plug(final PoweredDevice device) {
+    public void plug(final Device<?> device) {
         this.unplug();
         this.device = Optional.ofNullable(device);
     }
@@ -132,7 +139,14 @@ public class Outlet implements AdjustableDevice<Double> {
      * @return The plugged device.
      * 
      */
-    public Optional<PoweredDevice> getDevice() {
+    public Optional<Device<?>> getDevice() {
         return this.device;
+    }
+
+    @Override
+    public final void updateTick(final Duration deltaTime) {
+        final double oldConsumption = this.getState();
+        final double newConsumption = oldConsumption * deltaTime.toHours(); // Wh
+        this.setState(newConsumption);
     }
 }
