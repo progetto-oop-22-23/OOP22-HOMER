@@ -13,6 +13,7 @@ public final class AddDevicesView extends VBox {
     private Button addDeviceButton = new Button("Add");
 
     public AddDevicesView(final Controller controller) {
+        this.controller = controller;
         this.getChildren().addAll(choiceBox, addDeviceButton);
         this.update();
         this.addDeviceButton.setOnMouseClicked(e -> 
@@ -21,7 +22,7 @@ public final class AddDevicesView extends VBox {
     }
 
     public void update() {
-        this.choiceBox.getItems().clear();;
+        this.choiceBox.getItems().clear();
         this.controller.getConnectableDeviceTypes().stream().forEach(x -> choiceBox.getItems().add(x));
     }
 

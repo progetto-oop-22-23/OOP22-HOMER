@@ -8,12 +8,22 @@ import javafx.scene.control.Slider;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 
-public class SliderComponent extends VBox implements StateSelector<Double> {
+/**
+ * Basic slider that displays its value.
+ */
+public final class SliderComponent extends VBox implements StateSelector<Double> {
 
     private Slider slider; 
     private Text text = new Text();
     private Text value = new Text();
 
+    /**
+     * 
+     * @param controller
+     * @param max
+     * @param min
+     * @param value
+     */
     public SliderComponent(final Controller controller, final double max, final double min, final double value) {
         this.slider = new Slider(min, max, value);
         this.getChildren().add(text);
