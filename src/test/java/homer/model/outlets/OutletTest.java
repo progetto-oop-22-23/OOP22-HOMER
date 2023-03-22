@@ -6,9 +6,6 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.Test;
 import java.time.Duration;
 import java.util.Optional;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
 import homer.DeviceInfoImpl;
 import homer.api.DeviceIdImpl;
 import homer.api.PoweredDeviceInfoImpl;
