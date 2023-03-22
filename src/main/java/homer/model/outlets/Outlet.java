@@ -6,6 +6,7 @@ import java.util.Optional;
 import homer.api.AdjustableDevice;
 import homer.api.Device;
 import homer.api.DeviceInfo;
+import homer.api.PoweredDevice;
 
 /**
  * Models electrical outlets of the house.
@@ -20,7 +21,7 @@ public class Outlet implements AdjustableDevice<Double> {
     private double state;
     private final double minValue;
     private final double maxValue;
-    private Optional<Device<?>> device = Optional.empty();
+    private Optional<PoweredDevice> device = Optional.empty();
 
     /**
      * Constructor for class Outlet.
@@ -40,6 +41,7 @@ public class Outlet implements AdjustableDevice<Double> {
 
     /**
      * Constructor for class Outlet. Instantiates a copy of the passed Outlet.
+     * 
      * @param outlet the Outlet to copy.
      */
     public Outlet(final Outlet outlet) {
@@ -88,16 +90,23 @@ public class Outlet implements AdjustableDevice<Double> {
 
     /**
      * Sets the istant power absorption.
+     * If a {@link homer.api.PoweredDevice} is plugged, get its instant consumption.
+     * Otherwise set it to "state".
+     * WILL BE PROBABLY SPLIT IN 2 METHODS.
      *
      * @param state The new value of {@code state}.
      */
     @Override
     public void setState(final Double state) {
-        if (state >= this.minValue && state < this.maxValue) {
-            this.state = state;
-        } else {
-            throw new IllegalArgumentException("Value must be positive and < " + this.maxValue);
-        }
+        this.state = this.getDevice()
+                .map(device -> device.getInstantConsumption())
+                .orElseGet(() -> {
+                    if (state >= this.getMinValue() && state < this.getMaxValue()) {
+                        return state;
+                    } else {
+                        throw new IllegalArgumentException("Value must be positive and < " + this.getMaxValue());
+                    }
+                });
     }
 
     /**
@@ -105,7 +114,7 @@ public class Outlet implements AdjustableDevice<Double> {
      * 
      * @param device The {@link homer.api.Device} to plug.
      */
-    public void plug(final Device<?> device) {
+    public void plug(final PoweredDevice device) {
         this.unplug();
         this.device = Optional.ofNullable(device);
     }
@@ -123,7 +132,7 @@ public class Outlet implements AdjustableDevice<Double> {
      * @return The plugged device.
      * 
      */
-    public Optional<Device<?>> getDevice() {
+    public Optional<PoweredDevice> getDevice() {
         return this.device;
     }
 }
