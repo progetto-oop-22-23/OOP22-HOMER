@@ -1,7 +1,7 @@
 package homer.model.scheduler;
 
 /**
- * A command to be executed by the {@link Scheduler}.
+ * A command to be executed by a {@link TimeScheduler}.
  */
 public interface SchedulerCommand {
 
