@@ -92,28 +92,30 @@ public class Outlet implements AdjustableDevice<Double>, DiscreteObject {
     }
 
     /**
-     * Sets the istant power absorption.
+     * Sets the instant power absorption.
      * 
      * If a parameter is passed, set {@code this.state}
      * to {@code state}.
-     * Otherwise, if a {@link homer.api.PoweredDevice} is plugged
-     * set {@code this.state} to {@code PoweredDevice.getInstantConsumption()}.
-     * If no parameter is passed, and no {@link homer.api.PoweredDevice} is plugged,
-     * then throw an {@code IllegalStateException}.
      *
      * @param state The new value of {@code state}.
      */
     @Override
     public void setState(final Double state) {
-        if (state != null) {
-            this.state = Limit.clamp(state, this.getMinValue(), this.getMaxValue());
-        } else {
-            this.getDevice().ifPresentOrElse(
-                    device -> this.state = ((PoweredDevice) device).getInstantConsumption(),
-                    () -> {
-                        throw new IllegalStateException("Cannot set state without a device or a value");
-                    });
-        }
+        Objects.requireNonNull(state);
+        this.state = Limit.clamp(state, this.getMinValue(), this.getMaxValue());
+    }
+
+    /**
+     * Sets the instant power absorption.
+     * 
+     * If a {@link homer.api.PoweredDevice} is plugged, {@code this.state} is set to
+     * {@code PoweredDevice.getInstantConsumption()}.
+     */
+    public void setState() {
+        this.getDevice().ifPresentOrElse(
+                device -> this.state = ((PoweredDevice) device).getInstantConsumption(),
+                () -> {
+                });
     }
 
     /**
