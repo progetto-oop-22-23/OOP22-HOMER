@@ -10,13 +10,14 @@ import javafx.scene.control.Button;
  * Disconnects the device from the view.
  */
 public final class DisconnectDeviceButton extends Button {
-    private final DeviceInfo info;
-    private final Controller controller;
 
+    /**
+     * 
+     * @param info the device's info
+     * @param controller the receiving controller
+     */
     public DisconnectDeviceButton(final DeviceInfo info, final Controller controller) {
         this.setText("Remove Device");
-        this.info = info;
-        this.controller = controller;
         this.setOnMouseClicked(e -> controller.receiveCommand(new DisconnectDevice(new DeviceIdImpl()))); // TODO FIX
     }
 }

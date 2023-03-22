@@ -1,10 +1,10 @@
 package homer.view.javafx;
 
-import java.util.function.Function;
-
 import homer.controller.Controller;
 import homer.view.StateSelector;
+import javafx.event.EventHandler;
 import javafx.scene.control.Button;
+import javafx.scene.input.MouseDragEvent;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 
@@ -13,18 +13,12 @@ public final class ButtonComponent<T> extends VBox implements StateSelector<T> {
     private Button button;
     private Text text = new Text();
     private Text value = new Text();
-    private Function<T, T> function;
     private T state;
 
-    public ButtonComponent(final Controller controller, final Function<T, T> function) {
-        this.function = function;
+    public ButtonComponent(final Controller controller, final EventHandler<? super MouseDragEvent> e) {
         this.getChildren().add(text);
-        this.getChildren().add(button);
-        this.getChildren().add(value);
-        button.setOnMouseClicked(e -> {
-            state = this.function.apply(state);
-            this.text.setText(state.toString());
-        });
+        this.getChildren().addAll(button, value);
+        button.setOnMouseDragEntered(e);
     }
 
     @Override
