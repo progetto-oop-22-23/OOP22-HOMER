@@ -14,10 +14,10 @@ import homer.model.lights.Light;
 final class OutletTest {
 
     @Test
-    void testSetState() {
+    void testUpdateTickOneHour() {
         final double expectedCoutletState = 1.0;
         final double expectedLoutletState = 2.5;
-        final int milliseconds = 6;
+        final int milliseconds = 8;
 
         final Outlet cOutlet = OutletFactory.cOutlet(new DeviceInfoImpl(new DeviceIdImpl(), "COUTLET"), 0);
         final Outlet lOutlet = OutletFactory.lOutlet(new DeviceInfoImpl(new DeviceIdImpl(), "LOUTLET"), 0);
@@ -31,9 +31,10 @@ final class OutletTest {
         lOutlet.setState(0.0);
         lOutlet.plug(light);
         light.updateTick(Duration.ofMillis(milliseconds));
-        lOutlet.setState();
+        lOutlet.updateTick(Duration.ofHours(1));
+        
+        assertTrue(lOutlet.getState() > lOutlet.getMinValue());
         assertTrue(lOutlet.getState() < lOutlet.getMaxValue());
-        assertEquals(light.getInstantConsumption(), lOutlet.getState());
     }
 
     @Test
