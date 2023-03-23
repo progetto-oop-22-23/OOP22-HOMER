@@ -61,8 +61,20 @@ public interface ElectricalMeter {
     void checkConsumption();
 
     /**
-     * Returns the value of the global consumption.
+     * Returns the value of the global consumption (in Wh).
      * @return The value of {@code globalConsumption}.
      */
     double getGlobalConsumption();
+
+    /**
+     * Returns the value of the average power consumption (in W).
+     * @return The value of {@code averagePower}.
+     */
+    double getAveragePower();
+
+    /**
+     * Sets the value of {@code averagePower}
+     * @param averagePower the new value of {@code averagePower} 
+     */
+    void setAveragePower(double averagePower);
 }
