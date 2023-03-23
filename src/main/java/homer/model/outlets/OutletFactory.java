@@ -10,8 +10,8 @@ import homer.api.DeviceInfo;
 
 public final class OutletFactory {
 
-    private static final double MAX_CTYPE_PW = 2.0; // kW
-    private static final double MAX_LTYPE_PW = 3.5; // kW
+    private static final double MAX_CTYPE_PW = 2000; // W
+    private static final double MAX_LTYPE_PW = 3500; // W
     private static final double ZERO = 0.0;
 
     private OutletFactory() {
