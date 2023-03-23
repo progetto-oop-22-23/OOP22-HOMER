@@ -4,6 +4,7 @@ import java.time.Duration;
 
 import homer.api.DeviceInfo;
 import homer.common.temperature.TemperatureFactory;
+import homer.common.time.DurationConverter;
 import homer.model.environment.Environment;
 
 /**
@@ -27,7 +28,7 @@ public final class Heating extends AbstractTemperatureChanger {
     @Override
     public void updateTick(final Duration deltaTime) {
         final double oldTemp = this.getEnvironment().getTemperature().getCelsius();
-        final double updatedTemp = oldTemp + this.getState() * deltaTime.toHours();
+        final double updatedTemp = oldTemp + this.getState() * DurationConverter.toHours(deltaTime);
         if (this.getMaxTemperature().isEmpty()) {
             this.getEnvironment().setTemperature(TemperatureFactory.fromCelsius(updatedTemp));
         } else {

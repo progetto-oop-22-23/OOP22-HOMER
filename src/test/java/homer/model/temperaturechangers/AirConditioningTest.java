@@ -58,5 +58,18 @@ class AirConditioningTest {
         assertEquals(90, environment.getTemperature().getCelsius(), AirConditioningTest.DELTA);
     }
 
+    @Test 
+    void halfHourUpdateTest() {
+        final Temperature minTemperature = TemperatureFactory.fromCelsius(20);
+        final Temperature maxTemperature = TemperatureFactory.fromCelsius(100);
+        final Environment environment = new HomeEnvironment(maxTemperature, AIR_QUALITY_STATE);
+        final TemperatureChanger airConditioning = new AirConditioning(1, 10, environment, INFO);
+        final double expected = 99.5;
+        airConditioning.setMinTemperature(minTemperature);
+        airConditioning.setMaxTemperature(maxTemperature);
+        airConditioning.updateTick(Duration.ofMinutes(30));
+        assertEquals(expected, environment.getTemperature().getCelsius(), AirConditioningTest.DELTA);
+    }
+
 
 }
