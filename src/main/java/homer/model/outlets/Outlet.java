@@ -3,6 +3,7 @@ package homer.model.outlets;
 import java.time.Duration;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.Random;
 
 import homer.api.AdjustableDevice;
 import homer.api.Device;
@@ -105,18 +106,19 @@ public class Outlet implements AdjustableDevice<Double>, DiscreteObject {
         this.state = Limit.clamp(state, this.getMinValue(), this.getMaxValue());
     }
 
-    /**
+    /*
      * Sets the instant power absorption.
      * 
      * If a {@link homer.api.PoweredDevice} is plugged, {@code this.state} is set to
      * {@code PoweredDevice.getInstantConsumption()}.
+     *
+     * public void setState() {
+     * this.getDevice().ifPresentOrElse(
+     * device -> this.state = ((PoweredDevice) device).getInstantConsumption(),
+     * () -> {
+     * });
+     * }
      */
-    public void setState() {
-        this.getDevice().ifPresentOrElse(
-                device -> this.state = ((PoweredDevice) device).getInstantConsumption(),
-                () -> {
-                });
-    }
 
     /**
      * Plugs a device to the outlet.
@@ -147,9 +149,19 @@ public class Outlet implements AdjustableDevice<Double>, DiscreteObject {
 
     @Override
     public final void updateTick(final Duration deltaTime) {
-        /*final double oldConsumption = this.getState();
-        final double newConsumption = oldConsumption * deltaTime.toHours(); // Wh
-        this.setState(newConsumption);
-        */
+        final double defaultMaxPower = 150.0;
+        final double toHours = 3600.0;
+        double energy;
+        if (this.getDevice().get() instanceof PoweredDevice) {
+            final double consumption = ((PoweredDevice) this.getDevice().get()).getInstantConsumption();
+            final double deltaSeconds = deltaTime.toNanos() / 1e9;
+            energy = consumption * deltaSeconds / toHours;
+            this.setState(this.getState() + energy);
+
+        } else {
+            energy = Math.min(defaultMaxPower, Math.pow(this.getState(), 2) + new Random().nextDouble());
+        }
+
+        this.setState(energy);
     }
 }
