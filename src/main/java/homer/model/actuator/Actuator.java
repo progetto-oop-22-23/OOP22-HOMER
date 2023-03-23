@@ -1,5 +1,6 @@
 package homer.model.actuator;
 
+import homer.common.bounds.Bounds;
 import homer.core.DiscreteObject;
 
 /**
@@ -20,5 +21,12 @@ public interface Actuator extends DiscreteObject {
      * @return The current actuator position.
      */
     int getPosition();
+
+    /**
+     * Returns the actuator position bounds.
+     * 
+     * @return the actuator position bounds.
+     */
+    Bounds<Integer> getBounds();
 
 }
