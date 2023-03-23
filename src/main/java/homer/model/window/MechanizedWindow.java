@@ -6,9 +6,7 @@ import java.util.Objects;
 import homer.DeviceInfoImpl;
 import homer.api.DeviceIdImpl;
 import homer.api.DeviceInfo;
-import homer.common.bounds.Bounds;
 import homer.model.actuator.Actuator;
-import homer.model.actuator.SimpleActuator;
 
 /**
  * Implementation of a mechanically controlled {@link Window}.
@@ -19,19 +17,16 @@ public final class MechanizedWindow implements Window {
      */
     public static final String DEVICE_TYPE = "MechanizedWindow";
     private final DeviceInfo info = new DeviceInfoImpl(new DeviceIdImpl(), DEVICE_TYPE);
-    private final Bounds<Integer> actuatorBounds;
     private final Actuator actuator;
 
     /**
-     * Creates a {@link MechanizedWindow} whose position is controlled by a
-     * {@link SimpleActuator} with positions varying between {@code actuatorBounds}.
+     * Creates a {@link MechanizedWindow} whose position is controlled by an
+     * {@link Actuator}.
      * 
-     * @param actuatorBounds The minimum and maximum position of the window's
-     *                       actuator.
+     * @param actuator The {@link Actuator} controlling the window.
      */
-    public MechanizedWindow(final Bounds<Integer> actuatorBounds) {
-        this.actuatorBounds = Objects.requireNonNull(actuatorBounds);
-        this.actuator = new SimpleActuator(actuatorBounds);
+    public MechanizedWindow(final Actuator actuator) {
+        this.actuator = Objects.requireNonNull(actuator);
     }
 
     @Override
@@ -46,12 +41,12 @@ public final class MechanizedWindow implements Window {
 
     @Override
     public Integer getMinValue() {
-        return this.actuatorBounds.getLowerBound();
+        return this.actuator.getBounds().getLowerBound();
     }
 
     @Override
     public Integer getMaxValue() {
-        return this.actuatorBounds.getUpperBound();
+        return this.actuator.getBounds().getUpperBound();
     }
 
     @Override

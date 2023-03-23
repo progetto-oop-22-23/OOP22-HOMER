@@ -10,6 +10,7 @@ import org.junit.jupiter.api.Test;
 
 import homer.api.DeviceInfo;
 import homer.common.bounds.Bounds;
+import homer.model.actuator.SimpleActuator;
 
 final class TestMechanizedWindow {
 
@@ -17,7 +18,7 @@ final class TestMechanizedWindow {
     private static final int MAX_VALUE = 100;
     private static final int VALUE_IN_RANGE = 50;
     private static final Bounds<Integer> BOUNDS = new Bounds<>(MIN_VALUE, MAX_VALUE);
-    private final MechanizedWindow window = new MechanizedWindow(BOUNDS);
+    private final MechanizedWindow window = new MechanizedWindow(new SimpleActuator(BOUNDS));
 
     @Test
     void testGetInfo() {
