@@ -17,7 +17,7 @@ import homer.model.outlets.Outlet;
 public final class ElectricalMeterImpl implements ElectricalMeter {
     private List<Outlet> outlets;
     private double globalConsumption;
-    private static final double MAX_GLOBAL_CONSUMPTION = 4.0; // kW
+    private static final double MAX_GLOBAL_CONSUMPTION = 4000; // Watts
 
     /**
      * Constructor for
