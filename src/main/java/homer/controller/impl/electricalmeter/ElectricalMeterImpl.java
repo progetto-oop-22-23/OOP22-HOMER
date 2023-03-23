@@ -63,7 +63,7 @@ public final class ElectricalMeterImpl implements ElectricalMeter {
                 .sum();
     }
 
-    private void sortForConsumption() {
+    private void sortOutletsForConsumption() {
         this.outlets.sort(Comparator.comparingDouble(Outlet::getState).reversed());
     }
 
@@ -76,7 +76,7 @@ public final class ElectricalMeterImpl implements ElectricalMeter {
     @Override
     public void checkConsumption() {
         ListIterator<Outlet> iterator = outlets.listIterator();
-        this.sortForConsumption();
+        this.sortOutletsForConsumption();
         while (this.getGlobalConsumption() >= ElectricalMeterImpl.MAX_GLOBAL_CONSUMPTION && iterator.hasNext()) {
             this.cutPowerTo(iterator.next());
         }
