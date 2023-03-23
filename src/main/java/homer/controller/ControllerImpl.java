@@ -14,6 +14,7 @@ public final class ControllerImpl implements Controller {
 
     private final List<Command> commands = new LinkedList<>();
     private final DeviceManager deviceManager = new DeviceManagerImpl();
+    private final ViewManager viewManager = new ViewManagerImpl();
 
     @Override
     public Set<DeviceView<?>> getDevices() {
@@ -28,6 +29,11 @@ public final class ControllerImpl implements Controller {
     @Override
     public DeviceManager getDeviceManager() {
         return this.deviceManager;
+    }
+
+    @Override
+    public ViewManager getViewManager() {
+        return this.viewManager;
     }
 
 }

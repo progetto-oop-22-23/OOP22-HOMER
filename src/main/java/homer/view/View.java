@@ -7,20 +7,22 @@ import homer.api.DeviceId;
  */
 public interface View {
     /**
-     * 
-     * @param deviceId the id of the device to be updated
+     * Updates the selected device's state on the view
+     * @param deviceId        the id of the device to be updated
      * @param serializedState the device's new state
      */
-    void updateDeviceState(DeviceId deviceId, String serializedState); 
+    void updateDeviceState(DeviceId deviceId, String serializedState);
 
     /**
      * 
      * @param deviceId the device to be removed
      */
     void removeDevice(DeviceId deviceId);
-    
+
     /**
-     * Adds a device.
+     * Adds a new device to the view
+     * @param deviceId the device's id
+     * @param deviceType the device's type
      */
-    void addDevice();
+    void addDevice(DeviceId deviceId, String deviceType);
 }
