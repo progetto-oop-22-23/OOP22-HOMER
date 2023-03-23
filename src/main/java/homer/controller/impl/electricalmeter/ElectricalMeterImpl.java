@@ -1,8 +1,11 @@
 package homer.controller.impl.electricalmeter;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
+import java.util.ListIterator;
 import java.util.Objects;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 import homer.controller.api.electricalmeter.ElectricalMeter;
 import homer.model.outlets.Outlet;
@@ -25,17 +28,17 @@ public final class ElectricalMeterImpl implements ElectricalMeter {
      */
     public ElectricalMeterImpl(final List<Outlet> outlets) {
         this.globalConsumption = 0.0;
-        this.outlets = new ArrayList<>(outlets);
+        this.outlets = new CopyOnWriteArrayList<>(outlets);
     }
 
     @Override
     public List<Outlet> getOutlets() {
-        return new ArrayList<>(this.outlets);
+        return new CopyOnWriteArrayList<>(this.outlets);
     }
 
     @Override
     public void setOutlets(final List<Outlet> outlets) {
-        this.outlets = new ArrayList<>(outlets);
+        this.outlets = new CopyOnWriteArrayList<>(outlets);
     }
 
     @Override
@@ -62,7 +65,7 @@ public final class ElectricalMeterImpl implements ElectricalMeter {
     }
 
     private void sortForConsumption() {
-        this.outlets.sort((o1, o2) -> o2.getState().compareTo(o1.getState()));
+        this.outlets.sort(Comparator.comparingDouble(Outlet::getState).reversed());
     }
 
     @Override
@@ -73,11 +76,10 @@ public final class ElectricalMeterImpl implements ElectricalMeter {
 
     @Override
     public void checkConsumption() {
+        ListIterator<Outlet> iterator = outlets.listIterator();
         this.sortForConsumption();
-        int i = 0;
-        while (this.getGlobalConsumption() >= ElectricalMeterImpl.MAX_GLOBAL_CONSUMPTION && i < outlets.size()) {
-            this.cutPowerTo(this.outlets.get(i));
-            i++;
+        while (this.getGlobalConsumption() >= ElectricalMeterImpl.MAX_GLOBAL_CONSUMPTION && iterator.hasNext()) {
+            this.cutPowerTo(iterator.next());
         }
     }
 
