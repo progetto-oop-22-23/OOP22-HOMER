@@ -31,4 +31,8 @@ public interface Controller {
      */
     Set<String> getConnectableDeviceTypes();
 
+    /**
+     * 
+     */
+    void removeAllDevices();
 }

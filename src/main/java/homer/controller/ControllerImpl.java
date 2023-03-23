@@ -84,4 +84,9 @@ public final class ControllerImpl implements Controller {
         return Set.of("COUTLET", "LOUTLET");
     }
 
+    @Override
+    public void removeAllDevices() {
+        devices.clear();
+    }
+
 }
