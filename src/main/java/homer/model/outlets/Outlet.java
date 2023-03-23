@@ -1,11 +1,16 @@
 package homer.model.outlets;
 
+import java.time.Duration;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.Random;
 
 import homer.api.AdjustableDevice;
 import homer.api.Device;
 import homer.api.DeviceInfo;
+import homer.api.PoweredDevice;
+import homer.common.limit.Limit;
+import homer.core.DiscreteObject;
 
 /**
  * Models electrical outlets of the house.
@@ -14,7 +19,7 @@ import homer.api.DeviceInfo;
  * @author Alessandro Monticelli
  */
 
-public class Outlet implements AdjustableDevice<Double> {
+public class Outlet implements AdjustableDevice<Double>, DiscreteObject {
 
     private final DeviceInfo info;
     private double state;
@@ -40,6 +45,7 @@ public class Outlet implements AdjustableDevice<Double> {
 
     /**
      * Constructor for class Outlet. Instantiates a copy of the passed Outlet.
+     * 
      * @param outlet the Outlet to copy.
      */
     public Outlet(final Outlet outlet) {
@@ -87,18 +93,32 @@ public class Outlet implements AdjustableDevice<Double> {
     }
 
     /**
-     * Sets the istant power absorption.
+     * Sets the instant power absorption.
+     * 
+     * If a parameter is passed, set {@code this.state}
+     * to {@code state}.
      *
      * @param state The new value of {@code state}.
      */
     @Override
     public void setState(final Double state) {
-        if (state >= this.minValue && state < this.maxValue) {
-            this.state = state;
-        } else {
-            throw new IllegalArgumentException("Value must be positive and < " + this.maxValue);
-        }
+        Objects.requireNonNull(state);
+        this.state = Limit.clamp(state, this.getMinValue(), this.getMaxValue());
     }
+
+    /*
+     * Sets the instant power absorption.
+     * 
+     * If a {@link homer.api.PoweredDevice} is plugged, {@code this.state} is set to
+     * {@code PoweredDevice.getInstantConsumption()}.
+     *
+     * public void setState() {
+     * this.getDevice().ifPresentOrElse(
+     * device -> this.state = ((PoweredDevice) device).getInstantConsumption(),
+     * () -> {
+     * });
+     * }
+     */
 
     /**
      * Plugs a device to the outlet.
@@ -125,5 +145,23 @@ public class Outlet implements AdjustableDevice<Double> {
      */
     public Optional<Device<?>> getDevice() {
         return this.device;
+    }
+
+    @Override
+    public final void updateTick(final Duration deltaTime) {
+        final double defaultMaxPower = 150.0;
+        final double toHours = 3600.0;
+        final double defaultRandomIncrement = Math.random() * 10 + 1;
+        double energy;
+        if (this.getDevice().get() instanceof PoweredDevice) {
+            final double consumption = ((PoweredDevice) this.getDevice().get()).getInstantConsumption();
+            final double deltaSeconds = deltaTime.toNanos() / 1e9;
+            energy = consumption * deltaSeconds / toHours;
+            this.setState(energy);
+
+        } else {
+            energy = Math.min(defaultMaxPower, Math.pow(this.getState(), 2) + defaultRandomIncrement);
+        }
+        this.setState(energy);
     }
 }
