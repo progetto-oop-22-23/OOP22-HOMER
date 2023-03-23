@@ -73,7 +73,7 @@ public interface ElectricalMeter {
     double getAveragePower();
 
     /**
-     * Sets the value of {@code averagePower}
+     * Sets the value of {@code averagePower}.
      * @param averagePower the new value of {@code averagePower} 
      */
     void setAveragePower(double averagePower);
