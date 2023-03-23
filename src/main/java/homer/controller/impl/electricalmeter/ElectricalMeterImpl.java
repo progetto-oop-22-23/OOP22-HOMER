@@ -75,7 +75,7 @@ public final class ElectricalMeterImpl implements ElectricalMeter {
     public void checkConsumption() {
         this.sortForConsumption();
         int i = 0;
-        while (this.getGlobalConsumption() >= ElectricalMeterImpl.MAX_GLOBAL_CONSUMPTION) {
+        while (this.getGlobalConsumption() >= ElectricalMeterImpl.MAX_GLOBAL_CONSUMPTION && i < outlets.size()) {
             this.cutPowerTo(this.outlets.get(i));
             i++;
         }
