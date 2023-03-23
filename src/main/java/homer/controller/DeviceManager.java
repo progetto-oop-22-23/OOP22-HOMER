@@ -35,9 +35,7 @@ public interface DeviceManager {
 
     /**
      * 
-     * @param deviceId the device's id.
-     * @param state    the device's new state.
+     * @param deviceId the device to be toggled.
      */
-    void updateDeviceState(DeviceId deviceId, Object state);
-
+    void toggleDevice(DeviceId deviceId);
 }

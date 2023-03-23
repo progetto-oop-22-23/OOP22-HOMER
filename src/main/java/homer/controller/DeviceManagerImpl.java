@@ -1,11 +1,8 @@
 package homer.controller;
 
-import java.lang.reflect.ParameterizedType;
-import java.lang.reflect.Type;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-import homer.api.AdjustableDevice;
 import homer.api.Device;
 import homer.api.DeviceId;
 import homer.api.ToggleableDevice;
@@ -36,24 +33,16 @@ public final class DeviceManagerImpl implements DeviceManager {
     }
 
     @Override
-    public void updateDeviceState(DeviceId deviceId, Object state) {
+    public void toggleDevice(DeviceId deviceId) {
         final Device<?> targetDevice = deviceMap.get(deviceId);
         if (targetDevice instanceof ToggleableDevice) {
-            if (state instanceof Boolean) {
-                final ToggleableDevice<?> toggleableDevice = (ToggleableDevice<?>) targetDevice;
-                if (!((Boolean) state).equals(toggleableDevice.isToggled())) {
-                    toggleableDevice.toggle();
-                }
-            }
-        } else if (targetDevice instanceof AdjustableDevice) {
-            final AdjustableDevice<?> adjustableDevice = (AdjustableDevice<?>) targetDevice;
-            Type superclassType = adjustableDevice.getClass().getGenericSuperclass();
-            Type actualtype =  ((ParameterizedType) superclassType).getActualTypeArguments()[0];
-            if (actualtype.equals(state.getClass())) {
-                adjustableDevice.setState((actualType) state); // TODO fix
-            }
+            final ToggleableDevice<?> toggleableDevice = (ToggleableDevice<?>) targetDevice;
+            toggleableDevice.toggle();
+        } else {
+            throw new IllegalArgumentException("Device is not toggleable");
         }
 
     }
+
 
 }
