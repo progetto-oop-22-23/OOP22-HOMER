@@ -22,7 +22,7 @@ public final class SimpleActuator extends AbstractActuator {
      */
     public SimpleActuator(final Bounds<Integer> positionBounds) {
         super(positionBounds);
-        this.currentPosition = getMinPosition();
+        this.currentPosition = getBounds().getLowerBound();
     }
 
     @Override
@@ -37,7 +37,10 @@ public final class SimpleActuator extends AbstractActuator {
 
     @Override
     public void updateTick(final Duration deltaTime) {
-        this.currentPosition = Limit.clamp(this.commandedPosition, getMinPosition(), getMaxPosition());
+        this.currentPosition = Limit.clamp(
+                this.commandedPosition,
+                getBounds().getLowerBound(),
+                getBounds().getUpperBound());
     }
 
 }
