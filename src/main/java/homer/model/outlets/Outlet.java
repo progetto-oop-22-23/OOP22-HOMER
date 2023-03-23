@@ -3,7 +3,6 @@ package homer.model.outlets;
 import java.time.Duration;
 import java.util.Objects;
 import java.util.Optional;
-import java.util.Random;
 
 import homer.api.AdjustableDevice;
 import homer.api.Device;
