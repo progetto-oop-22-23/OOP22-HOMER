@@ -23,7 +23,7 @@ public final class AddDevicesView extends VBox {
 
     public void update() {
         this.choiceBox.getItems().clear();
-        this.controller.getConnectableDeviceTypes().stream().forEach(x -> choiceBox.getItems().add(x));
+        // this.controller.getConnectableDeviceTypes().stream().forEach(x -> choiceBox.getItems().add(x));
     }
 
 }

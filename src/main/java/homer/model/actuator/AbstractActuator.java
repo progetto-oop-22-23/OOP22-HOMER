@@ -22,22 +22,9 @@ public abstract class AbstractActuator implements Actuator {
         this.positionBounds = Objects.requireNonNull(positionBounds);
     }
 
-    /**
-     * Returns the minimum position of the actuator.
-     * 
-     * @return The minimum position of the actuator.
-     */
-    protected final int getMinPosition() {
-        return this.positionBounds.getLowerBound();
-    }
-
-    /**
-     * Returns the maximum position of the actuator.
-     * 
-     * @return The maximum position of the actuator.
-     */
-    protected final int getMaxPosition() {
-        return this.positionBounds.getUpperBound();
+    @Override
+    public final Bounds<Integer> getBounds() {
+        return this.positionBounds;
     }
 
 }

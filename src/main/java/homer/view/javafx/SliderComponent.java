@@ -2,7 +2,6 @@ package homer.view.javafx;
 
 import homer.api.DeviceIdImpl;
 import homer.controller.Controller;
-import homer.controller.command.UpdateDeviceState;
 import homer.view.StateSelector;
 import javafx.scene.control.Slider;
 import javafx.scene.layout.VBox;
@@ -29,7 +28,6 @@ public final class SliderComponent extends VBox implements StateSelector<Double>
         this.getChildren().add(text);
         this.getChildren().add(slider);
         this.getChildren().add(this.value);
-        slider.setOnDragDone(e -> controller.receiveCommand(new UpdateDeviceState(new DeviceIdImpl(), this.slider.getValue())));
     }
 
     @Override
