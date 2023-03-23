@@ -6,7 +6,6 @@ import homer.DeviceInfoImpl;
 import homer.api.DeviceIdImpl;
 import homer.api.DeviceInfo;
 import homer.common.Temperature;
-import homer.model.environment.Environment;
 
 /**
  * Implementation of a {@link Device} which returns the temperature of the
@@ -16,15 +15,15 @@ public final class SimpleThermometer implements Thermometer {
 
     private static final String DEVICE_TYPE = "Thermometer";
     private final DeviceInfo deviceInfo = new DeviceInfoImpl(new DeviceIdImpl(), DEVICE_TYPE);
-    private final Environment environment;
+    private Temperature temperature;
 
     /**
      * Creates a new {@link SimpleThermometer}.
      * 
-     * @param environment The environment in which the thermometer is placed.
+     * @param temperature The initial temperature.
      */
-    public SimpleThermometer(final Environment environment) {
-        this.environment = Objects.requireNonNull(environment);
+    public SimpleThermometer(final Temperature temperature) {
+        this.temperature = Objects.requireNonNull(temperature);
     }
 
     @Override
@@ -34,7 +33,12 @@ public final class SimpleThermometer implements Thermometer {
 
     @Override
     public Temperature getState() {
-        return this.environment.getTemperature();
+        return this.temperature;
+    }
+
+    @Override
+    public void setTemperature(final Temperature temperature) {
+        this.temperature = Objects.requireNonNull(temperature);
     }
 
 }
