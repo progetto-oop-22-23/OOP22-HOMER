@@ -1,5 +1,6 @@
 package homer.controller.impl.electricalmeter;
 
+import java.time.Duration;
 import java.util.Comparator;
 import java.util.List;
 import java.util.ListIterator;
@@ -7,6 +8,7 @@ import java.util.Objects;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 import homer.controller.api.electricalmeter.ElectricalMeter;
+import homer.core.DiscreteObject;
 import homer.model.outlets.Outlet;
 
 /**
@@ -14,9 +16,10 @@ import homer.model.outlets.Outlet;
  * 
  * @author Alessandro Monticelli
  */
-public final class ElectricalMeterImpl implements ElectricalMeter {
+public final class ElectricalMeterImpl implements ElectricalMeter, DiscreteObject {
     private List<Outlet> outlets;
     private double globalConsumption;
+    private double averagePower;
     private static final double MAX_GLOBAL_CONSUMPTION = 4000; // Watts
 
     /**
@@ -27,6 +30,7 @@ public final class ElectricalMeterImpl implements ElectricalMeter {
      */
     public ElectricalMeterImpl(final List<Outlet> outlets) {
         this.globalConsumption = 0.0;
+        this.averagePower = 0.0;
         this.outlets = new CopyOnWriteArrayList<>(outlets);
     }
 
@@ -77,7 +81,7 @@ public final class ElectricalMeterImpl implements ElectricalMeter {
     public void checkConsumption() {
         ListIterator<Outlet> iterator = outlets.listIterator();
         this.sortOutletsForConsumption();
-        while (this.getGlobalConsumption() >= ElectricalMeterImpl.MAX_GLOBAL_CONSUMPTION && iterator.hasNext()) {
+        while (this.getAveragePower() >= ElectricalMeterImpl.MAX_GLOBAL_CONSUMPTION && iterator.hasNext()) {
             this.cutPowerTo(iterator.next());
         }
     }
@@ -86,5 +90,24 @@ public final class ElectricalMeterImpl implements ElectricalMeter {
     public double getGlobalConsumption() {
         this.computeConsumption();
         return this.globalConsumption;
+    }
+
+    @Override
+    public double getAveragePower() {
+        return this.averagePower;
+    }
+
+    @Override
+    public void setAveragePower(final double averagePower) {
+        this.averagePower = averagePower;
+    }
+
+    @Override
+    public void updateTick(final Duration deltaTime) {
+        final double deltaHours = deltaTime.toSeconds() / 3600;
+        this.checkConsumption();
+        final double globalConsumption = this.getGlobalConsumption();
+        final double averagePower = globalConsumption / deltaHours;
+        this.setAveragePower(averagePower);
     }
 }
