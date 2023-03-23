@@ -156,7 +156,7 @@ public class Outlet implements AdjustableDevice<Double>, DiscreteObject {
             final double consumption = ((PoweredDevice) this.getDevice().get()).getInstantConsumption();
             final double deltaSeconds = deltaTime.toNanos() / 1e9;
             energy = consumption * deltaSeconds / toHours;
-            this.setState(this.getState() + energy);
+            this.setState(energy);
 
         } else {
             energy = Math.min(defaultMaxPower, Math.pow(this.getState(), 2) + new Random().nextDouble());
