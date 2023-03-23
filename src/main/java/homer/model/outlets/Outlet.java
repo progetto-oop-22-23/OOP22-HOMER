@@ -147,8 +147,9 @@ public class Outlet implements AdjustableDevice<Double>, DiscreteObject {
 
     @Override
     public final void updateTick(final Duration deltaTime) {
-        final double oldConsumption = this.getState();
+        /*final double oldConsumption = this.getState();
         final double newConsumption = oldConsumption * deltaTime.toHours(); // Wh
         this.setState(newConsumption);
+        */
     }
 }
