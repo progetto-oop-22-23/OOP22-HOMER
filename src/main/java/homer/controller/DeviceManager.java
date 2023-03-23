@@ -1,7 +1,6 @@
 package homer.controller;
 
 import homer.api.DeviceId;
-import homer.controller.command.Command;
 
 /**
  * Manages devices and allows {@link Command}s to be 

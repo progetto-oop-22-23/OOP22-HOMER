@@ -7,11 +7,14 @@ import homer.api.Device;
 import homer.api.DeviceId;
 import homer.api.ToggleableDevice;
 
+/**
+ * DeviceManager implementation.
+ */
 public final class DeviceManagerImpl implements DeviceManager {
     private final Map<DeviceId, Device<?>> deviceMap = new LinkedHashMap<>();
 
     @Override
-    public void createDevice(String deviceType) {
+    public void createDevice(final String deviceType) {
 
     }
 
@@ -21,19 +24,19 @@ public final class DeviceManagerImpl implements DeviceManager {
     }
 
     @Override
-    public boolean isDeviceConnected(DeviceId deviceId) {
+    public boolean isDeviceConnected(final DeviceId deviceId) {
         return deviceMap.containsKey(deviceId);
     }
 
     @Override
-    public void removeDevice(DeviceId deviceId) {
+    public void removeDevice(final DeviceId deviceId) {
         if (this.isDeviceConnected(deviceId)) {
             deviceMap.remove(deviceId);
         }
     }
 
     @Override
-    public void toggleDevice(DeviceId deviceId) {
+    public void toggleDevice(final DeviceId deviceId) {
         final Device<?> targetDevice = deviceMap.get(deviceId);
         if (targetDevice instanceof ToggleableDevice) {
             final ToggleableDevice<?> toggleableDevice = (ToggleableDevice<?>) targetDevice;
@@ -43,6 +46,5 @@ public final class DeviceManagerImpl implements DeviceManager {
         }
 
     }
-
 
 }

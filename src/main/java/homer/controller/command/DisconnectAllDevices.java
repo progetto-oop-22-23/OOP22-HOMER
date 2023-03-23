@@ -8,7 +8,7 @@ import homer.controller.Controller;
 public record DisconnectAllDevices() implements Command {
 
     @Override
-    public void execute(Controller controller) {
+    public void execute(final Controller controller) {
         controller.getDeviceManager().removeAllDevices();
     }
 

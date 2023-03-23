@@ -10,7 +10,9 @@ import homer.controller.Controller;
 public interface Command {
 
     /**
-     * Executes the command.
+     * Executes the command on the provided controller.
+     * 
+     * @param controller the controller that will execute the comand.
      */
     void execute(Controller controller);
 
