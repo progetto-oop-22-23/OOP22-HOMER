@@ -20,7 +20,7 @@ public final class ElectricalMeterImpl implements ElectricalMeter, DiscreteObjec
     private List<Outlet> outlets;
     private double globalConsumption;
     private double averagePower;
-    private static final double MAX_GLOBAL_CONSUMPTION = 4000; // Watts
+    private static final double MAX_GLOBAL_POWER = 4000; // Watts
 
     /**
      * Constructor for
@@ -81,7 +81,7 @@ public final class ElectricalMeterImpl implements ElectricalMeter, DiscreteObjec
     public void checkConsumption() {
         ListIterator<Outlet> iterator = outlets.listIterator();
         this.sortOutletsForConsumption();
-        while (this.getAveragePower() >= ElectricalMeterImpl.MAX_GLOBAL_CONSUMPTION && iterator.hasNext()) {
+        while (this.getAveragePower() >= ElectricalMeterImpl.MAX_GLOBAL_POWER && iterator.hasNext()) {
             this.cutPowerTo(iterator.next());
         }
     }
