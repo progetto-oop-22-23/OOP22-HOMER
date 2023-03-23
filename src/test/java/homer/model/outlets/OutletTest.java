@@ -29,17 +29,19 @@ final class OutletTest {
     @Test
     void testUpdateTickOneHour() {
         final int milliseconds = 8;
-
+        final int hours = 2;
+        final double delta = 0.001;
         final Outlet lOutlet = OutletFactory.lOutlet(new DeviceInfoImpl(new DeviceIdImpl(), "LOUTLET"), 0);
         final Light light = new Light(new DeviceInfoImpl(new DeviceIdImpl(), "LIGHT"), true,
                 new PoweredDeviceInfoImpl(10.0, lOutlet));
         lOutlet.setState(0.0);
         lOutlet.plug(light);
         light.updateTick(Duration.ofMillis(milliseconds));
-        lOutlet.updateTick(Duration.ofHours(1));
+        lOutlet.updateTick(Duration.ofHours(hours));
 
         assertTrue(lOutlet.getState() > lOutlet.getMinValue());
         assertTrue(lOutlet.getState() < lOutlet.getMaxValue());
+        assertEquals(light.getInstantConsumption() * hours, lOutlet.getState(), delta);
     }
 
     @Test
