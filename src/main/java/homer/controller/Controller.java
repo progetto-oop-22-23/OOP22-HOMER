@@ -27,12 +27,9 @@ public interface Controller {
 
     /**
      * 
-     * @return The types of connectable devices
-     */
-    Set<String> getConnectableDeviceTypes();
-
-    /**
+     * Returns the DeviceManager.
      * 
+     * @return The DeviceManager.
      */
-    void removeAllDevices();
+    DeviceManager getDeviceManager();
 }

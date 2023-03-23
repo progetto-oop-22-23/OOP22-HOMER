@@ -9,7 +9,8 @@ import homer.controller.Controller;
 public record ConnectDevice(String deviceType) implements Command {
 
     @Override
-    public void execute(Controller controller) {
+    public void execute(final Controller controller) {
+        controller.getDeviceManager().createDevice(deviceType);
     }
 
 }

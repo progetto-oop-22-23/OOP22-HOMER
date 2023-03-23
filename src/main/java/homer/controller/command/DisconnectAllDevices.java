@@ -9,7 +9,7 @@ public record DisconnectAllDevices() implements Command {
 
     @Override
     public void execute(Controller controller) {
-        controller.removeAllDevices();
+        controller.getDeviceManager().removeAllDevices();
     }
 
 }

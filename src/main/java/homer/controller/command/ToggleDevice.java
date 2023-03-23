@@ -9,9 +9,8 @@ import homer.controller.Controller;
 public record ToggleDevice(DeviceId deviceId) implements Command {
 
     @Override
-    public void execute(Controller controller) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'execute'");
+    public void execute(final Controller controller) {
+        controller.getDeviceManager();
     }
 
 }

@@ -11,8 +11,9 @@ public record UpdateDeviceState(DeviceId deviceId, Object state) implements Comm
 
     @Override
     public void execute(Controller controller) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'execute'");
+        if (controller.getDeviceManager().isDeviceConnected(deviceId)) {
+            controller.getDeviceManager().updateDeviceState(deviceId, controller); 
+        }
     }
 
 }
