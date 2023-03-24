@@ -3,9 +3,6 @@ package homer.model.lights;
 import java.time.Duration;
 import java.util.Objects;
 
-import homer.DeviceInfoImpl;
-import homer.api.DeviceIdImpl;
-import homer.api.DeviceInfo;
 import homer.api.PoweredDevice;
 import homer.api.PoweredDeviceInfo;
 import homer.api.PoweredDeviceInfoImpl;
@@ -22,7 +19,6 @@ import homer.model.outlets.OutletFactory;
  */
 public final class Light implements ToggleableDevice<Boolean>, PoweredDevice, DiscreteObject {
 
-    private final DeviceInfo info;
     private Boolean state;
     private final PoweredDeviceInfo power;
     private double instantConsumption;
@@ -34,8 +30,7 @@ public final class Light implements ToggleableDevice<Boolean>, PoweredDevice, Di
      * @param state On/Off.
      * @param power See {@link homer.api.PoweredDeviceInfo}.
      */
-    public Light(final DeviceInfo info, final Boolean state, final PoweredDeviceInfo power) {
-        this.info = Objects.requireNonNull(info);
+    public Light(final Boolean state, final PoweredDeviceInfo power) {
         this.state = Objects.requireNonNull(state);
         this.power = new PoweredDeviceInfoImpl(power.getMaxConsumption(), power.getOutlet());
         this.instantConsumption = 0.0;
@@ -47,17 +42,11 @@ public final class Light implements ToggleableDevice<Boolean>, PoweredDevice, Di
      * @param info  See {@link homer.api.DeviceInfo}.
      * @param state On/Off.
      */
-    public Light(final DeviceInfo info, final Boolean state) {
-        this.info = Objects.requireNonNull(info);
+    public Light(final Boolean state) {
         this.state = Objects.requireNonNull(state);
         this.power = new PoweredDeviceInfoImpl(10.0,
-                OutletFactory.cOutlet(new DeviceInfoImpl(new DeviceIdImpl(), "COUTLET"), 0));
+                OutletFactory.cOutlet(0));
         this.instantConsumption = 0.0;
-    }
-
-    @Override
-    public DeviceInfo getInfo() {
-        return this.info;
     }
 
     @Override
