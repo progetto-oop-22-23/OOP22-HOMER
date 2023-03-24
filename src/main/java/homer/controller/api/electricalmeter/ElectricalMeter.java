@@ -74,6 +74,10 @@ public interface ElectricalMeter {
 
     /**
      * Sets the value of {@code averagePower}.
+     * The {@code averagePower} is calculated in the {@code updateTick()} method,
+     * by dividing the {@code globalConsumption} value for the number of hours
+     * passed to the method.
+     * 
      * @param averagePower the new value of {@code averagePower} 
      */
     void setAveragePower(double averagePower);
