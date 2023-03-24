@@ -11,7 +11,7 @@ public interface DeviceManager {
      * 
      * @param deviceType
      */
-    void createDevice(String deviceType);
+    void createDevice(DeviceType deviceType);
 
     /**
      * Removes all Devices.

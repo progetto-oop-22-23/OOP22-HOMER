@@ -2,10 +2,13 @@ package homer.controller;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
+import java.util.Objects;
 
 import homer.api.Device;
 import homer.api.DeviceId;
+import homer.api.DeviceIdImpl;
 import homer.api.ToggleableDevice;
+import homer.model.outlets.OutletFactory;
 
 /**
  * DeviceManager implementation.
@@ -13,10 +16,6 @@ import homer.api.ToggleableDevice;
 public final class DeviceManagerImpl implements DeviceManager {
     private final Map<DeviceId, Device<?>> deviceMap = new LinkedHashMap<>();
 
-    @Override
-    public void createDevice(final String deviceType) {
-
-    }
 
     @Override
     public void removeAllDevices() {
@@ -45,6 +44,24 @@ public final class DeviceManagerImpl implements DeviceManager {
             throw new IllegalArgumentException("Device is not toggleable");
         }
 
+    }
+
+    private void addDevice(final Device<?> device) {
+        Objects.requireNonNull(device);
+        final DeviceId id = device.getInfo().getID();
+        deviceMap.put(id, device);
+    }
+
+    @Override
+    public void createDevice(final DeviceType deviceType) {
+        switch (deviceType) {
+            case L_OUTLET:
+                this.addDevice(OutletFactory.lOutlet(null, 0));
+            case C_OUTLET:
+                this.addDevice(OutletFactory.lOutlet(null, 0));
+            case WINDOW:
+                this.addDevice();
+        }
     }
 
 }
