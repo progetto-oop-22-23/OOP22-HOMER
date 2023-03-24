@@ -32,4 +32,10 @@ public interface Controller {
      * @return The DeviceManager.
      */
     DeviceManager getDeviceManager();
+
+    /**
+     * Returns the ViewManager.
+     * @return The ViewManager.
+     */
+    ViewManager getViewManager();    
 }

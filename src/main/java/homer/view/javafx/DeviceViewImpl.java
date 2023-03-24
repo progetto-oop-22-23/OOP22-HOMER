@@ -14,13 +14,16 @@ import javafx.scene.text.Text;
 public final class DeviceViewImpl<T> extends VBox implements StateSelector<T> {
     private final Text text;
     private StateSelector<T> stateSelector;
+    private final static Border DEFAULT_BORDER = new Border(
+        new BorderStroke(null, BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)
+    );
 
     public DeviceViewImpl(final StateSelector<T> stateSelector, final Controller controller) {
         this.stateSelector = stateSelector;
         this.text = new Text();
         this.text.setText("Something");
         this.getChildren().add((Node) stateSelector);
-        this.setBorder(new Border(new BorderStroke(null, BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
+        this.setBorder(DEFAULT_BORDER);
     }
 
     public T getState() {
