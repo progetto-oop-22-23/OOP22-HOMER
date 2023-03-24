@@ -56,7 +56,7 @@ public final class ElectricalMeterImpl implements ElectricalMeter, DiscreteObjec
         if (this.outlets.contains(outlet)) {
             this.outlets.remove(outlet);
         } else {
-            throw new IllegalArgumentException(outlet.getInfo() + " not in 'outlets'");
+            throw new IllegalArgumentException("Outlet not in 'outlets'");
         }
     }
 
