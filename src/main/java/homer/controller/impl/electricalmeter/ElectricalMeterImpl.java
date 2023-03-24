@@ -7,6 +7,7 @@ import java.util.ListIterator;
 import java.util.Objects;
 import java.util.concurrent.CopyOnWriteArrayList;
 
+import homer.common.time.DurationConverter;
 import homer.controller.api.electricalmeter.ElectricalMeter;
 import homer.core.DiscreteObject;
 import homer.model.outlets.Outlet;
@@ -107,8 +108,7 @@ public final class ElectricalMeterImpl implements ElectricalMeter, DiscreteObjec
     }
 
     private void computeAveragePower(final Duration deltaTime) {
-        final double secondsPerHour = 3600;
-        final double hours = deltaTime.getSeconds() / secondsPerHour;
+        final double hours = DurationConverter.toHours(deltaTime);
         this.setAveragePower(this.getGlobalConsumption() / hours);
     }
 
