@@ -3,9 +3,6 @@ package homer.model.window;
 import java.time.Duration;
 import java.util.Objects;
 
-import homer.DeviceInfoImpl;
-import homer.api.DeviceIdImpl;
-import homer.api.DeviceInfo;
 import homer.model.actuator.Actuator;
 
 /**
@@ -16,7 +13,6 @@ public final class MechanizedWindow implements Window {
      * The device type label.
      */
     public static final String DEVICE_TYPE = "MechanizedWindow";
-    private final DeviceInfo info = new DeviceInfoImpl(new DeviceIdImpl(), DEVICE_TYPE);
     private final Actuator actuator;
 
     /**
@@ -27,11 +23,6 @@ public final class MechanizedWindow implements Window {
      */
     public MechanizedWindow(final Actuator actuator) {
         this.actuator = Objects.requireNonNull(actuator);
-    }
-
-    @Override
-    public DeviceInfo getInfo() {
-        return this.info;
     }
 
     @Override

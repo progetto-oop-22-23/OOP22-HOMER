@@ -6,7 +6,6 @@ import java.util.Optional;
 
 import homer.api.AdjustableDevice;
 import homer.api.Device;
-import homer.api.DeviceInfo;
 import homer.api.PoweredDevice;
 import homer.common.limit.Limit;
 import homer.core.DiscreteObject;
@@ -20,7 +19,6 @@ import homer.core.DiscreteObject;
 
 public class Outlet implements AdjustableDevice<Double>, DiscreteObject {
 
-    private final DeviceInfo info;
     private double state;
     private final double minValue;
     private final double maxValue;
@@ -34,9 +32,8 @@ public class Outlet implements AdjustableDevice<Double>, DiscreteObject {
      * @param minValue The minimum power absorption of the plugged device.
      * @param maxValue The maximum power absorption of the plugged device.
      */
-    public Outlet(final DeviceInfo info, final double state, final double minValue,
+    public Outlet(final double state, final double minValue,
             final double maxValue) {
-        this.info = Objects.requireNonNull(info);
         this.state = state;
         this.minValue = minValue;
         this.maxValue = maxValue;
@@ -49,19 +46,9 @@ public class Outlet implements AdjustableDevice<Double>, DiscreteObject {
      */
     public Outlet(final Outlet outlet) {
         Objects.requireNonNull(outlet);
-        this.info = outlet.getInfo();
         this.state = outlet.getState();
         this.minValue = outlet.getMinValue();
         this.maxValue = outlet.getMaxValue();
-    }
-
-    /**
-     * 
-     * @return The device information: ID, Type.
-     */
-    @Override
-    public DeviceInfo getInfo() {
-        return this.info;
     }
 
     /**

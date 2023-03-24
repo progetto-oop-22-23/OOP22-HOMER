@@ -2,9 +2,6 @@ package homer.model.thermometer;
 
 import java.util.Objects;
 
-import homer.DeviceInfoImpl;
-import homer.api.DeviceIdImpl;
-import homer.api.DeviceInfo;
 import homer.common.temperature.Temperature;
 
 /**
@@ -13,8 +10,6 @@ import homer.common.temperature.Temperature;
  */
 public final class SimpleThermometer implements Thermometer {
 
-    private static final String DEVICE_TYPE = "Thermometer";
-    private final DeviceInfo deviceInfo = new DeviceInfoImpl(new DeviceIdImpl(), DEVICE_TYPE);
     private Temperature temperature;
 
     /**
@@ -24,11 +19,6 @@ public final class SimpleThermometer implements Thermometer {
      */
     public SimpleThermometer(final Temperature temperature) {
         this.temperature = Objects.requireNonNull(temperature);
-    }
-
-    @Override
-    public DeviceInfo getInfo() {
-        return this.deviceInfo;
     }
 
     @Override
