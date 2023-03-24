@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.time.Duration;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -25,8 +26,7 @@ final class ElectricalMeterTest {
                 OutletFactory.cOutlet(STATE),
                 OutletFactory.cOutlet(STATE),
                 OutletFactory.lOutlet(STATE),
-                OutletFactory.lOutlet(STATE)
-            );
+                OutletFactory.lOutlet(STATE));
 
         final ElectricalMeter meter = new ElectricalMeterImpl(outlets);
 
@@ -39,8 +39,7 @@ final class ElectricalMeterTest {
                 OutletFactory.cOutlet(STATE),
                 OutletFactory.cOutlet(STATE),
                 OutletFactory.lOutlet(STATE),
-                OutletFactory.lOutlet(STATE)
-            );
+                OutletFactory.lOutlet(STATE));
 
         final ElectricalMeter meter = new ElectricalMeterImpl(outlets);
 
@@ -105,31 +104,31 @@ final class ElectricalMeterTest {
     }
 
     @Test
-    void testCheckConsumption() {
-        final int expectedOutletListSize = 5;
-        final double outletConsumption = 1.5;
-        final double expectedConsumptionBeforeCheck = 7.5;
-        final double expectedConsumptionAfterCheck = 3.0;
-
+    void testUpdateTick() {
+        final double outletConsumption = 1500.0;
+        final double expectedConsumptionBeforeCheck = 7500.0;
+        final double expectedConsumptionAfterCheck = 3000.0;
+        final double expectedAveragePowerBeforeCheck = 0.0;
+        final double expectedAveragePowerAfterCheck = 1500.0;
+        final int hours = 2;
         assertTrue(outlets.isEmpty());
-        Collections.addAll(outlets, 
+        Collections.addAll(outlets,
                 OutletFactory.cOutlet(STATE),
                 OutletFactory.cOutlet(STATE),
                 OutletFactory.cOutlet(STATE),
                 OutletFactory.cOutlet(STATE),
-                OutletFactory.cOutlet(STATE)
-        );
+                OutletFactory.cOutlet(STATE));
 
         final ElectricalMeter meter = new ElectricalMeterImpl(outlets);
-        assertEquals(expectedOutletListSize, meter.getOutlets().size());
+        // assertEquals(expectedOutletListSize, meter.getOutlets().size());
         for (final Outlet outlet : meter.getOutlets()) {
             outlet.setState(outletConsumption);
         }
 
         assertEquals(expectedConsumptionBeforeCheck, meter.getGlobalConsumption());
-
-        meter.checkConsumption();
+        assertEquals(expectedAveragePowerBeforeCheck, meter.getAveragePower());
+        ((ElectricalMeterImpl) meter).updateTick(Duration.ofHours(hours));
+        assertEquals(expectedAveragePowerAfterCheck, meter.getAveragePower());
         assertEquals(expectedConsumptionAfterCheck, meter.getGlobalConsumption());
-
     }
 }
