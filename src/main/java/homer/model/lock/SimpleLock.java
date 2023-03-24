@@ -1,11 +1,9 @@
 package homer.model.lock;
 
-import homer.api.ToggleableDevice;
-
 /**
- * Implementation of a {@link ToggleableDevice} representing a lock.
+ * Implementation of {@link Lock}.
  */
-public final class SimpleLock implements ToggleableDevice<Boolean> {
+public final class SimpleLock implements Lock {
 
     private boolean isLocked = false;
 

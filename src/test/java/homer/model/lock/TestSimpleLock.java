@@ -8,7 +8,7 @@ import org.junit.jupiter.api.RepeatedTest;
 
 final class TestSimpleLock {
 
-    private final SimpleLock lock = new SimpleLock();
+    private final Lock lock = new SimpleLock();
 
     @BeforeEach
     void testNotNull() {
