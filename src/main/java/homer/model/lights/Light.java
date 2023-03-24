@@ -8,6 +8,7 @@ import homer.api.PoweredDeviceInfo;
 import homer.api.PoweredDeviceInfoImpl;
 import homer.api.ToggleableDevice;
 import homer.common.limit.Limit;
+import homer.common.time.DurationConverter;
 import homer.core.DiscreteObject;
 import homer.model.outlets.Outlet;
 import homer.model.outlets.OutletFactory;
@@ -68,8 +69,9 @@ public final class Light implements ToggleableDevice<Boolean>, PoweredDevice, Di
     public void updateTick(final Duration deltaTime) {
         final double oldConsumption = this.getInstantConsumption();
         final double maxConsumption = this.getPowerInfo().getMaxConsumption();
-        final double intensity = Math.sin(deltaTime.toMillis() * 0.1) - (0.01 + Math.random() * 0.05);
-        final double newConsumption = oldConsumption + intensity * deltaTime.toMillis();
+        final double milliseconds = DurationConverter.toMillis(deltaTime);
+        final double intensity = Math.sin(milliseconds * 0.1) - (0.01 + Math.random() * 0.05);
+        final double newConsumption = oldConsumption + intensity * milliseconds;
         this.setInstantConsumption(
                 Limit.clamp(newConsumption, this.getPowerInfo().getMinConsumption(), maxConsumption));
     }
