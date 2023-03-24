@@ -15,9 +15,11 @@ public final class ControllerImpl implements Controller {
 
     private final List<Command> commands = new LinkedList<>();
     private final DeviceManager deviceManager; 
+    private final ViewManager viewManager;
 
     public ControllerImpl(Environment environment) {
         this.deviceManager = new DeviceManagerImpl(environment);
+        this.viewManager = new ViewManagerImpl();
     }
 
     @Override

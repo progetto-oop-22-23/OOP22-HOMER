@@ -33,7 +33,8 @@ public final class AddDevicesView extends VBox {
         this.controller = controller;
         this.getChildren().addAll(choiceBox, addDeviceButton);
         this.addDeviceButton.setOnMouseClicked(e -> 
-            controller.receiveCommand(new ConnectDevice(null)));
+            controller.receiveCommand(new ConnectDevice(stringReps.get(choiceBox.getValue()))
+        ));
     }
 
     public void update() {
