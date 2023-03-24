@@ -8,6 +8,7 @@ import homer.api.AdjustableDevice;
 import homer.api.Device;
 import homer.api.PoweredDevice;
 import homer.common.limit.Limit;
+import homer.common.time.DurationConverter;
 import homer.core.DiscreteObject;
 
 /**
@@ -26,8 +27,7 @@ public class Outlet implements AdjustableDevice<Double>, DiscreteObject {
 
     /**
      * Constructor for class Outlet.
-     * 
-     * @param info     See {@link homer.api.DeviceInfo}.
+     * c
      * @param state    The instant power absorption on the outlet.
      * @param minValue The minimum power absorption of the plugged device.
      * @param maxValue The maximum power absorption of the plugged device.
@@ -136,13 +136,12 @@ public class Outlet implements AdjustableDevice<Double>, DiscreteObject {
     @Override
     public final void updateTick(final Duration deltaTime) {
         final double defaultMaxPower = 150.0;
-        final double toHours = 3600.0;
         final double defaultRandomIncrement = Math.random() * 10 + 1;
         double energy;
         if (this.getDevice().get() instanceof PoweredDevice) {
             final double consumption = ((PoweredDevice) this.getDevice().get()).getInstantConsumption();
-            final double deltaSeconds = deltaTime.toNanos() / 1e9;
-            energy = consumption * deltaSeconds / toHours;
+            final double hours = DurationConverter.toHours(deltaTime);
+            energy = consumption * hours;
             this.setState(energy);
 
         } else {
