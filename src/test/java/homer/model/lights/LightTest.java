@@ -7,8 +7,6 @@ import java.time.Duration;
 
 import org.junit.jupiter.api.Test;
 
-import homer.api.DeviceIdImpl;
-import homer.api.PoweredDeviceInfoImpl;
 import homer.model.outlets.Outlet;
 import homer.model.outlets.OutletFactory;
 
