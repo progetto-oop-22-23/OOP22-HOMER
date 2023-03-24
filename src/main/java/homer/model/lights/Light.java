@@ -3,7 +3,6 @@ package homer.model.lights;
 import java.time.Duration;
 import java.util.Objects;
 
-import homer.api.DeviceIdImpl;
 import homer.api.PoweredDevice;
 import homer.api.PoweredDeviceInfo;
 import homer.api.PoweredDeviceInfoImpl;
