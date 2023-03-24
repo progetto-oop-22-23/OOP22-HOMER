@@ -1,3 +1,0 @@
-controller sends json/string.
-the view parses the object, but we need a parsing class.
-
