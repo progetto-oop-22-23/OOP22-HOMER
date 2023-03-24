@@ -27,8 +27,7 @@ public class Outlet implements AdjustableDevice<Double>, DiscreteObject {
 
     /**
      * Constructor for class Outlet.
-     * 
-     * @param info     See {@link homer.api.DeviceInfo}.
+     * c
      * @param state    The instant power absorption on the outlet.
      * @param minValue The minimum power absorption of the plugged device.
      * @param maxValue The maximum power absorption of the plugged device.

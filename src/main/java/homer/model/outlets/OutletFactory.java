@@ -19,7 +19,6 @@ public final class OutletFactory {
     /**
      * Instantiates a standard C-type outlet.
      *
-     * @param info
      * @param state
      * 
      * @return An Outlet with {@code minValue = 0.0} and {@code maxValue = 2.0}
@@ -31,7 +30,6 @@ public final class OutletFactory {
     /**
      * Instantiates a standard L-type outlet.
      * 
-     * @param info
      * @param state
      * 
      * @return An Outlet with {@code minValue = 0.0} and {@code maxValue = 3.5}
