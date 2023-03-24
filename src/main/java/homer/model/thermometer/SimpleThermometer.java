@@ -5,7 +5,7 @@ import java.util.Objects;
 import homer.DeviceInfoImpl;
 import homer.api.DeviceIdImpl;
 import homer.api.DeviceInfo;
-import homer.common.Temperature;
+import homer.common.temperature.Temperature;
 
 /**
  * Implementation of a {@link Device} which returns the temperature of the

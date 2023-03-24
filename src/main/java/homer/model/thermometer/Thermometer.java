@@ -1,7 +1,7 @@
 package homer.model.thermometer;
 
 import homer.api.Device;
-import homer.common.Temperature;
+import homer.common.temperature.Temperature;
 import homer.model.environment.TemperatureObserver;
 
 /**
