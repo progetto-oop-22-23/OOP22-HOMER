@@ -9,10 +9,7 @@ import homer.model.actuator.Actuator;
  * Implementation of a mechanically controlled {@link Window}.
  */
 public final class MechanizedWindow implements Window {
-    /**
-     * The device type label.
-     */
-    public static final String DEVICE_TYPE = "MechanizedWindow";
+
     private final Actuator actuator;
 
     /**

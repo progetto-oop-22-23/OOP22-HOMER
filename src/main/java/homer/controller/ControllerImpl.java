@@ -35,4 +35,9 @@ public final class ControllerImpl implements Controller {
         return this.deviceManager;
     }
 
+    @Override
+    public ViewManager getViewManager() {
+        return this.viewManager;
+    }
+
 }
