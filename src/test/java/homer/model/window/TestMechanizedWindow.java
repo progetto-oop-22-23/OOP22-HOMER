@@ -8,7 +8,6 @@ import java.time.Duration;
 
 import org.junit.jupiter.api.Test;
 
-import homer.api.DeviceInfo;
 import homer.common.bounds.Bounds;
 import homer.model.actuator.SimpleActuator;
 
@@ -19,14 +18,6 @@ final class TestMechanizedWindow {
     private static final int VALUE_IN_RANGE = 50;
     private static final Bounds<Integer> BOUNDS = new Bounds<>(MIN_VALUE, MAX_VALUE);
     private final MechanizedWindow window = new MechanizedWindow(new SimpleActuator(BOUNDS));
-
-    @Test
-    void testGetInfo() {
-        final DeviceInfo info = this.window.getInfo();
-        assertNotNull(info);
-        assertNotNull(info.getID());
-        assertEquals(MechanizedWindow.DEVICE_TYPE, info.getType());
-    }
 
     @Test
     void testGetState() {

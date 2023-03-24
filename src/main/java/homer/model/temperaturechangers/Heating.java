@@ -2,7 +2,6 @@ package homer.model.temperaturechangers;
 
 import java.time.Duration;
 
-import homer.api.DeviceInfo;
 import homer.common.temperature.TemperatureFactory;
 import homer.model.environment.Environment;
 
@@ -11,17 +10,15 @@ import homer.model.environment.Environment;
  */
 public final class Heating extends AbstractTemperatureChanger {
 
-
-
     /**
      * @param minIntensity
      * @param maxIntensity
      * @param environment
      * @param info
      */
-    public Heating(final double minIntensity, final double maxIntensity, 
-    final Environment environment, final DeviceInfo info) {
-        super(minIntensity, maxIntensity, environment, info);
+    public Heating(final double minIntensity, final double maxIntensity,
+            final Environment environment) {
+        super(minIntensity, maxIntensity, environment);
     }
 
     @Override
