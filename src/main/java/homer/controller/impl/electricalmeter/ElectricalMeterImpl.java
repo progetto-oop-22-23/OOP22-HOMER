@@ -81,7 +81,7 @@ public final class ElectricalMeterImpl implements ElectricalMeter, DiscreteObjec
     public void checkConsumption() {
         ListIterator<Outlet> iterator = outlets.listIterator();
         this.sortOutletsForConsumption();
-        while (this.getAveragePower() >= ElectricalMeterImpl.MAX_GLOBAL_POWER && iterator.hasNext()) {
+        while (this.getGlobalConsumption() >= ElectricalMeterImpl.MAX_GLOBAL_POWER && iterator.hasNext()) {
             this.cutPowerTo(iterator.next());
         }
     }
