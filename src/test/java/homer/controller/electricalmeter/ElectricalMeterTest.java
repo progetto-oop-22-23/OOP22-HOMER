@@ -9,7 +9,6 @@ import java.util.Collections;
 import java.util.List;
 import org.junit.jupiter.api.Test;
 
-import homer.api.DeviceIdImpl;
 import homer.controller.api.electricalmeter.ElectricalMeter;
 import homer.controller.impl.electricalmeter.ElectricalMeterImpl;
 import homer.model.outlets.Outlet;

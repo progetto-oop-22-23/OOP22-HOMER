@@ -6,7 +6,6 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.Test;
 import java.time.Duration;
 import java.util.Optional;
-import homer.api.DeviceIdImpl;
 import homer.api.PoweredDeviceInfoImpl;
 import homer.model.lights.Light;
 
