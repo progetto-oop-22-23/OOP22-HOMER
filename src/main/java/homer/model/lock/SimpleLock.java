@@ -1,8 +1,5 @@
 package homer.model.lock;
 
-import homer.DeviceInfoImpl;
-import homer.api.DeviceIdImpl;
-import homer.api.DeviceInfo;
 import homer.api.ToggleableDevice;
 
 /**
@@ -10,17 +7,7 @@ import homer.api.ToggleableDevice;
  */
 public final class SimpleLock implements ToggleableDevice<Boolean> {
 
-    /**
-     * Type of device.
-     */
-    public static final String DEVICE_TYPE = "SimpleLock";
-    private final DeviceInfo info = new DeviceInfoImpl(new DeviceIdImpl(), DEVICE_TYPE);
     private boolean isLocked = false;
-
-    @Override
-    public DeviceInfo getInfo() {
-        return this.info;
-    }
 
     @Override
     public Boolean getState() {

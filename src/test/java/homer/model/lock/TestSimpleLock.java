@@ -1,12 +1,10 @@
 package homer.model.lock;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.RepeatedTest;
-import org.junit.jupiter.api.Test;
 
 final class TestSimpleLock {
 
@@ -15,11 +13,6 @@ final class TestSimpleLock {
     @BeforeEach
     void testNotNull() {
         assertNotNull(this.lock);
-    }
-
-    @Test
-    void testGetType() {
-        assertEquals(SimpleLock.DEVICE_TYPE, lock.getInfo().getType());
     }
 
     @RepeatedTest(value = 3)
