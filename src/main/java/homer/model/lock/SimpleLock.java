@@ -14,11 +14,12 @@ public final class SimpleLock implements ToggleableDevice<Boolean> {
      * Type of device.
      */
     public static final String DEVICE_TYPE = "SimpleLock";
+    private final DeviceInfo info = new DeviceInfoImpl(new DeviceIdImpl(), DEVICE_TYPE);
     private boolean isLocked = false;
 
     @Override
     public DeviceInfo getInfo() {
-        return new DeviceInfoImpl(new DeviceIdImpl(), DEVICE_TYPE);
+        return this.info;
     }
 
     @Override
