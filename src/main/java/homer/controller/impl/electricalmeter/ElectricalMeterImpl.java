@@ -20,7 +20,7 @@ public final class ElectricalMeterImpl implements ElectricalMeter, DiscreteObjec
     private List<Outlet> outlets;
     private double globalConsumption;
     private double averagePower;
-    private static final double MAX_GLOBAL_POWER = 4000; // Watts
+    private static final double MAX_GLOBAL_CONSUMPTION = 4000; // Watts
 
     /**
      * Constructor for
@@ -80,9 +80,13 @@ public final class ElectricalMeterImpl implements ElectricalMeter, DiscreteObjec
     @Override
     public void checkConsumption() {
         ListIterator<Outlet> iterator = outlets.listIterator();
-        this.sortOutletsForConsumption();
-        while (this.getGlobalConsumption() >= ElectricalMeterImpl.MAX_GLOBAL_POWER && iterator.hasNext()) {
-            this.cutPowerTo(iterator.next());
+        double globalConsumption = this.getGlobalConsumption();
+        if (globalConsumption >= ElectricalMeterImpl.MAX_GLOBAL_CONSUMPTION) {
+            this.sortOutletsForConsumption();
+            while (globalConsumption >= ElectricalMeterImpl.MAX_GLOBAL_CONSUMPTION && iterator.hasNext()) {
+                this.cutPowerTo(iterator.next());
+                globalConsumption = this.getGlobalConsumption();
+            }
         }
     }
 
@@ -102,12 +106,16 @@ public final class ElectricalMeterImpl implements ElectricalMeter, DiscreteObjec
         this.averagePower = averagePower;
     }
 
+    private void computeAveragePower(final Duration deltaTime) {
+        final double secondsPerHour = 3600;
+        final double hours = deltaTime.getSeconds() / secondsPerHour;
+        this.setAveragePower(this.getGlobalConsumption() / hours);
+    }
+
     @Override
     public void updateTick(final Duration deltaTime) {
-        final double deltaHours = deltaTime.toSeconds() / 3600;
         this.checkConsumption();
-        final double globalConsumption = this.getGlobalConsumption();
-        final double averagePower = globalConsumption / deltaHours;
-        this.setAveragePower(averagePower);
+        this.computeAveragePower(deltaTime);
     }
+
 }
