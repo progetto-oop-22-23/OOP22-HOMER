@@ -1,6 +1,5 @@
 package homer.model.temperaturechangers;
 
-import homer.api.DeviceInfo;
 import homer.common.temperature.Temperature;
 import homer.common.temperature.TemperatureFactory;
 import homer.model.environment.Environment;
@@ -9,10 +8,11 @@ import java.util.Optional;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
-
 /**
- * Uses template method on updateTick. At a default intensity, it changes the temperature by 
- * 1 celsius degree each hour. By default, minimum temperature is the absolute 0, and the maximum temperature
+ * Uses template method on updateTick. At a default intensity, it changes the
+ * temperature by
+ * 1 celsius degree each hour. By default, minimum temperature is the absolute
+ * 0, and the maximum temperature
  * is not set.
  */
 public abstract class AbstractTemperatureChanger implements TemperatureChanger {
@@ -21,7 +21,6 @@ public abstract class AbstractTemperatureChanger implements TemperatureChanger {
     private final double minIntensity;
     private double intensity;
     private final Environment environment;
-    private final DeviceInfo info;
     private Temperature minTemperature = TemperatureFactory.fromKelvin(0);
     private Optional<Temperature> maxTemperature = Optional.empty();
 
@@ -31,20 +30,13 @@ public abstract class AbstractTemperatureChanger implements TemperatureChanger {
      * @param environment
      * @param info
      */
-    @SuppressFBWarnings(value = "EI_EXPOSE_REP", 
-        justification = "Updating a reference is better than reallocating objects on the heap")
-    public AbstractTemperatureChanger(final double minIntensity, final double maxIntensity, 
-        final Environment environment, final DeviceInfo info)  {
-        this.info = info;
+    @SuppressFBWarnings(value = "EI_EXPOSE_REP", justification = "Updating a reference is better than reallocating objects on the heap")
+    public AbstractTemperatureChanger(final double minIntensity, final double maxIntensity,
+            final Environment environment) {
         this.minIntensity = minIntensity;
         this.maxIntensity = maxIntensity;
         this.intensity = minIntensity;
         this.environment = environment;
-    }
-
-    @Override
-    public final DeviceInfo getInfo() {
-        return this.info;
     }
 
     @Override
@@ -93,7 +85,7 @@ public abstract class AbstractTemperatureChanger implements TemperatureChanger {
 
     /**
      * 
-     * @return the environment associated with the object 
+     * @return the environment associated with the object
      */
     protected final Environment getEnvironment() {
         return this.environment;
