@@ -1,6 +1,10 @@
 package homer.controller;
 
+import java.util.Set;
+
+import homer.api.Device;
 import homer.api.DeviceId;
+import homer.controller.command.createdevicecommand.CreateDeviceCommand;
 
 /**
  * Manages devices and allows {@link Command}s to be 
@@ -37,4 +41,12 @@ public interface DeviceManager {
      * @param deviceId the device to be toggled.
      */
     void toggleDevice(DeviceId deviceId);
+
+    /**
+     * Adds a new device to the connected devices. 
+     * @param device the device to be added.
+     */
+    void addDevice(Device<?> device);
+
+    public Set<CreateDeviceCommand> getValidCreateDeviceCommands();
 }

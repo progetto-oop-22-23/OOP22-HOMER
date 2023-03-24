@@ -2,10 +2,15 @@ package homer.controller;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
+import java.util.Set;
 
 import homer.api.Device;
 import homer.api.DeviceId;
+import homer.api.DeviceIdImpl;
 import homer.api.ToggleableDevice;
+import homer.controller.command.createdevicecommand.CreateAirConditioning;
+import homer.controller.command.createdevicecommand.CreateDeviceCommand;
+import homer.controller.command.createdevicecommand.CreateHeating;
 
 /**
  * DeviceManager implementation.
@@ -46,5 +51,16 @@ public final class DeviceManagerImpl implements DeviceManager {
         }
 
     }
+
+    @Override
+    public void addDevice(Device<?> device) {
+        this.deviceMap.put(new DeviceIdImpl(), device);
+    }
+
+    @Override
+    public Set<CreateDeviceCommand> getValidCreateDeviceCommands() {
+        return Set.of(new CreateAirConditioning(), new CreateHeating());
+    }
+
 
 }
