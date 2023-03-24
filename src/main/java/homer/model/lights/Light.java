@@ -27,7 +27,6 @@ public final class Light implements ToggleableDevice<Boolean>, PoweredDevice, Di
     /**
      * Constructor for class Light.
      * 
-     * @param info  See {@link homer.api.DeviceInfo}.
      * @param state On/Off.
      * @param power See {@link homer.api.PoweredDeviceInfo}.
      */
@@ -38,9 +37,8 @@ public final class Light implements ToggleableDevice<Boolean>, PoweredDevice, Di
     }
 
     /**
-     * Constructor for class Light. TO BE MODIFIED.
+     * Constructor for class Light.
      * 
-     * @param info  See {@link homer.api.DeviceInfo}.
      * @param state On/Off.
      */
     public Light(final Boolean state) {
