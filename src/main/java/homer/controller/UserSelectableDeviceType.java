@@ -1,9 +1,11 @@
 package homer.controller;
 
-public enum DeviceType {
+public enum UserSelectableDeviceType {
+
     C_OUTLET,
     L_OUTLET,
     HEATING,
-    AIRCONDITIONING, 
+    AIR_CONDITIONING,
     WINDOW,
+
 }

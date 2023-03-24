@@ -2,6 +2,7 @@ package homer.view;
 
 import homer.controller.Controller;
 import homer.controller.ControllerImpl;
+import homer.model.environment.HomeEnvironment;
 import homer.view.javafx.AddDevicesView;
 import javafx.application.Application;
 import javafx.scene.Group;
@@ -17,7 +18,7 @@ public class JFXApplication extends Application {
         Group root = new Group();
         Scene scene = new Scene(root, 300, 500);
         VBox vBox = new VBox();
-        Controller controller = new ControllerImpl();
+        Controller controller = new ControllerImpl(null); // TODO add an environmente here
         root.getChildren().addAll(vBox, new AddDevicesView(controller));
         stage.setTitle("demo");
         stage.setScene(scene);

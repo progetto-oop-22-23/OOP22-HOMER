@@ -6,6 +6,7 @@ import java.util.Set;
 
 import homer.api.DeviceView;
 import homer.controller.command.Command;
+import homer.model.environment.Environment;
 
 /**
  * Controller Implementation.
@@ -13,7 +14,11 @@ import homer.controller.command.Command;
 public final class ControllerImpl implements Controller {
 
     private final List<Command> commands = new LinkedList<>();
-    private final DeviceManager deviceManager = new DeviceManagerImpl();
+    private final DeviceManager deviceManager; 
+
+    public ControllerImpl(Environment environment) {
+        this.deviceManager = new DeviceManagerImpl(environment);
+    }
 
     @Override
     public Set<DeviceView<?>> getDevices() {

@@ -3,19 +3,26 @@ package homer.controller;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Objects;
+import java.util.Set;
 
 import homer.api.Device;
 import homer.api.DeviceId;
 import homer.api.DeviceIdImpl;
 import homer.api.ToggleableDevice;
+import homer.model.environment.Environment;
 import homer.model.outlets.OutletFactory;
+import homer.model.temperaturechangers.Heating;
 
 /**
  * DeviceManager implementation.
  */
 public final class DeviceManagerImpl implements DeviceManager {
     private final Map<DeviceId, Device<?>> deviceMap = new LinkedHashMap<>();
+    private Environment environment;
 
+    public DeviceManagerImpl(Environment environment) {
+        this.environment = environment;
+    }
 
     @Override
     public void removeAllDevices() {
@@ -48,20 +55,30 @@ public final class DeviceManagerImpl implements DeviceManager {
 
     private void addDevice(final Device<?> device) {
         Objects.requireNonNull(device);
-        final DeviceId id = device.getInfo().getID();
+        final DeviceId id = new DeviceIdImpl();
         deviceMap.put(id, device);
     }
 
     @Override
-    public void createDevice(final DeviceType deviceType) {
+    public void createDevice(final UserSelectableDeviceType deviceType) {
         switch (deviceType) {
             case L_OUTLET:
-                this.addDevice(OutletFactory.lOutlet(null, 0));
+                this.addDevice(OutletFactory.lOutlet(0));
             case C_OUTLET:
-                this.addDevice(OutletFactory.lOutlet(null, 0));
-            case WINDOW:
-                this.addDevice();
+                this.addDevice(OutletFactory.lOutlet(0));
+            case HEATING:
+                this.addDevice(new Heating(0, 10, this.environment));
+            case AIR_CONDITIONING:
+                this.addDevice(new Heating(0, 10, this.environment));
+            default:
+                throw new IllegalStateException();
         }
     }
+
+    @Override
+    public Set<UserSelectableDeviceType> getSelectableDeviceTypes() {
+        return Set.of(UserSelectableDeviceType.AIR_CONDITIONING, UserSelectableDeviceType.C_OUTLET);
+    }
+
 
 }

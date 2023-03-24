@@ -1,5 +1,7 @@
 package homer.controller;
 
+import java.util.Set;
+
 import homer.api.DeviceId;
 
 /**
@@ -11,7 +13,7 @@ public interface DeviceManager {
      * 
      * @param deviceType
      */
-    void createDevice(DeviceType deviceType);
+    void createDevice(UserSelectableDeviceType deviceType);
 
     /**
      * Removes all Devices.
@@ -37,4 +39,6 @@ public interface DeviceManager {
      * @param deviceId the device to be toggled.
      */
     void toggleDevice(DeviceId deviceId);
+
+    Set<UserSelectableDeviceType> getSelectableDeviceTypes();
 }
