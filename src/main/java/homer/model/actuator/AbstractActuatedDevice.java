@@ -3,6 +3,9 @@ package homer.model.actuator;
 import java.time.Duration;
 import java.util.Objects;
 
+import homer.api.DeviceState;
+import homer.api.state.ActuatedDeviceState;
+
 /**
  * Abstract implementation of an {@link ActuatedDevice}.
  */
@@ -21,23 +24,19 @@ public class AbstractActuatedDevice implements ActuatedDevice {
     }
 
     @Override
-    public final Integer getState() {
-        return this.actuator.getPosition();
+    public final ActuatedDeviceState getState() {
+        return new ActuatedDeviceState(this.actuator.getPosition(), this.actuator.getBounds());
     }
 
     @Override
-    public final Integer getMinValue() {
-        return this.actuator.getBounds().getLowerBound();
-    }
-
-    @Override
-    public final Integer getMaxValue() {
-        return this.actuator.getBounds().getUpperBound();
-    }
-
-    @Override
-    public final void setState(final Integer state) {
-        this.actuator.command(Objects.requireNonNull(state));
+    public final void setState(final DeviceState state) {
+        Objects.requireNonNull(state);
+        if (state instanceof ActuatedDeviceState) {
+            this.actuator.command(((ActuatedDeviceState) state).getPosition());
+        } else {
+            throw new IllegalArgumentException(
+                    "State expected " + ActuatedDeviceState.class + " but got " + state.getClass());
+        }
     }
 
     @Override
