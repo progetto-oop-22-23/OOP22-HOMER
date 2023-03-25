@@ -1,13 +1,14 @@
 package homer.controller.command.createdevicecommand;
 
 import homer.controller.Controller;
+import homer.model.environment.Environment;
 import homer.model.temperaturechangers.AirConditioning;
 
-public class CreateAirConditioning implements CreateDeviceCommand {
+public record CreateAirConditioning(Environment environment) implements CreateDeviceCommand {
 
     @Override
     public void execute(Controller controller) {
-        controller.getDeviceManager().addDevice(new AirConditioning(0, 0, null));
+        controller.getDeviceManager().addDevice(new AirConditioning(0, 0, environment));
     }
 
     @Override
