@@ -9,21 +9,9 @@ package homer.api;
 public interface AdjustableDevice<S> extends Device<S> {
 
     /**
-     * 
-     * @return The min value the device state can be set to.
-     */
-    S getMinValue();
-
-    /**
-     * 
-     * @return The max value the device state can be set to.
-     */
-    S getMaxValue();
-
-    /**
      * Sets the device state to the new value.
      * 
      * @param state The new commanded level.
      */
-    void setState(S state);
+    void setState(Object state);
 }

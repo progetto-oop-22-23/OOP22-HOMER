@@ -44,21 +44,6 @@ public abstract class AbstractTemperatureChanger implements TemperatureChanger {
         return this.intensity;
     }
 
-    @Override
-    public final Double getMinValue() {
-        return this.minIntensity;
-    }
-
-    @Override
-    public final Double getMaxValue() {
-        return this.maxIntensity;
-    }
-
-    @Override
-    public final void setState(final Double value) {
-        this.intensity = Math.max(Math.min(maxIntensity, value), minIntensity);
-    }
-
     /**
      * @return maximum temperature allowed
      */
@@ -89,6 +74,14 @@ public abstract class AbstractTemperatureChanger implements TemperatureChanger {
      */
     protected final Environment getEnvironment() {
         return this.environment;
+    }
+
+    @Override
+    public void setState(Object state) {
+        if (state instanceof TemperatureChangerState) {
+            var casted =  (TemperatureChangerState) state;
+            this.intensity = casted.intensity();
+        }
     }
 
 }
