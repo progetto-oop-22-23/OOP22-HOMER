@@ -1,8 +1,8 @@
 package homer.controller.protocol;
 
-import java.util.List;
+import java.util.Map;
 
-public class ExampleSerializer implements Serializer {
+public class ExampleSerializer implements SerializedState {
 
     private final int value;
 
@@ -11,30 +11,13 @@ public class ExampleSerializer implements Serializer {
     }
 
     @Override
-    public List<String> getAdjustableValues() {
-        return List.of(Integer.toString(value));
+    public Map<String, String> getAdjustableValues() {
+        return Map.of("ValueName", Integer.toString(value));
     }
 
     @Override
-    public List<Boolean> getToggleableValues() {
-        return List.of();
+    public Map<String, Boolean> getToggleableValues() {
+        return Map.of();
     }
-
-    // @Override
-    // public SerializedState get() {
-    //     return new SerializedState() {
-
-    //         @Override
-    //         public List<String> getAdjustableValues() {
-    //             return List.of(Integer.toString(value));
-    //         }
-
-    //         @Override
-    //         public List<Boolean> getToggleableValues() {
-    //             return List.of();
-    //         }
-
-    //     };
-    // }
 
 }

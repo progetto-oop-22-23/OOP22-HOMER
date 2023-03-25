@@ -1,11 +1,11 @@
 package homer.controller.protocol;
 
-import java.util.List;
+import java.util.Map;
 
 public interface SerializedState {
 
-    List<String> getAdjustableValues();
+    Map<String, String> getAdjustableValues();
 
-    List<Boolean> getToggleableValues();
+    Map<String, Boolean> getToggleableValues();
 
 }
