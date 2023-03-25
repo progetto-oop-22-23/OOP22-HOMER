@@ -1,9 +1,7 @@
 package homer.model.window;
 
-import homer.model.actuator.ActuatedDevice;
-
 /**
- * This interface models a window in a discrete-time simulation.
+ * This interface models a window.
  */
-public interface Window extends ActuatedDevice {
+public interface Window {
 }
