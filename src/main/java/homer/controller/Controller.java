@@ -35,7 +35,8 @@ public interface Controller {
 
     /**
      * Returns the ViewManager.
+     * 
      * @return The ViewManager.
      */
-    ViewManager getViewManager();    
+    ViewManager getViewManager();
 }
