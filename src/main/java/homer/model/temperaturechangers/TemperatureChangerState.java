@@ -1,5 +1,7 @@
 package homer.model.temperaturechangers;
 
-public record TemperatureChangerState(double min, double max, double intensity) {
+import homer.api.DeviceState;
+
+public record TemperatureChangerState(double min, double max, double intensity) implements DeviceState {
     
 }

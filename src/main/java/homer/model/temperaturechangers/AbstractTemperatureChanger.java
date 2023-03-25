@@ -1,5 +1,7 @@
 package homer.model.temperaturechangers;
 
+import homer.api.AdjustableDevice;
+import homer.api.DeviceState;
 import homer.common.temperature.Temperature;
 import homer.common.temperature.TemperatureFactory;
 import homer.model.environment.Environment;
@@ -77,10 +79,10 @@ public abstract class AbstractTemperatureChanger implements TemperatureChanger {
     }
 
     @Override
-    public void setState(Object state) {
+    public void setState(DeviceState state) {
         if (state instanceof TemperatureChangerState) {
-            var casted =  (TemperatureChangerState) state;
-            this.intensity = casted.intensity();
+            TemperatureChangerState temperatureChangerState =  (TemperatureChangerState) state;
+            this.intensity = temperatureChangerState.intensity();
         }
     }
 

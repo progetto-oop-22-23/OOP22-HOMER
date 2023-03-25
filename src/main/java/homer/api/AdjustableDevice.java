@@ -13,5 +13,5 @@ public interface AdjustableDevice<S> extends Device<S> {
      * 
      * @param state The new commanded level.
      */
-    void setState(Object state);
+    void setState(DeviceState state);
 }
