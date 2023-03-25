@@ -4,7 +4,8 @@ import homer.model.actuator.AbstractActuatedDevice;
 import homer.model.actuator.Actuator;
 
 /**
- * Implementation of a mechanically controlled {@link Window}.
+ * Implementation of a {@link Window} mechanically controlled by an
+ * {@link Actuator} in a discrete-time simulation.
  */
 public final class MechanizedWindow extends AbstractActuatedDevice implements Window {
 
