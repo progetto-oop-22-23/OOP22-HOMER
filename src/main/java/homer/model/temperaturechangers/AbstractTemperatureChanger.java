@@ -24,13 +24,13 @@ public abstract class AbstractTemperatureChanger implements TemperatureChanger {
     private Temperature minTemperature = TemperatureFactory.fromKelvin(0);
     private Optional<Temperature> maxTemperature = Optional.empty();
 
-    /**
-     * @param minIntensity
-     * @param maxIntensity
-     * @param environment
-     * @param info
+    /** 
+     * @param minIntensity the minimum intensity allowed.
+     * @param maxIntensity the maximum intensity allowed.
+     * @param environment the environment that is modified by the heating device.
      */
-    @SuppressFBWarnings(value = "EI_EXPOSE_REP", justification = "Updating a reference is better than reallocating objects on the heap")
+    @SuppressFBWarnings(value = "EI_EXPOSE_REP", 
+    justification = "Updating a reference is better than reallocating objects on the heap")
     public AbstractTemperatureChanger(final double minIntensity, final double maxIntensity,
             final Environment environment) {
         this.minIntensity = minIntensity;
