@@ -1,11 +1,9 @@
 package homer.model.window;
 
-import homer.api.AdjustableDevice;
-import homer.core.DiscreteObject;
+import homer.model.actuator.ActuatedDevice;
 
 /**
  * This interface models a window in a discrete-time simulation.
  */
-public interface Window extends AdjustableDevice<Integer>, DiscreteObject {
-
+public interface Window extends ActuatedDevice {
 }
