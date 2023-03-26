@@ -21,16 +21,6 @@ public final class App {
      * @param args Command line arguments
      */
     public static void main(final String[] args) {
-        // TODO remove example
-
-        final SimManagerViewObserver simManager = new SimManagerImpl(() -> {
-            System.out.println("Hello World " + " " + System.currentTimeMillis());
-        });
-        final SimManager simAppSide = simManager; // use this if it needs to be passed to the loop.
-
-        final var simView = new SimManagerViewImpl();
-        simView.setObserver(simManager);
-
         Application.launch(JFXApplication.class, args);
     }
 }
