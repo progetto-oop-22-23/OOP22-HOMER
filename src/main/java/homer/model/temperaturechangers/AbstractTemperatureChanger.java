@@ -81,8 +81,8 @@ public abstract class AbstractTemperatureChanger implements TemperatureChanger {
     public void setState(DeviceState state) {
         if (state instanceof TemperatureChangerState) {
             TemperatureChangerState temperatureChangerState =  (TemperatureChangerState) state;
-            if (temperatureChangerState.getIntensity().isPresent()) {
-                this.intensity = temperatureChangerState.getIntensity().get();
+            if (temperatureChangerState.getMaxIntensity().isPresent()) {
+                this.intensity = temperatureChangerState.getMaxIntensity().get();
             }
         }
     }

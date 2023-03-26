@@ -50,8 +50,9 @@ class HeatingTest {
         assertEquals(100, environment.getTemperature().getCelsius());
     }
 
+    @Test
     void intensityChangeTest() {
-        heating.setState(new TemperatureChangerState().addValue(3.0));
+        heating.setState(new TemperatureChangerState().addCurrentIntensity(3.0));
         heating.updateTick(Duration.ofHours(1));
         assertEquals(3, environment.getTemperature().getCelsius(), HeatingTest.DELTA);
     }

@@ -4,35 +4,69 @@ import java.util.Optional;
 
 import homer.api.DeviceState;
 
-public class TemperatureChangerState implements DeviceState {
+/**
+ * Models the state of a TemperatureChanger object.
+ */
+public final class TemperatureChangerState implements DeviceState {
     Optional<Double> min = Optional.empty();
     Optional<Double> max = Optional.empty();
-    Optional<Double> intensity = Optional.empty();
+    Optional<Double> current = Optional.empty();
 
-    public Optional<Double> getMin() {
+    /**
+     * 
+     * Returns the minimum intensity.
+     * 
+     * @return the minimum intensity.
+     */
+    public Optional<Double> getMinIntensity() {
         return this.min;
     }
-    
-    public Optional<Double> getMax() {
+
+    /**
+     * 
+     * Returns the maximum intensity.
+     * 
+     * @return the maximum intensity.
+     */
+    public Optional<Double> getMaxIntensity() {
         return this.max;
     }
 
-    public Optional<Double> getIntensity() {
-        return this.intensity;
+    /**
+     * 
+     * @return
+     */
+    public Optional<Double> getCurrentIntensity() {
+        return this.current;
     }
 
-    TemperatureChangerState addMin(double min) {
+    /**
+     * 
+     * @param min the minimum intensity
+     * @return the updated instance.
+     */
+    public TemperatureChangerState addMinIntensity(double min) {
         this.min = Optional.of(min);
         return this;
     }
 
-    TemperatureChangerState addMax(double max) {
+    /**
+     * 
+     * @param max the max intensity
+     * @return the updated instance.
+     */
+    public TemperatureChangerState addMaxIntensity(double max) {
         this.max = Optional.of(max);
         return this;
     }
 
-    TemperatureChangerState addValue(double value) {
-        this.intensity = Optional.of(value);
+    /**
+     * 
+     * @param current the current intensity.
+     * @return the updated instance.
+     */
+    public TemperatureChangerState addCurrentIntensity(double current) {
+        this.current = Optional.of(current);
         return this;
     }
 }
