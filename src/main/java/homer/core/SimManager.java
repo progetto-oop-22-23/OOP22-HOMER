@@ -3,7 +3,7 @@ package homer.core;
 import java.time.Duration;
 
 /**
- * Interface for the control of the simulation.
+ * Interface for the retrieval of the simulation information.
  */
 public interface SimManager {
 
