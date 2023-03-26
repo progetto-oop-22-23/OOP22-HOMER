@@ -12,7 +12,7 @@ import homer.core.SimManagerViewObserver;
 /**
  * Implementation of {@link SimManagerView}.
  */
-public class SimManagerViewSwingImpl implements SimManagerView {
+public final class SimManagerViewSwingImpl implements SimManagerView {
 
     private static final String FRAME_TITLE = "Simulation Manager";
     private static final String RESUME = "Resume";
