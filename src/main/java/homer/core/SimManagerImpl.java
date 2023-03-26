@@ -15,7 +15,7 @@ import homer.controller.Controller;
 public final class SimManagerImpl implements SimManagerViewObserver {
 
     private static final Duration DEFAULT_SIM_STEP_PERIOD = Duration.of(1, TimeUnit.MINUTES.toChronoUnit());
-    private static final Duration DEFAULT_REAL_STEP_PERIOD = Duration.of(6, TimeUnit.MILLISECONDS.toChronoUnit());
+    private static final Duration DEFAULT_REAL_STEP_PERIOD = Duration.of(500, TimeUnit.MILLISECONDS.toChronoUnit());
     private final ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
     private Duration simStepPeriod = DEFAULT_SIM_STEP_PERIOD;
     private Duration realStepPeriod = DEFAULT_REAL_STEP_PERIOD;
