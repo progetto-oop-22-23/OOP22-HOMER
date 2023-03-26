@@ -10,7 +10,7 @@ import java.util.concurrent.TimeUnit;
 import homer.controller.Controller;
 
 /**
- * Implementation of {@link SimManagerViewObserver}
+ * Implementation of {@link SimManagerViewObserver}.
  */
 public class SimManagerImpl implements SimManagerViewObserver {
 
