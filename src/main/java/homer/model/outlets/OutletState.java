@@ -4,6 +4,9 @@ import java.util.Optional;
 
 import homer.api.DeviceState;
 
+/**
+ * Keeps {@link homer.model.outlets.Outlet} state (power consumption).
+ */
 public final class OutletState implements DeviceState {
     private Optional<Double> minPower = Optional.empty();
     private Optional<Double> maxPower = Optional.empty();
