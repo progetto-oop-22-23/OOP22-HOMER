@@ -7,6 +7,8 @@ import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.TimeUnit;
 
+import homer.controller.Controller;
+
 /**
  * Implementation of {@link SimManagerViewObserver}
  */
@@ -26,8 +28,11 @@ public class SimManagerImpl implements SimManagerViewObserver {
      * 
      * @param loopRunnable the simulation code to run at each iteration.
      */
-    public SimManagerImpl(final Runnable loopRunnable) {
-        this.loopRunnable = loopRunnable;
+    public SimManagerImpl(final Controller controller) {
+        this.loopRunnable = () -> {
+            System.out.println("Hello World " + getSimStepPeriod() + " " + System.currentTimeMillis());
+            controller.updateTick(getSimStepPeriod());
+        };
         resume();
     }
 
