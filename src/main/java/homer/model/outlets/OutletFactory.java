@@ -21,11 +21,11 @@ public final class OutletFactory {
      * 
      * @return An Outlet with {@code minValue = 0.0} and {@code maxValue = 2.0}
      */
-    public static Outlet cOutlet(final DeviceState state) {
-        final OutletState outletState = (OutletState) state;
-        outletState.addMax(2000);
+    public static Outlet cOutlet(final double value) {
+        final OutletState outletState = new OutletState();
+        outletState.addValue(value);
         outletState.addMin(0.0);
-        outletState.addValue(0);
+        outletState.addMax(2.0);
         return new Outlet(outletState);
     }
 
@@ -36,11 +36,11 @@ public final class OutletFactory {
      * 
      * @return An Outlet with {@code minValue = 0.0} and {@code maxValue = 3.5}
      */
-    public static Outlet lOutlet(final DeviceState state) {
-        final OutletState outletState = (OutletState) state;
-        outletState.addMax(3500);
+    public static Outlet lOutlet(final double value) {
+        final OutletState outletState = new OutletState();
+        outletState.addValue(value);
         outletState.addMin(0.0);
-        outletState.addValue(0);
+        outletState.addMax(3.5);
         return new Outlet(outletState);
     }
 }
