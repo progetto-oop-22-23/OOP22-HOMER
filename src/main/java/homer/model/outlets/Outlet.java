@@ -6,6 +6,7 @@ import java.util.Optional;
 
 import homer.api.AdjustableDevice;
 import homer.api.Device;
+import homer.api.DeviceState;
 import homer.api.PoweredDevice;
 import homer.common.limit.Limit;
 import homer.common.time.DurationConverter;
@@ -21,13 +22,14 @@ import homer.core.DiscreteObject;
 public class Outlet implements AdjustableDevice<Double>, DiscreteObject {
 
     private double state;
-    private final double minValue;
+    private final double minValue;  //TODO: Remove??
     private final double maxValue;
     private Optional<Device<?>> device = Optional.empty();
 
     /**
      * Constructor for class Outlet.
      * c
+     * 
      * @param state    The instant power absorption on the outlet.
      * @param minValue The minimum power absorption of the plugged device.
      * @param maxValue The maximum power absorption of the plugged device.
@@ -47,8 +49,17 @@ public class Outlet implements AdjustableDevice<Double>, DiscreteObject {
     public Outlet(final Outlet outlet) {
         Objects.requireNonNull(outlet);
         this.state = outlet.getState();
-        this.minValue = outlet.getMinValue();
-        this.maxValue = outlet.getMaxValue();
+        this.minValue = outlet.getMinPower();
+        this.maxValue = outlet.getMaxPower();
+    }
+
+    //TODO: Remove?
+    private double getMaxPower() {
+        return this.maxValue;
+    }
+
+    private double getMinPower() {
+        return this.minValue;
     }
 
     /**
@@ -59,52 +70,6 @@ public class Outlet implements AdjustableDevice<Double>, DiscreteObject {
     public Double getState() {
         return this.state;
     }
-
-    /**
-     * 
-     * @return The minimum power absorption.
-     */
-    @Override
-    public Double getMinValue() {
-        return this.minValue;
-    }
-
-    /**
-     * 
-     * @return The maximum power absorption.
-     */
-    @Override
-    public Double getMaxValue() {
-        return this.maxValue;
-    }
-
-    /**
-     * Sets the instant power absorption.
-     * 
-     * If a parameter is passed, set {@code this.state}
-     * to {@code state}.
-     *
-     * @param state The new value of {@code state}.
-     */
-    @Override
-    public void setState(final Double state) {
-        Objects.requireNonNull(state);
-        this.state = Limit.clamp(state, this.getMinValue(), this.getMaxValue());
-    }
-
-    /*
-     * Sets the instant power absorption.
-     * 
-     * If a {@link homer.api.PoweredDevice} is plugged, {@code this.state} is set to
-     * {@code PoweredDevice.getInstantConsumption()}.
-     *
-     * public void setState() {
-     * this.getDevice().ifPresentOrElse(
-     * device -> this.state = ((PoweredDevice) device).getInstantConsumption(),
-     * () -> {
-     * });
-     * }
-     */
 
     /**
      * Plugs a device to the outlet.
@@ -122,7 +87,9 @@ public class Outlet implements AdjustableDevice<Double>, DiscreteObject {
     public void unplug() {
         Objects.requireNonNull(this.device);
         this.device = Optional.empty();
-        this.setState(0.0);
+        OutletState state = new OutletState();
+        state.addValue(0.0);
+        this.setState(state);
     }
 
     /**
@@ -137,16 +104,25 @@ public class Outlet implements AdjustableDevice<Double>, DiscreteObject {
     public final void updateTick(final Duration deltaTime) {
         final double defaultMaxPower = 150.0;
         final double defaultRandomIncrement = Math.random() * 10 + 1;
-        double energy;
+        OutletState energy = new OutletState();
         if (this.getDevice().get() instanceof PoweredDevice) {
             final double consumption = ((PoweredDevice) this.getDevice().get()).getInstantConsumption();
             final double hours = DurationConverter.toHours(deltaTime);
-            energy = consumption * hours;
+            energy.addValue(consumption * hours);
             this.setState(energy);
-
         } else {
-            energy = Math.min(defaultMaxPower, Math.pow(this.getState(), 2) + defaultRandomIncrement);
+            energy.addValue(Math.min(defaultMaxPower, Math.pow(this.getState(), 2) + defaultRandomIncrement));
         }
         this.setState(energy);
+    }
+
+    @Override
+    public void setState(DeviceState state) {
+        if (state instanceof OutletState) {
+            OutletState outletState = (OutletState) state;
+            if (outletState.getPower().isPresent()) {
+                this.state = outletState.getPower().get();
+            }
+        }
     }
 }
