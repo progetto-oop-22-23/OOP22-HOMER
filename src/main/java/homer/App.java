@@ -1,10 +1,6 @@
 package homer;
 
-import homer.core.SimManager;
-import homer.core.SimManagerImpl;
-import homer.core.SimManagerViewObserver;
 import homer.view.JFXApplication;
-import homer.view.sim.SimManagerViewImpl;
 import javafx.application.Application;
 
 /**
