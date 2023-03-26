@@ -1,7 +1,6 @@
 package homer.controller.impl.electricalmeter;
 
 import java.time.Duration;
-import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 import java.util.ListIterator;
@@ -12,7 +11,6 @@ import homer.common.time.DurationConverter;
 import homer.controller.api.electricalmeter.ElectricalMeter;
 import homer.core.DiscreteObject;
 import homer.model.outlets.Outlet;
-import homer.model.outlets.OutletState;
 
 /**
  * Implements {@link homer.controller.api.electricalmeter.ElectricalMeter}.
