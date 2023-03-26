@@ -12,7 +12,7 @@ import homer.controller.Controller;
 /**
  * Implementation of {@link SimManagerViewObserver}.
  */
-public class SimManagerImpl implements SimManagerViewObserver {
+public final class SimManagerImpl implements SimManagerViewObserver {
 
     private static final Duration DEFAULT_SIM_STEP_PERIOD = Duration.of(1, TimeUnit.MINUTES.toChronoUnit());
     private static final Duration DEFAULT_REAL_STEP_PERIOD = Duration.of(6, TimeUnit.MILLISECONDS.toChronoUnit());
