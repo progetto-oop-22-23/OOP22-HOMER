@@ -12,7 +12,7 @@ import homer.core.SimManagerViewObserver;
 /**
  * Implementation of {@link SimManagerView}
  */
-public class SimManagerViewImpl implements SimManagerView {
+public class SimManagerViewSwingImpl implements SimManagerView {
 
     private static final String FRAME_TITLE = "Simulation Manager";
     private static final String RESUME = "Resume";
@@ -28,7 +28,7 @@ public class SimManagerViewImpl implements SimManagerView {
     /**
      * Creates and display a new {@link SimManagerView}.
      */
-    public SimManagerViewImpl() {
+    public SimManagerViewSwingImpl() {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         final var screenSize = Toolkit.getDefaultToolkit().getScreenSize();
         frame.setSize((int) (screenSize.getWidth() * WIDTH_SCALE), (int) (screenSize.getHeight() * HEIGHT_SCALE));

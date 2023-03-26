@@ -4,7 +4,7 @@ import homer.controller.Controller;
 import homer.controller.ControllerImpl;
 import homer.core.SimManagerImpl;
 import homer.view.javafx.AddDevicesView;
-import homer.view.sim.SimManagerViewImpl;
+import homer.view.sim.SimManagerViewSwingImpl;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.scene.Group;
@@ -24,7 +24,7 @@ public class JFXApplication extends Application {
 
         final var simManager = new SimManagerImpl(controller);
         Platform.runLater(() -> {
-            final var simView = new SimManagerViewImpl();
+            final var simView = new SimManagerViewSwingImpl();
             simView.setObserver(simManager);
         });
 
