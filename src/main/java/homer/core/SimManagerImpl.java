@@ -23,10 +23,10 @@ public class SimManagerImpl implements SimManagerViewObserver {
     private Runnable loopRunnable;
 
     /**
-     * Creates a new {@link SimManagerImpl} with the given {@code Runnable} and
+     * Creates a new {@link SimManagerImpl} with the given {@code Controller} and
      * starts running it indefinitely.
      * 
-     * @param loopRunnable the simulation code to run at each iteration.
+     * @param controller the controller.
      */
     public SimManagerImpl(final Controller controller) {
         this.loopRunnable = () -> {
