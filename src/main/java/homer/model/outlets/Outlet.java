@@ -8,7 +8,6 @@ import homer.api.AdjustableDevice;
 import homer.api.Device;
 import homer.api.DeviceState;
 import homer.api.PoweredDevice;
-import homer.common.limit.Limit;
 import homer.common.time.DurationConverter;
 import homer.core.DiscreteObject;
 
@@ -21,9 +20,7 @@ import homer.core.DiscreteObject;
 
 public class Outlet implements AdjustableDevice<Double>, DiscreteObject {
 
-    private double state;
-    private final double minValue;  //TODO: Remove??
-    private final double maxValue;
+    DeviceState state;
     private Optional<Device<?>> device = Optional.empty();
 
     /**
@@ -34,11 +31,8 @@ public class Outlet implements AdjustableDevice<Double>, DiscreteObject {
      * @param minValue The minimum power absorption of the plugged device.
      * @param maxValue The maximum power absorption of the plugged device.
      */
-    public Outlet(final double state, final double minValue,
-            final double maxValue) {
-        this.state = state;
-        this.minValue = minValue;
-        this.maxValue = maxValue;
+    public Outlet(final DeviceState state) {
+        this.state = (OutletState) state;
     }
 
     /**
@@ -49,17 +43,6 @@ public class Outlet implements AdjustableDevice<Double>, DiscreteObject {
     public Outlet(final Outlet outlet) {
         Objects.requireNonNull(outlet);
         this.state = outlet.getState();
-        this.minValue = outlet.getMinPower();
-        this.maxValue = outlet.getMaxPower();
-    }
-
-    //TODO: Remove?
-    private double getMaxPower() {
-        return this.maxValue;
-    }
-
-    private double getMinPower() {
-        return this.minValue;
     }
 
     /**
@@ -67,8 +50,8 @@ public class Outlet implements AdjustableDevice<Double>, DiscreteObject {
      * @return The device state parameters for eg. on/off, intensity.
      */
     @Override
-    public Double getState() {
-        return this.state;
+    public DeviceState getState() {
+        return (OutletState) this.state;
     }
 
     /**
@@ -111,7 +94,8 @@ public class Outlet implements AdjustableDevice<Double>, DiscreteObject {
             energy.addValue(consumption * hours);
             this.setState(energy);
         } else {
-            energy.addValue(Math.min(defaultMaxPower, Math.pow(this.getState(), 2) + defaultRandomIncrement));
+            energy.addValue(Math.min(defaultMaxPower,
+                    Math.pow((((OutletState) this.getState()).getPower().get()), 2) + defaultRandomIncrement));
         }
         this.setState(energy);
     }
@@ -121,7 +105,7 @@ public class Outlet implements AdjustableDevice<Double>, DiscreteObject {
         if (state instanceof OutletState) {
             OutletState outletState = (OutletState) state;
             if (outletState.getPower().isPresent()) {
-                this.state = outletState.getPower().get();
+                ((OutletState) this.state).addValue(outletState.getPower().get());
             }
         }
     }
