@@ -1,6 +1,7 @@
 package homer.core;
 
 import java.time.Duration;
+import java.util.Optional;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.ScheduledFuture;
@@ -16,7 +17,7 @@ public class SimManagerImpl implements SimManagerViewObserver {
     private final ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
     private Duration simStepPeriod = DEFAULT_SIM_STEP_PERIOD;
     private Duration realStepPeriod = DEFAULT_REAL_STEP_PERIOD;
-    private ScheduledFuture<?> loopHandle;
+    private Optional<ScheduledFuture<?>> loopHandle = Optional.empty();
     private Runnable loopRunnable;
 
     /**
@@ -32,13 +33,18 @@ public class SimManagerImpl implements SimManagerViewObserver {
 
     @Override
     public void resume() {
-        this.loopHandle = scheduler.scheduleAtFixedRate(this.loopRunnable, 0, this.realStepPeriod.toMillis(),
-                TimeUnit.MILLISECONDS);
+        if (this.loopHandle.isEmpty()) {
+            this.loopHandle = Optional.of(scheduler.scheduleAtFixedRate(this.loopRunnable, 0,
+                    this.realStepPeriod.toMillis(), TimeUnit.MILLISECONDS));
+        }
     }
 
     @Override
     public void pause() {
-        this.loopHandle.cancel(true);
+        if (this.loopHandle.isPresent()) {
+            this.loopHandle.get().cancel(true);
+            this.loopHandle = Optional.empty();
+        }
     }
 
     @Override
