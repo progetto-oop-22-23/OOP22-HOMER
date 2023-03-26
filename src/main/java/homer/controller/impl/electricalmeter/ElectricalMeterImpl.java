@@ -65,20 +65,17 @@ public final class ElectricalMeterImpl implements ElectricalMeter, DiscreteObjec
 
     @Override
     public void computeConsumption() {
-        double cons = 0.0;
-        for (Outlet outlet : this.getOutlets()) {
-            cons += ((OutletState) outlet.getState()).getPower().get();
-        }
-        this.globalConsumption = cons;
+        this.globalConsumption = this.getOutlets().stream()
+                .mapToDouble(outlet -> ((OutletState) outlet.getState()).getPower().get())
+                .sum();
     }
 
     /**
      * Sorts {@code this.outlets} from the most consuming Outlet to the least one.
      */
     private void sortOutletsForConsumption() {
-        Collections.sort(outlets,
-                (outlet1, outlet2) -> Double.compare(((OutletState) outlet2.getState()).getPower().get(),
-                        ((OutletState) outlet1.getState()).getPower().get()));
+        outlets.sort(Comparator.comparingDouble(
+                outlet -> ((Outlet) outlet).getState().getPower().get()).reversed());
     }
 
     @Override
