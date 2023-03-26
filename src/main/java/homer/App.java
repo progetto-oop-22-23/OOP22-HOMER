@@ -4,6 +4,7 @@ import homer.core.SimManager;
 import homer.core.SimManagerImpl;
 import homer.core.SimManagerViewObserver;
 import homer.view.JFXApplication;
+import homer.view.sim.SimManagerViewImpl;
 import javafx.application.Application;
 
 /**
@@ -22,23 +23,13 @@ public final class App {
     public static void main(final String[] args) {
         // TODO remove example
 
-        final SimManagerViewObserver simView = new SimManagerImpl(() -> {
+        final SimManagerViewObserver simManager = new SimManagerImpl(() -> {
             System.out.println("Hello World " + " " + System.currentTimeMillis());
         });
-        final SimManager simAppSide = simView; // use this if it needs to be passed to the loop.
+        final SimManager simAppSide = simManager; // use this if it needs to be passed to the loop.
 
-        try {
-            Thread.sleep(1000);
-        } catch (InterruptedException e) {
-            System.out.println(e);
-        }
-        simView.pause();
-        try {
-            Thread.sleep(1000);
-        } catch (InterruptedException e) {
-            System.out.println(e);
-        }
-        simView.resume();
+        final var simView = new SimManagerViewImpl();
+        simView.setObserver(simManager);
 
         Application.launch(JFXApplication.class, args);
     }
