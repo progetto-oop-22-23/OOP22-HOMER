@@ -18,9 +18,9 @@ import homer.core.DiscreteObject;
  * @author Alessandro Monticelli
  */
 
-public class Outlet implements AdjustableDevice<Double>, DiscreteObject {
+public class Outlet implements AdjustableDevice<OutletState>, DiscreteObject {
 
-    DeviceState state;
+    OutletState state;
     private Optional<Device<?>> device = Optional.empty();
 
     /**
@@ -50,7 +50,7 @@ public class Outlet implements AdjustableDevice<Double>, DiscreteObject {
      * @return The device state parameters for eg. on/off, intensity.
      */
     @Override
-    public DeviceState getState() {
+    public OutletState getState() {
         return this.state;
     }
 
@@ -70,7 +70,7 @@ public class Outlet implements AdjustableDevice<Double>, DiscreteObject {
     public void unplug() {
         Objects.requireNonNull(this.device);
         this.device = Optional.empty();
-        OutletState state = (OutletState) this.getState();
+        OutletState state = this.getState();
         state.addValue(0.0);
     }
 
@@ -86,7 +86,7 @@ public class Outlet implements AdjustableDevice<Double>, DiscreteObject {
     public final void updateTick(final Duration deltaTime) {
         final double defaultMaxPower = 150.0;
         final double defaultRandomIncrement = Math.random() * 10 + 1;
-        OutletState energy = (OutletState) this.getState();
+        OutletState energy = this.getState();
         if (this.getDevice().get() instanceof PoweredDevice) {
             final double consumption = ((PoweredDevice) this.getDevice().get()).getInstantConsumption();
             final double hours = DurationConverter.toHours(deltaTime);
@@ -94,7 +94,7 @@ public class Outlet implements AdjustableDevice<Double>, DiscreteObject {
             this.setState(energy);
         } else {
             energy.addValue(Math.min(defaultMaxPower,
-                    Math.pow((((OutletState) this.getState()).getPower().get()), 2) + defaultRandomIncrement));
+                    Math.pow(this.getState().getPower().get(), 2) + defaultRandomIncrement));
         }
         this.setState(energy);
     }
@@ -104,7 +104,7 @@ public class Outlet implements AdjustableDevice<Double>, DiscreteObject {
         if (state instanceof OutletState) {
             OutletState outletState = (OutletState) state;
             if (outletState.getPower().isPresent()) {
-                ((OutletState) this.state).addValue(outletState.getPower().get());
+                this.state.addValue(outletState.getPower().get());
             }
         }
     }
