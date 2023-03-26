@@ -10,7 +10,7 @@ import java.time.Duration;
 import homer.core.SimManagerViewObserver;
 
 /**
- * Implementation of {@link SimManagerView}
+ * Implementation of {@link SimManagerView}.
  */
 public class SimManagerViewSwingImpl implements SimManagerView {
 
