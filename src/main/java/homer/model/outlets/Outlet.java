@@ -87,7 +87,7 @@ public class Outlet implements AdjustableDevice<Double>, DiscreteObject {
     public final void updateTick(final Duration deltaTime) {
         final double defaultMaxPower = 150.0;
         final double defaultRandomIncrement = Math.random() * 10 + 1;
-        OutletState energy = new OutletState();
+        OutletState energy = (OutletState) this.getState();
         if (this.getDevice().get() instanceof PoweredDevice) {
             final double consumption = ((PoweredDevice) this.getDevice().get()).getInstantConsumption();
             final double hours = DurationConverter.toHours(deltaTime);
