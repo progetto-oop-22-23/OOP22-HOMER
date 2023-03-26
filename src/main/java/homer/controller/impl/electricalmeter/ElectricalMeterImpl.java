@@ -66,7 +66,7 @@ public final class ElectricalMeterImpl implements ElectricalMeter, DiscreteObjec
     @Override
     public void computeConsumption() {
         this.globalConsumption = this.getOutlets().stream()
-                .mapToDouble(outlet -> ((OutletState) outlet.getState()).getPower().get())
+                .mapToDouble(outlet -> outlet.getState().getPower().get())
                 .sum();
     }
 
