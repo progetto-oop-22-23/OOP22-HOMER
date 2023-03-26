@@ -70,9 +70,8 @@ public class Outlet implements AdjustableDevice<Double>, DiscreteObject {
     public void unplug() {
         Objects.requireNonNull(this.device);
         this.device = Optional.empty();
-        OutletState state = new OutletState();
+        OutletState state = (OutletState) this.getState();
         state.addValue(0.0);
-        this.setState(state);
     }
 
     /**
