@@ -51,7 +51,7 @@ public class Outlet implements AdjustableDevice<Double>, DiscreteObject {
      */
     @Override
     public DeviceState getState() {
-        return (OutletState) this.state;
+        return this.state;
     }
 
     /**
