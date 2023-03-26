@@ -10,7 +10,7 @@ import java.time.Duration;
 import homer.core.SimManagerViewObserver;
 
 /**
- * Implementation of {@link SimManagerView}.
+ * Implementation of {@link SimManagerView} in Swing.
  */
 public final class SimManagerViewSwingImpl implements SimManagerView {
 
@@ -26,7 +26,7 @@ public final class SimManagerViewSwingImpl implements SimManagerView {
     private SimManagerViewObserver simManager;
 
     /**
-     * Creates and display a new {@link SimManagerView}.
+     * Creates and display a new {@link SimManagerViewSwingImpl}.
      */
     public SimManagerViewSwingImpl() {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
