@@ -2,6 +2,9 @@ package homer.core;
 
 import java.time.Duration;
 
+/**
+ * Interface for the control of the simulation.
+ */
 public interface SimManagerViewObserver extends SimManager {
 
     /**
