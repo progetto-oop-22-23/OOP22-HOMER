@@ -1,5 +1,7 @@
 package homer.model.outlets;
 
+import homer.api.DeviceState;
+
 /**
  * A {@link homer.model.outlets.Outlet} factory.
  * 
@@ -7,10 +9,6 @@ package homer.model.outlets;
  */
 
 public final class OutletFactory {
-
-    private static final double MAX_CTYPE_PW = 2000; // W
-    private static final double MAX_LTYPE_PW = 3500; // W
-    private static final double ZERO = 0.0;
 
     private OutletFactory() {
 
@@ -23,8 +21,12 @@ public final class OutletFactory {
      * 
      * @return An Outlet with {@code minValue = 0.0} and {@code maxValue = 2.0}
      */
-    public static Outlet cOutlet(final double state) {
-        return new Outlet(state, ZERO, MAX_CTYPE_PW);
+    public static Outlet cOutlet(final DeviceState state) {
+        final OutletState outletState = (OutletState) state;
+        outletState.addMax(2000);
+        outletState.addMin(0.0);
+        outletState.addValue(0);
+        return new Outlet(outletState);
     }
 
     /**
@@ -34,7 +36,11 @@ public final class OutletFactory {
      * 
      * @return An Outlet with {@code minValue = 0.0} and {@code maxValue = 3.5}
      */
-    public static Outlet lOutlet(final double state) {
-        return new Outlet(state, ZERO, MAX_LTYPE_PW);
+    public static Outlet lOutlet(final DeviceState state) {
+        final OutletState outletState = (OutletState) state;
+        outletState.addMax(3500);
+        outletState.addMin(0.0);
+        outletState.addValue(0);
+        return new Outlet(outletState);
     }
 }
