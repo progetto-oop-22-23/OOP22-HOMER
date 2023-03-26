@@ -22,8 +22,8 @@ public final class SimManagerViewSwingImpl implements SimManagerView {
     private static final String ONE_HOUR = "1h";
     private static final double HEIGHT_SCALE = 0.2;
     private static final double WIDTH_SCALE = 0.2;
-    private SimManagerViewObserver simManager;
     private final JFrame frame = new JFrame(FRAME_TITLE);
+    private SimManagerViewObserver simManager;
 
     /**
      * Creates and display a new {@link SimManagerView}.
