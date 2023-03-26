@@ -1,6 +1,7 @@
 package homer.controller.impl.electricalmeter;
 
 import java.time.Duration;
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 import java.util.ListIterator;
@@ -11,6 +12,7 @@ import homer.common.time.DurationConverter;
 import homer.controller.api.electricalmeter.ElectricalMeter;
 import homer.core.DiscreteObject;
 import homer.model.outlets.Outlet;
+import homer.model.outlets.OutletState;
 
 /**
  * Implements {@link homer.controller.api.electricalmeter.ElectricalMeter}.
@@ -63,13 +65,20 @@ public final class ElectricalMeterImpl implements ElectricalMeter, DiscreteObjec
 
     @Override
     public void computeConsumption() {
-        this.globalConsumption = outlets.stream()
-                .mapToDouble(Outlet::getState)
-                .sum();
+        double cons = 0.0;
+        for (Outlet outlet : this.getOutlets()) {
+            cons += ((OutletState) outlet.getState()).getPower().get();
+        }
+        this.globalConsumption = cons;
     }
 
+    /**
+     * Sorts {@code this.outlets} from the most consuming Outlet to the least one.
+     */
     private void sortOutletsForConsumption() {
-        this.outlets.sort(Comparator.comparingDouble(Outlet::getState).reversed());
+        Collections.sort(outlets,
+                (outlet1, outlet2) -> Double.compare(((OutletState) outlet2.getState()).getPower().get(),
+                        ((OutletState) outlet1.getState()).getPower().get()));
     }
 
     @Override
