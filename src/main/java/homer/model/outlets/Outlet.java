@@ -18,7 +18,7 @@ import homer.core.DiscreteObject;
  * @author Alessandro Monticelli
  */
 
-public class Outlet implements AdjustableDevice<OutletState>, DiscreteObject {
+public final class Outlet implements AdjustableDevice<OutletState>, DiscreteObject {
 
     OutletState state;
     private Optional<Device<?>> device = Optional.empty();
@@ -27,9 +27,7 @@ public class Outlet implements AdjustableDevice<OutletState>, DiscreteObject {
      * Constructor for class Outlet.
      * c
      * 
-     * @param state    The instant power absorption on the outlet.
-     * @param minValue The minimum power absorption of the plugged device.
-     * @param maxValue The maximum power absorption of the plugged device.
+     * @param state    See {@link homer.model.outlets.OutletState}
      */
     public Outlet(final DeviceState state) {
         this.state = (OutletState) state;
@@ -100,7 +98,7 @@ public class Outlet implements AdjustableDevice<OutletState>, DiscreteObject {
     }
 
     @Override
-    public void setState(DeviceState state) {
+    public void setState(final DeviceState state) {
         if (state instanceof OutletState) {
             OutletState outletState = (OutletState) state;
             if (outletState.getPower().isPresent()) {
