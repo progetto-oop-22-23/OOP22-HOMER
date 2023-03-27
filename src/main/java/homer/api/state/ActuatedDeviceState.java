@@ -8,7 +8,7 @@ import homer.common.bounds.Bounds;
 /**
  * Implementation of {@link DeviceState} for an {@link ActuatedDevice}.
  */
-public class ActuatedDeviceState implements DeviceState {
+public final class ActuatedDeviceState implements DeviceState {
 
     private final Optional<Bounds<Integer>> positionBounds;
     private final int position;
@@ -19,7 +19,7 @@ public class ActuatedDeviceState implements DeviceState {
      * @param position       the actuator position.
      * @param positionBounds the actuator bounds.
      */
-    public ActuatedDeviceState(int position, Bounds<Integer> positionBounds) {
+    public ActuatedDeviceState(final int position, final Bounds<Integer> positionBounds) {
         this.position = position;
         this.positionBounds = Optional.of(positionBounds);
     }
@@ -30,7 +30,7 @@ public class ActuatedDeviceState implements DeviceState {
      * 
      * @param position the new commanded position.
      */
-    public ActuatedDeviceState(int position) {
+    public ActuatedDeviceState(final int position) {
         this.position = position;
         this.positionBounds = Optional.empty();
     }
