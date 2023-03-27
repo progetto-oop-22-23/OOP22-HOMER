@@ -1,88 +1,99 @@
 package homer.view.javafx;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import homer.controller.api.electricalmeter.ElectricalMeter;
-import homer.controller.impl.electricalmeter.ElectricalMeterImpl;
 import homer.model.outlets.Outlet;
-import homer.model.outlets.OutletFactory;
-import javafx.application.Application;
-import javafx.geometry.Insets;
-import javafx.geometry.Pos;
-import javafx.scene.Scene;
-import javafx.scene.control.Button;
+import javafx.beans.binding.Bindings;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.scene.control.Label;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.VBox;
-import javafx.stage.Stage;
+import javafx.scene.control.TableCell;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.ToggleButton;
+import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
 
-/**
- * {@link homer.controller.impl.electricalmeter.ElectricalMeterImpl} view.
- */
-public final class ElectricalMeterView extends Application {
+public class ElectricalMeterView extends BorderPane {
 
-    private List<Outlet> outlets = List.of(); // JUST FOR TESTING!!!
-    private final ElectricalMeter meter = new ElectricalMeterImpl(outlets);
+    private ElectricalMeter controller;
+    private TableView<List<Outlet>> outletTable;
+    private TableColumn<List<Outlet>, ?> outletNameColumn;
+    private TableColumn<List<Outlet>, ?> outletStatusColumn;
+    private TableColumn<List<Outlet>, Void> outletActionColumn;
+    private Label globalConsumptionLabel;
+    private Label averagePowerLabel;
 
-    @Override
-    public void start(final Stage primaryStage) throws Exception {
-        GridPane gridPane = new GridPane();
-        Label powerConsumptionLabel = new Label();
-        Label energyAbsorptionLabel = new Label();
-        Label[] outletLabels = new Label[meter.getOutlets().size() + 1];
+    public ElectricalMeterView(ElectricalMeter controller) {
+        this.controller = controller;
+        initView();
+    }
 
-        for (int i = 0; i < outletLabels.length; i++) {
-            outletLabels[i] = new Label("Outlet " + (i + 1) + " consumption: ");
-        }
+    private void initView() {
+        this.outletTable = new TableView<>();
+        ObservableList<List<Outlet>> outlets = FXCollections.observableArrayList();
+        outlets.add(controller.getOutlets());
 
-        Button addOutlet = new Button("+ Add Outlet");
-        addOutlet.setOnAction(event -> {
-            meter.addOutlet(OutletFactory.cOutlet(10.0));
-            meter.computeConsumption();
-            powerConsumptionLabel.setText("Power consumption: " + meter.getGlobalConsumption() + " kW");
-            energyAbsorptionLabel.setText("Energy absorption: " + meter.getAveragePower() + " kW/h");
-            outletLabels[outletLabels.length - 1].setText("Outlet " + outletLabels.length + " consumption: ");
-        });
+        // set the table items
+        outletTable.setItems(outlets);
+        // Initialize outlet table
+        outletTable = new TableView<>();
+        outletTable.setEditable(false);
+        outletTable.setItems(outlets);
 
-        Button removeOutlet = new Button("- Remove Outlet");
-        removeOutlet.setOnAction(event -> {
-            Outlet toRemove = meter.getOutlets().get(0);
-            if (toRemove instanceof Outlet) {
-                meter.removeOutlet(meter.getOutlets().get(0));
-                outletLabels[0].setText("");
+        outletNameColumn = new TableColumn<>("Outlet Name");
+        outletNameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
+
+        outletStatusColumn = new TableColumn<>("Status");
+        outletStatusColumn.setCellValueFactory(new PropertyValueFactory<>("status"));
+
+        outletActionColumn = new TableColumn<>("Action");
+        outletActionColumn = new TableColumn<>("Action");
+        outletActionColumn.setCellFactory(param -> new TableCell<List<Outlet>,Void>() {
+            private final ToggleButton outletSwitch = new ToggleButton();
+            {
+                outletSwitch.setOnAction(event -> {
+                    List<Outlet> outlet = getTableView().getItems().get(getIndex());
+                    controller.cutPowerTo(outlet.get(0));
+                });
+            }
+
+            @Override
+            protected void updateItem(Void item, boolean empty) {
+                super.updateItem(item, empty);
+                if (empty) {
+                    setGraphic(null);
+                } else {
+                    List<Outlet> outlet = getTableView().getItems().get(getIndex());
+                    outletSwitch.setSelected(outlet.get(0).getState().getPower().get() > 0.0);
+                    setGraphic(outletSwitch);
+                }
             }
         });
 
-        gridPane.setAlignment(Pos.CENTER);
-        gridPane.setPadding(new Insets(10, 10, 10, 10));
-        gridPane.setVgap(10);
-        gridPane.setHgap(10);
+        List<TableColumn<List<Outlet>, ?>> columns = new ArrayList<>();
+        columns.add(outletNameColumn);
+        columns.add(outletStatusColumn);
+        columns.add(outletActionColumn);
+        outletTable.getColumns().addAll(columns);
 
-        // gridPane.add(powerConsumptionLabel, 0, 0);
-        // gridPane.add(energyAbsorptionLabel, 1, 0);
+        // outletTable.getColumns().addAll(outletNameColumn, outletStatusColumn,
+        // outletActionColumn);
 
-        for (int i = 0; i < outletLabels.length - 1; i++) {
-            gridPane.add(outletLabels[i], 0, i + 1);
-        }
+        // Initialize global consumption label
+        globalConsumptionLabel = new Label("Global Consumption: ");
+        globalConsumptionLabel.textProperty()
+                .bind(Bindings.format("Global Consumption: %.2f kWh", controller.getGlobalConsumption()));
 
-        VBox buttonBox = new VBox(10, addOutlet, removeOutlet);
-        buttonBox.setAlignment(Pos.CENTER);
-        gridPane.add(buttonBox, 2, 1, 1, outletLabels.length);
+        // Initialize average power label
+        averagePowerLabel = new Label("Average Power: ");
+        averagePowerLabel.textProperty().bind(Bindings.format("Average Power: %.2f W", controller.getAveragePower()));
 
-        // Add labels for the meter's power consumption and energy absorption
-        /*
-         * Label meterPowerLabel = new Label();
-         * Label meterEnergyLabel = new Label();
-         */
-
-        gridPane.add(powerConsumptionLabel, 0, 0);
-        gridPane.add(energyAbsorptionLabel, 0, 1);
-        final int width = 400;
-        final int height = 400;
-        Scene scene = new Scene(gridPane, width, height);
-        primaryStage.setScene(scene);
-        primaryStage.setTitle("Electrical Meter");
-        primaryStage.show();
+        // Set up view
+        this.setTop(outletTable);
+        this.setBottom(new HBox(globalConsumptionLabel, averagePowerLabel));
     }
-
 }
