@@ -17,6 +17,6 @@ public final class DisconnectDeviceButton extends Button {
      */
     public DisconnectDeviceButton(final Controller controller, final DeviceId deviceId) {
         this.setText("Remove Device");
-        this.setOnMouseClicked(e -> controller.receiveCommand(new DisconnectDevice(deviceId))); 
+        this.setOnMouseClicked(e -> controller.receiveCommand(new DisconnectDevice(deviceId)));
     }
 }

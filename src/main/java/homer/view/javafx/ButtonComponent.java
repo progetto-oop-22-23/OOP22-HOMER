@@ -35,5 +35,4 @@ public final class ButtonComponent<T> extends VBox implements StateSelector<T> {
         this.value.setText(state.toString());
     }
 
-
 }

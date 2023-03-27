@@ -1,6 +1,6 @@
 package homer;
 
-import homer.view.JFXApplication;
+import homer.view.javafx.JFXApplication;
 import javafx.application.Application;
 
 /**

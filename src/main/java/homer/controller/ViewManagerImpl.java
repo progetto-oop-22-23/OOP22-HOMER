@@ -31,5 +31,10 @@ public final class ViewManagerImpl implements ViewManager {
         views.forEach(x -> x.removeDevice(deviceId));
     }
 
+    @Override
+    public void start(Controller controller) {
+        views.forEach(x -> x.start(controller));
+    }
+
     
 }
