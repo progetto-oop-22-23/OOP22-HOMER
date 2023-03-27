@@ -8,7 +8,7 @@ import homer.common.bounds.Bounds;
 /**
  * Implementation of {@link DeviceState} for an {@link ActuatedDevice}.
  */
-public class ActuatedDeviceState implements DeviceState {
+public final class ActuatedDeviceState implements DeviceState {
 
     private final Optional<Bounds<Integer>> positionBounds;
     private final int position;
