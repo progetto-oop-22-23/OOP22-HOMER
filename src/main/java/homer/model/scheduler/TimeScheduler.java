@@ -1,36 +1,24 @@
 package homer.model.scheduler;
 
+import java.util.Map;
 import java.util.Set;
+import java.util.UUID;
 import java.time.LocalTime;
 
 /**
- * This interface models a device which assures that certain constraints on
+ * This interface models a component which assures that certain constraints on
  * certain parameters are met in a certain interval of time.
  * 
  * @param <T> The parameter that should meet the constraints.
  */
-public interface TimeScheduler<T> {
-
-    /**
-     * Adds a new schedule.
-     * 
-     * @param schedule The schedule to add.
-     */
-    void addSchedule(TimeSchedule<T> schedule);
-
-    /**
-     * Removes a schedule.
-     * 
-     * @param schedule the schedule to remove.
-     */
-    void removeSchedule(TimeSchedule<T> schedule);
+public interface TimeScheduler<T extends Comparable<T>> {
 
     /**
      * Returns the added schedules.
      * 
      * @return the added schedules.
      */
-    Set<TimeSchedule<T>> getSchedules();
+    Map<UUID, TimeSchedule<T>> getSchedules();
 
     /**
      * Checks if the constraints are met, and if not, executes the necessary
