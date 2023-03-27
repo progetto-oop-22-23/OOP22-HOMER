@@ -4,11 +4,12 @@ import java.util.Set;
 
 import homer.api.DeviceView;
 import homer.controller.command.Command;
+import homer.core.DiscreteObject;
 
 /**
  * This interface models a domotic controller.
  */
-public interface Controller {
+public interface Controller extends DiscreteObject {
 
     /**
      * Returns a set containing the information of each device to be displayed
