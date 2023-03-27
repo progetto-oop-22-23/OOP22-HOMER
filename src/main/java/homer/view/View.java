@@ -1,17 +1,21 @@
 package homer.view;
 
 import homer.api.DeviceId;
+import homer.api.DeviceState;
+import homer.controller.Controller;
 
 /**
  * View that supports adding, removing and updating state of the devices.
  */
 public interface View {
     /**
-     * Updates the selected device's state on the view
+     * Updates the selected device's state on the view, and creates a new view if
+     * it's not present yet.
+     * 
      * @param deviceId        the id of the device to be updated
      * @param serializedState the device's new state
      */
-    void updateDeviceState(DeviceId deviceId, String serializedState);
+    void updateDeviceState(DeviceId deviceId, DeviceState deviceState);
 
     /**
      * 
@@ -20,9 +24,9 @@ public interface View {
     void removeDevice(DeviceId deviceId);
 
     /**
-     * Adds a new device to the view
-     * @param deviceId the device's id
-     * @param deviceType the device's type
+     * Starts the view.
+     * @param controller the controller that's going to receive the updates.
      */
-    void addDevice(DeviceId deviceId, String deviceType);
+    void start(Controller controller);
+    
 }

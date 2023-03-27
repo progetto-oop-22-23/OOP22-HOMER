@@ -29,4 +29,5 @@ public interface Controller extends DiscreteObject {
      * @return The ViewManager.
      */
     ViewManager getViewManager();
+
 }

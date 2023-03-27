@@ -6,7 +6,7 @@ import homer.controller.command.DisconnectDevice;
 import javafx.scene.control.Button;
 
 /**
- * Disconnects the device from the view.
+ * Disconnects the device from the view on click.
  */
 public final class DisconnectDeviceButton extends Button {
 
