@@ -7,7 +7,7 @@ public class CreateCoutlet implements CreateDeviceCommand {
 
     @Override
     public void execute(Controller controller) {
-        controller.getDeviceManager().addDevice(OutletFactory.cOutlet(0));
+        controller.getDeviceManager().addDevice(OutletFactory.cOutlet(0.0));
     }
 
     @Override

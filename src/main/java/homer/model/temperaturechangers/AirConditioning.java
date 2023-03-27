@@ -11,11 +11,10 @@ import homer.model.environment.Environment;
  */
 public final class AirConditioning extends AbstractTemperatureChanger {
 
-    /**
-     * @param minIntensity
-     * @param maxIntensity
-     * @param environment
-     * @param info
+    /** 
+     * @param minIntensity the minimum intensity allowed.
+     * @param maxIntensity the maximum intensity allowed.
+     * @param environment the environment that is modified by the heating device.
      */
     public AirConditioning(final double minIntensity, final double maxIntensity, 
     final Environment environment) {
