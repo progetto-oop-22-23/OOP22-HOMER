@@ -1,6 +1,8 @@
 package homer.view.javafx;
 
 import homer.api.DeviceId;
+import homer.api.DeviceState;
+import homer.api.DeviceView;
 import homer.controller.Controller;
 import homer.controller.command.UpdateDeviceState;
 import homer.model.temperaturechangers.TemperatureChangerState;
@@ -11,9 +13,9 @@ import javafx.scene.text.Text;
  * View used to display intensity data from a {@link Heating} or an
  * {@link AirConditioning} device.
  */
-public final class TemperatureChangerView extends VBox {
+public final class TemperatureChangerView extends VBox implements DeviceView {
     private final Text text = new Text();
-    private SliderComponent sliderComponent; 
+    private SliderComponent sliderComponent;
 
     /**
      * @param deviceId   the device's id.
@@ -29,5 +31,13 @@ public final class TemperatureChangerView extends VBox {
                             new TemperatureChangerState().addCurrentIntensity(sliderComponent.getState())));
                 });
         this.getChildren().add(sliderComponent);
+    }
+
+    @Override
+    public void setState(DeviceState state) {
+        if (state instanceof TemperatureChangerState)  {
+            var TemperatureChangerState =  (TemperatureChangerState) state;
+            this.sliderComponent.setState(TemperatureChangerState.getCurrentIntensity().get());
+        }
     }
 }
