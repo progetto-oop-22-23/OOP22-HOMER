@@ -1,6 +1,5 @@
 package homer.view.javafx;
 
-
 import homer.view.StateSelector;
 import javafx.event.EventHandler;
 import javafx.scene.control.Slider;
@@ -31,7 +30,7 @@ public final class SliderComponent extends VBox implements StateSelector<Double>
     }
 
     @Override
-    public Double getState() {
+    public  Double getState() {
         return this.slider.getValue();
     }
 
@@ -39,5 +38,5 @@ public final class SliderComponent extends VBox implements StateSelector<Double>
     public void setState(Double state) {
         this.slider.setValue(state);
     }
-    
+
 }

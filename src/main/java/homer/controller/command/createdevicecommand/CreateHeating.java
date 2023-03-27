@@ -7,7 +7,7 @@ import homer.model.temperaturechangers.Heating;
 public record CreateHeating(Environment environment) implements CreateDeviceCommand {
 
     @Override
-    public void execute(Controller controller) {
+    public void execute(final Controller controller) {
         controller.getDeviceManager().addDevice(new Heating(0, 0, environment));
     }
 
@@ -15,5 +15,5 @@ public record CreateHeating(Environment environment) implements CreateDeviceComm
     public String getStringRep() {
         return "Create heating";
     }
-    
+
 }
