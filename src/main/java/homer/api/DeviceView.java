@@ -5,18 +5,18 @@ package homer.api;
  * 
  * @param <S> The device state.
  */
-public interface DeviceView<S> {
+public interface DeviceView {
 
     /**
      * 
      * @return Device information to be displayed visually.
      */
-    S getState();
+    DeviceState getState();
 
     /**
      * 
      * @param state the new state for the device's parameter
      */
-    void setState(S state);
+    void setState(DeviceState state);
 
 }

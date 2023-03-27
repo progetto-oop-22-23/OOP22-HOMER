@@ -12,30 +12,31 @@ import javafx.scene.text.Text;
  */
 public final class SliderComponent extends VBox implements StateSelector<Double> {
 
-    private Slider slider; 
+    private Slider slider;
     private Text value = new Text();
 
     /**
      * 
-     * @param controller
      * @param max
      * @param min
      * @param value
+     * @param onDragDone the event that gets triggered on drag done.
      */
-    public SliderComponent(final double max, final double min, final double value, EventHandler<? super DragEvent> onDrag) {
+    public SliderComponent(final double max, final double min, final double value,
+            final EventHandler<? super DragEvent> onDragDone) {
         this.slider = new Slider(min, max, value);
-        this.slider.setOnDragDone(onDrag);
+        this.slider.setOnDragDone(onDragDone);
         this.getChildren().add(slider);
         this.getChildren().add(this.value);
     }
 
     @Override
-    public  Double getState() {
+    public Double getState() {
         return this.slider.getValue();
     }
 
     @Override
-    public void setState(Double state) {
+    public void setState(final Double state) {
         this.slider.setValue(state);
     }
 
