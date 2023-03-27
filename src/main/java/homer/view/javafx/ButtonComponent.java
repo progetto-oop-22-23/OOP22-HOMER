@@ -8,6 +8,9 @@ import javafx.scene.input.MouseDragEvent;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 
+/**
+ * Button component.
+ */
 public final class ButtonComponent<T> extends VBox implements StateSelector<T> {
 
     private Button button;
@@ -22,12 +25,12 @@ public final class ButtonComponent<T> extends VBox implements StateSelector<T> {
     }
 
     @Override
-    public T getState() {
+    public final T getState() {
         return this.state;
     }
 
     @Override
-    public void setState(T state) {
+    public final void setState(T state) {
         this.state = state;
         this.value.setText(state.toString());
     }

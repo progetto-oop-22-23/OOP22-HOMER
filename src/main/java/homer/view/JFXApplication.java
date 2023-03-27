@@ -13,17 +13,19 @@ import javafx.scene.Scene;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
+/**
+ * Main javaFX application.
+ */
 public class JFXApplication extends Application {
     private static final long INITIAL_W = 300;
     private static final long INITIAL_H = 300;
 
     @Override
-    public void start(Stage stage) throws Exception {
-        Group root = new Group();
-        Scene scene = new Scene(root, INITIAL_W, INITIAL_H);
-        VBox vBox = new VBox();
-        final var state = new TemperatureChangerState().addCurrentIntensity(3.0).addMaxIntensity(10).addMinIntensity(1);
-        Controller controller = new ControllerImpl();
+    public final void start(Stage stage) throws Exception {
+        final Group root = new Group();
+        final Scene scene = new Scene(root, INITIAL_W, INITIAL_H);
+        final VBox vBox = new VBox();
+        final Controller controller = new ControllerImpl();
         root.getChildren().addAll(vBox, new AddDevicesView(controller));
 
         final var simManager = new SimManagerImpl(controller);
