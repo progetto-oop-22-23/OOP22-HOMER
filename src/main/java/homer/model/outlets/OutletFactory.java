@@ -1,7 +1,5 @@
 package homer.model.outlets;
 
-import homer.api.DeviceInfo;
-
 /**
  * A {@link homer.model.outlets.Outlet} factory.
  * 
@@ -10,10 +8,6 @@ import homer.api.DeviceInfo;
 
 public final class OutletFactory {
 
-    private static final double MAX_CTYPE_PW = 2.0; // kW
-    private static final double MAX_LTYPE_PW = 3.5; // kW
-    private static final double ZERO = 0.0;
-
     private OutletFactory() {
 
     }
@@ -21,24 +15,32 @@ public final class OutletFactory {
     /**
      * Instantiates a standard C-type outlet.
      *
-     * @param info
-     * @param state
+     * @param value The instant power absorption.
      * 
      * @return An Outlet with {@code minValue = 0.0} and {@code maxValue = 2.0}
      */
-    public static Outlet cOutlet(final DeviceInfo info, final double state) {
-        return new Outlet(info, state, ZERO, MAX_CTYPE_PW);
+    public static Outlet cOutlet(final double value) {
+        final double maxConsumption = 2000.0;
+        final OutletState outletState = new OutletState();
+        outletState.addValue(value);
+        outletState.addMin(0.0);
+        outletState.addMax(maxConsumption);
+        return new Outlet(outletState);
     }
 
     /**
      * Instantiates a standard L-type outlet.
      * 
-     * @param info
-     * @param state
+     * @param value The instant power absorption.
      * 
      * @return An Outlet with {@code minValue = 0.0} and {@code maxValue = 3.5}
      */
-    public static Outlet lOutlet(final DeviceInfo info, final double state) {
-        return new Outlet(info, state, ZERO, MAX_LTYPE_PW);
+    public static Outlet lOutlet(final double value) {
+        final double maxConsumption = 3500.0;
+        final OutletState outletState = new OutletState();
+        outletState.addValue(value);
+        outletState.addMin(0.0);
+        outletState.addMax(maxConsumption);
+        return new Outlet(outletState);
     }
 }

@@ -2,8 +2,8 @@ package homer.model.temperaturechangers;
 
 import java.time.Duration;
 
-import homer.api.DeviceInfo;
 import homer.common.temperature.TemperatureFactory;
+import homer.common.time.DurationConverter;
 import homer.model.environment.Environment;
 
 /**
@@ -11,23 +11,20 @@ import homer.model.environment.Environment;
  */
 public final class Heating extends AbstractTemperatureChanger {
 
-
-
-    /**
-     * @param minIntensity
-     * @param maxIntensity
-     * @param environment
-     * @param info
+    /** 
+     * @param minIntensity the minimum intensity allowed.
+     * @param maxIntensity the maximum intensity allowed.
+     * @param environment the environment that is modified by the heating device.
      */
-    public Heating(final double minIntensity, final double maxIntensity, 
-    final Environment environment, final DeviceInfo info) {
-        super(minIntensity, maxIntensity, environment, info);
+    public Heating(final double minIntensity, final double maxIntensity,
+            final Environment environment) {
+        super(minIntensity, maxIntensity, environment);
     }
 
     @Override
     public void updateTick(final Duration deltaTime) {
         final double oldTemp = this.getEnvironment().getTemperature().getCelsius();
-        final double updatedTemp = oldTemp + this.getState() * deltaTime.toHours();
+        final double updatedTemp = oldTemp + this.getState() * DurationConverter.toHours(deltaTime);
         if (this.getMaxTemperature().isEmpty()) {
             this.getEnvironment().setTemperature(TemperatureFactory.fromCelsius(updatedTemp));
         } else {

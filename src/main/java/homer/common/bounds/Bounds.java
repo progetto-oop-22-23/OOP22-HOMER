@@ -3,22 +3,22 @@ package homer.common.bounds;
 import java.util.Objects;
 
 /**
- * This class encapsulates the concept of numerical boundaries.
+ * This class encapsulates the concept of comparable objects boundaries.
  * 
- * @param <N> The comparable number type.
+ * @param <T> The comparable object type.
  */
-public final class Bounds<N extends Number & Comparable<N>> {
+public final class Bounds<T extends Comparable<T>> {
 
-    private final N lowerBound;
-    private final N upperBound;
+    private final T lowerBound;
+    private final T upperBound;
 
     /**
      * Constructs a pair of bounds.
      * 
-     * @param lowerBound the lower boundary value.
-     * @param upperBound the upper boundary value.
+     * @param lowerBound the lower boundary object.
+     * @param upperBound the upper boundary object.
      */
-    public Bounds(final N lowerBound, final N upperBound) {
+    public Bounds(final T lowerBound, final T upperBound) {
         Objects.requireNonNull(lowerBound);
         Objects.requireNonNull(upperBound);
         if (lowerBound.compareTo(upperBound) > 0) {
@@ -29,20 +29,20 @@ public final class Bounds<N extends Number & Comparable<N>> {
     }
 
     /**
-     * Returns the lower boundary value.
+     * Returns the lower boundary object.
      * 
-     * @return the lower boundary value.
+     * @return the lower boundary object.
      */
-    public N getLowerBound() {
+    public T getLowerBound() {
         return this.lowerBound;
     }
 
     /**
-     * Returns the upper boundary value.
+     * Returns the upper boundary object.
      * 
-     * @return the upper boundary value.
+     * @return the upper boundary object.
      */
-    public N getUpperBound() {
+    public T getUpperBound() {
         return this.upperBound;
     }
 

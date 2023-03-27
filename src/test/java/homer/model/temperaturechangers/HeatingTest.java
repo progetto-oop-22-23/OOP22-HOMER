@@ -7,9 +7,6 @@ import java.time.Duration;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import homer.DeviceInfoImpl;
-import homer.api.DeviceIdImpl;
-import homer.api.DeviceInfo;
 import homer.common.temperature.Temperature;
 import homer.common.temperature.TemperatureFactory;
 import homer.model.airquality.AirQualityState;
@@ -19,7 +16,6 @@ import homer.model.environment.HomeEnvironment;
 
 @SuppressWarnings("PMD")
 class HeatingTest {
-    private static final DeviceInfo INFO = new DeviceInfoImpl(new DeviceIdImpl(), "HEATING");
     private Temperature temperature = TemperatureFactory.fromCelsius(0);
     private Temperature highTemperature = TemperatureFactory.fromCelsius(100);
     private Environment environment; 
@@ -32,7 +28,7 @@ class HeatingTest {
     void setup() {
         temperature = TemperatureFactory.fromCelsius(0);
         this.environment = new HomeEnvironment(temperature, AIR_QUALITY_STATE);
-        this.heating = new Heating(1, 10, environment, INFO);
+        this.heating = new Heating(1, 10, environment);
         this.heating.setMinTemperature(temperature);
         this.heating.setMaxTemperature(highTemperature);
     }
@@ -54,8 +50,9 @@ class HeatingTest {
         assertEquals(100, environment.getTemperature().getCelsius());
     }
 
+    @Test
     void intensityChangeTest() {
-        heating.setState(3.0);
+        heating.setState(new TemperatureChangerState().addCurrentIntensity(3.0));
         heating.updateTick(Duration.ofHours(1));
         assertEquals(3, environment.getTemperature().getCelsius(), HeatingTest.DELTA);
     }

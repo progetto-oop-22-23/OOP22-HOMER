@@ -8,14 +8,10 @@ package homer.api;
 public interface Device<S> {
 
     /**
+     * Returns the device state parameters.
+     * For example on/off state, intensity.
      * 
-     * @return The device information: ID, Type.
-     */
-    DeviceInfo getInfo();
-
-    /**
-     * 
-     * @return The device state parameters for eg. on/off, intensity.
+     * @return the device state parameters.
      */
     S getState();
 

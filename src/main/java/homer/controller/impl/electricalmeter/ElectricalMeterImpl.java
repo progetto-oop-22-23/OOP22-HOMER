@@ -1,10 +1,15 @@
 package homer.controller.impl.electricalmeter;
 
-import java.util.ArrayList;
+import java.time.Duration;
+import java.util.Comparator;
 import java.util.List;
+import java.util.ListIterator;
 import java.util.Objects;
+import java.util.concurrent.CopyOnWriteArrayList;
 
+import homer.common.time.DurationConverter;
 import homer.controller.api.electricalmeter.ElectricalMeter;
+import homer.core.DiscreteObject;
 import homer.model.outlets.Outlet;
 
 /**
@@ -12,10 +17,11 @@ import homer.model.outlets.Outlet;
  * 
  * @author Alessandro Monticelli
  */
-public final class ElectricalMeterImpl implements ElectricalMeter {
+public final class ElectricalMeterImpl implements ElectricalMeter, DiscreteObject {
     private List<Outlet> outlets;
     private double globalConsumption;
-    private static final double MAX_GLOBAL_CONSUMPTION = 4.0; // kW
+    private double averagePower;
+    private static final double MAX_GLOBAL_CONSUMPTION = 4000; // Watts
 
     /**
      * Constructor for
@@ -25,17 +31,18 @@ public final class ElectricalMeterImpl implements ElectricalMeter {
      */
     public ElectricalMeterImpl(final List<Outlet> outlets) {
         this.globalConsumption = 0.0;
-        this.outlets = new ArrayList<>(outlets);
+        this.averagePower = 0.0;
+        this.outlets = new CopyOnWriteArrayList<>(outlets);
     }
 
     @Override
     public List<Outlet> getOutlets() {
-        return new ArrayList<>(this.outlets);
+        return new CopyOnWriteArrayList<>(this.outlets);
     }
 
     @Override
     public void setOutlets(final List<Outlet> outlets) {
-        this.outlets = new ArrayList<>(outlets);
+        this.outlets = new CopyOnWriteArrayList<>(outlets);
     }
 
     @Override
@@ -50,19 +57,23 @@ public final class ElectricalMeterImpl implements ElectricalMeter {
         if (this.outlets.contains(outlet)) {
             this.outlets.remove(outlet);
         } else {
-            throw new IllegalArgumentException(outlet.getInfo() + " not in 'outlets'");
+            throw new IllegalArgumentException("Outlet not in 'outlets'");
         }
     }
 
     @Override
     public void computeConsumption() {
-        this.globalConsumption = outlets.stream()
-                .mapToDouble(Outlet::getState)
+        this.globalConsumption = this.getOutlets().stream()
+                .mapToDouble(outlet -> outlet.getState().getPower().get())
                 .sum();
     }
 
-    private void sortForConsumption() {
-        this.outlets.sort((o1, o2) -> o2.getState().compareTo(o1.getState()));
+    /**
+     * Sorts {@code this.outlets} from the most consuming Outlet to the least one.
+     */
+    private void sortOutletsForConsumption() {
+        outlets.sort(Comparator.comparingDouble(
+                outlet -> ((Outlet) outlet).getState().getPower().get()).reversed());
     }
 
     @Override
@@ -73,11 +84,14 @@ public final class ElectricalMeterImpl implements ElectricalMeter {
 
     @Override
     public void checkConsumption() {
-        this.sortForConsumption();
-        int i = 0;
-        while (this.getGlobalConsumption() >= ElectricalMeterImpl.MAX_GLOBAL_CONSUMPTION) {
-            this.cutPowerTo(this.outlets.get(i));
-            i++;
+        ListIterator<Outlet> iterator = outlets.listIterator();
+        double globalConsumption = this.getGlobalConsumption();
+        if (globalConsumption >= ElectricalMeterImpl.MAX_GLOBAL_CONSUMPTION) {
+            this.sortOutletsForConsumption();
+            while (globalConsumption >= ElectricalMeterImpl.MAX_GLOBAL_CONSUMPTION && iterator.hasNext()) {
+                this.cutPowerTo(iterator.next());
+                globalConsumption = this.getGlobalConsumption();
+            }
         }
     }
 
@@ -86,4 +100,26 @@ public final class ElectricalMeterImpl implements ElectricalMeter {
         this.computeConsumption();
         return this.globalConsumption;
     }
+
+    @Override
+    public double getAveragePower() {
+        return this.averagePower;
+    }
+
+    @Override
+    public void setAveragePower(final double averagePower) {
+        this.averagePower = averagePower;
+    }
+
+    private void computeAveragePower(final Duration deltaTime) {
+        final double hours = DurationConverter.toHours(deltaTime);
+        this.setAveragePower(this.getGlobalConsumption() / hours);
+    }
+
+    @Override
+    public void updateTick(final Duration deltaTime) {
+        this.checkConsumption();
+        this.computeAveragePower(deltaTime);
+    }
+
 }

@@ -1,11 +1,15 @@
 package homer.model.outlets;
 
+import java.time.Duration;
 import java.util.Objects;
 import java.util.Optional;
 
 import homer.api.AdjustableDevice;
 import homer.api.Device;
-import homer.api.DeviceInfo;
+import homer.api.DeviceState;
+import homer.api.PoweredDevice;
+import homer.common.time.DurationConverter;
+import homer.core.DiscreteObject;
 
 /**
  * Models electrical outlets of the house.
@@ -14,49 +18,29 @@ import homer.api.DeviceInfo;
  * @author Alessandro Monticelli
  */
 
-public class Outlet implements AdjustableDevice<Double> {
+public final class Outlet implements AdjustableDevice<OutletState>, DiscreteObject {
 
-    private final DeviceInfo info;
-    private double state;
-    private final double minValue;
-    private final double maxValue;
+    OutletState state;
     private Optional<Device<?>> device = Optional.empty();
 
     /**
      * Constructor for class Outlet.
+     * c
      * 
-     * @param info     See {@link homer.api.DeviceInfo}.
-     * @param state    The instant power absorption on the outlet.
-     * @param minValue The minimum power absorption of the plugged device.
-     * @param maxValue The maximum power absorption of the plugged device.
+     * @param state    See {@link homer.model.outlets.OutletState}
      */
-    public Outlet(final DeviceInfo info, final double state, final double minValue,
-            final double maxValue) {
-        this.info = Objects.requireNonNull(info);
-        this.state = state;
-        this.minValue = minValue;
-        this.maxValue = maxValue;
+    public Outlet(final DeviceState state) {
+        this.state = (OutletState) state;
     }
 
     /**
      * Constructor for class Outlet. Instantiates a copy of the passed Outlet.
+     * 
      * @param outlet the Outlet to copy.
      */
     public Outlet(final Outlet outlet) {
         Objects.requireNonNull(outlet);
-        this.info = outlet.getInfo();
         this.state = outlet.getState();
-        this.minValue = outlet.getMinValue();
-        this.maxValue = outlet.getMaxValue();
-    }
-
-    /**
-     * 
-     * @return The device information: ID, Type.
-     */
-    @Override
-    public DeviceInfo getInfo() {
-        return this.info;
     }
 
     /**
@@ -64,40 +48,8 @@ public class Outlet implements AdjustableDevice<Double> {
      * @return The device state parameters for eg. on/off, intensity.
      */
     @Override
-    public Double getState() {
+    public OutletState getState() {
         return this.state;
-    }
-
-    /**
-     * 
-     * @return The minimum power absorption.
-     */
-    @Override
-    public Double getMinValue() {
-        return this.minValue;
-    }
-
-    /**
-     * 
-     * @return The maximum power absorption.
-     */
-    @Override
-    public Double getMaxValue() {
-        return this.maxValue;
-    }
-
-    /**
-     * Sets the istant power absorption.
-     *
-     * @param state The new value of {@code state}.
-     */
-    @Override
-    public void setState(final Double state) {
-        if (state >= this.minValue && state < this.maxValue) {
-            this.state = state;
-        } else {
-            throw new IllegalArgumentException("Value must be positive and < " + this.maxValue);
-        }
     }
 
     /**
@@ -116,7 +68,8 @@ public class Outlet implements AdjustableDevice<Double> {
     public void unplug() {
         Objects.requireNonNull(this.device);
         this.device = Optional.empty();
-        this.setState(0.0);
+        OutletState state = this.getState();
+        state.addValue(0.0);
     }
 
     /**
@@ -125,5 +78,32 @@ public class Outlet implements AdjustableDevice<Double> {
      */
     public Optional<Device<?>> getDevice() {
         return this.device;
+    }
+
+    @Override
+    public final void updateTick(final Duration deltaTime) {
+        final double defaultMaxPower = 150.0;
+        final double defaultRandomIncrement = Math.random() * 10 + 1;
+        OutletState energy = this.getState();
+        if (this.getDevice().get() instanceof PoweredDevice) {
+            final double consumption = ((PoweredDevice) this.getDevice().get()).getInstantConsumption();
+            final double hours = DurationConverter.toHours(deltaTime);
+            energy.addValue(consumption * hours);
+            this.setState(energy);
+        } else {
+            energy.addValue(Math.min(defaultMaxPower,
+                    Math.pow(this.getState().getPower().get(), 2) + defaultRandomIncrement));
+        }
+        this.setState(energy);
+    }
+
+    @Override
+    public void setState(final DeviceState state) {
+        if (state instanceof OutletState) {
+            OutletState outletState = (OutletState) state;
+            if (outletState.getPower().isPresent()) {
+                this.state.addValue(outletState.getPower().get());
+            }
+        }
     }
 }
