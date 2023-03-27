@@ -2,7 +2,6 @@ package homer.view;
 
 import homer.controller.Controller;
 import homer.controller.ControllerImpl;
-import homer.model.temperaturechangers.TemperatureChangerState;
 import homer.view.javafx.AddDevicesView;
 import homer.core.SimManagerImpl;
 import homer.view.sim.SimManagerViewFxImpl;
@@ -38,5 +37,6 @@ public class JFXApplication extends Application {
         stage.setScene(scene);
         stage.show();
     }
+
 
 }

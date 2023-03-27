@@ -16,13 +16,12 @@ public final class SliderComponent extends VBox implements StateSelector<Double>
     private Text value = new Text();
 
     /**
-     * 
-     * @param controller
      * @param max
      * @param min
      * @param value
+     * @param onDrag
      */
-    public SliderComponent(final double max, final double min, final double value, EventHandler<? super DragEvent> onDrag) {
+    public SliderComponent(final double max, final double min, final double value, final EventHandler<? super DragEvent> onDrag) {
         this.slider = new Slider(min, max, value);
         this.slider.setOnDragDone(onDrag);
         this.getChildren().add(slider);
@@ -35,7 +34,7 @@ public final class SliderComponent extends VBox implements StateSelector<Double>
     }
 
     @Override
-    public void setState(Double state) {
+    public void setState(final Double state) {
         this.slider.setValue(state);
     }
 
