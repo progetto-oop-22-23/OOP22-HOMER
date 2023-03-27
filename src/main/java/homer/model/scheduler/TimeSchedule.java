@@ -2,22 +2,18 @@ package homer.model.scheduler;
 
 import java.time.LocalTime;
 
+import homer.common.bounds.Bounds;
+
 /**
- * This interface models a set of constraints on a certain parameter that should
+ * This interface models a constraint on a certain parameter that should
  * be met in a certain time interval.
  * 
- * @param <T> The parameter that should meet the constraints.
+ * @param <T> The parameter that should meet the constraint.
  */
-public interface TimeSchedule<T> {
+public interface TimeSchedule<T extends Comparable<T>> {
 
-    /**
-     * Checks if the constraints are met, and if not, executes the necessary
-     * actions.
-     * 
-     * @param currentTime      The current 24h time.
-     * @param currentParameter The current parameter to check against the
-     *                         constraints.
-     */
-    void checkSchedule(LocalTime currentTime, T currentParameter);
+    Bounds<LocalTime> getTimeBounds();
+
+    Bounds<T> getParaBounds();
 
 }
