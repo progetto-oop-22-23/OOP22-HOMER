@@ -16,17 +16,16 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
-public class ElectricalMeterView extends Application {
+/**
+ * {@link homer.controller.impl.electricalmeter.ElectricalMeterImpl} view.
+ */
+public final class ElectricalMeterView extends Application {
 
-    List<Outlet> outlets = List.of();
+    private List<Outlet> outlets = List.of(); // JUST FOR TESTING!!!
     private final ElectricalMeter meter = new ElectricalMeterImpl(outlets);
 
-    protected static void main(String[] args) {
-        launch(args);
-    }
-
     @Override
-    public void start(Stage primaryStage) throws Exception {
+    public void start(final Stage primaryStage) throws Exception {
         GridPane gridPane = new GridPane();
         Label powerConsumptionLabel = new Label();
         Label energyAbsorptionLabel = new Label();
@@ -41,7 +40,7 @@ public class ElectricalMeterView extends Application {
             meter.addOutlet(OutletFactory.cOutlet(10.0));
             meter.computeConsumption();
             powerConsumptionLabel.setText("Power consumption: " + meter.getGlobalConsumption() + " kW");
-        energyAbsorptionLabel.setText("Energy absorption: " + meter.getAveragePower() + " kW/h");
+            energyAbsorptionLabel.setText("Energy absorption: " + meter.getAveragePower() + " kW/h");
             outletLabels[outletLabels.length - 1].setText("Outlet " + outletLabels.length + " consumption: ");
         });
 
@@ -59,8 +58,8 @@ public class ElectricalMeterView extends Application {
         gridPane.setVgap(10);
         gridPane.setHgap(10);
 
-        //gridPane.add(powerConsumptionLabel, 0, 0);
-        //gridPane.add(energyAbsorptionLabel, 1, 0);
+        // gridPane.add(powerConsumptionLabel, 0, 0);
+        // gridPane.add(energyAbsorptionLabel, 1, 0);
 
         for (int i = 0; i < outletLabels.length - 1; i++) {
             gridPane.add(outletLabels[i], 0, i + 1);
@@ -71,13 +70,16 @@ public class ElectricalMeterView extends Application {
         gridPane.add(buttonBox, 2, 1, 1, outletLabels.length);
 
         // Add labels for the meter's power consumption and energy absorption
-       /* Label meterPowerLabel = new Label();
-        Label meterEnergyLabel = new Label(); */
+        /*
+         * Label meterPowerLabel = new Label();
+         * Label meterEnergyLabel = new Label();
+         */
 
-        
         gridPane.add(powerConsumptionLabel, 0, 0);
         gridPane.add(energyAbsorptionLabel, 0, 1);
-        Scene scene = new Scene(gridPane, 400, 400);
+        final int width = 400;
+        final int height = 400;
+        Scene scene = new Scene(gridPane, width, height);
         primaryStage.setScene(scene);
         primaryStage.setTitle("Electrical Meter");
         primaryStage.show();
