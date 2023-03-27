@@ -58,7 +58,7 @@ public final class SimManagerViewFxImpl extends Stage implements SimManagerView 
     }
 
     @Override
-    public void setObserver(SimManagerViewObserver simManager) {
+    public void setObserver(final SimManagerViewObserver simManager) {
         this.simManager = simManager;
     }
 
