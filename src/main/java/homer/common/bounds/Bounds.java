@@ -5,12 +5,12 @@ import java.util.Objects;
 /**
  * This class encapsulates the concept of range boundaries on comparable objects.
  * 
- * @param <N> The comparable object type.
+ * @param <T> The comparable object type.
  */
-public final class Bounds<N extends Comparable<N>> {
+public final class Bounds<T extends Comparable<T>> {
 
-    private final N lowerBound;
-    private final N upperBound;
+    private final T lowerBound;
+    private final T upperBound;
 
     /**
      * Constructs a pair of bounds.
@@ -18,7 +18,7 @@ public final class Bounds<N extends Comparable<N>> {
      * @param lowerBound the lower boundary object.
      * @param upperBound the upper boundary object.
      */
-    public Bounds(final N lowerBound, final N upperBound) {
+    public Bounds(final T lowerBound, final T upperBound) {
         Objects.requireNonNull(lowerBound);
         Objects.requireNonNull(upperBound);
         if (lowerBound.compareTo(upperBound) > 0) {
@@ -33,7 +33,7 @@ public final class Bounds<N extends Comparable<N>> {
      * 
      * @return the lower boundary object.
      */
-    public N getLowerBound() {
+    public T getLowerBound() {
         return this.lowerBound;
     }
 
@@ -42,7 +42,7 @@ public final class Bounds<N extends Comparable<N>> {
      * 
      * @return the upper boundary object.
      */
-    public N getUpperBound() {
+    public T getUpperBound() {
         return this.upperBound;
     }
 
