@@ -7,16 +7,27 @@ import homer.model.temperaturechangers.TemperatureChangerState;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 
-public class TemperatureChangerView extends VBox {
+/**
+ * View used to display intensity data from a {@link Heating} or an
+ * {@link AirConditioning} device.
+ */
+public final class TemperatureChangerView extends VBox {
     private final Text text = new Text();
-    private SliderComponent sliderComponent;
+    private SliderComponent sliderComponent; 
 
-    public TemperatureChangerView(DeviceId deviceId, TemperatureChangerState state, Controller controller) {
-        sliderComponent = new SliderComponent(state.getMaxIntensity().get(), state.getMinIntensity().get(), state.getCurrentIntensity().get(), 
-            e -> {
-                System.out.println(sliderComponent.getState());
-                controller.receiveCommand(new UpdateDeviceState(deviceId, new TemperatureChangerState().addCurrentIntensity(sliderComponent.getState())));
-            });
+    /**
+     * @param deviceId   the device's id.
+     * @param state      the device's state.
+     * @param controller the controller that will receive the command.
+     */
+    public TemperatureChangerView(final DeviceId deviceId, final TemperatureChangerState state,
+            final Controller controller) {
+        sliderComponent = new SliderComponent(state.getMaxIntensity().get(), state.getMinIntensity().get(),
+                state.getCurrentIntensity().get(),
+                e -> {
+                    controller.receiveCommand(new UpdateDeviceState(deviceId,
+                            new TemperatureChangerState().addCurrentIntensity(sliderComponent.getState())));
+                });
         this.getChildren().add(sliderComponent);
     }
 }

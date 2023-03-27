@@ -30,12 +30,12 @@ public final class SliderComponent extends VBox implements StateSelector<Double>
     }
 
     @Override
-    public final Double getState() {
+    public  Double getState() {
         return this.slider.getValue();
     }
 
     @Override
-    public final void setState(Double state) {
+    public void setState(Double state) {
         this.slider.setValue(state);
     }
 

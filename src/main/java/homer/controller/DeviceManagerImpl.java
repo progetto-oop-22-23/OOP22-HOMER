@@ -30,17 +30,11 @@ public final class DeviceManagerImpl implements DeviceManager {
     private final Environment environment = new HomeEnvironment(temperature, airQualityState);
 
     @Override
-    public void createDevice(final String deviceType) {
-
-    }
-
-    @Override
     public void removeAllDevices() {
         this.deviceMap.clear();
     }
 
-    @Override
-    public boolean isDeviceConnected(final DeviceId deviceId) {
+    private boolean isDeviceConnected(final DeviceId deviceId) {
         return deviceMap.containsKey(deviceId);
     }
 

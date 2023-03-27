@@ -10,9 +10,7 @@ public record DisconnectDevice(DeviceId deviceId) implements Command {
 
     @Override
     public void execute(final Controller controller) {
-        if (controller.getDeviceManager().isDeviceConnected(deviceId)) {
-            controller.getDeviceManager().removeDevice(deviceId);
-        }
+        controller.getDeviceManager().removeDevice(deviceId);
     }
 
 }
