@@ -1,9 +1,10 @@
 package homer.view.javafx;
 
-import homer.api.DeviceIdImpl;
-import homer.controller.Controller;
+
 import homer.view.StateSelector;
+import javafx.event.EventHandler;
 import javafx.scene.control.Slider;
+import javafx.scene.input.DragEvent;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 
@@ -13,7 +14,6 @@ import javafx.scene.text.Text;
 public final class SliderComponent extends VBox implements StateSelector<Double> {
 
     private Slider slider; 
-    private Text text = new Text();
     private Text value = new Text();
 
     /**
@@ -23,9 +23,9 @@ public final class SliderComponent extends VBox implements StateSelector<Double>
      * @param min
      * @param value
      */
-    public SliderComponent(final Controller controller, final double max, final double min, final double value) {
+    public SliderComponent(final double max, final double min, final double value, EventHandler<? super DragEvent> onDrag) {
         this.slider = new Slider(min, max, value);
-        this.getChildren().add(text);
+        this.slider.setOnDragDone(onDrag);
         this.getChildren().add(slider);
         this.getChildren().add(this.value);
     }
