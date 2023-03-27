@@ -3,7 +3,7 @@ package homer.common.bounds;
 import java.util.Objects;
 
 /**
- * This class encapsulates the concept of range boundaries on comparable objects.
+ * This class encapsulates the concept of comparable objects boundaries.
  * 
  * @param <T> The comparable object type.
  */
