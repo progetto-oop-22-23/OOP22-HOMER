@@ -4,9 +4,11 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Set;
 
+import homer.api.AdjustableDevice;
 import homer.api.Device;
 import homer.api.DeviceId;
 import homer.api.DeviceIdImpl;
+import homer.api.DeviceState;
 import homer.api.ToggleableDevice;
 import homer.common.temperature.Temperature;
 import homer.common.temperature.TemperatureFactory;
@@ -69,6 +71,15 @@ public final class DeviceManagerImpl implements DeviceManager {
     @Override
     public Set<CreateDeviceCommand> getValidCreateDeviceCommands() {
         return Set.of(new CreateAirConditioning(this.environment), new CreateHeating(this.environment));
+    }
+
+    @Override
+    public void UpdateDeviceState(DeviceId deviceId, DeviceState state) {
+        final Device<?> targetDevice = this.deviceMap.get(deviceId);
+        if (targetDevice instanceof AdjustableDevice) {
+            AdjustableDevice<?> adjustableDevice = (AdjustableDevice<?>) targetDevice;
+            adjustableDevice.setState(state);
+        }
     }
 
 

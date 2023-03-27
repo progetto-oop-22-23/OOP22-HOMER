@@ -4,6 +4,7 @@ import java.util.Set;
 
 import homer.api.Device;
 import homer.api.DeviceId;
+import homer.api.DeviceState;
 import homer.controller.command.createdevicecommand.CreateDeviceCommand;
 
 /**
@@ -49,4 +50,6 @@ public interface DeviceManager {
     void addDevice(Device<?> device);
 
     public Set<CreateDeviceCommand> getValidCreateDeviceCommands();
+
+    public void UpdateDeviceState(DeviceId deviceId, DeviceState state);
 }

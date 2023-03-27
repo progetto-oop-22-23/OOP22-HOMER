@@ -1,5 +1,6 @@
 package homer.model.temperaturechangers;
 
+import homer.api.DeviceState;
 import homer.common.temperature.Temperature;
 import homer.common.temperature.TemperatureFactory;
 import homer.model.environment.Environment;
@@ -44,21 +45,6 @@ public abstract class AbstractTemperatureChanger implements TemperatureChanger {
         return this.intensity;
     }
 
-    @Override
-    public final Double getMinValue() {
-        return this.minIntensity;
-    }
-
-    @Override
-    public final Double getMaxValue() {
-        return this.maxIntensity;
-    }
-
-    @Override
-    public final void setState(final Double value) {
-        this.intensity = Math.max(Math.min(maxIntensity, value), minIntensity);
-    }
-
     /**
      * @return maximum temperature allowed
      */
@@ -89,6 +75,16 @@ public abstract class AbstractTemperatureChanger implements TemperatureChanger {
      */
     protected final Environment getEnvironment() {
         return this.environment;
+    }
+
+    @Override
+    public void setState(DeviceState state) {
+        if (state instanceof TemperatureChangerState) {
+            TemperatureChangerState temperatureChangerState =  (TemperatureChangerState) state;
+            if (temperatureChangerState.getMaxIntensity().isPresent()) {
+                this.intensity = temperatureChangerState.getMaxIntensity().get();
+            }
+        }
     }
 
 }
