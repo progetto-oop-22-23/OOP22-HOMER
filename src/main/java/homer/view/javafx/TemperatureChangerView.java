@@ -34,11 +34,6 @@ public final class TemperatureChangerView extends VBox implements DeviceView {
     }
 
     @Override
-    public DeviceState getState() {
-        return new TemperatureChangerState().addCurrentIntensity(sliderComponent.getState());
-    }
-
-    @Override
     public void setState(DeviceState state) {
         if (state instanceof TemperatureChangerState)  {
             var TemperatureChangerState =  (TemperatureChangerState) state;
