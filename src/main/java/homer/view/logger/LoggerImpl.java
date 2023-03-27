@@ -7,9 +7,19 @@ import java.util.Map;
 
 import homer.api.DeviceId;
 import homer.api.DeviceState;
+import homer.controller.Controller;
 
+/**
+ * LoggerImpl 
+ */
 public class LoggerImpl implements Logger{
     private final Map<DeviceId, String> map = new LinkedHashMap<>();
+    private Controller controller;
+    private OutputStream outputStream;
+
+    public LoggerImpl(OutputStream outputStream) {
+        this.outputStream = outputStream;
+    }
 
     @Override
     public void updateDeviceState(DeviceId deviceId, DeviceState deviceState) {
@@ -30,6 +40,11 @@ public class LoggerImpl implements Logger{
     public void setOutputStream(OutputStream outputStream) {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'setOutputStream'");
+    }
+
+    @Override
+    public void start(Controller controller) {
+        this.controller = controller;
     }
     
 }
