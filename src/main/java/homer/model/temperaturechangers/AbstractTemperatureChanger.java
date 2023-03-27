@@ -1,5 +1,6 @@
 package homer.model.temperaturechangers;
 
+import homer.api.DeviceState;
 import homer.common.temperature.Temperature;
 import homer.common.temperature.TemperatureFactory;
 import homer.model.environment.Environment;
@@ -24,13 +25,13 @@ public abstract class AbstractTemperatureChanger implements TemperatureChanger {
     private Temperature minTemperature = TemperatureFactory.fromKelvin(0);
     private Optional<Temperature> maxTemperature = Optional.empty();
 
-    /**
-     * @param minIntensity
-     * @param maxIntensity
-     * @param environment
-     * @param info
+    /** 
+     * @param minIntensity the minimum intensity allowed.
+     * @param maxIntensity the maximum intensity allowed.
+     * @param environment the environment that is modified by the heating device.
      */
-    @SuppressFBWarnings(value = "EI_EXPOSE_REP", justification = "Updating a reference is better than reallocating objects on the heap")
+    @SuppressFBWarnings(value = "EI_EXPOSE_REP", 
+    justification = "Updating a reference is better than reallocating objects on the heap")
     public AbstractTemperatureChanger(final double minIntensity, final double maxIntensity,
             final Environment environment) {
         this.minIntensity = minIntensity;
@@ -42,21 +43,6 @@ public abstract class AbstractTemperatureChanger implements TemperatureChanger {
     @Override
     public final Double getState() {
         return this.intensity;
-    }
-
-    @Override
-    public final Double getMinValue() {
-        return this.minIntensity;
-    }
-
-    @Override
-    public final Double getMaxValue() {
-        return this.maxIntensity;
-    }
-
-    @Override
-    public final void setState(final Double value) {
-        this.intensity = Math.max(Math.min(maxIntensity, value), minIntensity);
     }
 
     /**
@@ -89,6 +75,16 @@ public abstract class AbstractTemperatureChanger implements TemperatureChanger {
      */
     protected final Environment getEnvironment() {
         return this.environment;
+    }
+
+    @Override
+    public void setState(DeviceState state) {
+        if (state instanceof TemperatureChangerState) {
+            TemperatureChangerState temperatureChangerState =  (TemperatureChangerState) state;
+            if (temperatureChangerState.getMaxIntensity().isPresent()) {
+                this.intensity = temperatureChangerState.getMaxIntensity().get();
+            }
+        }
     }
 
 }

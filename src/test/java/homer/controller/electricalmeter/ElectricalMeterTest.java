@@ -96,11 +96,11 @@ final class ElectricalMeterTest {
 
         final ElectricalMeter meter = new ElectricalMeterImpl(outlets);
 
-        meter.getOutlets().get(outletIndexToCut).setState(outletConsumptionValue);
+        meter.getOutlets().get(outletIndexToCut).getState().addValue(outletConsumptionValue);
 
         meter.cutPowerTo(meter.getOutlets().get(outletIndexToCut));
 
-        assertEquals(expectedConsumptionAfterCut, meter.getOutlets().get(outletIndexToCut).getState());
+        assertEquals(expectedConsumptionAfterCut, meter.getOutlets().get(outletIndexToCut).getState().getPower().get());
     }
 
     @Test
@@ -122,7 +122,7 @@ final class ElectricalMeterTest {
         final ElectricalMeter meter = new ElectricalMeterImpl(outlets);
         // assertEquals(expectedOutletListSize, meter.getOutlets().size());
         for (final Outlet outlet : meter.getOutlets()) {
-            outlet.setState(outletConsumption);
+            outlet.getState().addValue(outletConsumption);
         }
 
         assertEquals(expectedConsumptionBeforeCheck, meter.getGlobalConsumption());

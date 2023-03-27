@@ -8,6 +8,7 @@ package homer.api;
 public interface ToggleableDevice<S> extends Device<S> {
 
     /**
+     * Returns whether the device is on or off.
      * 
      * @return Whether the device is on or off.
      */

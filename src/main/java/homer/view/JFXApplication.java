@@ -13,11 +13,13 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 public class JFXApplication extends Application {
+    private static final long INITIAL_W = 300;
+    private static final long INITIAL_H = 300;
 
     @Override
     public void start(Stage stage) throws Exception {
         Group root = new Group();
-        Scene scene = new Scene(root, 300, 500);
+        Scene scene = new Scene(root, INITIAL_W, INITIAL_H);
         VBox vBox = new VBox();
         Controller controller = new ControllerImpl();
         root.getChildren().addAll(vBox, new AddDevicesView(controller));

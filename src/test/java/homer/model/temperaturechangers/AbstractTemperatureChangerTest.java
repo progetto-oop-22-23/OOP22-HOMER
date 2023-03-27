@@ -4,7 +4,6 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
 
-import homer.api.DeviceIdImpl;
 import homer.common.temperature.Temperature;
 import homer.common.temperature.TemperatureFactory;
 import homer.model.airquality.AirQualityStateFactory;
