@@ -1,11 +1,10 @@
 package homer.view.javafx;
 
 import homer.view.StateSelector;
-import javafx.event.EventHandler;
+import javafx.beans.value.ChangeListener;
+import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
-import javafx.scene.input.DragEvent;
 import javafx.scene.layout.VBox;
-import javafx.scene.text.Text;
 
 /**
  * Basic slider that displays its value.
@@ -13,7 +12,7 @@ import javafx.scene.text.Text;
 public final class SliderComponent extends VBox implements StateSelector<Double> {
 
     private Slider slider;
-    private Text value = new Text();
+    private final Label label;
 
     /**
      * 
@@ -23,11 +22,26 @@ public final class SliderComponent extends VBox implements StateSelector<Double>
      * @param onDragDone the event that gets triggered on drag done.
      */
     public SliderComponent(final double max, final double min, final double value,
-            final EventHandler<? super DragEvent> onDragDone) {
+            Runnable onDragDone) {
+        label = new Label("" + value);
         this.slider = new Slider(min, max, value);
-        this.slider.setOnDragDone(onDragDone);
-        this.getChildren().add(slider);
-        this.getChildren().add(this.value);
+        this.slider.setShowTickLabels(true);
+        this.slider.setShowTickMarks(true);
+        this.getChildren().addAll(this.slider, this.label);
+        this.slider.valueProperty().addListener(
+                new ChangeListener<Number>() {
+                    public void changed(javafx.beans.value.ObservableValue<? extends Number> observable,
+                            Number oldValue, Number newValue) {
+                        updateValue((Double) newValue);
+                        System.out.println(""+oldValue +"->"+newValue);
+                        onDragDone.run();
+                    };
+                });
+    }
+
+    private void updateValue(final Double value) {
+        this.slider.setValue(value);
+        this.label.setText(Double.toString(value));
     }
 
     @Override
@@ -36,8 +50,8 @@ public final class SliderComponent extends VBox implements StateSelector<Double>
     }
 
     @Override
-    public void setState(final Double state) {
-        this.slider.setValue(state);
+    public void setState(Double state) {
+        updateValue(state);
     }
 
 }

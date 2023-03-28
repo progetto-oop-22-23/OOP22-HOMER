@@ -1,9 +1,12 @@
 package homer.view;
 
+import homer.api.DeviceIdImpl;
 import homer.controller.Controller;
 import homer.controller.ControllerImpl;
 import homer.view.javafx.AddDevicesView;
+import homer.view.javafx.TemperatureChangerView;
 import homer.core.SimManagerImpl;
+import homer.model.temperaturechangers.TemperatureChangerState;
 import homer.view.sim.SimManagerViewFxImpl;
 import javafx.application.Application;
 import javafx.application.Platform;
@@ -25,7 +28,9 @@ public class JFXApplication extends Application {
         final Scene scene = new Scene(root, INITIAL_W, INITIAL_H);
         final VBox vBox = new VBox();
         final Controller controller = new ControllerImpl();
-        root.getChildren().addAll(vBox, new AddDevicesView(controller));
+        var d = new TemperatureChangerView(new DeviceIdImpl(), new TemperatureChangerState().addCurrentIntensity(1).addMinIntensity(0).addMaxIntensity(10), controller);
+        root.getChildren().add(vBox);
+        vBox.getChildren().addAll(new AddDevicesView(controller), d);
 
         final var simManager = new SimManagerImpl(controller);
         Platform.runLater(() -> {

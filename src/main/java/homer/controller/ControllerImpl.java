@@ -35,7 +35,7 @@ public final class ControllerImpl implements Controller {
     @Override
     public void updateTick(final Duration deltaTime) {
         this.clock.updateTick(deltaTime);
-        System.out.println("Hello from controller " + deltaTime + " Time: " + clock.getDateTime());
+        // System.out.println("Hello from controller " + deltaTime + " Time: " + clock.getDateTime());
     }
 
 }
