@@ -10,15 +10,15 @@ public interface TimeSchedulerController<T extends Comparable<T>> {
     /**
      * Adds a new schedule.
      * 
-     * @param timeBounds
-     * @param paramBounds
+     * @param timeBounds  the time bounds for the schedule.
+     * @param paramBounds the target parameter bounds for the schedule.
      */
     void addSchedule(Bounds<LocalTime> timeBounds, Bounds<T> paramBounds);
 
     /**
      * Removes a schedule.
      * 
-     * @param scheduleId
+     * @param scheduleId the id of the schedule to remove.
      */
     void removeSchedule(ScheduleId scheduleId);
 
