@@ -21,8 +21,6 @@ public interface TimeSchedulerView<T extends Comparable<T>> {
      */
     void updateSchedules(Map<UUID, TimeSchedule<T>> schedules);
 
-    void removeSchedule(UUID scheduleId);
-
     /**
      * Sets the scheduler controller.
      * 
