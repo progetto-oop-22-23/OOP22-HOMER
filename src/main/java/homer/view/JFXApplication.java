@@ -18,6 +18,7 @@ import javafx.stage.Stage;
 public class JFXApplication extends Application {
     private static final long INITIAL_W = 300;
     private static final long INITIAL_H = 300;
+    private static final String TITLE = "HOMER";
 
     @Override
     public final void start(Stage stage) throws Exception {
@@ -33,7 +34,7 @@ public class JFXApplication extends Application {
             simView.setObserver(simManager);
         });
 
-        stage.setTitle("demo");
+        stage.setTitle(TITLE);
         stage.setScene(scene);
         stage.show();
     }
