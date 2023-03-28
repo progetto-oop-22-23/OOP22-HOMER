@@ -22,6 +22,11 @@ public class JFXApplication extends Application {
 
     @Override
     public final void start(final Stage stage) throws Exception {
+        stage.setOnCloseRequest(event -> {
+            Platform.exit();
+            System.exit(0);
+        });
+
         final Scene scene = new Scene(root, INITIAL_W, INITIAL_H);
         final VBox vBox = new VBox();
         final Controller controller = new ControllerImpl();
