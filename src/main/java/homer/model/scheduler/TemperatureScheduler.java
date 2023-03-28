@@ -18,6 +18,8 @@ public final class TemperatureScheduler implements TimeScheduler<Temperature> {
     public void addSchedule(final Bounds<LocalTime> timeBounds, final Bounds<Temperature> paramBounds) {
         if (!isOverlapsing(timeBounds)) {
             this.schedules.put(new ScheduleId(), new TimeSchedule<>(timeBounds, paramBounds));
+        } else {
+            throw new IllegalArgumentException("selected time range is colliding with another existing schedule!");
         }
     }
 
