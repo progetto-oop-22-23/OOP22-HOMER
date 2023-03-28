@@ -21,8 +21,7 @@ public class JFXApplication extends Application {
     private static final String TITLE = "HOMER";
 
     @Override
-    public final void start(Stage stage) throws Exception {
-        final Group root = new Group();
+    public final void start(final Stage stage) throws Exception {
         final Scene scene = new Scene(root, INITIAL_W, INITIAL_H);
         final VBox vBox = new VBox();
         final Controller controller = new ControllerImpl();
