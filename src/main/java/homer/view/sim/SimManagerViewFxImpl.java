@@ -36,7 +36,7 @@ public final class SimManagerViewFxImpl extends HBox implements SimManagerView {
         oneMin.setOnAction(event -> simManager.setSimStepPeriod(Duration.ofMinutes(1)));
         oneHour.setOnAction(event -> simManager.setSimStepPeriod(Duration.ofHours(1)));
 
-        // this.getChildren().addAll(resume, pause, oneSec, oneMin, oneHour);
+        this.getChildren().addAll(resume, pause, oneSec, oneMin, oneHour);
     }
 
     @Override
