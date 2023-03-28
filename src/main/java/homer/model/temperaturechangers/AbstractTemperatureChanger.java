@@ -126,8 +126,7 @@ public abstract class AbstractTemperatureChanger implements TemperatureChanger, 
     protected void updateConsumption(final Duration deltaTime) {
         final double maxConsumption = this.getPowerInfo().getMaxConsumption();
         final double hours = DurationConverter.toHours(deltaTime);
-        final double logIntensity = Math.log10(this.intensity + 1.0);
-        final double newConsumption = instantConsumption + maxConsumption * logIntensity * hours;
+        final double newConsumption = instantConsumption + maxConsumption * this.intensity * hours;
         this.instantConsumption = Limit.clamp(newConsumption, this.getPowerInfo().getMinConsumption(), maxConsumption);
     }
 }
