@@ -34,6 +34,7 @@ public abstract class AbstractTemperatureChanger implements TemperatureChanger, 
     private Optional<Temperature> maxTemperature = Optional.empty();
     private double instantConsumption = 0.0;
     private PoweredDeviceInfo power;
+    private final static double MAX_CONSUMPTION = 1000;
 
     @Override
     public final double getInstantConsumption() {
@@ -58,7 +59,7 @@ public abstract class AbstractTemperatureChanger implements TemperatureChanger, 
         this.maxIntensity = maxIntensity;
         this.intensity = minIntensity;
         this.environment = environment;
-        this.power = new PoweredDeviceInfoImpl(10.0, OutletFactory.cOutlet(0));
+        this.power = new PoweredDeviceInfoImpl(MAX_CONSUMPTION, OutletFactory.lOutlet(0));
     }
 
     @Override
@@ -125,8 +126,8 @@ public abstract class AbstractTemperatureChanger implements TemperatureChanger, 
     protected void updateConsumption(final Duration deltaTime) {
         final double maxConsumption = this.getPowerInfo().getMaxConsumption();
         final double hours = DurationConverter.toHours(deltaTime);
-        final double intensity = Math.sin(hours * 0.1); 
-        final double newConsumption = instantConsumption + intensity * hours;
+        final double logIntensity = Math.log10(this.intensity + 1.0);
+        final double newConsumption = instantConsumption + maxConsumption * logIntensity * hours;
         this.instantConsumption = Limit.clamp(newConsumption, this.getPowerInfo().getMinConsumption(), maxConsumption);
     }
 }
