@@ -29,9 +29,9 @@ public final class SimManagerViewSwingImpl implements SimManagerView {
      * Creates and display a new {@link SimManagerViewSwingImpl}.
      */
     public SimManagerViewSwingImpl() {
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         final var screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-        frame.setSize((int) (screenSize.getWidth() * WIDTH_SCALE), (int) (screenSize.getHeight() * HEIGHT_SCALE));
+        this.frame.setSize((int) (screenSize.getWidth() * WIDTH_SCALE), (int) (screenSize.getHeight() * HEIGHT_SCALE));
 
         final JPanel panel = new JPanel();
         final JButton resume = new JButton(RESUME);
@@ -44,16 +44,16 @@ public final class SimManagerViewSwingImpl implements SimManagerView {
         panel.add(oneSec);
         panel.add(oneMinute);
         panel.add(oneHour);
-        frame.getContentPane().add(panel);
+        this.frame.getContentPane().add(panel);
 
-        resume.addActionListener(e -> simManager.resume());
-        pause.addActionListener(e -> simManager.pause());
-        oneSec.addActionListener(e -> simManager.setSimStepPeriod(Duration.ofSeconds(1)));
-        oneMinute.addActionListener(e -> simManager.setSimStepPeriod(Duration.ofMinutes(1)));
-        oneHour.addActionListener(e -> simManager.setSimStepPeriod(Duration.ofHours(1)));
+        resume.addActionListener(e -> this.simManager.resume());
+        pause.addActionListener(e -> this.simManager.pause());
+        oneSec.addActionListener(e -> this.simManager.setSimStepPeriod(Duration.ofSeconds(1)));
+        oneMinute.addActionListener(e -> this.simManager.setSimStepPeriod(Duration.ofMinutes(1)));
+        oneHour.addActionListener(e -> this.simManager.setSimStepPeriod(Duration.ofHours(1)));
 
-        frame.pack();
-        frame.setLocationByPlatform(true);
+        this.frame.pack();
+        this.frame.setLocationByPlatform(true);
         this.frame.setVisible(true);
     }
 
