@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import homer.api.DeviceId;
+import homer.api.DeviceState;
 import homer.view.View;
 
 public final class ViewManagerImpl implements ViewManager {
@@ -21,7 +22,7 @@ public final class ViewManagerImpl implements ViewManager {
     }
 
     @Override
-    public void updateDeviceState(DeviceId deviceId, String serializedState) {
+    public void updateDeviceState(DeviceId deviceId, DeviceState serializedState) {
         views.forEach(x -> x.updateDeviceState(deviceId, serializedState));
     }
 
@@ -31,8 +32,8 @@ public final class ViewManagerImpl implements ViewManager {
     }
 
     @Override
-    public void addDevice(DeviceId deviceId, String deviceType) {
+    public void start(Controller controller) {
+        views.forEach(x -> x.start(controller));
     }
-
     
 }

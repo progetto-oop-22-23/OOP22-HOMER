@@ -4,10 +4,13 @@ import homer.controller.Controller;
 import homer.model.environment.Environment;
 import homer.model.temperaturechangers.AirConditioning;
 
+/** 
+ * Tells the controller to create an air conditioning device.
+*/
 public record CreateAirConditioning(Environment environment) implements CreateDeviceCommand {
 
     @Override
-    public void execute(Controller controller) {
+    public void execute(final Controller controller) {
         controller.getDeviceManager().addDevice(new AirConditioning(0, 0, environment));
     }
 
@@ -15,5 +18,5 @@ public record CreateAirConditioning(Environment environment) implements CreateDe
     public String getStringRep() {
         return "Create Air conditioning";
     }
-    
+
 }

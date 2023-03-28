@@ -10,7 +10,7 @@ import javafx.scene.control.ChoiceBox;
 import javafx.scene.layout.VBox;
 
 /**
- * View that allows the user to add devices. 
+ * View that allows the user to add devices.
  */
 public final class AddDevicesView extends VBox {
     private Controller controller;
@@ -19,8 +19,9 @@ public final class AddDevicesView extends VBox {
     private Map<String, CreateDeviceCommand> map;
 
     /**
-     * The controller will both receive the commands and return the set 
+     * The controller will both receive the commands and return the set
      * of valid commands on updates.
+     * 
      * @param controller receives commands and returns valid commands.
      */
     public AddDevicesView(final Controller controller) {
