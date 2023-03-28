@@ -2,12 +2,12 @@ package homer.view.logger;
 
 import java.io.OutputStream;
 
-import homer.view.View;
+import homer.view.DeviceViewer;
 
 /**
  * Simple logger that logs to the selected output stream.
  */
-public interface Logger extends View {
+public interface Logger extends DeviceViewer {
 
     /**
      * Closes the old output stream and starts writing on the new one.

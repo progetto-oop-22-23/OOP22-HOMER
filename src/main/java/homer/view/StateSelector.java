@@ -2,6 +2,7 @@ package homer.view;
 
 /**
  * Models a component that has a variable state.
+ * @param <T> the type that is returned and set.
  */
 public interface StateSelector<T> {
 

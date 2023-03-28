@@ -30,7 +30,7 @@ public final class SimManagerImpl implements SimManagerViewObserver {
      */
     public SimManagerImpl(final Controller controller) {
         this.loopRunnable = () -> {
-            System.out.println("Hello World " + getSimStepPeriod() + " " + System.currentTimeMillis());
+            // System.out.println("Hello World " + getSimStepPeriod() + " " + System.currentTimeMillis());
             controller.updateTick(getSimStepPeriod());
         };
         resume();
