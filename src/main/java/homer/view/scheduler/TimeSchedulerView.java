@@ -1,9 +1,9 @@
 package homer.view.scheduler;
 
 import java.util.Map;
-import java.util.UUID;
 
 import homer.controller.scheduler.TimeSchedulerController;
+import homer.model.scheduler.ScheduleId;
 import homer.model.scheduler.TimeSchedule;
 
 /**
@@ -19,7 +19,7 @@ public interface TimeSchedulerView<T extends Comparable<T>> {
      * 
      * @param schedules the map containing the schedules and their ids.
      */
-    void updateSchedules(Map<UUID, TimeSchedule<T>> schedules);
+    void updateSchedules(Map<ScheduleId, TimeSchedule<T>> schedules);
 
     /**
      * Sets the scheduler controller.
