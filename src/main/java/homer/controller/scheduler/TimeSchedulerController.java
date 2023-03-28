@@ -1,9 +1,9 @@
 package homer.controller.scheduler;
 
 import java.time.LocalTime;
-import java.util.UUID;
 
 import homer.common.bounds.Bounds;
+import homer.model.scheduler.ScheduleId;
 
 public interface TimeSchedulerController<T extends Comparable<T>> {
 
@@ -20,6 +20,6 @@ public interface TimeSchedulerController<T extends Comparable<T>> {
      * 
      * @param scheduleId
      */
-    void removeSchedule(UUID scheduleId);
+    void removeSchedule(ScheduleId scheduleId);
 
 }

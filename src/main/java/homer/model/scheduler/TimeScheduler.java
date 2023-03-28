@@ -1,8 +1,6 @@
 package homer.model.scheduler;
 
 import java.util.Map;
-import java.util.Set;
-import java.util.UUID;
 import java.time.LocalTime;
 
 /**
@@ -18,7 +16,7 @@ public interface TimeScheduler<T extends Comparable<T>> {
      * 
      * @return the added schedules.
      */
-    Map<UUID, TimeSchedule<T>> getSchedules();
+    Map<ScheduleId, TimeSchedule<T>> getSchedules();
 
     /**
      * Checks if the constraints are met, and if not, executes the necessary
