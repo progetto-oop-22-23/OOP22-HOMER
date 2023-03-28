@@ -1,9 +1,11 @@
 package homer.view.logger;
 
 
+import java.io.IOException;
 import java.io.OutputStream;
 import java.util.LinkedHashMap;
 import java.util.Map;
+import java.util.Objects;
 
 import homer.api.DeviceId;
 import homer.api.DeviceState;
@@ -14,10 +16,10 @@ import homer.controller.Controller;
  */
 public class LoggerImpl implements Logger{
     private final Map<DeviceId, String> map = new LinkedHashMap<>();
-    private Controller controller;
     private OutputStream outputStream;
 
     public LoggerImpl(OutputStream outputStream) {
+        Objects.requireNonNull(outputStream);
         this.outputStream = outputStream;
     }
 
@@ -38,13 +40,21 @@ public class LoggerImpl implements Logger{
 
     @Override
     public void setOutputStream(OutputStream outputStream) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'setOutputStream'");
+        this.outputStream = outputStream;
     }
 
     @Override
-    public void start(Controller controller) {
-        this.controller = controller;
+    public void start(final Controller controller) {
+        Objects.requireNonNull(outputStream);
+    }
+
+    @Override
+    public void log(String string) {
+        try  {
+            this.outputStream.write((string + "\n").getBytes());
+        } catch (IOException e) {
+
+        };
     }
     
 }
