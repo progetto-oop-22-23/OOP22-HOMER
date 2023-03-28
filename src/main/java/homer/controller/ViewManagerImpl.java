@@ -4,35 +4,39 @@ import java.util.ArrayList;
 import java.util.List;
 
 import homer.api.DeviceId;
-import homer.view.View;
+import homer.api.DeviceState;
+import homer.view.DeviceViewer;
 
+/**
+ * {@link ViewManager} implementation.
+ */
 public final class ViewManagerImpl implements ViewManager {
-    private final List<View> views = new ArrayList<>();
+    private final List<DeviceViewer> views = new ArrayList<>();
 
     @Override
-    public void addView(View view) {
+    public void addView(final DeviceViewer view) {
         views.add(view);
     }
 
     @Override
-    public void removeView(View view) {
+    public void removeView(final DeviceViewer view) {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'removeView'");
     }
 
     @Override
-    public void updateDeviceState(DeviceId deviceId, String serializedState) {
+    public void updateDeviceState(final DeviceId deviceId, final DeviceState serializedState) {
         views.forEach(x -> x.updateDeviceState(deviceId, serializedState));
     }
 
     @Override
-    public void removeDevice(DeviceId deviceId) {
+    public void removeDevice(final DeviceId deviceId) {
         views.forEach(x -> x.removeDevice(deviceId));
     }
 
     @Override
-    public void addDevice(DeviceId deviceId, String deviceType) {
+    public void start(final Controller controller) {
+        views.forEach(x -> x.start(controller));
     }
 
-    
 }
