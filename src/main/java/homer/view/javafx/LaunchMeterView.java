@@ -1,6 +1,5 @@
 package homer.view.javafx;
 
-import java.time.Duration;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -8,15 +7,14 @@ import java.util.List;
 import homer.controller.impl.electricalmeter.ElectricalMeterImpl;
 import homer.model.outlets.Outlet;
 import homer.model.outlets.OutletFactory;
-import javafx.animation.Animation;
-import javafx.animation.KeyFrame;
-import javafx.animation.Timeline;
 import javafx.application.Application;
 import javafx.scene.Scene;
-import javafx.scene.control.ToggleButton;
-import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 
+/**
+ * TESTING CLASS!
+ * Launches the view for ElectricalMeter
+ */
 public class LaunchMeterView extends Application {
 
     private final List<Outlet> outlets = new ArrayList<>();
@@ -36,17 +34,5 @@ public class LaunchMeterView extends Application {
         primaryStage.setScene(scene);
         primaryStage.setTitle("Electrical Meter");
         primaryStage.show();
-        /*
-         * while(true) {
-         * meter.updateTick(Duration.ofHours(1));
-         * ElectricalMeterView view = (ElectricalMeterView) scene.getRoot();
-         * view.updateUI();
-         * }
-         */
-
-        // Create a Timeline to update the meter and UI every hour
-
-        
-
     }
 }
