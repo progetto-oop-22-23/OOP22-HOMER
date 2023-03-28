@@ -31,8 +31,14 @@ public class ElectricalMeterView extends BorderPane {
     }
 
     private void initView() {
+
         this.outletTable = new TableView<>();
         ObservableList<List<Outlet>> outlets = FXCollections.observableArrayList();
+        final int outletTableMaxColumns = 3;
+        final int outletTableRowHeightOffset = 30;
+        final int outletTableHeight = outlets.size() * outletTableRowHeightOffset;
+        final int outletTableDeltaHeight = 34;
+
         for (Outlet outlet : meter.getOutlets()) {
             List<Outlet> outletList = new ArrayList<>();
             outletList.add(outlet);
@@ -67,7 +73,7 @@ public class ElectricalMeterView extends BorderPane {
             {
                 outletSwitch.setOnAction(event -> {
                     List<Outlet> outlet = getTableView().getItems().get(getIndex());
-                    meter.cutPowerTo(outlet.get(0));
+                    meter.cutPowerTo(outlet.get(getIndex()));
                 });
             }
 
@@ -88,12 +94,8 @@ public class ElectricalMeterView extends BorderPane {
         columns.add(outletStatusColumn);
         columns.add(outletActionColumn);
 
-        final int maxColumns = 3;
-        final int offset = 30;
-        final int height = outlets.size() * offset;
-        final int deltaHeight = 34;
-        outletTable.getColumns().addAll(columns.subList(0, Math.min(columns.size(), maxColumns)));
-        outletTable.setPrefHeight(height + deltaHeight);
+        outletTable.getColumns().addAll(columns.subList(0, Math.min(columns.size(), outletTableMaxColumns)));
+        outletTable.setPrefHeight(outletTableHeight + outletTableDeltaHeight);
 
         globalConsumptionLabel = new Label("Global Consumption: ");
         globalConsumptionLabel.textProperty()
