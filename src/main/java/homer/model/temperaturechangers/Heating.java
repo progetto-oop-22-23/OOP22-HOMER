@@ -11,10 +11,10 @@ import homer.model.environment.Environment;
  */
 public final class Heating extends AbstractTemperatureChanger {
 
-    /** 
+    /**
      * @param minIntensity the minimum intensity allowed.
      * @param maxIntensity the maximum intensity allowed.
-     * @param environment the environment that is modified by the heating device.
+     * @param environment  the environment that is modified by the heating device.
      */
     public Heating(final double minIntensity, final double maxIntensity,
             final Environment environment) {
@@ -23,6 +23,7 @@ public final class Heating extends AbstractTemperatureChanger {
 
     @Override
     public void updateTick(final Duration deltaTime) {
+        this.updateConsumption(deltaTime);
         final double oldTemp = this.getEnvironment().getTemperature().getCelsius();
         final double updatedTemp = oldTemp + this.getState() * DurationConverter.toHours(deltaTime);
         if (this.getMaxTemperature().isEmpty()) {

@@ -2,6 +2,7 @@ package homer.model.temperaturechangers;
 
 import java.time.Duration;
 
+import homer.api.PoweredDeviceInfo;
 import homer.common.temperature.TemperatureFactory;
 import homer.common.time.DurationConverter;
 import homer.model.environment.Environment;
@@ -23,6 +24,7 @@ public final class AirConditioning extends AbstractTemperatureChanger {
 
     @Override
     public void updateTick(final Duration deltaTime) {
+        this.updateConsumption(deltaTime);
         final double oldTemp = this.getEnvironment().getTemperature().getCelsius();
         final double newTemp = Math.max(this.getMinTemperature().getCelsius(), 
             oldTemp - this.getState() * DurationConverter.toHours(deltaTime));
