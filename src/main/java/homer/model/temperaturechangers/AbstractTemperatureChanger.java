@@ -36,12 +36,12 @@ public abstract class AbstractTemperatureChanger implements TemperatureChanger, 
     private PoweredDeviceInfo power;
 
     @Override
-    public double getInstantConsumption() {
+    public final double getInstantConsumption() {
         return instantConsumption;
     }
 
     @Override
-    public void setInstantConsumption(double instantConsumption) {
+    public final void setInstantConsumption(double instantConsumption) {
         this.instantConsumption = instantConsumption;
     }
 
@@ -109,12 +109,12 @@ public abstract class AbstractTemperatureChanger implements TemperatureChanger, 
     }
 
     @Override
-    public void plug(final Outlet outlet) {
+    public final void plug(final Outlet outlet) {
         this.power.setOutlet(outlet);
     }
 
     @Override
-    public PoweredDeviceInfo getPowerInfo() {
+    public final PoweredDeviceInfo getPowerInfo() {
         return new PoweredDeviceInfoImpl(this.power.getMaxConsumption(), this.power.getOutlet());
     }
 
