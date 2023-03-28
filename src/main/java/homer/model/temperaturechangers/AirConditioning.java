@@ -2,7 +2,6 @@ package homer.model.temperaturechangers;
 
 import java.time.Duration;
 
-import homer.api.PoweredDeviceInfo;
 import homer.common.temperature.TemperatureFactory;
 import homer.common.time.DurationConverter;
 import homer.model.environment.Environment;

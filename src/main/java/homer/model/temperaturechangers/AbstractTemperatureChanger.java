@@ -34,7 +34,7 @@ public abstract class AbstractTemperatureChanger implements TemperatureChanger, 
     private Optional<Temperature> maxTemperature = Optional.empty();
     private double instantConsumption = 0.0;
     private PoweredDeviceInfo power;
-    private final static double MAX_CONSUMPTION = 1000;
+    private static final double MAX_CONSUMPTION = 1000;
 
     @Override
     public final double getInstantConsumption() {
@@ -42,7 +42,7 @@ public abstract class AbstractTemperatureChanger implements TemperatureChanger, 
     }
 
     @Override
-    public final void setInstantConsumption(double instantConsumption) {
+    public final void setInstantConsumption(final double instantConsumption) {
         this.instantConsumption = instantConsumption;
     }
 
