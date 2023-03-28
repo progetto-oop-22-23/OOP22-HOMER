@@ -58,6 +58,7 @@ public final class TemperatureScheduler implements TimeScheduler<Temperature> {
                 .count() > 0;
     }
 
+    // checks if boundsA are within or coincident with boundsB
     private boolean areBoundsWithinBounds(final Bounds<LocalTime> boundsA, final Bounds<LocalTime> boundsB) {
         return boundsA.getLowerBound().compareTo(boundsB.getLowerBound()) >= 0
                 && boundsA.getUpperBound().compareTo(boundsB.getUpperBound()) <= 0;
