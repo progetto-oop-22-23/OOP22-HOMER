@@ -45,7 +45,7 @@ public interface TimeScheduler<T extends Comparable<T>> {
 
     /**
      * Checks if the constraints are met, and returns whether the parameter is
-     * below/above or within bounds.
+     * below/above/within bounds or if no schedule exists for the current time.
      * 
      * @param currentTime      The current 24h clock time.
      * @param currentParameter The current parameter to check against the
