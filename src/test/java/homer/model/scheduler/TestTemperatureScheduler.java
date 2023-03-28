@@ -1,6 +1,7 @@
 package homer.model.scheduler;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrowsExactly;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.time.LocalTime;
@@ -46,10 +47,10 @@ final class TestTemperatureScheduler {
     void testOverlapping() {
         initSchedules();
 
-        checkUnchangedSize(TIME_RANGE);
-        checkUnchangedSize(new Bounds<>(TIME_EARLY, TIME_IN_RANGE));
-        checkUnchangedSize(new Bounds<>(TIME_IN_RANGE, TIME_LATER));
-        checkUnchangedSize(new Bounds<>(TIME_IN_RANGE, TIME_IN_RANGE));
+        checkOverlapping(TIME_RANGE);
+        checkOverlapping(new Bounds<>(TIME_EARLY, TIME_IN_RANGE));
+        checkOverlapping(new Bounds<>(TIME_IN_RANGE, TIME_LATER));
+        checkOverlapping(new Bounds<>(TIME_IN_RANGE, TIME_IN_RANGE));
     }
 
     @Test
@@ -80,9 +81,9 @@ final class TestTemperatureScheduler {
         assertTrue(scheduler.getSchedules().size() == 1);
     }
 
-    private void checkUnchangedSize(final Bounds<LocalTime> newTimeRange) {
+    private void checkOverlapping(final Bounds<LocalTime> newTimeRange) {
         final var sizeBefore = scheduler.getSchedules().size();
-        scheduler.addSchedule(newTimeRange, TEMP_RANGE);
+        assertThrowsExactly(IllegalArgumentException.class, () -> scheduler.addSchedule(newTimeRange, TEMP_RANGE));
         assertTrue(scheduler.getSchedules().size() == sizeBefore);
     }
 }
