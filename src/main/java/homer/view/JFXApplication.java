@@ -59,18 +59,9 @@ public class JFXApplication extends Application {
         tabPane.setTabClosingPolicy(TabClosingPolicy.UNAVAILABLE);
         tabPane.setTabDragPolicy(TabDragPolicy.REORDER);
 
-        // TODO add dashboard
-        final Tab devicesView = new Tab();
-        devicesView.setText("DEVICES");
-        devicesView.setContent(new AddDevicesView(controller));
-
-        final Tab schedulerView = new Tab();
-        schedulerView.setText("SCHEDULER");
-        // schedulerView.setContent(null); // TODO
-
-        final Tab graphView = new Tab();
-        graphView.setText("GRAPHS");
-        // graphView.setContent(null); // TODO
+        final Tab devicesView = new Tab("DEVICES", new AddDevicesView(controller)); // TODO add dashboard
+        final Tab schedulerView = new Tab("SCHEDULER", null); // TODO
+        final Tab graphView = new Tab("GRAPHS", null); // TODO
 
         tabPane.getTabs().addAll(devicesView, schedulerView, graphView);
 
