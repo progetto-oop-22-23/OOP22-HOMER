@@ -7,7 +7,7 @@ import homer.controller.Controller;
 /**
  * View that supports adding, removing and updating state of the devices.
  */
-public interface View {
+public interface DeviceViewer {
     /**
      * Updates the selected device's state on the view, and creates a new view if
      * it's not present yet.

@@ -5,18 +5,18 @@ import java.util.List;
 
 import homer.api.DeviceId;
 import homer.api.DeviceState;
-import homer.view.View;
+import homer.view.DeviceViewer;
 
 public final class ViewManagerImpl implements ViewManager {
-    private final List<View> views = new ArrayList<>();
+    private final List<DeviceViewer> views = new ArrayList<>();
 
     @Override
-    public void addView(View view) {
+    public void addView(DeviceViewer view) {
         views.add(view);
     }
 
     @Override
-    public void removeView(View view) {
+    public void removeView(DeviceViewer view) {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'removeView'");
     }
