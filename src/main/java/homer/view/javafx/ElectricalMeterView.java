@@ -13,7 +13,6 @@ import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.ToggleButton;
-import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 
@@ -21,8 +20,7 @@ public class ElectricalMeterView extends BorderPane {
 
     private ElectricalMeter controller;
     private TableView<List<Outlet>> outletTable;
-    private TableColumn<List<Outlet>, ?> outletNameColumn;
-    private TableColumn<List<Outlet>, ?> outletStatusColumn;
+    private TableColumn<List<Outlet>, Double> outletStatusColumn;
     private TableColumn<List<Outlet>, Void> outletActionColumn;
     private Label globalConsumptionLabel;
     private Label averagePowerLabel;
@@ -35,7 +33,11 @@ public class ElectricalMeterView extends BorderPane {
     private void initView() {
         this.outletTable = new TableView<>();
         ObservableList<List<Outlet>> outlets = FXCollections.observableArrayList();
-        outlets.add(controller.getOutlets());
+        for (Outlet outlet : controller.getOutlets()) {
+            List<Outlet> outletList = new ArrayList<>();
+            outletList.add(outlet);
+            outlets.add(outletList);
+        }
 
         // set the table items
         outletTable.setItems(outlets);
@@ -44,15 +46,23 @@ public class ElectricalMeterView extends BorderPane {
         outletTable.setEditable(false);
         outletTable.setItems(outlets);
 
-        outletNameColumn = new TableColumn<>("Outlet Name");
-        outletNameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
-
         outletStatusColumn = new TableColumn<>("Status");
-        outletStatusColumn.setCellValueFactory(new PropertyValueFactory<>("status"));
+        outletStatusColumn.setCellFactory(param -> new TableCell<List<Outlet>, Double>() {
+            @Override
+            protected void updateItem(Double item, boolean empty) {
+                super.updateItem(item, empty);
+                if (empty) {
+                    setText(null);
+                } else {
+                    Outlet outlet = getTableRow().getItem().get(0);
+                    Double power = outlet.getState().getPower().get();
+                    setText(String.format("%.2f", power));
+                }
+            }
+        });
 
         outletActionColumn = new TableColumn<>("Action");
-        outletActionColumn = new TableColumn<>("Action");
-        outletActionColumn.setCellFactory(param -> new TableCell<List<Outlet>,Void>() {
+        outletActionColumn.setCellFactory(param -> new TableCell<List<Outlet>, Void>() {
             private final ToggleButton outletSwitch = new ToggleButton();
             {
                 outletSwitch.setOnAction(event -> {
@@ -75,10 +85,11 @@ public class ElectricalMeterView extends BorderPane {
         });
 
         List<TableColumn<List<Outlet>, ?>> columns = new ArrayList<>();
-        columns.add(outletNameColumn);
         columns.add(outletStatusColumn);
         columns.add(outletActionColumn);
-        outletTable.getColumns().addAll(columns);
+
+        outletTable.getColumns().addAll(columns.subList(0, Math.min(columns.size(), 3)));
+        outletTable.setPrefHeight(outlets.size() * 30 + 34);
 
         // outletTable.getColumns().addAll(outletNameColumn, outletStatusColumn,
         // outletActionColumn);
@@ -86,11 +97,11 @@ public class ElectricalMeterView extends BorderPane {
         // Initialize global consumption label
         globalConsumptionLabel = new Label("Global Consumption: ");
         globalConsumptionLabel.textProperty()
-                .bind(Bindings.format("Global Consumption: %.2f kWh", controller.getGlobalConsumption()));
+                .bind(Bindings.format("Global Consumption: %.2f W", controller.getGlobalConsumption()));
 
         // Initialize average power label
         averagePowerLabel = new Label("Average Power: ");
-        averagePowerLabel.textProperty().bind(Bindings.format("Average Power: %.2f W", controller.getAveragePower()));
+        averagePowerLabel.textProperty().bind(Bindings.format("Average Power: %.2f Wh", controller.getAveragePower()));
 
         // Set up view
         this.setTop(outletTable);
