@@ -53,10 +53,8 @@ public final class TemperatureScheduler implements TimeScheduler<Temperature> {
         final var newTimeEnd = timeBounds.getUpperBound();
         return this.schedules.values().stream()
                 .map(TimeSchedule::timeBounds)
-                .filter(tb -> areBoundsWithinBounds(timeBounds, tb))
-                .filter(tb -> areBoundsWithinBounds(tb, timeBounds))
-                .filter(tb -> isTimeWithinBounds(newTimeStart, tb))
-                .filter(tb -> isTimeWithinBounds(newTimeEnd, tb))
+                .filter(tb -> areBoundsWithinBounds(timeBounds, tb) || areBoundsWithinBounds(tb, timeBounds)
+                        || isTimeWithinBounds(newTimeStart, tb) || isTimeWithinBounds(newTimeEnd, tb))
                 .count() > 0;
     }
 
