@@ -4,6 +4,7 @@ import java.time.LocalTime;
 
 import homer.common.bounds.Bounds;
 import homer.model.scheduler.ScheduleId;
+import homer.view.scheduler.TimeSchedulerView;
 
 public interface TimeSchedulerController<T extends Comparable<T>> {
 
@@ -21,5 +22,12 @@ public interface TimeSchedulerController<T extends Comparable<T>> {
      * @param scheduleId the id of the schedule to remove.
      */
     void removeSchedule(ScheduleId scheduleId);
+
+    /**
+     * Sets the observable view.
+     * 
+     * @param view the observable view.
+     */
+    void setView(TimeSchedulerView<T> view);
 
 }
