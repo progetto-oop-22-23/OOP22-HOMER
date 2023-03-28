@@ -8,4 +8,9 @@ import java.util.UUID;
  * @param scheduleId the schedule id.
  */
 public record ScheduleId(UUID scheduleId) {
+
+    public ScheduleId() {
+        this(UUID.randomUUID());
+    }
+
 }
