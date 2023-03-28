@@ -13,7 +13,7 @@ public interface DeviceViewer {
      * it's not present yet.
      * 
      * @param deviceId        the id of the device to be updated
-     * @param serializedState the device's new state
+     * @param deviceState the device's new state
      */
     void updateDeviceState(DeviceId deviceId, DeviceState deviceState);
 
@@ -25,8 +25,9 @@ public interface DeviceViewer {
 
     /**
      * Starts the view.
+     * 
      * @param controller the controller that's going to receive the updates.
      */
     void start(Controller controller);
-    
+
 }
