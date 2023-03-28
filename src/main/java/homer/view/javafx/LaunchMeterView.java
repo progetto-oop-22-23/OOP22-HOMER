@@ -15,19 +15,21 @@ import javafx.stage.Stage;
  * TESTING CLASS!
  * Launches the view for ElectricalMeter
  */
-public class LaunchMeterView extends Application {
+public final class LaunchMeterView extends Application {
 
     private final List<Outlet> outlets = new ArrayList<>();
 
     private final ElectricalMeterImpl meter = new ElectricalMeterImpl(outlets);
 
     @Override
-    public void start(Stage primaryStage) throws Exception {
+    public void start(final Stage primaryStage) throws Exception {
+        final double cOutletState = 10.0;
+        final double lOutletState = 15.0;
         Collections.addAll(outlets,
-                OutletFactory.cOutlet(10.0),
-                OutletFactory.cOutlet(10.0),
-                OutletFactory.lOutlet(15.0),
-                OutletFactory.lOutlet(15.0));
+                OutletFactory.cOutlet(cOutletState),
+                OutletFactory.cOutlet(cOutletState),
+                OutletFactory.lOutlet(lOutletState),
+                OutletFactory.lOutlet(lOutletState));
         meter.setOutlets(outlets);
 
         Scene scene = new Scene(new ElectricalMeterView(meter));

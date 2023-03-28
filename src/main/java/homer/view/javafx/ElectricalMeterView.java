@@ -34,10 +34,10 @@ public class ElectricalMeterView extends BorderPane {
     private Label averagePowerLabel;
 
     /**
-     * View constructor
+     * View constructor.
      * @param meter the electrical meter.
      */
-    public ElectricalMeterView(ElectricalMeter meter) {
+    public ElectricalMeterView(final ElectricalMeter meter) {
         this.meter = meter;
         initView();
     }
@@ -65,7 +65,7 @@ public class ElectricalMeterView extends BorderPane {
         outletStatusColumn = new TableColumn<>("Status");
         outletStatusColumn.setCellFactory(param -> new TableCell<List<Outlet>, Double>() {
             @Override
-            protected void updateItem(Double item, boolean empty) {
+            protected void updateItem(final Double item, final boolean empty) {
                 super.updateItem(item, empty);
                 if (empty) {
                     setText(null);
@@ -123,7 +123,8 @@ public class ElectricalMeterView extends BorderPane {
         averagePowerLabel.setText("Average Power: " + meter.getAveragePower() + "Wh");
 
         Timeline updateTimeline = new Timeline(new KeyFrame(Duration.seconds(1), event -> {
-            ((ElectricalMeterImpl) meter).updateTick(java.time.Duration.ofHours(13));
+            final long hours = 12;
+            ((ElectricalMeterImpl) meter).updateTick(java.time.Duration.ofHours(hours));
             updateUI();
         }));
         // Create a ToggleButton to start and stop the update timeline
@@ -153,7 +154,7 @@ public class ElectricalMeterView extends BorderPane {
         globalConsumptionLabel.setText("Global Consumption: " + meter.getGlobalConsumption() + "W");
         outletStatusColumn.setCellFactory(param -> new TableCell<List<Outlet>, Double>() {
             @Override
-            protected void updateItem(Double item, boolean empty) {
+            protected void updateItem(final Double item, final boolean empty) {
                 super.updateItem(item, empty);
                 if (empty) {
                     setText(null);
