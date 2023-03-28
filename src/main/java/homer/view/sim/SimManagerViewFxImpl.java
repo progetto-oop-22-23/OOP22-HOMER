@@ -30,11 +30,11 @@ public final class SimManagerViewFxImpl extends HBox implements SimManagerView {
         final Button oneMin = new Button(ONE_MIN);
         final Button oneHour = new Button(ONE_HOUR);
 
-        resume.setOnAction(event -> simManager.resume());
-        pause.setOnAction(event -> simManager.pause());
-        oneSec.setOnAction(event -> simManager.setSimStepPeriod(Duration.ofSeconds(1)));
-        oneMin.setOnAction(event -> simManager.setSimStepPeriod(Duration.ofMinutes(1)));
-        oneHour.setOnAction(event -> simManager.setSimStepPeriod(Duration.ofHours(1)));
+        resume.setOnAction(event -> this.simManager.resume());
+        pause.setOnAction(event -> this.simManager.pause());
+        oneSec.setOnAction(event -> this.simManager.setSimStepPeriod(Duration.ofSeconds(1)));
+        oneMin.setOnAction(event -> this.simManager.setSimStepPeriod(Duration.ofMinutes(1)));
+        oneHour.setOnAction(event -> this.simManager.setSimStepPeriod(Duration.ofHours(1)));
 
         this.getChildren().addAll(resume, pause, oneSec, oneMin, oneHour);
     }
