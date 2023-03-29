@@ -10,6 +10,7 @@ import homer.controller.Controller;
 import homer.model.temperaturechangers.TemperatureChangerState;
 import homer.view.DeviceViewer;
 import javafx.scene.layout.Pane;
+import javafx.application.Platform;
 
 public class JFXDeviceViewer extends Pane implements DeviceViewer {
 
@@ -23,26 +24,30 @@ public class JFXDeviceViewer extends Pane implements DeviceViewer {
 
     @Override
     public void updateDeviceState(final DeviceId deviceId, final DeviceState deviceState) {
-        if (this.deviceMap.containsKey(deviceId)) {
-            final var deviceView = this.deviceMap.get(deviceId);
-            deviceView.setState(deviceState);
-        }
-        else {
-            if (deviceState instanceof TemperatureChangerState) {
-                var deviceView = new TemperatureChangerView(deviceId, (TemperatureChangerState) deviceState, controller);
-                this.deviceMap.put(deviceId, deviceView);
-                this.getChildren().add(deviceView);
+        Platform.runLater(() -> {
+            if (this.deviceMap.containsKey(deviceId)) {
+                final var deviceView = this.deviceMap.get(deviceId);
+                deviceView.setState(deviceState);
+            } else {
+                if (deviceState instanceof TemperatureChangerState) {
+                    var deviceView = new TemperatureChangerView(deviceId, (TemperatureChangerState) deviceState,
+                            controller);
+                    this.deviceMap.put(deviceId, deviceView);
+                    this.getChildren().add(deviceView);
+                }
             }
-        }
+        });
     }
 
     @Override
     public void removeDevice(final DeviceId deviceId) {
-        if (deviceMap.containsKey(deviceId)) {
-            final var target = deviceMap.get(deviceId);
-            this.getChildren().remove(this.deviceMap.get(deviceId));
-            deviceMap.remove(deviceId);
-        }
+        Platform.runLater(() -> {
+            if (deviceMap.containsKey(deviceId)) {
+                final var target = deviceMap.get(deviceId);
+                this.getChildren().remove(this.deviceMap.get(deviceId));
+                deviceMap.remove(deviceId);
+            }
+        });
     }
 
     @Override
