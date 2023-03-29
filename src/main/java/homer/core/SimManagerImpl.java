@@ -31,10 +31,11 @@ public final class SimManagerImpl implements SimManagerViewObserver {
     public SimManagerImpl(final Controller controller) {
         this.loopRunnable = () -> {
             // System.out.println("Hello World " + getSimStepPeriod() + " " + System.currentTimeMillis());
-            controller.updateTick(getSimStepPeriod());
+            final var dt = getSimStepPeriod();
+            controller.updateTick(dt);
             controller.getDeviceManager().getDevices().values().stream()
                     .filter(DiscreteObject.class::isInstance)
-                    .forEach(d -> ((DiscreteObject) d).updateTick(getSimStepPeriod()));
+                    .forEach(d -> ((DiscreteObject) d).updateTick(dt));
         };
         resume();
     }
