@@ -9,6 +9,7 @@ import java.util.Objects;
 import homer.api.DeviceId;
 import homer.api.DeviceState;
 import homer.controller.Controller;
+import homer.model.temperaturechangers.TemperatureChangerState;
 
 /**
  * LoggerImpl
@@ -28,11 +29,10 @@ public final class LoggerImpl implements Logger {
 
     @Override
     public void updateDeviceState(final DeviceId deviceId, final DeviceState deviceState) {
-        if (map.containsKey(deviceId)) {
-            // print what's updated.
-        } else {
-            map.put(deviceId, "Some kind of string rep that we only get on first creation of the object");
-            // print something on first update.
+        if (!map.containsKey(deviceState)) {
+            if (deviceState instanceof TemperatureChangerState) {
+                map.put(deviceId, "" + deviceId.toString());
+            }
         }
     }
 
@@ -43,6 +43,7 @@ public final class LoggerImpl implements Logger {
 
     @Override
     public void setOutputStream(final OutputStream outputStream) {
+        Objects.requireNonNull(outputStream);
         this.outputStream = outputStream;
     }
 
