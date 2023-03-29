@@ -15,7 +15,7 @@ public record UpdateDeviceState(DeviceId id, DeviceState deviceState) implements
 
     @Override
     public final void execute(final Controller controller) {
-        controller.getDeviceManager().UpdateDeviceState(id, deviceState);
+        controller.getDeviceManager().updateDeviceState(id, deviceState);
     }
 
 }

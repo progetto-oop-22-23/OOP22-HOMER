@@ -68,13 +68,12 @@ public final class DeviceManagerImpl implements DeviceManager {
     }
 
     @Override
-    public void UpdateDeviceState(final DeviceId deviceId, final DeviceState state) {
+    public void updateDeviceState(final DeviceId deviceId, final DeviceState state) {
         final Device<?> targetDevice = this.deviceMap.get(deviceId);
         if (targetDevice instanceof AdjustableDevice) {
             AdjustableDevice<?> adjustableDevice = (AdjustableDevice<?>) targetDevice;
             adjustableDevice.setState(state);
         }
     }
-
 
 }
