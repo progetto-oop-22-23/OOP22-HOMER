@@ -72,10 +72,10 @@ public final class ElectricalMeterViewManager {
     @FXML
     public void setLabels() {
         final double consumption = meter.getGlobalConsumption();
-        final double energy = meter.getAveragePower();
+        final double power = meter.getAveragePower();
         outletTable.setItems(FXCollections.observableArrayList(meter.getOutlets()));
-        consumptionLabel.setText(String.format("Global Consumption: %.2f W", consumption));
-        energyLabel.setText(String.format("Average Energy: %.2f Wh", energy));
+        consumptionLabel.setText(String.format("Global Consumption: %.2f Wh", consumption));
+        energyLabel.setText(String.format("Instant power: %.2f W", power));
         outletStateColumn.setCellValueFactory(
                 cellData -> new ReadOnlyObjectWrapper<String>(
                         String.format("%.2f Wh", cellData.getValue().getState().getPower().get())));
