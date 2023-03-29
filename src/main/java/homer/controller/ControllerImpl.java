@@ -19,7 +19,9 @@ public final class ControllerImpl implements Controller {
 
     @Override
     public void receiveCommand(final Command command) {
-        commands.add(command);
+        if (command != null) {
+            commands.add(command);
+        }
     }
 
     @Override
