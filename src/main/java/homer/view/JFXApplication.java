@@ -14,6 +14,7 @@ import homer.view.sim.SimManagerViewFxImpl;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.scene.Scene;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.control.TabPane.TabClosingPolicy;
@@ -69,7 +70,11 @@ public class JFXApplication extends Application {
         tabPane.setTabClosingPolicy(TabClosingPolicy.UNAVAILABLE);
         tabPane.setTabDragPolicy(TabDragPolicy.REORDER);
 
-        final Tab devicesView = new Tab("DEVICES", dashboard); // TODO add dashboard
+        final ScrollPane dashboardScrollPane = new ScrollPane(dashboard);
+        dashboardScrollPane.setFitToHeight(true);
+        dashboardScrollPane.setFitToWidth(true);
+        // TODO separate the add devices from the device list, so that only the list is scrollable
+        final Tab devicesView = new Tab("DEVICES", dashboardScrollPane); // TODO add dashboard
         final Tab schedulerView = new Tab("SCHEDULER", null); // TODO
         final Tab graphView = new Tab("GRAPHS", null); // TODO
 
