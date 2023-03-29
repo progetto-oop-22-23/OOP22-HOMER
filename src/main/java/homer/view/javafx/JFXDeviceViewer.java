@@ -9,10 +9,10 @@ import homer.api.DeviceView;
 import homer.controller.Controller;
 import homer.model.temperaturechangers.TemperatureChangerState;
 import homer.view.DeviceViewer;
-import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
 import javafx.application.Platform;
 
-public class JFXDeviceViewer extends Pane implements DeviceViewer {
+public class JFXDeviceViewer extends VBox implements DeviceViewer {
 
     private Controller controller;
     private final Map<DeviceId, DeviceView> deviceMap = new LinkedHashMap<>();
@@ -54,5 +54,5 @@ public class JFXDeviceViewer extends Pane implements DeviceViewer {
     public void start(Controller controller) {
         this.controller = controller;
     }
-    
+
 }
