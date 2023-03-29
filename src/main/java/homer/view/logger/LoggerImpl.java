@@ -1,6 +1,5 @@
 package homer.view.logger;
 
-
 import java.io.IOException;
 import java.io.OutputStream;
 import java.util.LinkedHashMap;
@@ -12,19 +11,23 @@ import homer.api.DeviceState;
 import homer.controller.Controller;
 
 /**
- * LoggerImpl 
+ * LoggerImpl
  */
-public class LoggerImpl implements Logger{
+public final class LoggerImpl implements Logger {
     private final Map<DeviceId, String> map = new LinkedHashMap<>();
     private OutputStream outputStream;
 
-    public LoggerImpl(OutputStream outputStream) {
+    /**
+     * 
+     * @param outputStream
+     */
+    public LoggerImpl(final OutputStream outputStream) {
         Objects.requireNonNull(outputStream);
         this.outputStream = outputStream;
     }
 
     @Override
-    public void updateDeviceState(DeviceId deviceId, DeviceState deviceState) {
+    public void updateDeviceState(final DeviceId deviceId, final DeviceState deviceState) {
         if (map.containsKey(deviceId)) {
             // print what's updated.
         } else {
@@ -34,12 +37,12 @@ public class LoggerImpl implements Logger{
     }
 
     @Override
-    public void removeDevice(DeviceId deviceId) {
+    public void removeDevice(final DeviceId deviceId) {
         map.remove(deviceId);
     }
 
     @Override
-    public void setOutputStream(OutputStream outputStream) {
+    public void setOutputStream(final OutputStream outputStream) {
         this.outputStream = outputStream;
     }
 
@@ -49,12 +52,12 @@ public class LoggerImpl implements Logger{
     }
 
     @Override
-    public void log(String string) {
-        try  {
+    public void log(final String string) {
+        try {
             this.outputStream.write((string + "\n").getBytes());
         } catch (IOException e) {
 
-        };
+        }
     }
-    
+
 }
