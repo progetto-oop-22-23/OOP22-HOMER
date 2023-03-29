@@ -7,6 +7,7 @@ import homer.api.PoweredDevice;
 import homer.api.PoweredDeviceInfo;
 import homer.api.PoweredDeviceInfoImpl;
 import homer.api.ToggleableDevice;
+import homer.api.state.OnOffState;
 import homer.common.limit.Limit;
 import homer.common.time.DurationConverter;
 import homer.core.DiscreteObject;
@@ -18,9 +19,9 @@ import homer.model.outlets.OutletFactory;
  * 
  * @author Alessandro Monticelli
  */
-public final class Light implements ToggleableDevice<Boolean>, PoweredDevice, DiscreteObject {
+public final class Light implements ToggleableDevice<OnOffState>, PoweredDevice, DiscreteObject {
 
-    private Boolean state;
+    private OnOffState state;
     private final PoweredDeviceInfo power;
     private double instantConsumption;
 
@@ -30,7 +31,7 @@ public final class Light implements ToggleableDevice<Boolean>, PoweredDevice, Di
      * @param state On/Off.
      * @param power See {@link homer.api.PoweredDeviceInfo}.
      */
-    public Light(final Boolean state, final PoweredDeviceInfo power) {
+    public Light(final OnOffState state, final PoweredDeviceInfo power) {
         this.state = Objects.requireNonNull(state);
         this.power = new PoweredDeviceInfoImpl(power.getMaxConsumption(), power.getOutlet());
         this.instantConsumption = 0.0;
@@ -41,7 +42,7 @@ public final class Light implements ToggleableDevice<Boolean>, PoweredDevice, Di
      * 
      * @param state On/Off.
      */
-    public Light(final Boolean state) {
+    public Light(final OnOffState state) {
         this.state = Objects.requireNonNull(state);
         this.power = new PoweredDeviceInfoImpl(10.0,
                 OutletFactory.cOutlet(0));
@@ -49,18 +50,18 @@ public final class Light implements ToggleableDevice<Boolean>, PoweredDevice, Di
     }
 
     @Override
-    public Boolean getState() {
+    public OnOffState getState() {
         return this.state;
     }
 
     @Override
     public boolean isToggled() {
-        return this.getState();
+        return this.getState().isOn();
     }
 
     @Override
     public void toggle() {
-        this.state ^= true;
+        this.state = new OnOffState(this.isToggled() ^ true);
     }
 
     @Override
