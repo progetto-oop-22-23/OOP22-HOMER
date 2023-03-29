@@ -22,8 +22,8 @@ public final class ElectricalMeterViewManager {
     private Label consumptionLabel;
 
     @FXML
-    // Reference of energyLabel for the FXML loader.
-    private Label energyLabel;
+    // Reference of powerLabel for the FXML loader.
+    private Label powerLabel;
 
     @FXML
     private TableView<Outlet> outletTable;
@@ -75,7 +75,7 @@ public final class ElectricalMeterViewManager {
         final double power = meter.getAveragePower();
         outletTable.setItems(FXCollections.observableArrayList(meter.getOutlets()));
         consumptionLabel.setText(String.format("Global Consumption: %.2f Wh", consumption));
-        energyLabel.setText(String.format("Instant power: %.2f W", power));
+        powerLabel.setText(String.format("Instant power: %.2f W", power));
         outletStateColumn.setCellValueFactory(
                 cellData -> new ReadOnlyObjectWrapper<String>(
                         String.format("%.2f Wh", cellData.getValue().getState().getPower().get())));

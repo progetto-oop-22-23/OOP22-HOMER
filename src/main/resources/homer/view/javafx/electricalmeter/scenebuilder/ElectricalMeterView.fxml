@@ -6,13 +6,12 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 
-
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="homer.view.javafx.electricalmeter.scenebuilder.ElectricalMeterViewManager">
    <bottom>
       <HBox prefHeight="40.0" prefWidth="600.0" BorderPane.alignment="CENTER">
          <children>
-            <Label fx:id="consumptionLabel" prefHeight="51.0" prefWidth="299.0" text="Global Consumption: W" />
-            <Label fx:id="energyLabel" prefHeight="51.0" prefWidth="299.0" text="Average Energy: Wh" />
+            <Label fx:id="consumptionLabel" prefHeight="51.0" prefWidth="299.0" text="Global Consumption: Wh" />
+            <Label fx:id="powerLabel" prefHeight="51.0" prefWidth="299.0" text="Instant Power: W" />
          </children>
       </HBox>
    </bottom>
