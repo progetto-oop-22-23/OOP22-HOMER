@@ -31,8 +31,8 @@ public final class Light implements ToggleableDevice<OnOffState>, PoweredDevice,
      * @param state On/Off.
      * @param power See {@link homer.api.PoweredDeviceInfo}.
      */
-    public Light(final OnOffState state, final PoweredDeviceInfo power) {
-        this.state = Objects.requireNonNull(state);
+    public Light(final Boolean state, final PoweredDeviceInfo power) {
+        this.state = new OnOffState(Objects.requireNonNull(state));
         this.power = new PoweredDeviceInfoImpl(power.getMaxConsumption(), power.getOutlet());
         this.instantConsumption = 0.0;
     }
@@ -42,8 +42,8 @@ public final class Light implements ToggleableDevice<OnOffState>, PoweredDevice,
      * 
      * @param state On/Off.
      */
-    public Light(final OnOffState state) {
-        this.state = Objects.requireNonNull(state);
+    public Light(final Boolean state) {
+        this.state = new OnOffState(Objects.requireNonNull(state));
         this.power = new PoweredDeviceInfoImpl(10.0,
                 OutletFactory.cOutlet(0));
         this.instantConsumption = 0.0;
@@ -51,7 +51,7 @@ public final class Light implements ToggleableDevice<OnOffState>, PoweredDevice,
 
     @Override
     public OnOffState getState() {
-        return this.state;
+        return new OnOffState(this.isToggled());
     }
 
     @Override
@@ -69,7 +69,10 @@ public final class Light implements ToggleableDevice<OnOffState>, PoweredDevice,
         final double oldConsumption = this.getInstantConsumption();
         final double maxConsumption = this.getPowerInfo().getMaxConsumption();
         final double milliseconds = DurationConverter.toMillis(deltaTime);
-        final double intensity = Math.sin(milliseconds * 0.1) - (0.01 + Math.random() * 0.05);
+        double intensity = 0.0;
+        if (this.isToggled()) {
+            intensity = (Math.sin(milliseconds * 0.1) - (0.01 + Math.random() * 0.05));
+        }
         final double newConsumption = oldConsumption + intensity * milliseconds;
         this.setInstantConsumption(
                 Limit.clamp(newConsumption, this.getPowerInfo().getMinConsumption(), maxConsumption));

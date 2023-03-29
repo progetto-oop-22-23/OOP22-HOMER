@@ -1,11 +1,12 @@
 package homer.model.lights;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.time.Duration;
 
 import org.junit.jupiter.api.Test;
+
 
 /**
  * Tests Light functionalities.
@@ -17,11 +18,9 @@ final class LightTest {
     @Test
     void testToggle() {
         final Light light = new Light(false);
-        boolean state = false;
-        assertEquals(state, light.getState());
-        state = true;
+        assertFalse(light.getState().isOn());
         light.toggle();
-        assertEquals(state, light.getState());
+        assertTrue(light.getState().isOn());
     }
 
     @Test
