@@ -28,6 +28,7 @@ public class TimeStampLogger implements Logger {
 
     @Override
     public void removeDevice(final DeviceId deviceId) {
+        logTimeZone();
         logger.removeDevice(deviceId);
     }
 

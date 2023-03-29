@@ -8,6 +8,7 @@ import java.util.Objects;
 
 import homer.api.DeviceId;
 import homer.api.DeviceState;
+import homer.api.state.ActuatedDeviceState;
 import homer.controller.Controller;
 import homer.model.temperaturechangers.TemperatureChangerState;
 import homer.model.temperaturechangers.TemperatureChangerType;
@@ -31,7 +32,7 @@ public final class LoggerImpl implements Logger {
     @Override
     public void updateDeviceState(final DeviceId deviceId, final DeviceState deviceState) {
         if (!stringReps.containsKey(deviceId)) {
-            log("ADD DEVICE:");
+            log("ADD DEVICE:" + deviceId.toString() + ":");
             if (deviceState instanceof TemperatureChangerState) {
                 final var state = (TemperatureChangerState)  deviceState;
                 final String typeStringRep;
@@ -41,15 +42,20 @@ public final class LoggerImpl implements Logger {
                 else {
                     typeStringRep = "Heating";
                 }
-                stringReps.put(deviceId, "" + deviceId.toString() + ":" + typeStringRep);;
+                stringReps.put(deviceId, typeStringRep);
+                log(typeStringRep);
             }
+            if (deviceState instanceof ActuatedDeviceState) {
+            }
+        } else {
+            log("UPDATE DEVICE:");
         }
     }
 
     @Override
     public void removeDevice(final DeviceId deviceId) {
+        log("REMOVE DEVICE:" + deviceId.toString() + ":" + stringReps.get(deviceId));
         stringReps.remove(deviceId);
-        log("REMOVE DEVICE:");
     }
 
     @Override

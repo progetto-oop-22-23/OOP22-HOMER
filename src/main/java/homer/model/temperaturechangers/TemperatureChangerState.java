@@ -77,8 +77,9 @@ public final class TemperatureChangerState implements DeviceState {
      * 
      * @param type
      */
-    public void addTemperatureChangerType(final TemperatureChangerType type) {
+    public TemperatureChangerState addTemperatureChangerType(final TemperatureChangerType type) {
         this.type = Optional.of(type);
+        return this;
     }
 
     /**
