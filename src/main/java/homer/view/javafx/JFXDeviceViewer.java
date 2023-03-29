@@ -40,7 +40,7 @@ public class JFXDeviceViewer extends Pane implements DeviceViewer {
     public void removeDevice(final DeviceId deviceId) {
         if (deviceMap.containsKey(deviceId)) {
             final var target = deviceMap.get(deviceId);
-            // TODO remove deviceview
+            this.getChildren().remove(this.deviceMap.get(deviceId));
             deviceMap.remove(deviceId);
         }
     }
