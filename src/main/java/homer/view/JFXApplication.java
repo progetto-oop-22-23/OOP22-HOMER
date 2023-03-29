@@ -4,6 +4,7 @@ import homer.api.DeviceIdImpl;
 import homer.controller.Controller;
 import homer.controller.ControllerImpl;
 import homer.view.javafx.AddDevicesView;
+import homer.view.javafx.JFXDeviceViewer;
 import homer.view.javafx.TemperatureChangerView;
 import homer.view.logger.Logger;
 import homer.view.logger.LoggerImpl;
@@ -39,12 +40,9 @@ public class JFXApplication extends Application {
         final var root = new BorderPane();
         final Scene scene = new Scene(root, INITIAL_W, INITIAL_H);
         final Controller controller = new ControllerImpl();
-        var vBox = new VBox();
         var temperatureChangerView = new TemperatureChangerView(new DeviceIdImpl(),
                 new TemperatureChangerState().addCurrentIntensity(1).addMinIntensity(0).addMaxIntensity(10),
                 controller);
-        root.getChildren().add(vBox);
-        vBox.getChildren().addAll(new AddDevicesView(controller), temperatureChangerView);
 
         final var simManager = new SimManagerImpl(controller);
         final var simView = new SimManagerViewFxImpl();
@@ -69,7 +67,7 @@ public class JFXApplication extends Application {
         tabPane.setTabClosingPolicy(TabClosingPolicy.UNAVAILABLE);
         tabPane.setTabDragPolicy(TabDragPolicy.REORDER);
 
-        final Tab devicesView = new Tab("DEVICES", new AddDevicesView(controller)); // TODO add dashboard
+        final Tab devicesView = new Tab("DEVICES",new JFXDeviceViewer(controller)); // TODO add dashboard
         final Tab schedulerView = new Tab("SCHEDULER", null); // TODO
         final Tab graphView = new Tab("GRAPHS", null); // TODO
 
