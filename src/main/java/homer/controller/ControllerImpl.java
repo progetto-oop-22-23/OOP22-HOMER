@@ -13,7 +13,7 @@ import homer.controller.command.Command;
 public final class ControllerImpl implements Controller {
 
     private final List<Command> commands = new LinkedList<>();
-    private final DeviceManager deviceManager = new DeviceManagerImpl();
+    private final DeviceManager deviceManager = new DeviceManagerImpl(this);
     private final ViewManager viewManager = new ViewManagerImpl();
     private final Clock clock = new ClockImpl();
 
