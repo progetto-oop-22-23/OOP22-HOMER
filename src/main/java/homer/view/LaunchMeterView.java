@@ -70,8 +70,8 @@ public final class LaunchMeterView extends Application {
 
         ElectricalMeterViewManager view = loader.getController();
         view.setMeter(meter);
-        final long millis = 4;
-        final long hours = 1;
+        final long millis = 5;
+        final long hours = 2;
         scene = new Scene(root);
         stage.setTitle(TITLE);
         stage.setScene(scene);
