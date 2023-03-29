@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="homer.view.javafx.electricalmeter.scenebuilder.ElectricalMeterViewManager">
+   <bottom>
+      <HBox prefHeight="40.0" prefWidth="600.0" BorderPane.alignment="CENTER">
+         <children>
+            <Label fx:id="consumptionLabel" prefHeight="51.0" prefWidth="299.0" text="Global Consumption: W" />
+            <Label fx:id="energyLabel" prefHeight="51.0" prefWidth="299.0" text="Average Energy: Wh" />
+         </children>
+      </HBox>
+   </bottom>
+   <center>
+      <TableView fx:id="outletTable" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+        <columns>
+          <TableColumn fx:id="outletIDColumn" prefWidth="85.0" text="Outlet" />
+          <TableColumn fx:id="outletStateColumn" minWidth="0.0" prefWidth="397.0" sortType="DESCENDING" text="State" />
+        </columns>
+      </TableView>
+   </center>
+</BorderPane>
