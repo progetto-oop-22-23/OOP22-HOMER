@@ -30,7 +30,7 @@ public final class ElectricalMeterViewManager {
 
     @FXML
     // Reference of outletStateColumn for the FXML loader.
-    private TableColumn<Outlet, Double> outletStateColumn;
+    private TableColumn<Outlet, String> outletStateColumn;
 
     @FXML
     // Reference of outletStateColumn for the FXML loader.
@@ -77,7 +77,8 @@ public final class ElectricalMeterViewManager {
         consumptionLabel.setText(String.format("Global Consumption: %.2f W", consumption));
         energyLabel.setText(String.format("Average Energy: %.2f Wh", energy));
         outletStateColumn.setCellValueFactory(
-                cellData -> new ReadOnlyObjectWrapper<Double>(cellData.getValue().getState().getPower().get()));
+                cellData -> new ReadOnlyObjectWrapper<String>(
+                        String.format("%.2f Wh", cellData.getValue().getState().getPower().get())));
         outletIDColumn.setCellValueFactory(
                 cellData -> new ReadOnlyObjectWrapper<String>(
                         cellData.getValue().getClass().getSimpleName() + count++));
