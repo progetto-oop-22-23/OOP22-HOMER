@@ -17,8 +17,8 @@ public class JFXDeviceViewer extends Pane implements DeviceViewer {
     private Controller controller;
     private final Map<DeviceId, DeviceView> deviceMap = new LinkedHashMap<>();
 
-
     public JFXDeviceViewer(Controller controller) {
+        this.controller = controller;
         this.getChildren().add(new AddDevicesView(controller));
     }
 
