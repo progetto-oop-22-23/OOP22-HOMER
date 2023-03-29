@@ -56,7 +56,7 @@ public final class Light implements ToggleableDevice<OnOffState>, PoweredDevice,
 
     @Override
     public boolean isToggled() {
-        return this.getState().isOn();
+        return this.state.isOn();
     }
 
     @Override
