@@ -10,6 +10,7 @@ import javafx.scene.text.Text;
 
 /**
  * Button component.
+ * @param <T> not really sure about keeping this
  */
 public final class ButtonComponent<T> extends VBox implements StateSelector<T> {
 
@@ -18,6 +19,11 @@ public final class ButtonComponent<T> extends VBox implements StateSelector<T> {
     private Text value = new Text();
     private T state;
 
+    /**
+     * 
+     * @param controller
+     * @param e
+     */
     public ButtonComponent(final Controller controller, final EventHandler<? super MouseEvent> e) {
         this.getChildren().add(text);
         this.getChildren().addAll(button, value);

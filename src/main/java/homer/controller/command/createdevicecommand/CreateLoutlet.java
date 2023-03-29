@@ -14,5 +14,5 @@ public class CreateLoutlet implements CreateDeviceCommand {
     public String getStringRep() {
         return "Create Loutlet";
     }
-    
+
 }
