@@ -6,6 +6,7 @@ import homer.model.temperaturechangers.AirConditioning;
 
 /** 
  * Tells the controller to create an air conditioning device.
+ * @param environment
 */
 public record CreateAirConditioning(Environment environment) implements CreateDeviceCommand {
 

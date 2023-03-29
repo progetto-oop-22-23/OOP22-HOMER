@@ -53,7 +53,7 @@ public final class OutletState implements DeviceState {
     /**
      * Sets the maximum power.
      * 
-     * @param minPower the new maximum power value.
+     * @param maxPower the new maximum power value.
      * @return the {@link homer.model.outlets.Outlet} state.
      */
     OutletState addMax(final double maxPower) {
@@ -64,7 +64,7 @@ public final class OutletState implements DeviceState {
     /**
      * Sets the instant power.
      * 
-     * @param minPower the new instant power value.
+     * @param value the new instant power value.
      * @return the {@link homer.model.outlets.Outlet} state.
      */
     public OutletState addValue(final double value) {

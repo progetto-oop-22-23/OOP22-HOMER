@@ -58,12 +58,12 @@ public final class AirQualityImpl implements AirQuality {
     }
 
     @Override
-    public void setInstantConsumption(double instantConsumption) {
+    public void setInstantConsumption(final double instantConsumption) {
         this.instantConsumption = instantConsumption;
     }
 
     @Override
-    public void plug(Outlet outlet) {
+    public void plug(final Outlet outlet) {
         this.power.setOutlet(outlet);
     }
 

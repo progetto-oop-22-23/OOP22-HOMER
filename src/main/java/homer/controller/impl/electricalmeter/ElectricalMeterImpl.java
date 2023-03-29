@@ -11,6 +11,7 @@ import homer.common.time.DurationConverter;
 import homer.controller.api.electricalmeter.ElectricalMeter;
 import homer.core.DiscreteObject;
 import homer.model.outlets.Outlet;
+import homer.model.outlets.OutletState;
 
 /**
  * Implements {@link homer.controller.api.electricalmeter.ElectricalMeter}.
@@ -79,7 +80,7 @@ public final class ElectricalMeterImpl implements ElectricalMeter, DiscreteObjec
     @Override
     public void cutPowerTo(final Outlet outlet) {
         Objects.requireNonNull(outlet);
-        outlet.unplug();
+        outlet.setState(new OutletState().addValue(0.0));
     }
 
     @Override

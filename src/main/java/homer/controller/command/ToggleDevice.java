@@ -10,7 +10,7 @@ public record ToggleDevice(DeviceId deviceId) implements Command {
 
     @Override
     public void execute(final Controller controller) {
-        controller.getDeviceManager();
+        controller.getDeviceManager().toggleDevice(deviceId);
     }
 
 }

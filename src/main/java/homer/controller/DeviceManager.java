@@ -1,34 +1,16 @@
 package homer.controller;
 
-import java.util.Set;
+import java.util.Map;
 
 import homer.api.Device;
 import homer.api.DeviceId;
-import homer.api.DeviceState;
-import homer.controller.command.createdevicecommand.CreateDeviceCommand;
+import homer.controller.command.Command;
 
 /**
  * Manages devices and allows {@link Command}s to be
  * executed.
  */
-public interface DeviceManager {
-
-    /**
-     * Removes all Devices.
-     */
-    void removeAllDevices();
-
-    /**
-     * 
-     * @param deviceId the device to be removed.
-     */
-    void removeDevice(DeviceId deviceId);
-
-    /**
-     * 
-     * @param deviceId the device to be toggled.
-     */
-    void toggleDevice(DeviceId deviceId);
+public interface DeviceManager extends DeviceManagerObserver {
 
     /**
      * Adds a new device to the connected devices.
@@ -38,12 +20,10 @@ public interface DeviceManager {
     void addDevice(Device<?> device);
 
     /**
-     * Returns the set of {@link CreateDeviceCommand} commands that can be displayed
-     * (and sent back to the controller) to the view
+     * Returns the currently connected devices.
      * 
-     * @return Set of valid commands
+     * @return the currently connected devices.
      */
-    public Set<CreateDeviceCommand> getValidCreateDeviceCommands();
+    Map<DeviceId, Device<?>> getDevices();
 
-    public void UpdateDeviceState(DeviceId deviceId, DeviceState state);
 }

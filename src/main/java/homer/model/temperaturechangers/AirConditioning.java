@@ -2,7 +2,6 @@ package homer.model.temperaturechangers;
 
 import java.time.Duration;
 
-import homer.api.PoweredDeviceInfo;
 import homer.common.temperature.TemperatureFactory;
 import homer.common.time.DurationConverter;
 import homer.model.environment.Environment;
@@ -12,13 +11,13 @@ import homer.model.environment.Environment;
  */
 public final class AirConditioning extends AbstractTemperatureChanger {
 
-    /** 
+    /**
      * @param minIntensity the minimum intensity allowed.
      * @param maxIntensity the maximum intensity allowed.
-     * @param environment the environment that is modified by the heating device.
+     * @param environment  the environment that is modified by the heating device.
      */
-    public AirConditioning(final double minIntensity, final double maxIntensity, 
-    final Environment environment) {
+    public AirConditioning(final double minIntensity, final double maxIntensity,
+            final Environment environment) {
         super(minIntensity, maxIntensity, environment);
     }
 
@@ -26,9 +25,14 @@ public final class AirConditioning extends AbstractTemperatureChanger {
     public void updateTick(final Duration deltaTime) {
         this.updateConsumption(deltaTime);
         final double oldTemp = this.getEnvironment().getTemperature().getCelsius();
-        final double newTemp = Math.max(this.getMinTemperature().getCelsius(), 
-            oldTemp - this.getState() * DurationConverter.toHours(deltaTime));
+        final double newTemp = Math.max(this.getMinTemperature().getCelsius(),
+                oldTemp - this.getState().getCurrentIntensity().get() * DurationConverter.toHours(deltaTime));
         this.getEnvironment().setTemperature(TemperatureFactory.fromCelsius(newTemp));
+    }
+
+    @Override
+    public TemperatureChangerState getState() {
+        return super.getTemperatureState().addTemperatureChangerType(TemperatureChangerType.AIRCONDITIONING);
     }
 
 }
