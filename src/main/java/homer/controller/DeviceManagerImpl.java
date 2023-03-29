@@ -76,4 +76,9 @@ public final class DeviceManagerImpl implements DeviceManager {
         }
     }
 
+    @Override
+    public Map<DeviceId, Device<?>> getDevices() {
+        return Map.copyOf(this.deviceMap);
+    }
+
 }

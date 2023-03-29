@@ -1,6 +1,10 @@
 package homer.controller;
 
+import java.util.Map;
+
 import homer.api.Device;
+import homer.api.DeviceId;
+import homer.controller.command.Command;
 
 /**
  * Manages devices and allows {@link Command}s to be
@@ -14,5 +18,12 @@ public interface DeviceManager extends DeviceManagerObserver {
      * @param device the device to be added.
      */
     void addDevice(Device<?> device);
+
+    /**
+     * Returns the currently connected devices.
+     * 
+     * @return the currently connected devices.
+     */
+    Map<DeviceId, Device<?>> getDevices();
 
 }
