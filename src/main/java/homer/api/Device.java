@@ -5,7 +5,7 @@ package homer.api;
  * 
  * @param <S> The device state.
  */
-public interface Device<S> {
+public interface Device<S extends DeviceState> {
 
     /**
      * Returns the device state parameters.
