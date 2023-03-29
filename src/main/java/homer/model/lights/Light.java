@@ -69,9 +69,12 @@ public final class Light implements ToggleableDevice<OnOffState>, PoweredDevice,
         final double oldConsumption = this.getInstantConsumption();
         final double maxConsumption = this.getPowerInfo().getMaxConsumption();
         final double milliseconds = DurationConverter.toMillis(deltaTime);
+        final double oneTenth = 0.1;
+        final double oneCent = 0.01;
+        final double fiveCents = 0.05;
         double intensity = 0.0;
         if (this.isToggled()) {
-            intensity = (Math.sin(milliseconds * 0.1) - (0.01 + Math.random() * 0.05));
+            intensity = (Math.sin(milliseconds * oneTenth) - (oneCent + Math.random() * fiveCents));
         }
         final double newConsumption = oldConsumption + intensity * milliseconds;
         this.setInstantConsumption(

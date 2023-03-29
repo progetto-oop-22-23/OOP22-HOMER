@@ -5,9 +5,7 @@ import java.util.Objects;
 import java.util.Optional;
 
 import homer.api.AdjustableDevice;
-import homer.api.Device;
 import homer.api.DeviceState;
-import homer.api.PoweredDevice;
 import homer.common.time.DurationConverter;
 import homer.core.DiscreteObject;
 
@@ -20,8 +18,7 @@ import homer.core.DiscreteObject;
 
 public final class Outlet implements AdjustableDevice<OutletState>, DiscreteObject {
 
-    OutletState state;
-    private Optional<Device<?>> device = Optional.empty();
+    private OutletState state;
 
     /**
      * Constructor for class Outlet.

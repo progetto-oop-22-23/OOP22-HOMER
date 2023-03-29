@@ -64,7 +64,7 @@ public final class OutletState implements DeviceState {
     /**
      * Sets the instant power.
      * 
-     * @param minPower the new instant power value.
+     * @param value the new instant power value.
      * @return the {@link homer.model.outlets.Outlet} state.
      */
     public OutletState addValue(final double value) {
