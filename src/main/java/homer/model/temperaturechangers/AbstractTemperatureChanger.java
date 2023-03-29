@@ -46,13 +46,12 @@ public abstract class AbstractTemperatureChanger implements TemperatureChanger, 
         this.instantConsumption = instantConsumption;
     }
 
-    /** 
+    /**
      * @param minIntensity the minimum intensity allowed.
      * @param maxIntensity the maximum intensity allowed.
-     * @param environment the environment that is modified by the heating device.
+     * @param environment  the environment that is modified by the heating device.
      */
-    @SuppressFBWarnings(value = "EI_EXPOSE_REP", 
-    justification = "Updating a reference is better than reallocating objects on the heap")
+    @SuppressFBWarnings(value = "EI_EXPOSE_REP", justification = "Updating a reference is better than reallocating objects on the heap")
     public AbstractTemperatureChanger(final double minIntensity, final double maxIntensity,
             final Environment environment) {
         this.minIntensity = minIntensity;
@@ -62,9 +61,13 @@ public abstract class AbstractTemperatureChanger implements TemperatureChanger, 
         this.power = new PoweredDeviceInfoImpl(MAX_CONSUMPTION, OutletFactory.lOutlet(0));
     }
 
-    @Override
-    public final Double getState() {
-        return this.intensity;
+    /**
+     * 
+     * @return
+     */
+    protected final TemperatureChangerState getTemperatureState() {
+        return new TemperatureChangerState().addCurrentIntensity(intensity).addMaxIntensity(maxIntensity)
+                .addMinIntensity(minIntensity);
     }
 
     /**
@@ -102,7 +105,7 @@ public abstract class AbstractTemperatureChanger implements TemperatureChanger, 
     @Override
     public final void setState(final DeviceState state) {
         if (state instanceof TemperatureChangerState) {
-            TemperatureChangerState temperatureChangerState =  (TemperatureChangerState) state;
+            TemperatureChangerState temperatureChangerState = (TemperatureChangerState) state;
             if (temperatureChangerState.getCurrentIntensity().isPresent()) {
                 this.intensity = temperatureChangerState.getCurrentIntensity().get();
             }
