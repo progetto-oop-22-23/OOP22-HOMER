@@ -8,9 +8,12 @@ import java.util.Collections;
 import java.util.List;
 
 import homer.App;
+import homer.api.PoweredDeviceInfoImpl;
 import homer.controller.impl.electricalmeter.ElectricalMeterImpl;
+import homer.model.lights.Light;
 import homer.model.outlets.Outlet;
 import homer.model.outlets.OutletFactory;
+import homer.model.outlets.OutletState;
 import homer.view.javafx.electricalmeter.scenebuilder.ElectricalMeterViewManager;
 import javafx.application.Application;
 import javafx.application.Platform;
@@ -43,7 +46,14 @@ public final class LaunchMeterView extends Application {
                 OutletFactory.cOutlet(cOutletState),
                 OutletFactory.cOutlet(cOutletState),
                 OutletFactory.lOutlet(lOutletState),
-                OutletFactory.lOutlet(lOutletState));
+                OutletFactory.lOutlet(lOutletState),
+                OutletFactory.lOutlet(lOutletState),
+                OutletFactory.cOutlet(cOutletState));
+        final List<Light> lights = new ArrayList<>();
+        final double maxLightConsumption = 15.0;
+        for (final Outlet outlet : outlets) {
+            lights.add(new Light(true, new PoweredDeviceInfoImpl(maxLightConsumption, outlet)));
+        }
         ElectricalMeterImpl meter = new ElectricalMeterImpl(outlets);
 
         FXMLLoader loader = new FXMLLoader();
@@ -59,8 +69,18 @@ public final class LaunchMeterView extends Application {
 
         ElectricalMeterViewManager view = loader.getController();
         view.setMeter(meter);
-        meter.updateTick(Duration.ofHours(1));
+        final long millis = 10;
+        final long hours = 1;
+        for (int i = 0; i < outlets.size(); i++) {
+            Light light = lights.get(i);
+            Outlet outlet = light.getPowerInfo().getOutlet();
+            light.updateTick(Duration.ofMillis(millis));
+            outlet.setState(new OutletState().addValue(light.getInstantConsumption()));
+            outlet.updateTick(Duration.ofHours(hours));
+        }
+        meter.updateTick(Duration.ofHours(hours));
         view.setLabels();
+
         // Create a scene and show the stage
         scene = new Scene(root);
         stage.setTitle(TITLE);
