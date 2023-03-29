@@ -60,7 +60,7 @@ public final class Outlet implements AdjustableDevice<OutletState>, DiscreteObje
     }
 
     @Override
-    public final void updateTick(final Duration deltaTime) {
+    public void updateTick(final Duration deltaTime) {
         final double defaultMaxPower = 150.0;
         final double defaultRandomIncrement = Math.random() * 10 + 1;
         OutletState energy = this.getState();
