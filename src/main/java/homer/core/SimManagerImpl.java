@@ -32,6 +32,9 @@ public final class SimManagerImpl implements SimManagerViewObserver {
         this.loopRunnable = () -> {
             // System.out.println("Hello World " + getSimStepPeriod() + " " + System.currentTimeMillis());
             controller.updateTick(getSimStepPeriod());
+            controller.getDeviceManager().getDevices().values().stream()
+                    .filter(DiscreteObject.class::isInstance)
+                    .forEach(d -> ((DiscreteObject) d).updateTick(getSimStepPeriod()));
         };
         resume();
     }
