@@ -12,6 +12,9 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 
+/**
+ * View manager for {@link homer.controller.impl.electricalmeter}
+ */
 public class ElectricalMeterViewManager {
 
     @FXML
@@ -42,10 +45,16 @@ public class ElectricalMeterViewManager {
 
     private ElectricalMeterImpl meter;
 
-    // Empty constructor
+    /**
+     * Empty constructor.
+     */
     public ElectricalMeterViewManager() {
     }
 
+    /**
+     * Sets the {@link homer.controller.impl.electricalmeter}.
+     * @param meter the meter.
+     */
     public void setMeter(final ElectricalMeterImpl meter) {
         this.meter = meter;
     }
