@@ -15,6 +15,8 @@ import homer.model.outlets.Outlet;
 import homer.model.outlets.OutletFactory;
 import homer.model.outlets.OutletState;
 import homer.view.javafx.electricalmeter.scenebuilder.ElectricalMeterViewManager;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
@@ -59,7 +61,6 @@ public final class LaunchMeterView extends Application {
         FXMLLoader loader = new FXMLLoader();
         URL url = App.class.getClassLoader()
                 .getResource("homer/view/javafx/electricalmeter/scenebuilder/ElectricalMeterView.fxml");
-        System.out.println(url);
         loader.setLocation(url);
         try {
             root = loader.load();
@@ -69,23 +70,26 @@ public final class LaunchMeterView extends Application {
 
         ElectricalMeterViewManager view = loader.getController();
         view.setMeter(meter);
-        final long millis = 10;
+        final long millis = 4;
         final long hours = 1;
-        for (int i = 0; i < outlets.size(); i++) {
-            Light light = lights.get(i);
-            Outlet outlet = light.getPowerInfo().getOutlet();
-            light.updateTick(Duration.ofMillis(millis));
-            outlet.setState(new OutletState().addValue(light.getInstantConsumption()));
-            outlet.updateTick(Duration.ofHours(hours));
-        }
-        meter.updateTick(Duration.ofHours(hours));
-        view.setLabels();
-
-        // Create a scene and show the stage
         scene = new Scene(root);
         stage.setTitle(TITLE);
         stage.setScene(scene);
         stage.show();
+        Timeline timeline = new Timeline(new KeyFrame(javafx.util.Duration.millis(300), event -> {
+            for (int i = 0; i < lights.size(); i++) {
+                Light light = lights.get(i);
+                Outlet outlet = light.getPowerInfo().getOutlet();
+                light.updateTick(Duration.ofMillis(millis));
+                outlet.getState().addValue(light.getInstantConsumption());
+                outlet.updateTick(Duration.ofHours(hours));
+            }
+            meter.updateTick(Duration.ofHours(hours));
+            view.setLabels();
+        }));
+        timeline.setCycleCount(Timeline.INDEFINITE);
+        timeline.play();
+
     }
 
 }
