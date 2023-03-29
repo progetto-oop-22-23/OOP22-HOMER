@@ -13,9 +13,9 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 
 /**
- * View manager for {@link homer.controller.impl.electricalmeter}
+ * View manager for {@link homer.controller.impl.electricalmeter}.
  */
-public class ElectricalMeterViewManager {
+public final class ElectricalMeterViewManager {
 
     @FXML
     // Reference of consumptionLabel for the FXML loader.
@@ -26,7 +26,7 @@ public class ElectricalMeterViewManager {
     private Label energyLabel;
 
     @FXML
-    TableView<Outlet> outletTable;
+    private TableView<Outlet> outletTable;
 
     @FXML
     // Reference of outletStateColumn for the FXML loader.
@@ -53,6 +53,7 @@ public class ElectricalMeterViewManager {
 
     /**
      * Sets the {@link homer.controller.impl.electricalmeter}.
+     * 
      * @param meter the meter.
      */
     public void setMeter(final ElectricalMeterImpl meter) {
@@ -65,6 +66,9 @@ public class ElectricalMeterViewManager {
 
     private static int count = 0;
 
+    /**
+     * Sets the labels' values in the view.
+     */
     @FXML
     public void setLabels() {
         final double consumption = meter.getGlobalConsumption();

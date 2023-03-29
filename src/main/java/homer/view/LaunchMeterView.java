@@ -22,14 +22,14 @@ import javafx.stage.Stage;
 /**
  * JUST FOR TESTING PURPOSES.
  */
-public class LaunchMeterView extends Application {
+public final class LaunchMeterView extends Application {
 
     private static final long INITIAL_W = 300;
     private static final long INITIAL_H = 300;
     private static final String TITLE = "HOMER - Electrical Meter";
 
     @Override
-    public void start(Stage stage) throws Exception {
+    public void start(final Stage stage) throws Exception {
         stage.setOnCloseRequest(event -> {
             Platform.exit();
             System.exit(0);
@@ -60,11 +60,9 @@ public class LaunchMeterView extends Application {
         ElectricalMeterViewManager view = loader.getController();
         view.setMeter(meter);
         meter.updateTick(Duration.ofHours(1));
-        meter.setAveragePower(50);
         view.setLabels();
         // Create a scene and show the stage
         scene = new Scene(root);
-        stage = new Stage();
         stage.setTitle(TITLE);
         stage.setScene(scene);
         stage.show();
