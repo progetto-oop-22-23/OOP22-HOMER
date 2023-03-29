@@ -2,6 +2,7 @@ package homer.model.thermometer;
 
 import java.util.Objects;
 
+import homer.api.state.ThermometerState;
 import homer.common.temperature.Temperature;
 
 /**
@@ -22,8 +23,8 @@ public final class SimpleThermometer implements Thermometer {
     }
 
     @Override
-    public Temperature getState() {
-        return this.temperature;
+    public ThermometerState getState() {
+        return new ThermometerState(this.temperature);
     }
 
     @Override

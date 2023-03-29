@@ -7,7 +7,7 @@ import homer.core.DiscreteObject;
 /**
  * Temperature changer device have an adjustable intensity.
  */
-public interface TemperatureChanger extends AdjustableDevice<Double>, DiscreteObject {
+public interface TemperatureChanger extends AdjustableDevice<TemperatureChangerState>, DiscreteObject {
 
     /**
      * @param temperature new maximum temperature

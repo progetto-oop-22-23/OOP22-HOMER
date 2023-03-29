@@ -25,7 +25,8 @@ public final class Heating extends AbstractTemperatureChanger {
     public void updateTick(final Duration deltaTime) {
         this.updateConsumption(deltaTime);
         final double oldTemp = this.getEnvironment().getTemperature().getCelsius();
-        final double updatedTemp = oldTemp + this.getState() * DurationConverter.toHours(deltaTime);
+        final double updatedTemp = oldTemp
+                + this.getState().getCurrentIntensity().get() * DurationConverter.toHours(deltaTime);
         if (this.getMaxTemperature().isEmpty()) {
             this.getEnvironment().setTemperature(TemperatureFactory.fromCelsius(updatedTemp));
         } else {
@@ -34,4 +35,8 @@ public final class Heating extends AbstractTemperatureChanger {
         }
     }
 
+    @Override
+    public TemperatureChangerState getState() {
+        return super.getTemperatureState().addTemperatureChangerType(TemperatureChangerType.HEATING);
+    }
 }
