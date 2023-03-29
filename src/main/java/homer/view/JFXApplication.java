@@ -40,9 +40,9 @@ public class JFXApplication extends Application {
         final var root = new BorderPane();
         final Scene scene = new Scene(root, INITIAL_W, INITIAL_H);
         final Controller controller = new ControllerImpl();
-        var temperatureChangerView = new TemperatureChangerView(new DeviceIdImpl(),
-                new TemperatureChangerState().addCurrentIntensity(1).addMinIntensity(0).addMaxIntensity(10),
-                controller);
+        // var temperatureChangerView = new TemperatureChangerView(new DeviceIdImpl(),
+        //         new TemperatureChangerState().addCurrentIntensity(1).addMinIntensity(0).addMaxIntensity(10),
+        //         controller);
 
         final var simManager = new SimManagerImpl(controller);
         final var simView = new SimManagerViewFxImpl();
@@ -51,8 +51,10 @@ public class JFXApplication extends Application {
         });
 
         final var viewManager = controller.getViewManager();
-        final Logger logger = new LoggerImpl(null);
-        viewManager.addView(logger);
+        final var dashboard = new JFXDeviceViewer(controller);
+        viewManager.addView(dashboard);
+        // final Logger logger = new LoggerImpl(null);
+        // viewManager.addView(logger);
 
         // CREATE MAIN WINDOW
         // add tabs:
@@ -67,7 +69,7 @@ public class JFXApplication extends Application {
         tabPane.setTabClosingPolicy(TabClosingPolicy.UNAVAILABLE);
         tabPane.setTabDragPolicy(TabDragPolicy.REORDER);
 
-        final Tab devicesView = new Tab("DEVICES",new JFXDeviceViewer(controller)); // TODO add dashboard
+        final Tab devicesView = new Tab("DEVICES", dashboard); // TODO add dashboard
         final Tab schedulerView = new Tab("SCHEDULER", null); // TODO
         final Tab graphView = new Tab("GRAPHS", null); // TODO
 
