@@ -4,6 +4,9 @@ import homer.controller.Controller;
 import homer.model.environment.Environment;
 import homer.model.temperaturechangers.Heating;
 
+/**
+ * @param environment the environment.
+ */
 public record CreateHeating(Environment environment) implements CreateDeviceCommand {
 
     @Override

@@ -58,7 +58,7 @@ public final class DeviceManagerImpl implements DeviceManager {
     }
 
     @Override
-    public void addDevice(Device<?> device) {
+    public void addDevice(final Device<?> device) {
         this.deviceMap.put(new DeviceIdImpl(), device);
     }
 
@@ -68,7 +68,7 @@ public final class DeviceManagerImpl implements DeviceManager {
     }
 
     @Override
-    public void UpdateDeviceState(DeviceId deviceId, DeviceState state) {
+    public void updateDeviceState(final DeviceId deviceId, final DeviceState state) {
         final Device<?> targetDevice = this.deviceMap.get(deviceId);
         if (targetDevice instanceof AdjustableDevice) {
             AdjustableDevice<?> adjustableDevice = (AdjustableDevice<?>) targetDevice;
@@ -76,5 +76,9 @@ public final class DeviceManagerImpl implements DeviceManager {
         }
     }
 
+    @Override
+    public Map<DeviceId, Device<?>> getDevices() {
+        return Map.copyOf(this.deviceMap);
+    }
 
 }

@@ -14,7 +14,7 @@ import javafx.scene.text.Text;
  * {@link AirConditioning} device.
  */
 public final class TemperatureChangerView extends VBox implements DeviceView {
-    private final Text text = new Text();
+    private final Text text = new Text("Temperature changer");
     private SliderComponent sliderComponent;
 
     /**
@@ -26,18 +26,16 @@ public final class TemperatureChangerView extends VBox implements DeviceView {
             final Controller controller) {
         sliderComponent = new SliderComponent(state.getMaxIntensity().get(), state.getMinIntensity().get(),
                 state.getCurrentIntensity().get(),
-                e -> {
-                    controller.receiveCommand(new UpdateDeviceState(deviceId,
-                            new TemperatureChangerState().addCurrentIntensity(sliderComponent.getState())));
-                });
-        this.getChildren().add(sliderComponent);
+                () -> controller.receiveCommand(new UpdateDeviceState(deviceId,
+                        new TemperatureChangerState().addCurrentIntensity(sliderComponent.getState()))));
+        this.getChildren().addAll(text, sliderComponent, new DisconnectDeviceButton(controller, deviceId));
     }
 
     @Override
-    public void setState(DeviceState state) {
-        if (state instanceof TemperatureChangerState)  {
-            var TemperatureChangerState =  (TemperatureChangerState) state;
-            this.sliderComponent.setState(TemperatureChangerState.getCurrentIntensity().get());
+    public void setState(final DeviceState state) {
+        if (state instanceof TemperatureChangerState) {
+            var temperatureChangerState = (TemperatureChangerState) state;
+            this.sliderComponent.setState(temperatureChangerState.getCurrentIntensity().get());
         }
     }
 }

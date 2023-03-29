@@ -7,33 +7,36 @@ import homer.api.DeviceId;
 import homer.api.DeviceState;
 import homer.view.DeviceViewer;
 
+/**
+ * {@link ViewManager} implementation.
+ */
 public final class ViewManagerImpl implements ViewManager {
     private final List<DeviceViewer> views = new ArrayList<>();
 
     @Override
-    public void addView(DeviceViewer view) {
+    public void addView(final DeviceViewer view) {
         views.add(view);
     }
 
     @Override
-    public void removeView(DeviceViewer view) {
+    public void removeView(final DeviceViewer view) {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'removeView'");
     }
 
     @Override
-    public void updateDeviceState(DeviceId deviceId, DeviceState serializedState) {
+    public void updateDeviceState(final DeviceId deviceId, final DeviceState serializedState) {
         views.forEach(x -> x.updateDeviceState(deviceId, serializedState));
     }
 
     @Override
-    public void removeDevice(DeviceId deviceId) {
+    public void removeDevice(final DeviceId deviceId) {
         views.forEach(x -> x.removeDevice(deviceId));
     }
 
     @Override
-    public void start(Controller controller) {
+    public void start(final Controller controller) {
         views.forEach(x -> x.start(controller));
     }
-    
+
 }
