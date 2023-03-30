@@ -29,7 +29,7 @@ public interface DeviceManagerObserver {
      * 
      * @return Set of valid commands.
      */
-    public Set<CreateDeviceCommand> getValidCreateDeviceCommands();
+    Set<CreateDeviceCommand> getValidCreateDeviceCommands();
 
     /**
      * Receives an update command from the view.
@@ -37,7 +37,7 @@ public interface DeviceManagerObserver {
      * @param deviceId the id of the device to update.
      * @param state    the updated state.
      */
-    public void updateDeviceState(DeviceId deviceId, DeviceState state);
+    void updateDeviceState(DeviceId deviceId, DeviceState state);
 
     /**
      * Toggles a device whose state is toggleable.

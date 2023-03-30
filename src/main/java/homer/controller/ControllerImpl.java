@@ -13,7 +13,7 @@ import homer.controller.command.Command;
 public final class ControllerImpl implements Controller {
 
     private final List<Command> commands = new LinkedList<>();
-    private final DeviceManager deviceManager = new DeviceManagerImpl();
+    private final DeviceManager deviceManager = new DeviceManagerImpl(this);
     private final ViewManager viewManager = new ViewManagerImpl();
     private final Clock clock = new ClockImpl();
 
@@ -42,7 +42,7 @@ public final class ControllerImpl implements Controller {
         for (final var it = this.commands.iterator(); it.hasNext();) {
             final var command = it.next();
             command.execute(this);
-            this.commands.remove(command);
+            it.remove();
         }
     }
 

@@ -5,7 +5,7 @@ package homer.api;
  * 
  * @param <S> The device state.
  */
-public interface ToggleableDevice<S> extends Device<S> {
+public interface ToggleableDevice<S extends DeviceState> extends Device<S> {
 
     /**
      * Returns whether the device is on or off.

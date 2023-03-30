@@ -6,7 +6,7 @@ package homer.api;
  * 
  * @param <S> The device state.
  */
-public interface AdjustableDevice<S> extends Device<S> {
+public interface AdjustableDevice<S extends DeviceState> extends Device<S> {
 
     /**
      * Sets the device state to the new value.

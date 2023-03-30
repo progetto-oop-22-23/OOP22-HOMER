@@ -14,6 +14,7 @@ import homer.view.sim.SimManagerViewFxImpl;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.scene.Scene;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.control.TabPane.TabClosingPolicy;
@@ -40,9 +41,9 @@ public class JFXApplication extends Application {
         final var root = new BorderPane();
         final Scene scene = new Scene(root, INITIAL_W, INITIAL_H);
         final Controller controller = new ControllerImpl();
-        var temperatureChangerView = new TemperatureChangerView(new DeviceIdImpl(),
-                new TemperatureChangerState().addCurrentIntensity(1).addMinIntensity(0).addMaxIntensity(10),
-                controller);
+        // var temperatureChangerView = new TemperatureChangerView(new DeviceIdImpl(),
+        //         new TemperatureChangerState().addCurrentIntensity(1).addMinIntensity(0).addMaxIntensity(10),
+        //         controller);
 
         final var simView = new SimManagerViewFxImpl();
         final var simManager = new SimManagerImpl(simView, controller);
@@ -51,8 +52,10 @@ public class JFXApplication extends Application {
         });
 
         final var viewManager = controller.getViewManager();
-        final Logger logger = new LoggerImpl(null);
-        viewManager.addView(logger);
+        final var dashboard = new JFXDeviceViewer(controller);
+        viewManager.addView(dashboard);
+        // final Logger logger = new LoggerImpl(null);
+        // viewManager.addView(logger);
 
         // CREATE MAIN WINDOW
         // add tabs:
@@ -67,7 +70,11 @@ public class JFXApplication extends Application {
         tabPane.setTabClosingPolicy(TabClosingPolicy.UNAVAILABLE);
         tabPane.setTabDragPolicy(TabDragPolicy.REORDER);
 
-        final Tab devicesView = new Tab("DEVICES", new JFXDeviceViewer(controller)); // TODO add dashboard
+        final ScrollPane dashboardScrollPane = new ScrollPane(dashboard);
+        dashboardScrollPane.setFitToHeight(true);
+        dashboardScrollPane.setFitToWidth(true);
+        // TODO separate the add devices from the device list, so that only the list is scrollable
+        final Tab devicesView = new Tab("DEVICES", dashboardScrollPane); // TODO add dashboard
         final Tab schedulerView = new Tab("SCHEDULER", null); // TODO
         final Tab graphView = new Tab("GRAPHS", null); // TODO
 
