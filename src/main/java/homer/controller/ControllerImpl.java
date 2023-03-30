@@ -3,9 +3,17 @@ package homer.controller;
 import java.time.Duration;
 import java.util.LinkedList;
 import java.util.List;
+
+import homer.common.temperature.Temperature;
 import homer.common.time.Clock;
 import homer.common.time.ClockImpl;
 import homer.controller.command.Command;
+import homer.controller.scheduler.TemperatureCommandsImpl;
+import homer.controller.scheduler.TemperatureSchedulerController;
+import homer.controller.scheduler.TimeSchedulerController;
+import homer.model.thermometer.Thermometer;
+import homer.view.scheduler.TimeSchedulerView;
+import javafx.application.Platform;
 
 /**
  * Controller Implementation.
@@ -16,6 +24,12 @@ public final class ControllerImpl implements Controller {
     private final DeviceManager deviceManager = new DeviceManagerImpl(this);
     private final ViewManager viewManager = new ViewManagerImpl();
     private final Clock clock = new ClockImpl();
+    private final TimeSchedulerController<Temperature> tempScheduler;
+
+    public ControllerImpl(final TimeSchedulerView<Temperature> schedulerView) {
+        this.tempScheduler = new TemperatureSchedulerController(schedulerView, new TemperatureCommandsImpl(this));
+        Platform.runLater(() -> schedulerView.setScheduler(this.tempScheduler));
+    }
 
     @Override
     public void receiveCommand(final Command command) {
@@ -44,6 +58,14 @@ public final class ControllerImpl implements Controller {
             command.execute(this);
             it.remove();
         }
+
+        // Run the temperature scheduler check.
+        getDeviceManager().getDevices().values().stream()
+                .filter(Thermometer.class::isInstance)
+                .map(d -> ((Thermometer) d))
+                .findAny()
+                .ifPresent(t -> this.tempScheduler.checkSchedules(this.clock.getDateTime().toLocalTime(),
+                        t.getState().getTemperature()));
     }
 
     @Override
