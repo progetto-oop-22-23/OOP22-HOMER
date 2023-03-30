@@ -24,4 +24,11 @@ public interface SimManagerViewObserver extends SimManager {
      */
     void setSimStepPeriod(Duration simStepTime);
 
+    /**
+     * Sets the simulation time rate.
+     * 
+     * @param timeRate the simulation time rate.
+     */
+    void setTimeRate(long timeRate);
+
 }

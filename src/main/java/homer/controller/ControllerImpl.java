@@ -13,13 +13,15 @@ import homer.controller.command.Command;
 public final class ControllerImpl implements Controller {
 
     private final List<Command> commands = new LinkedList<>();
-    private final DeviceManager deviceManager = new DeviceManagerImpl();
+    private final DeviceManager deviceManager = new DeviceManagerImpl(this);
     private final ViewManager viewManager = new ViewManagerImpl();
     private final Clock clock = new ClockImpl();
 
     @Override
     public void receiveCommand(final Command command) {
-        commands.add(command);
+        if (command != null) {
+            commands.add(command);
+        }
     }
 
     @Override
@@ -35,7 +37,18 @@ public final class ControllerImpl implements Controller {
     @Override
     public void updateTick(final Duration deltaTime) {
         this.clock.updateTick(deltaTime);
-        // System.out.println("Hello from controller " + deltaTime + " Time: " + clock.getDateTime());
+
+        // Run the queued commands.
+        for (final var it = this.commands.iterator(); it.hasNext();) {
+            final var command = it.next();
+            command.execute(this);
+            it.remove();
+        }
+    }
+
+    @Override
+    public Clock getClock() {
+        return this.clock;
     }
 
 }

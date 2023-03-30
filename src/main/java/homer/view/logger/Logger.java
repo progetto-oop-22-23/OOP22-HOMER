@@ -14,4 +14,10 @@ public interface Logger extends DeviceViewer {
      * @param outputStream the new output stream to log to.
      */
     void setOutputStream(OutputStream outputStream);
+
+    /**
+     * 
+     * @param string string to be logged.
+     */
+    void log(String string);
 }

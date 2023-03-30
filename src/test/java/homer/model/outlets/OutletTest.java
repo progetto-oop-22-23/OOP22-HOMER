@@ -5,7 +5,6 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
 import java.time.Duration;
-import java.util.Optional;
 import homer.api.PoweredDeviceInfoImpl;
 import homer.model.lights.Light;
 
@@ -32,8 +31,8 @@ final class OutletTest {
         final Outlet lOutlet = OutletFactory.lOutlet(0);
         final Light light = new Light(true, new PoweredDeviceInfoImpl(10.0, lOutlet));
         lOutlet.getState().addValue(0.0);
-        lOutlet.plug(light);
         light.updateTick(Duration.ofMillis(milliseconds));
+        lOutlet.setState(new OutletState().addValue(light.getInstantConsumption()));
         lOutlet.updateTick(Duration.ofHours(hours));
 
         assertTrue(lOutlet.getState().getPower().get() > lOutlet.getState().getMin().get());
@@ -41,24 +40,4 @@ final class OutletTest {
         assertEquals(light.getInstantConsumption() * hours, lOutlet.getState().getPower().get(), delta);
     }
 
-    @Test
-    void testPlug() {
-        final Outlet cOutlet = OutletFactory.cOutlet(0);
-        final Light light = new Light(false);
-        cOutlet.plug(light);
-        assertEquals(light, cOutlet.getDevice().get());
-        cOutlet.plug(null);
-        assertEquals(Optional.empty(), cOutlet.getDevice());
-    }
-
-    @Test
-    void testUnplug() {
-        final Light light = new Light(false);
-        final Outlet cOutlet = OutletFactory.cOutlet(0);
-        cOutlet.plug(light);
-        assertEquals(light, cOutlet.getDevice().get());
-        cOutlet.unplug();
-        assertEquals(Optional.empty(), cOutlet.getDevice());
-        assertEquals(0.0, cOutlet.getState().getPower().get());
-    }
 }

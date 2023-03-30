@@ -28,9 +28,20 @@ public final class DeviceManagerImpl implements DeviceManager {
     private final Temperature temperature = TemperatureFactory.fromCelsius(0);
     private final AirQualityState airQualityState = AirQualityStateFactory.normalAirQuality();
     private final Environment environment = new HomeEnvironment(temperature, airQualityState);
+    private final Controller controller;
+
+    /**
+     * Creates a new {@link DeviceManagerImpl}.
+     * 
+     * @param controller the corresponding controller.
+     */
+    public DeviceManagerImpl(final Controller controller) {
+        this.controller = controller;
+    }
 
     @Override
     public void removeAllDevices() {
+        this.deviceMap.keySet().stream().forEach(k -> removeFromView(k));
         this.deviceMap.clear();
     }
 
@@ -42,6 +53,7 @@ public final class DeviceManagerImpl implements DeviceManager {
     public void removeDevice(final DeviceId deviceId) {
         if (this.isDeviceConnected(deviceId)) {
             deviceMap.remove(deviceId);
+            removeFromView(deviceId);
         }
     }
 
@@ -51,6 +63,7 @@ public final class DeviceManagerImpl implements DeviceManager {
         if (targetDevice instanceof ToggleableDevice) {
             final ToggleableDevice<?> toggleableDevice = (ToggleableDevice<?>) targetDevice;
             toggleableDevice.toggle();
+            updateToView(deviceId);
         } else {
             throw new IllegalArgumentException("Device is not toggleable");
         }
@@ -59,7 +72,9 @@ public final class DeviceManagerImpl implements DeviceManager {
 
     @Override
     public void addDevice(final Device<?> device) {
-        this.deviceMap.put(new DeviceIdImpl(), device);
+        final DeviceId newId = new DeviceIdImpl();
+        this.deviceMap.put(newId, device);
+        updateToView(newId);
     }
 
     @Override
@@ -68,13 +83,25 @@ public final class DeviceManagerImpl implements DeviceManager {
     }
 
     @Override
-    public void UpdateDeviceState(final DeviceId deviceId, final DeviceState state) {
+    public void updateDeviceState(final DeviceId deviceId, final DeviceState state) {
         final Device<?> targetDevice = this.deviceMap.get(deviceId);
         if (targetDevice instanceof AdjustableDevice) {
             AdjustableDevice<?> adjustableDevice = (AdjustableDevice<?>) targetDevice;
             adjustableDevice.setState(state);
+            updateToView(deviceId);
         }
     }
 
+    @Override
+    public Map<DeviceId, Device<?>> getDevices() {
+        return Map.copyOf(this.deviceMap);
+    }
 
+    private void updateToView(final DeviceId deviceId) {
+        this.controller.getViewManager().updateDeviceState(deviceId, this.deviceMap.get(deviceId).getState());
+    }
+
+    private void removeFromView(final DeviceId deviceId) {
+        this.controller.getViewManager().removeDevice(deviceId);
+    }
 }
