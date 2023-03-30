@@ -9,14 +9,12 @@ import java.util.Objects;
 import homer.api.DeviceId;
 import homer.api.DeviceState;
 import homer.api.state.ActuatedDeviceState;
-import homer.api.state.OnOffState;
+import homer.api.state.LockState;
 import homer.api.state.ThermometerState;
 import homer.controller.Controller;
-import homer.model.outlets.Outlet;
 import homer.model.outlets.OutletState;
 import homer.model.temperaturechangers.TemperatureChangerState;
 import homer.model.temperaturechangers.TemperatureChangerType;
-import homer.model.thermometer.Thermometer;
 
 /**
  * LoggerImpl
@@ -37,29 +35,9 @@ public final class LoggerImpl implements Logger {
     @Override
     public void updateDeviceState(final DeviceId deviceId, final DeviceState deviceState) {
         if (!stringReps.containsKey(deviceId)) {
-            String stringRep = "";
-            if (deviceState instanceof TemperatureChangerState) {
-                final var state = (TemperatureChangerState) deviceState;
-                if (state.getType().get().equals(TemperatureChangerType.AIRCONDITIONING)) {
-                    stringRep = "Air conditioning";
-                } else {
-                    stringRep = "Heating";
-                }
-            } else if (deviceState instanceof ActuatedDeviceState) {
-                final var state = (ActuatedDeviceState) deviceState;
-                stringRep = "Actuated device";
-                if (state.getPositionBounds().isPresent()) {
-                    stringRep += state.getPositionBounds().get().toString();
-                }
-            } else if (deviceState instanceof OnOffState) {
-
-            } else if (deviceState instanceof OutletState) {
-            } else if (deviceState instanceof ThermometerState) {
-                stringRep = "Thermometer";
-            }
+            String stringRep = deviceCreationInfo(deviceState);
             stringReps.put(deviceId, stringRep);
             log("ADD DEVICE:" + deviceId.toString() + ":" + stringRep);
-
         } else {
             log("UPDATE DEVICE:" + deviceId.toString() + ":" + stringReps.get(deviceId));
         }
@@ -69,8 +47,8 @@ public final class LoggerImpl implements Logger {
         } else if (deviceState instanceof ActuatedDeviceState) {
             final var state = (ActuatedDeviceState) deviceState;
             log(Integer.toString(state.getPosition()));
-        } else if (deviceState instanceof OnOffState) {
-            log("TURNED ON:" + ((OnOffState) deviceState).isOn());
+        } else if (deviceState instanceof LockState) {
+            log("TURNED ON:" + ((LockState) deviceState).isOn());
         } else if (deviceState instanceof OutletState) {
             log("POWER:" + ((OutletState) deviceState).getPower().get());
         } else if (deviceState instanceof ThermometerState) {
@@ -101,6 +79,34 @@ public final class LoggerImpl implements Logger {
             this.outputStream.write(string.getBytes());
         } catch (IOException e) {
 
+        }
+    }
+
+    private String deviceCreationInfo(DeviceState deviceState) {
+        if (deviceState instanceof TemperatureChangerState) {
+            final var state = (TemperatureChangerState) deviceState;
+            final String deviceType;
+            if (state.getType().get().equals(TemperatureChangerType.AIRCONDITIONING)) {
+                deviceType = "Air conditioning";
+            } else {
+                deviceType = "Heating";
+            }
+            return deviceType;
+        } else if (deviceState instanceof ActuatedDeviceState) {
+            final var state = (ActuatedDeviceState) deviceState;
+            var stringRep = "Actuated device";
+            if (state.getPositionBounds().isPresent()) {
+                stringRep += state.getPositionBounds().get().toString();
+            }
+            return stringRep;
+        } else if (deviceState instanceof LockState) {
+            return "";
+        } else if (deviceState instanceof OutletState) {
+            return "Outlet";
+        } else if (deviceState instanceof ThermometerState) {
+            return "Thermometer";
+        } else {
+            throw new IllegalArgumentException();
         }
     }
 
