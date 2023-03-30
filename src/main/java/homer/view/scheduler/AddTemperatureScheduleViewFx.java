@@ -11,6 +11,7 @@ import homer.common.temperature.Temperature;
 import homer.common.temperature.TemperatureFactory;
 import javafx.scene.control.Button;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
 
 /**
  * A box to choose the time schedule parameters and a button to add it.
@@ -23,6 +24,8 @@ public final class AddTemperatureScheduleViewFx extends VBox {
     private static final double TEMP_MAX = 30;
     private static final double MAJOR_TICK_UNIT = 1.0d;
     private static final int MINOR_TICK_UNIT = 0;
+    private final Text timeText = new Text("Time");
+    private final Text tempText = new Text("Temperature (C)");
     private final RangeSlider timeRange = new RangeSlider(TIME_MIN, TIME_MAX, TIME_MIN, TIME_MAX);
     private final RangeSlider tempRange = new RangeSlider(TEMP_MIN, TEMP_MAX, TEMP_MIN, TEMP_MAX);
     private final Button addBtn = new Button("Add");
@@ -45,7 +48,7 @@ public final class AddTemperatureScheduleViewFx extends VBox {
                             LocalTime.of((int) timeRange.getHighValue() - 1, 59)), // TODO fix logic bug away from view
                     new Bounds<>(tempMin, tempMax));
         });
-        this.getChildren().addAll(timeRange, tempRange, addBtn);
+        this.getChildren().addAll(timeText, timeRange, tempText, tempRange, addBtn);
 
         timeRange.autosize();
         tempRange.autosize();
