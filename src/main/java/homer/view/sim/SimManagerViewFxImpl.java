@@ -1,15 +1,20 @@
 package homer.view.sim;
 
 import java.time.Duration;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 import homer.core.SimManagerViewObserver;
+import javafx.application.Platform;
 import javafx.scene.control.Button;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
 
 /**
  * Implementation of {@link SimManagerView} using JavaFX.
  */
-public final class SimManagerViewFxImpl extends HBox implements SimManagerView {
+public final class SimManagerViewFxImpl extends VBox implements SimManagerView {
 
     private static final String RESUME = "Resume";
     private static final String PAUSE = "Pause";
@@ -18,6 +23,9 @@ public final class SimManagerViewFxImpl extends HBox implements SimManagerView {
     private static final String ONE_HOUR = "1h";
     // private static final double HEIGHT_SCALE = 0.2;
     // private static final double WIDTH_SCALE = 0.2;
+    private final HBox upperSection = new HBox();
+    private final HBox lowerSection = new HBox();
+    private final Text datetime = new Text();
     private SimManagerViewObserver simManager;
 
     /**
@@ -36,12 +44,19 @@ public final class SimManagerViewFxImpl extends HBox implements SimManagerView {
         oneMin.setOnAction(event -> this.simManager.setSimStepPeriod(Duration.ofMinutes(1)));
         oneHour.setOnAction(event -> this.simManager.setSimStepPeriod(Duration.ofHours(1)));
 
-        this.getChildren().addAll(resume, pause, oneSec, oneMin, oneHour);
+        lowerSection.getChildren().addAll(resume, pause, oneSec, oneMin, oneHour);
+        upperSection.getChildren().addAll(datetime);
+        this.getChildren().addAll(lowerSection, upperSection);
     }
 
     @Override
     public void setObserver(final SimManagerViewObserver simManager) {
         this.simManager = simManager;
+    }
+
+    @Override
+    public void setDateTime(LocalDateTime simTime) {
+        Platform.runLater(() -> this.datetime.setText(simTime.format(DateTimeFormatter.ISO_DATE_TIME)));
     }
 
 }

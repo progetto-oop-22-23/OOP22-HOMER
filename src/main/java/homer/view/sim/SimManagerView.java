@@ -1,5 +1,7 @@
 package homer.view.sim;
 
+import java.time.LocalDateTime;
+
 import homer.core.SimManagerViewObserver;
 
 /**
@@ -13,5 +15,12 @@ public interface SimManagerView {
      * @param simManager the simulation manager controller.
      */
     void setObserver(SimManagerViewObserver simManager);
+
+    /**
+     * Updates the datetime in the view.
+     * 
+     * @param simTime the sim datetime.
+     */
+    void setDateTime(LocalDateTime simTime);
 
 }
