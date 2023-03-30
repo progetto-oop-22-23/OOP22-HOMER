@@ -44,8 +44,8 @@ public class JFXApplication extends Application {
                 new TemperatureChangerState().addCurrentIntensity(1).addMinIntensity(0).addMaxIntensity(10),
                 controller);
 
-        final var simManager = new SimManagerImpl(controller);
         final var simView = new SimManagerViewFxImpl();
+        final var simManager = new SimManagerImpl(simView, controller);
         Platform.runLater(() -> {
             simView.setObserver(simManager);
         });
@@ -67,7 +67,7 @@ public class JFXApplication extends Application {
         tabPane.setTabClosingPolicy(TabClosingPolicy.UNAVAILABLE);
         tabPane.setTabDragPolicy(TabDragPolicy.REORDER);
 
-        final Tab devicesView = new Tab("DEVICES",new JFXDeviceViewer(controller)); // TODO add dashboard
+        final Tab devicesView = new Tab("DEVICES", new JFXDeviceViewer(controller)); // TODO add dashboard
         final Tab schedulerView = new Tab("SCHEDULER", null); // TODO
         final Tab graphView = new Tab("GRAPHS", null); // TODO
 

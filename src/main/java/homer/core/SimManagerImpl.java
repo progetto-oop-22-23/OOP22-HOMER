@@ -8,6 +8,7 @@ import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.TimeUnit;
 
 import homer.controller.Controller;
+import homer.view.sim.SimManagerView;
 
 /**
  * Implementation of {@link SimManagerViewObserver}.
@@ -28,7 +29,7 @@ public final class SimManagerImpl implements SimManagerViewObserver {
      * 
      * @param controller the controller.
      */
-    public SimManagerImpl(final Controller controller) {
+    public SimManagerImpl(final SimManagerView view, final Controller controller) {
         this.loopRunnable = () -> {
             // System.out.println("Hello World " + getSimStepPeriod() + " " + System.currentTimeMillis());
             final var dt = getSimStepPeriod();
@@ -36,6 +37,7 @@ public final class SimManagerImpl implements SimManagerViewObserver {
             controller.getDeviceManager().getDevices().values().stream()
                     .filter(DiscreteObject.class::isInstance)
                     .forEach(d -> ((DiscreteObject) d).updateTick(dt));
+            view.setDateTime(controller.getClock().getDateTime());
         };
         resume();
     }
