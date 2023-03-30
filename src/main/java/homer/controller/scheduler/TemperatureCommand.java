@@ -44,10 +44,10 @@ public final class TemperatureCommand implements SchedulerCommand {
             final Function<TemperatureChangerState, Double> deviceFunction) {
         this.controller.getDeviceManager().getDevices().values().stream()
                 .filter(deviceType::isInstance)
-                .forEach(d -> {
-                    final var h = ((TemperatureChanger) d);
-                    final var newIntensity = deviceFunction.apply(h.getState());
-                    h.setState(new TemperatureChangerState().addCurrentIntensity(newIntensity));
+                .map(d -> ((TemperatureChanger) d))
+                .forEach(tc -> {
+                    final var newIntensity = deviceFunction.apply(tc.getState());
+                    tc.setState(new TemperatureChangerState().addCurrentIntensity(newIntensity));
                 });
     }
 
