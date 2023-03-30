@@ -27,6 +27,7 @@ public final class SimManagerImpl implements SimManagerViewObserver {
      * Creates a new {@link SimManagerImpl} with the given {@code Controller} and
      * starts running it indefinitely.
      * 
+     * @param view       the simulation manager view.
      * @param controller the controller.
      */
     public SimManagerImpl(final SimManagerView view, final Controller controller) {
