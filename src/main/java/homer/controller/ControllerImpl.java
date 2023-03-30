@@ -42,7 +42,7 @@ public final class ControllerImpl implements Controller {
         for (final var it = this.commands.iterator(); it.hasNext();) {
             final var command = it.next();
             command.execute(this);
-            this.commands.remove(command);
+            it.remove();
         }
     }
 
