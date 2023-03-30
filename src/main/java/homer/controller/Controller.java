@@ -1,5 +1,6 @@
 package homer.controller;
 
+import homer.common.time.Clock;
 import homer.controller.command.Command;
 import homer.core.DiscreteObject;
 
@@ -29,5 +30,12 @@ public interface Controller extends DiscreteObject {
      * @return The ViewManager.
      */
     ViewManager getViewManager();
+
+    /**
+     * Returns the controller's clock.
+     * 
+     * @return the controller's clock.
+     */
+    Clock getClock();
 
 }

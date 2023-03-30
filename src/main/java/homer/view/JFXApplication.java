@@ -45,8 +45,8 @@ public class JFXApplication extends Application {
         //         new TemperatureChangerState().addCurrentIntensity(1).addMinIntensity(0).addMaxIntensity(10),
         //         controller);
 
-        final var simManager = new SimManagerImpl(controller);
         final var simView = new SimManagerViewFxImpl();
+        final var simManager = new SimManagerImpl(simView, controller);
         Platform.runLater(() -> {
             simView.setObserver(simManager);
         });
