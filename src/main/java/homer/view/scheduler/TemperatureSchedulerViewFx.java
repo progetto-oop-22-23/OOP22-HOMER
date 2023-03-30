@@ -39,11 +39,14 @@ public final class TemperatureSchedulerViewFx extends BorderPane implements Time
     public void updateSchedules(final Map<ScheduleId, TimeSchedule<Temperature>> schedules) {
         Platform.runLater(() -> {
             this.schedules.getChildren().clear();
-            schedules.entrySet().stream().forEach(e -> {
-                final var scheduleView = new TemperatureScheduleViewFx(e.getValue(),
-                        ev -> this.scheduler.removeSchedule(e.getKey()));
-                this.schedules.getChildren().addAll(scheduleView);
-            });
+            schedules.entrySet().stream()
+                    .sorted((e0, e1) -> e0.getValue().timeBounds().getLowerBound()
+                            .compareTo(e1.getValue().timeBounds().getLowerBound()))
+                    .forEach(e -> {
+                        final var scheduleView = new TemperatureScheduleViewFx(e.getValue(),
+                                ev -> this.scheduler.removeSchedule(e.getKey()));
+                        this.schedules.getChildren().addAll(scheduleView);
+                    });
         });
     }
 
