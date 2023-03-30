@@ -20,7 +20,7 @@ public final class TemperatureCommand implements SchedulerCommand {
     private final Function<TemperatureChangerState, Double> cooling;
 
     /**
-     * Creates a new {@link TemperatureCommand}
+     * Creates a new {@link TemperatureCommand}.
      * 
      * @param controller the controller.
      * @param heating    the function to decide the intensity for heating.
