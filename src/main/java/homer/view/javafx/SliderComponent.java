@@ -35,7 +35,7 @@ public final class SliderComponent extends VBox implements StateSelector<Double>
                             final Number oldValue, final Number newValue) {
                         updateValue((Double) newValue);
                         onDragDone.run();
-                    };
+                    }
                 });
     }
 

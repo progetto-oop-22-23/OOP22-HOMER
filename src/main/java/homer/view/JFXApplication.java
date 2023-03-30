@@ -9,6 +9,7 @@ import homer.view.javafx.TemperatureChangerView;
 import homer.view.logger.Logger;
 import homer.view.logger.LoggerImpl;
 import homer.core.SimManagerImpl;
+import homer.model.lights.LightState;
 import homer.model.temperaturechangers.TemperatureChangerState;
 import homer.view.sim.SimManagerViewFxImpl;
 import javafx.application.Application;
@@ -54,6 +55,9 @@ public class JFXApplication extends Application {
         final var viewManager = controller.getViewManager();
         final var dashboard = new JFXDeviceViewer(controller);
         viewManager.addView(dashboard);
+        var loggerImpl = new LoggerImpl(System.out);
+        viewManager.addView(loggerImpl);
+        loggerImpl.updateDeviceState(new DeviceIdImpl(), new LightState(true));
         // final Logger logger = new LoggerImpl(null);
         // viewManager.addView(logger);
 
