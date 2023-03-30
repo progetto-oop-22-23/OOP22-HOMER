@@ -43,6 +43,9 @@ dependencies {
         }
     }
 
+    // ControlsFX
+    implementation("org.controlsfx:controlsfx:11.1.2")
+
     val jUnitVersion = "5.9.1"
     // JUnit API and testing engine
     testImplementation("org.junit.jupiter:junit-jupiter-api:$jUnitVersion")
