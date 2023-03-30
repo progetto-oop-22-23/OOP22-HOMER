@@ -14,8 +14,8 @@ import homer.controller.Controller;
  */
 public final class TimeStampLogger implements Logger {
 
-    private Logger logger;
-    private Clock clock;
+    private final Logger logger;
+    private final Clock clock;
 
     /**
      * 

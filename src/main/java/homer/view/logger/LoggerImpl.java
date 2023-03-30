@@ -101,11 +101,7 @@ public final class LoggerImpl implements Logger {
             return deviceType;
         } else if (deviceState instanceof ActuatedDeviceState) {
             final var state = (ActuatedDeviceState) deviceState;
-            var stringRep = "Actuated device";
-            if (state.getPositionBounds().isPresent()) {
-                stringRep += state.getPositionBounds().get().toString();
-            }
-            return stringRep;
+            return "Actuated device" + (state.getPositionBounds().map(x -> x.toString()).orElseGet(() -> "NO INITIAL POSITION"));
         } else if (deviceState instanceof LockState) {
             return "Lock";
         } else if (deviceState instanceof OutletState) {
