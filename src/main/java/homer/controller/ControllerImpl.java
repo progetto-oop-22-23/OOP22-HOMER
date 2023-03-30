@@ -46,4 +46,9 @@ public final class ControllerImpl implements Controller {
         }
     }
 
+    @Override
+    public Clock getClock() {
+        return this.clock;
+    }
+
 }
