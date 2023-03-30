@@ -5,6 +5,9 @@ import java.time.LocalTime;
 import homer.common.bounds.Bounds;
 import homer.model.scheduler.ScheduleId;
 
+/**
+ * This interface models the controller of a time-based scheduler.
+ */
 public interface TimeSchedulerController<T extends Comparable<T>> {
 
     /**
