@@ -23,4 +23,11 @@ public interface SimManagerView {
      */
     void setDateTime(LocalDateTime simTime);
 
+    /**
+     * Updates the time rate in the view.
+     * 
+     * @param timeRate the sim time rate.
+     */
+    void setTimeRate(long timeRate);
+
 }
