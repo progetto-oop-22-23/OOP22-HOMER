@@ -2,6 +2,8 @@ package homer.view.scheduler;
 
 import java.util.Map;
 
+import org.controlsfx.control.Notifications;
+
 import homer.common.temperature.Temperature;
 import homer.controller.scheduler.TimeSchedulerController;
 import homer.model.scheduler.ScheduleId;
@@ -17,7 +19,16 @@ public final class TemperatureSchedulerViewFx extends BorderPane implements Time
     private final VBox schedules = new VBox();
 
     public TemperatureSchedulerViewFx() {
-        final var addSection = new AddTemperatureScheduleViewFx((tb, pb) -> this.scheduler.addSchedule(tb, pb));
+        final var addSection = new AddTemperatureScheduleViewFx((tb, pb) -> {
+            try {
+                this.scheduler.addSchedule(tb, pb);
+            } catch (IllegalArgumentException e) {
+                Notifications.create()
+                        .title("Error")
+                        .text(e.getLocalizedMessage())
+                        .showError();
+            }
+        });
         this.setTop(addSection);
         this.setCenter(new ScrollPane(schedules));
 
