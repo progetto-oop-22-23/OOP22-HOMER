@@ -40,7 +40,7 @@ public final class TemperatureCommand implements SchedulerCommand {
         setState(AirConditioning.class, cooling);
     }
 
-    private <T extends TemperatureChanger> void setState(Class<T> deviceType,
+    private <T extends TemperatureChanger> void setState(final Class<T> deviceType,
             final Function<TemperatureChangerState, Double> deviceFunction) {
         this.controller.getDeviceManager().getDevices().values().stream()
                 .filter(deviceType::isInstance)
