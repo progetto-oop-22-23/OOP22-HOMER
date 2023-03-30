@@ -51,7 +51,9 @@ public abstract class AbstractTemperatureChanger implements TemperatureChanger, 
      * @param maxIntensity the maximum intensity allowed.
      * @param environment  the environment that is modified by the heating device.
      */
-    @SuppressFBWarnings(value = "EI_EXPOSE_REP", justification = "Updating a reference is better than reallocating objects on the heap")
+    @SuppressFBWarnings(
+        value = "EI_EXPOSE_REP",
+        justification = "Updating a reference is better than reallocating objects on the heap")
     public AbstractTemperatureChanger(final double minIntensity, final double maxIntensity,
             final Environment environment) {
         this.minIntensity = minIntensity;
@@ -63,7 +65,8 @@ public abstract class AbstractTemperatureChanger implements TemperatureChanger, 
 
     /**
      * 
-     * @return
+     * Returns The temperaturechanger's state that we want to pass to the view.
+     * @return The temperaturechanger's state that we want to pass to the view.
      */
     protected final TemperatureChangerState getTemperatureState() {
         return new TemperatureChangerState().addCurrentIntensity(intensity).addMaxIntensity(maxIntensity)

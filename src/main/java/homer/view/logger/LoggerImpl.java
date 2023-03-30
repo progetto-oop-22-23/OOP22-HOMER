@@ -18,12 +18,12 @@ import homer.model.temperaturechangers.TemperatureChangerState;
 import homer.model.temperaturechangers.TemperatureChangerType;
 
 /**
- * LoggerImpl
+ * Basic {@link Logger} that can be decorated.
  */
 public final class LoggerImpl implements Logger {
     private final Map<DeviceId, String> stringReps = new LinkedHashMap<>();
     private OutputStream outputStream;
-    private final static String SEPARATOR = ":";
+    private static final String SEPARATOR = ":";
 
     /**
      * 
@@ -89,7 +89,7 @@ public final class LoggerImpl implements Logger {
         }
     }
 
-    private String deviceCreationInfo(DeviceState deviceState) {
+    private String deviceCreationInfo(final DeviceState deviceState) {
         if (deviceState instanceof TemperatureChangerState) {
             final var state = (TemperatureChangerState) deviceState;
             final String deviceType;
