@@ -13,7 +13,8 @@ import homer.model.temperaturechangers.TemperatureChangerState;
 import homer.model.temperaturechangers.TemperatureChangerType;
 
 class LoggerImplTest {
-    private static final TemperatureChangerState AIRCONDITIONING_STATE = new TemperatureChangerState().addTemperatureChangerType(TemperatureChangerType.AIRCONDITIONING);
+    private static final TemperatureChangerState AIRCONDITIONING_STATE = new TemperatureChangerState()
+            .addTemperatureChangerType(TemperatureChangerType.AIRCONDITIONING).addCurrentIntensity(10);
     private static final DeviceId DEVICE_ID = new DeviceIdImpl();
 
     @Test
@@ -43,7 +44,8 @@ class LoggerImplTest {
         final var outputStream = new ByteArrayOutputStream();
         final var logger = new LoggerImpl(outputStream);
         logger.updateDeviceState(DEVICE_ID,
-                new TemperatureChangerState().addTemperatureChangerType(TemperatureChangerType.HEATING));
+                new TemperatureChangerState().addTemperatureChangerType(TemperatureChangerType.HEATING)
+                        .addCurrentIntensity(10));
         assertTrue(outputStream.toString().contains("Heating"));
     }
 
@@ -51,7 +53,7 @@ class LoggerImplTest {
     void testRemoveDevice() {
         final var outputStream = new ByteArrayOutputStream();
         final var logger = new LoggerImpl(outputStream);
-        logger.updateDeviceState(DEVICE_ID, AIRCONDITIONING_STATE); 
+        logger.updateDeviceState(DEVICE_ID, AIRCONDITIONING_STATE);
         logger.removeDevice(DEVICE_ID);
         assertTrue(outputStream.toString().contains("REMOVE DEVICE"));
     }
@@ -66,7 +68,7 @@ class LoggerImplTest {
 
     @Test
     void testUpdateDevice() {
-        final var outputStream  = new ByteArrayOutputStream();
+        final var outputStream = new ByteArrayOutputStream();
         final var logger = new LoggerImpl(outputStream);
         logger.updateDeviceState(DEVICE_ID, AIRCONDITIONING_STATE);
         logger.updateDeviceState(DEVICE_ID, AIRCONDITIONING_STATE);
