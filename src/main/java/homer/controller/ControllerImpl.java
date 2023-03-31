@@ -13,7 +13,6 @@ import homer.controller.scheduler.TemperatureSchedulerController;
 import homer.controller.scheduler.TimeSchedulerController;
 import homer.model.thermometer.Thermometer;
 import homer.view.scheduler.TimeSchedulerView;
-import javafx.application.Platform;
 
 /**
  * Controller Implementation.
@@ -28,7 +27,7 @@ public final class ControllerImpl implements Controller {
 
     public ControllerImpl(final TimeSchedulerView<Temperature> schedulerView) {
         this.tempScheduler = new TemperatureSchedulerController(schedulerView, new TemperatureCommandsImpl(this));
-        Platform.runLater(() -> schedulerView.setScheduler(this.tempScheduler));
+        schedulerView.setScheduler(this.tempScheduler);
     }
 
     @Override

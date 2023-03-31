@@ -47,9 +47,7 @@ public class JFXApplication extends Application {
 
         final var simView = new SimManagerViewFxImpl();
         final var simManager = new SimManagerImpl(simView, controller);
-        Platform.runLater(() -> {
-            simView.setObserver(simManager);
-        });
+        simView.setObserver(simManager);
 
         final var viewManager = controller.getViewManager();
         final var dashboard = new JFXDeviceViewer(controller);
