@@ -1,7 +1,5 @@
 package homer.view.javafx;
 
-import java.util.function.Consumer;
-
 import homer.view.StateSelector;
 import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
@@ -23,10 +21,8 @@ public final class SliderComponent extends VBox implements StateSelector<Double>
      * @param max
      * @param min
      * @param value
-     * @param consumer
      */
-    public SliderComponent(final double max, final double min, final double value,
-            final Consumer<Double> consumer) {
+    public SliderComponent(final double max, final double min, final double value) {
         label = new Label(Double.toString(value));
         this.slider = new Slider(min, max, value);
         this.slider.setShowTickLabels(true);
