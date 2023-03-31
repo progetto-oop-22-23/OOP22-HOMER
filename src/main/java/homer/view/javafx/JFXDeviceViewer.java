@@ -50,6 +50,7 @@ public final class JFXDeviceViewer extends VBox implements DeviceViewer {
 
     @Override
     public void removeDevice(final DeviceId deviceId) {
+        Platform.runLater(() -> {
         if (deviceMap.containsKey(deviceId)) {
             final var target = deviceMap.get(deviceId);
             // since all javaFX components (and derived classes) we are using extend Node,
@@ -57,6 +58,7 @@ public final class JFXDeviceViewer extends VBox implements DeviceViewer {
             this.getChildren().remove((Node) target);
             deviceMap.remove(deviceId);
         }
+        });
     }
 
     @Override
