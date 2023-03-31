@@ -24,6 +24,7 @@ public final class SimpleThermometer implements Thermometer {
      */
     public SimpleThermometer(final Environment environment) {
         this.environment = Objects.requireNonNull(environment);
+        senseTemperature();
     }
 
     @Override
@@ -33,6 +34,10 @@ public final class SimpleThermometer implements Thermometer {
 
     @Override
     public void updateTick(final Duration deltaTime) {
+        senseTemperature();
+    }
+
+    private void senseTemperature() {
         this.temperature = TemperatureFactory.fromKelvin(this.environment.getTemperature().getKelvin());
     }
 
