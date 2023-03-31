@@ -51,8 +51,6 @@ public class JFXApplication extends Application {
         var loggerImpl = new LoggerImpl(System.out);
         viewManager.addView(loggerImpl);
         loggerImpl.updateDeviceState(new DeviceIdImpl(), new LightState(true));
-        // final Logger logger = new LoggerImpl(null);
-        // viewManager.addView(logger);
 
         // CREATE MAIN WINDOW
         // add tabs:
@@ -61,8 +59,6 @@ public class JFXApplication extends Application {
         // - scheduler
         // - graphs
 
-        // TODO display the sim world time somewhere (top/bottom)
-
         final TabPane tabPane = new TabPane();
         tabPane.setTabClosingPolicy(TabClosingPolicy.UNAVAILABLE);
         tabPane.setTabDragPolicy(TabDragPolicy.REORDER);
@@ -70,10 +66,9 @@ public class JFXApplication extends Application {
         final ScrollPane dashboardScrollPane = new ScrollPane(dashboard);
         dashboardScrollPane.setFitToHeight(true);
         dashboardScrollPane.setFitToWidth(true);
-        // TODO separate the add devices from the device list, so that only the list is
-        // scrollable
-        final Tab devicesView = new Tab("DEVICES", dashboardScrollPane); // TODO add dashboard
-        final Tab schedulerTab = new Tab("SCHEDULER", tempSchedulerView); // TODO
+        // TODO separate the add devices from the device list, so that only the list is scrollable
+        final Tab devicesView = new Tab("DEVICES", dashboardScrollPane);
+        final Tab schedulerTab = new Tab("SCHEDULER", tempSchedulerView);
         final Tab graphView = new Tab("GRAPHS", null); // TODO
 
         tabPane.getTabs().addAll(devicesView, schedulerTab, graphView);

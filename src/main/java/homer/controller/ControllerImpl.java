@@ -25,8 +25,9 @@ public final class ControllerImpl implements Controller {
     private final TimeSchedulerController<Temperature> tempScheduler;
 
     /**
+     * Creates a new {@link ControllerImpl}.
      * 
-     * @param schedulerView 
+     * @param schedulerView the view of the scheduler.
      */
     public ControllerImpl(final TimeSchedulerView<Temperature> schedulerView) {
         this.tempScheduler = new TemperatureSchedulerController(schedulerView, this);
@@ -64,7 +65,7 @@ public final class ControllerImpl implements Controller {
         // Run the temperature scheduler check.
         getDeviceManager().getDevices().values().stream()
                 .filter(Thermometer.class::isInstance)
-                .map(d -> ((Thermometer) d))
+                .map(d -> (Thermometer) d)
                 .findAny()
                 .ifPresent(t -> this.tempScheduler.checkSchedules(this.clock.getDateTime().toLocalTime(),
                         t.getState().getTemperature()));

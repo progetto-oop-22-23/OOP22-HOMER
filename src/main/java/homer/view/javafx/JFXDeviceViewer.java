@@ -39,7 +39,7 @@ public final class JFXDeviceViewer extends VBox implements DeviceViewer {
                 deviceView.setState(deviceState);
             } else {
                 if (deviceState instanceof TemperatureChangerState) {
-                    var deviceView = new TemperatureChangerView(deviceId, (TemperatureChangerState) deviceState,
+                    final var deviceView = new TemperatureChangerView(deviceId, (TemperatureChangerState) deviceState,
                             controller);
                     this.deviceMap.put(deviceId, deviceView);
                     this.getChildren().add(deviceView);

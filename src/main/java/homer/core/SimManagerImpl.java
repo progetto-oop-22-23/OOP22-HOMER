@@ -17,13 +17,14 @@ public final class SimManagerImpl implements SimManagerViewObserver {
 
     private static final Duration DEFAULT_SIM_STEP_PERIOD = Duration.of(10, TimeUnit.MILLISECONDS.toChronoUnit());
     private static final Duration DEFAULT_REAL_STEP_PERIOD = Duration.of(10, TimeUnit.MILLISECONDS.toChronoUnit());
+    private static final long MIN_TIME_RATE = 1;
+    private static final Duration REAL_STEP_PERIOD = DEFAULT_REAL_STEP_PERIOD;
     private final ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
     private final SimManagerView view;
+    private final Runnable loopRunnable;
     private Duration simStepPeriod = DEFAULT_SIM_STEP_PERIOD;
-    private Duration realStepPeriod = DEFAULT_REAL_STEP_PERIOD;
     private Optional<ScheduledFuture<?>> loopHandle = Optional.empty();
-    private Runnable loopRunnable;
-    private long timeRate = 1;
+    private long timeRate = MIN_TIME_RATE;
 
     /**
      * Creates a new {@link SimManagerImpl} with the given {@code Controller} and
@@ -36,8 +37,6 @@ public final class SimManagerImpl implements SimManagerViewObserver {
         this.view = view;
         updateView();
         this.loopRunnable = () -> {
-            // System.out.println("Hello World " + getSimStepPeriod() + " " +
-            // System.currentTimeMillis());
             final var dt = getSimStepPeriod().multipliedBy(timeRate);
             controller.updateTick(dt);
             controller.getDeviceManager().getDevices().values().stream()
@@ -52,7 +51,7 @@ public final class SimManagerImpl implements SimManagerViewObserver {
     public void resume() {
         if (this.loopHandle.isEmpty()) {
             this.loopHandle = Optional.of(scheduler.scheduleAtFixedRate(this.loopRunnable, 0,
-                    this.realStepPeriod.toNanos(), TimeUnit.NANOSECONDS));
+                    REAL_STEP_PERIOD.toNanos(), TimeUnit.NANOSECONDS));
         }
     }
 
@@ -76,7 +75,7 @@ public final class SimManagerImpl implements SimManagerViewObserver {
 
     @Override
     public void setTimeRate(final long timeRate) {
-        this.timeRate = Math.max(1, timeRate);
+        this.timeRate = Math.max(MIN_TIME_RATE, timeRate);
         updateView();
     }
 
