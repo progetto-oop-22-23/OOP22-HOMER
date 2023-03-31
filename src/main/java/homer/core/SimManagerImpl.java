@@ -17,13 +17,14 @@ public final class SimManagerImpl implements SimManagerViewObserver {
 
     private static final Duration DEFAULT_SIM_STEP_PERIOD = Duration.of(10, TimeUnit.MILLISECONDS.toChronoUnit());
     private static final Duration DEFAULT_REAL_STEP_PERIOD = Duration.of(10, TimeUnit.MILLISECONDS.toChronoUnit());
+    private static final long MIN_TIME_RATE = 1;
     private final ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
     private final SimManagerView view;
     private final Runnable loopRunnable;
     private final Duration realStepPeriod = DEFAULT_REAL_STEP_PERIOD;
     private Duration simStepPeriod = DEFAULT_SIM_STEP_PERIOD;
     private Optional<ScheduledFuture<?>> loopHandle = Optional.empty();
-    private long timeRate = 1;
+    private long timeRate = MIN_TIME_RATE;
 
     /**
      * Creates a new {@link SimManagerImpl} with the given {@code Controller} and
@@ -74,7 +75,7 @@ public final class SimManagerImpl implements SimManagerViewObserver {
 
     @Override
     public void setTimeRate(final long timeRate) {
-        this.timeRate = Math.max(1, timeRate);
+        this.timeRate = Math.max(MIN_TIME_RATE, timeRate);
         updateView();
     }
 
