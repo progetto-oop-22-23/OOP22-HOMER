@@ -9,22 +9,21 @@ import javafx.scene.text.Text;
 
 /**
  * Button component.
- * @param <T> not really sure about keeping this
+ * @param <T> The state parameter that is going to be displayed.
  */
 public final class ButtonComponent<T> extends VBox implements StateSelector<T> {
 
     private Button button;
     private T state;
-    private final Text stateText;
+    private final Text stateText = new Text();
 
     /**
      * 
-     * @param onclick 
+     * @param onclick What should happen when the button is clicked.
      * @param title The button's title. Effectively final.
      * @param state The initial state.
      */
     public ButtonComponent(final EventHandler<? super MouseEvent> onclick, final String title, final T state) {
-        stateText = new Text();
         this.setState(state);
         this.getChildren().addAll(button, new Text(title), stateText);
         button.setOnMouseClicked(onclick);
