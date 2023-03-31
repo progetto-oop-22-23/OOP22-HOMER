@@ -30,6 +30,11 @@ public final class AddTemperatureScheduleViewFx extends VBox {
     private final RangeSlider tempRange = new RangeSlider(TEMP_MIN, TEMP_MAX, TEMP_MIN, TEMP_MAX);
     private final Button addBtn = new Button("Add");
 
+    /**
+     * Creates a new {@link AddTemperatureScheduleViewFx}.
+     * 
+     * @param addAction The action to perform when the add button is pressed.
+     */
     public AddTemperatureScheduleViewFx(final BiConsumer<Bounds<LocalTime>, Bounds<Temperature>> addAction) {
         Stream.of(timeRange, tempRange).forEach(rs -> {
             rs.setShowTickLabels(true);
