@@ -9,6 +9,9 @@ import java.util.UUID;
  */
 public record ScheduleId(UUID scheduleId) {
 
+    /**
+     * Creates a new {@link ScheduleId} with a random {@link UUID}.
+     */
     public ScheduleId() {
         this(UUID.randomUUID());
     }
