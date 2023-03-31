@@ -3,6 +3,7 @@ package homer.view.javafx;
 import java.util.function.Consumer;
 
 import homer.view.StateSelector;
+import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.scene.control.Label;
@@ -36,15 +37,16 @@ public final class SliderComponent extends VBox implements StateSelector<Double>
                     @Override
                     public void changed(final ObservableValue<? extends Number> observable,
                             final Number oldValue, final Number newValue) {
-                        updateValue((Double) newValue);
-                        consumer.accept(value);
+                        updateValue(newValue.doubleValue());
                     }
                 });
     }
 
     private void updateValue(final Double value) {
-        this.slider.setValue(value);
-        this.label.setText(Double.toString(value));
+        Platform.runLater( () -> {
+            this.slider.setValue(value);
+            this.label.setText(Double.toString(value));
+        });
     }
 
     @Override
