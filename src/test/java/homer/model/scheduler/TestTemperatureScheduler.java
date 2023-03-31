@@ -60,7 +60,7 @@ final class TestTemperatureScheduler {
         final Optional<ScheduleId> id = scheduler.getSchedules().keySet().stream().findFirst();
         assertTrue(id.isPresent());
         scheduler.removeSchedule(id.get());
-        assertTrue(scheduler.getSchedules().size() == 0);
+        assertEquals(0, scheduler.getSchedules().size());
     }
 
     @Test
@@ -76,14 +76,14 @@ final class TestTemperatureScheduler {
     }
 
     private void initSchedules() {
-        assertTrue(scheduler.getSchedules().size() == 0);
+        assertEquals(0, scheduler.getSchedules().size());
         scheduler.addSchedule(TIME_RANGE, TEMP_RANGE);
-        assertTrue(scheduler.getSchedules().size() == 1);
+        assertEquals(1, scheduler.getSchedules().size());
     }
 
     private void checkOverlapping(final Bounds<LocalTime> newTimeRange) {
         final var sizeBefore = scheduler.getSchedules().size();
         assertThrowsExactly(IllegalArgumentException.class, () -> scheduler.addSchedule(newTimeRange, TEMP_RANGE));
-        assertTrue(scheduler.getSchedules().size() == sizeBefore);
+        assertEquals(sizeBefore, scheduler.getSchedules().size());
     }
 }

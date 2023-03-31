@@ -33,7 +33,7 @@ public abstract class AbstractTemperatureChanger implements TemperatureChanger, 
     private Temperature minTemperature = TemperatureFactory.fromKelvin(0);
     private Optional<Temperature> maxTemperature = Optional.empty();
     private double instantConsumption;
-    private PoweredDeviceInfo power;
+    private final PoweredDeviceInfo power;
     private static final double MAX_CONSUMPTION = 1000;
 
     @Override

@@ -39,7 +39,7 @@ public final class LoggerImpl implements Logger {
     @Override
     public void updateDeviceState(final DeviceId deviceId, final DeviceState deviceState) {
         if (!stringReps.containsKey(deviceId)) {
-            String stringRep = deviceCreationInfo(deviceState);
+            final String stringRep = deviceCreationInfo(deviceState);
             stringReps.put(deviceId, stringRep);
             log("ADD DEVICE");
         } else {
@@ -89,7 +89,7 @@ public final class LoggerImpl implements Logger {
         try {
             this.outputStream.write(string.getBytes());
         } catch (IOException e) {
-
+            System.out.println(e.toString()); // NOPMD if logger fails, we have to report it somewhere.
         }
     }
 

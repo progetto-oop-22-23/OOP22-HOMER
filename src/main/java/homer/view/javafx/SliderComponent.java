@@ -12,7 +12,7 @@ import javafx.scene.layout.VBox;
  */
 public final class SliderComponent extends VBox implements StateSelector<Double> {
 
-    private Slider slider;
+    private final Slider slider; 
     private final Label label;
 
     /**

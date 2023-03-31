@@ -38,8 +38,7 @@ public final class TemperatureChangerView extends VBox implements DeviceView {
 
     @Override
     public void setState(final DeviceState state) {
-        if (state instanceof TemperatureChangerState) {
-            var temperatureChangerState = (TemperatureChangerState) state;
+        if (state instanceof TemperatureChangerState temperatureChangerState) {
             this.sliderComponent.setState(temperatureChangerState.getCurrentIntensity().get());
         }
     }
