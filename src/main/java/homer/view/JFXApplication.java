@@ -4,6 +4,7 @@ import homer.api.DeviceIdImpl;
 import homer.controller.Controller;
 import homer.controller.ControllerImpl;
 import homer.view.javafx.JFXDeviceViewer;
+import homer.view.logger.Logger;
 import homer.view.logger.LoggerImpl;
 import homer.view.scheduler.TemperatureSchedulerViewFx;
 import homer.core.SimManagerImpl;
@@ -48,7 +49,7 @@ public class JFXApplication extends Application {
         final var viewManager = controller.getViewManager();
         final var dashboard = new JFXDeviceViewer(controller);
         viewManager.addView(dashboard);
-        var loggerImpl = new LoggerImpl(System.out);
+        final Logger loggerImpl = new LoggerImpl(System.out);
         viewManager.addView(loggerImpl);
         loggerImpl.updateDeviceState(new DeviceIdImpl(), new LightState(true));
 

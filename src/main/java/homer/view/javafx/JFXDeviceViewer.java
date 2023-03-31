@@ -9,15 +9,23 @@ import homer.api.DeviceView;
 import homer.controller.Controller;
 import homer.model.temperaturechangers.TemperatureChangerState;
 import homer.view.DeviceViewer;
+import homer.view.javafx.deviceview.TemperatureChangerView;
 import javafx.scene.Node;
 import javafx.scene.layout.VBox;
 import javafx.application.Platform;
 
+/**
+ * Main view for {@link Device}s.
+ */
 public final class JFXDeviceViewer extends VBox implements DeviceViewer {
 
     private Controller controller;
     private final Map<DeviceId, DeviceView> deviceMap = new LinkedHashMap<>();
 
+    /**
+     * 
+     * @param controller the controller that will receive updates.
+     */
     public JFXDeviceViewer(final Controller controller) {
         this.controller = controller;
         this.getChildren().add(new AddDevicesView(controller));

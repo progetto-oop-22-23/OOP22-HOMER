@@ -9,10 +9,11 @@ import homer.model.temperaturechangers.AirConditioning;
  * @param environment
 */
 public record CreateAirConditioning(Environment environment) implements CreateDeviceCommand {
+    private static final double HEATING_MAX_DEFAULT_INTENSITY = 10;
 
     @Override
     public void execute(final Controller controller) {
-        controller.getDeviceManager().addDevice(new AirConditioning(0, 0, environment));
+        controller.getDeviceManager().addDevice(new AirConditioning(0, HEATING_MAX_DEFAULT_INTENSITY, environment));
     }
 
     @Override

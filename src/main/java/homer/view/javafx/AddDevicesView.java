@@ -36,7 +36,7 @@ public final class AddDevicesView extends VBox {
      */
     public void update() {
         this.choiceBox.getItems().clear();
-        var valid = this.controller.getDeviceManager().getValidCreateDeviceCommands();
+        final var valid = this.controller.getDeviceManager().getValidCreateDeviceCommands();
         map = valid.stream()
                 .collect(Collectors.toMap(CreateDeviceCommand::getStringRep, x -> x));
         this.choiceBox.getItems().addAll(map.keySet());

@@ -19,8 +19,8 @@ public final class AirQualityImpl implements AirQuality {
 
     private final Environment environment;
     private final Random random = new Random();
-    private double instantConsumption = 0.0;
-    private PoweredDeviceInfo power;
+    private double instantConsumption;
+    private final PoweredDeviceInfo power;
 
     /**
      * 
@@ -76,7 +76,7 @@ public final class AirQualityImpl implements AirQuality {
      * 
      * @param deltaTime the delta time elapsed from last tick.
      */
-    protected void updateConsumption(final Duration deltaTime) {
+    void updateConsumption(final Duration deltaTime) {
         final double maxConsumption = this.getPowerInfo().getMaxConsumption();
         final double hours = DurationConverter.toHours(deltaTime) / 2;
         final double intensity = Math.sin(hours * 0.1); 

@@ -3,6 +3,9 @@ package homer.controller.command.createdevicecommand;
 import homer.controller.Controller;
 import homer.model.outlets.OutletFactory;
 
+/**
+ * Tells the controller to create a {@link Coutlet}.
+ */
 public final class CreateCoutlet implements CreateDeviceCommand {
 
     @Override

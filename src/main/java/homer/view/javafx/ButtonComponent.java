@@ -1,6 +1,5 @@
 package homer.view.javafx;
 
-import homer.controller.Controller;
 import homer.view.StateSelector;
 import javafx.event.EventHandler;
 import javafx.scene.control.Button;
@@ -10,24 +9,24 @@ import javafx.scene.text.Text;
 
 /**
  * Button component.
- * @param <T> not really sure about keeping this
+ * @param <T> The state parameter that is going to be displayed.
  */
 public final class ButtonComponent<T> extends VBox implements StateSelector<T> {
 
     private Button button;
-    private Text text = new Text();
-    private Text value = new Text();
     private T state;
+    private final Text stateText = new Text();
 
     /**
      * 
-     * @param controller
-     * @param e
+     * @param onclick What should happen when the button is clicked.
+     * @param title The button's title. Effectively final.
+     * @param state The initial state.
      */
-    public ButtonComponent(final Controller controller, final EventHandler<? super MouseEvent> e) {
-        this.getChildren().add(text);
-        this.getChildren().addAll(button, value);
-        button.setOnMouseClicked(e);
+    public ButtonComponent(final EventHandler<? super MouseEvent> onclick, final String title, final T state) {
+        this.setState(state);
+        this.getChildren().addAll(button, new Text(title), stateText);
+        button.setOnMouseClicked(onclick);
     }
 
     @Override
@@ -38,7 +37,7 @@ public final class ButtonComponent<T> extends VBox implements StateSelector<T> {
     @Override
     public void setState(final T state) {
         this.state = state;
-        this.value.setText(state.toString());
+        this.stateText.setText(state.toString());
     }
 
 

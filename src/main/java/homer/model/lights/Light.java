@@ -74,7 +74,7 @@ public final class Light implements ToggleableDevice<LockState>, PoweredDevice, 
         final double fiveCents = 0.05;
         double intensity = 0.0;
         if (this.isToggled()) {
-            intensity = (Math.sin(milliseconds * oneTenth) - (oneCent + Math.random() * fiveCents));
+            intensity = Math.sin(milliseconds * oneTenth) - (oneCent + Math.random() * fiveCents);
         }
         final double newConsumption = oldConsumption + intensity * milliseconds;
         this.setInstantConsumption(
