@@ -14,12 +14,19 @@ import javafx.scene.Node;
 import javafx.scene.layout.VBox;
 import javafx.application.Platform;
 
-public class JFXDeviceViewer extends VBox implements DeviceViewer {
+/**
+ * Main view for {@link Device}s.
+ */
+public final class JFXDeviceViewer extends VBox implements DeviceViewer {
 
     private Controller controller;
     private final Map<DeviceId, DeviceView> deviceMap = new LinkedHashMap<>();
 
-    public JFXDeviceViewer(Controller controller) {
+    /**
+     * 
+     * @param controller the controller that will receive updates.
+     */
+    public JFXDeviceViewer(final Controller controller) {
         this.controller = controller;
         this.getChildren().add(new AddDevicesView(controller));
     }
@@ -53,7 +60,7 @@ public class JFXDeviceViewer extends VBox implements DeviceViewer {
     }
 
     @Override
-    public void start(Controller controller) {
+    public void start(final Controller controller) {
         this.controller = controller;
     }
 

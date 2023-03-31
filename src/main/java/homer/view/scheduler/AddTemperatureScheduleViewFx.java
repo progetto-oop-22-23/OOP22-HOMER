@@ -23,6 +23,7 @@ public final class AddTemperatureScheduleViewFx extends VBox {
     private static final double TEMP_MIN = 15;
     private static final double TEMP_MAX = 30;
     private static final double MAJOR_TICK_UNIT = 1.0d;
+    private static final int FIFTY_NINE = 59;
     private static final int MINOR_TICK_UNIT = 0;
     private final Text timeText = new Text("Time");
     private final Text tempText = new Text("Temperature (C)");
@@ -50,7 +51,7 @@ public final class AddTemperatureScheduleViewFx extends VBox {
             final var tempMax = TemperatureFactory.fromCelsius(tempRange.getHighValue());
             addAction.accept(
                     new Bounds<>(LocalTime.of((int) timeRange.getLowValue(), 0),
-                            LocalTime.of((int) timeRange.getHighValue() - 1, 59)), // TODO fix logic bug away from view
+                            LocalTime.of((int) timeRange.getHighValue() - 1, FIFTY_NINE)), // TODO fix logic bug away from view
                     new Bounds<>(tempMin, tempMax));
         });
         this.getChildren().addAll(timeText, timeRange, tempText, tempRange, addBtn);

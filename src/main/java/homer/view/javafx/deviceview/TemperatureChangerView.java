@@ -5,7 +5,6 @@ import homer.api.DeviceState;
 import homer.api.DeviceView;
 import homer.controller.Controller;
 import homer.controller.command.UpdateDeviceState;
-import homer.model.temperaturechangers.AirConditioning;
 import homer.model.temperaturechangers.TemperatureChangerState;
 import homer.model.temperaturechangers.TemperatureChangerType;
 import homer.view.javafx.DisconnectDeviceButton;

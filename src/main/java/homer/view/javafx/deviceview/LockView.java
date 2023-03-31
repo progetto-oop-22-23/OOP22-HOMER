@@ -11,7 +11,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 
 /**
- * Implements view for {@Lock Devices}
+ * Implements view for {@link Lock} {@link Device}s.
  */
 public final class LockView extends VBox implements DeviceView {
     private ButtonComponent<Boolean> button;

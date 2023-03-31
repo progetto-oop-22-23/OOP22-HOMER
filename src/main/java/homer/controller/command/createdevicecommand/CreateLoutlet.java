@@ -3,10 +3,13 @@ package homer.controller.command.createdevicecommand;
 import homer.controller.Controller;
 import homer.model.outlets.OutletFactory;
 
-public class CreateLoutlet implements CreateDeviceCommand {
+/**
+ * Adds a {@link Outlet} with initial consumption 0 to the controller..
+ */
+public record CreateLoutlet() implements CreateDeviceCommand {
 
     @Override
-    public void execute(Controller controller) {
+    public void execute(final Controller controller) {
         controller.getDeviceManager().addDevice(OutletFactory.lOutlet(0));
     }
 

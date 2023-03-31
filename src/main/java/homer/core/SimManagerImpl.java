@@ -75,7 +75,7 @@ public final class SimManagerImpl implements SimManagerViewObserver {
     }
 
     @Override
-    public void setTimeRate(long timeRate) {
+    public void setTimeRate(final long timeRate) {
         this.timeRate = Math.max(1, timeRate);
         updateView();
     }
