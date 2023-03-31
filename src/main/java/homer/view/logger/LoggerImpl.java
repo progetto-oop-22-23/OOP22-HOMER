@@ -53,18 +53,17 @@ public final class LoggerImpl implements Logger {
                 .getCurrentIntensity()
                 .map(x -> x.toString())
                 .orElseGet(() -> UNDEFINED));
-        } else if (deviceState instanceof ActuatedDeviceState) {
-            final var state = (ActuatedDeviceState) deviceState;
+        } else if (deviceState instanceof ActuatedDeviceState state) {
             log(Integer.toString(state.getPosition()));
-        } else if (deviceState instanceof LockState) {
-            log("LOCKED:" + ((LockState) deviceState).isOn());
-        } else if (deviceState instanceof LightState) {
-            log("TURNED ON:" + ((LightState) deviceState).isOn());
-        } else if (deviceState instanceof OutletState) {
-            log("POWER:" + ((OutletState) deviceState).getPower()
+        } else if (deviceState instanceof LockState state) {
+            log("LOCKED:" + state.isOn());
+        } else if (deviceState instanceof LightState state) {
+            log("TURNED ON:" + state.isOn());
+        } else if (deviceState instanceof OutletState state) {
+            log("POWER:" + state.getPower()
             .map(x -> toString()).orElseGet(() -> UNDEFINED));
-        } else if (deviceState instanceof ThermometerState) {
-            log("TEMPERATURE:" + ((ThermometerState) deviceState).getTemperature().getCelsius() + "C");
+        } else if (deviceState instanceof ThermometerState state) {
+            log("TEMPERATURE:" + state.getTemperature().getCelsius() + "C");
         }
     }
 
@@ -95,13 +94,11 @@ public final class LoggerImpl implements Logger {
     }
 
     private String deviceCreationInfo(final DeviceState deviceState) {
-        if (deviceState instanceof TemperatureChangerState) {
-            final var state = (TemperatureChangerState) deviceState;
+        if (deviceState instanceof TemperatureChangerState state) {
             return "Temperature Changer " + state.getType()
                     .map(x -> (x.equals(TemperatureChangerType.AIRCONDITIONING) ? "Air conditioning" : "Heating"))
                     .orElseGet(() -> UNDEFINED);
-        } else if (deviceState instanceof ActuatedDeviceState) {
-            final var state = (ActuatedDeviceState) deviceState;
+        } else if (deviceState instanceof ActuatedDeviceState state) {
             return "Actuated device"
                     + (state.getPositionBounds()
                             .map(Bounds::toString).orElseGet(() -> UNDEFINED));
