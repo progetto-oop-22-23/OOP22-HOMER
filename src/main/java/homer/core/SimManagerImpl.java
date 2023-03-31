@@ -51,7 +51,7 @@ public final class SimManagerImpl implements SimManagerViewObserver {
     public void resume() {
         if (this.loopHandle.isEmpty()) {
             this.loopHandle = Optional.of(scheduler.scheduleAtFixedRate(this.loopRunnable, 0,
-                    this.REAL_STEP_PERIOD.toNanos(), TimeUnit.NANOSECONDS));
+                    REAL_STEP_PERIOD.toNanos(), TimeUnit.NANOSECONDS));
         }
     }
 
