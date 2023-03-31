@@ -37,7 +37,7 @@ public class JFXApplication extends Application {
 
         final var root = new BorderPane();
         final Scene scene = new Scene(root, INITIAL_W, INITIAL_H);
-        
+
         final var tempSchedulerView = new TemperatureSchedulerViewFx();
         final Controller controller = new ControllerImpl(tempSchedulerView);
 
