@@ -15,6 +15,7 @@ import homer.common.temperature.TemperatureFactory;
 import homer.controller.command.createdevicecommand.CreateAirConditioning;
 import homer.controller.command.createdevicecommand.CreateDeviceCommand;
 import homer.controller.command.createdevicecommand.CreateHeating;
+import homer.controller.command.createdevicecommand.CreateThermometer;
 import homer.model.airquality.AirQualityState;
 import homer.model.airquality.AirQualityStateFactory;
 import homer.model.environment.Environment;
@@ -79,7 +80,8 @@ public final class DeviceManagerImpl implements DeviceManager {
 
     @Override
     public Set<CreateDeviceCommand> getValidCreateDeviceCommands() {
-        return Set.of(new CreateAirConditioning(this.environment), new CreateHeating(this.environment));
+        return Set.of(new CreateAirConditioning(this.environment), new CreateHeating(this.environment),
+                new CreateThermometer(this.environment));
     }
 
     @Override
