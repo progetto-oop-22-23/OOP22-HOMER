@@ -11,6 +11,7 @@ import homer.api.DeviceState;
 import homer.api.state.ActuatedDeviceState;
 import homer.api.state.LockState;
 import homer.api.state.ThermometerState;
+import homer.common.bounds.Bounds;
 import homer.controller.Controller;
 import homer.model.lights.LightState;
 import homer.model.outlets.OutletState;
@@ -24,6 +25,7 @@ public final class LoggerImpl implements Logger {
     private final Map<DeviceId, String> stringReps = new LinkedHashMap<>();
     private OutputStream outputStream;
     private static final String SEPARATOR = ":";
+    private static final String UNDEFINED = "UNDEFINED";
 
     /**
      * 
@@ -47,19 +49,21 @@ public final class LoggerImpl implements Logger {
         log(String.join(SEPARATOR, deviceId.toString(), stringReps.get(deviceId)));
         log(SEPARATOR);
         if (deviceState instanceof TemperatureChangerState) {
-            final var state = (TemperatureChangerState) deviceState;
-            log(state.getCurrentIntensity().get().toString());
-        } else if (deviceState instanceof ActuatedDeviceState) {
-            final var state = (ActuatedDeviceState) deviceState;
+            log("CURRENT INTENSITY:"  + ((TemperatureChangerState) deviceState)
+                .getCurrentIntensity()
+                .map(x -> x.toString())
+                .orElseGet(() -> UNDEFINED));
+        } else if (deviceState instanceof ActuatedDeviceState state) {
             log(Integer.toString(state.getPosition()));
-        } else if (deviceState instanceof LockState) {
-            log("LOCKED:" + ((LockState) deviceState).isOn());
-        } else if (deviceState instanceof LightState) {
-            log("TURNED ON:" + ((LightState) deviceState).isOn());
-        } else if (deviceState instanceof OutletState) {
-            log("POWER:" + ((OutletState) deviceState).getPower().get());
-        } else if (deviceState instanceof ThermometerState) {
-            log("TEMPERATURE:" + ((ThermometerState) deviceState).getTemperature().getCelsius() + "C");
+        } else if (deviceState instanceof LockState state) {
+            log("LOCKED:" + state.isOn());
+        } else if (deviceState instanceof LightState state) {
+            log("TURNED ON:" + state.isOn());
+        } else if (deviceState instanceof OutletState state) {
+            log("POWER:" + state.getPower()
+            .map(x -> toString()).orElseGet(() -> UNDEFINED));
+        } else if (deviceState instanceof ThermometerState state) {
+            log("TEMPERATURE:" + state.getTemperature().getCelsius() + "C");
         }
     }
 
@@ -90,18 +94,14 @@ public final class LoggerImpl implements Logger {
     }
 
     private String deviceCreationInfo(final DeviceState deviceState) {
-        if (deviceState instanceof TemperatureChangerState) {
-            final var state = (TemperatureChangerState) deviceState;
-            final String deviceType;
-            if (state.getType().get().equals(TemperatureChangerType.AIRCONDITIONING)) {
-                deviceType = "Air conditioning";
-            } else {
-                deviceType = "Heating";
-            }
-            return deviceType;
-        } else if (deviceState instanceof ActuatedDeviceState) {
-            final var state = (ActuatedDeviceState) deviceState;
-            return "Actuated device" + (state.getPositionBounds().map(x -> x.toString()).orElseGet(() -> "NO INITIAL POSITION"));
+        if (deviceState instanceof TemperatureChangerState state) {
+            return "Temperature Changer " + state.getType()
+                    .map(x -> (x.equals(TemperatureChangerType.AIRCONDITIONING) ? "Air conditioning" : "Heating"))
+                    .orElseGet(() -> UNDEFINED);
+        } else if (deviceState instanceof ActuatedDeviceState state) {
+            return "Actuated device"
+                    + (state.getPositionBounds()
+                            .map(Bounds::toString).orElseGet(() -> UNDEFINED));
         } else if (deviceState instanceof LockState) {
             return "Lock";
         } else if (deviceState instanceof OutletState) {
