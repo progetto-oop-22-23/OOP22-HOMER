@@ -24,6 +24,11 @@ public final class ControllerImpl implements Controller {
     private final Clock clock = new ClockImpl();
     private final TimeSchedulerController<Temperature> tempScheduler;
 
+    /**
+     * Creates a new {@link ControllerImpl}.
+     * 
+     * @param schedulerView the view of the scheduler.
+     */
     public ControllerImpl(final TimeSchedulerView<Temperature> schedulerView) {
         this.tempScheduler = new TemperatureSchedulerController(schedulerView, this);
         schedulerView.setScheduler(this.tempScheduler);
