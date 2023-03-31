@@ -3,15 +3,11 @@ package homer.view;
 import homer.api.DeviceIdImpl;
 import homer.controller.Controller;
 import homer.controller.ControllerImpl;
-import homer.view.javafx.AddDevicesView;
 import homer.view.javafx.JFXDeviceViewer;
-import homer.view.javafx.TemperatureChangerView;
-import homer.view.logger.Logger;
 import homer.view.logger.LoggerImpl;
 import homer.view.scheduler.TemperatureSchedulerViewFx;
 import homer.core.SimManagerImpl;
 import homer.model.lights.LightState;
-import homer.model.temperaturechangers.TemperatureChangerState;
 import homer.view.sim.SimManagerViewFxImpl;
 import javafx.application.Application;
 import javafx.application.Platform;
@@ -22,7 +18,6 @@ import javafx.scene.control.TabPane;
 import javafx.scene.control.TabPane.TabClosingPolicy;
 import javafx.scene.control.TabPane.TabDragPolicy;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 /**
@@ -42,7 +37,7 @@ public class JFXApplication extends Application {
 
         final var root = new BorderPane();
         final Scene scene = new Scene(root, INITIAL_W, INITIAL_H);
-        
+
         final var tempSchedulerView = new TemperatureSchedulerViewFx();
         final Controller controller = new ControllerImpl(tempSchedulerView);
 
@@ -56,8 +51,6 @@ public class JFXApplication extends Application {
         var loggerImpl = new LoggerImpl(System.out);
         viewManager.addView(loggerImpl);
         loggerImpl.updateDeviceState(new DeviceIdImpl(), new LightState(true));
-        // final Logger logger = new LoggerImpl(null);
-        // viewManager.addView(logger);
 
         // CREATE MAIN WINDOW
         // add tabs:
@@ -76,8 +69,8 @@ public class JFXApplication extends Application {
         dashboardScrollPane.setFitToHeight(true);
         dashboardScrollPane.setFitToWidth(true);
         // TODO separate the add devices from the device list, so that only the list is scrollable
-        final Tab devicesView = new Tab("DEVICES", dashboardScrollPane); // TODO add dashboard
-        final Tab schedulerTab = new Tab("SCHEDULER", tempSchedulerView); // TODO
+        final Tab devicesView = new Tab("DEVICES", dashboardScrollPane);
+        final Tab schedulerTab = new Tab("SCHEDULER", tempSchedulerView);
         final Tab graphView = new Tab("GRAPHS", null); // TODO
 
         tabPane.getTabs().addAll(devicesView, schedulerTab, graphView);

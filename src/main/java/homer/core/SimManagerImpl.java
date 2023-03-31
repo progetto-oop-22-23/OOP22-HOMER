@@ -19,10 +19,10 @@ public final class SimManagerImpl implements SimManagerViewObserver {
     private static final Duration DEFAULT_REAL_STEP_PERIOD = Duration.of(10, TimeUnit.MILLISECONDS.toChronoUnit());
     private final ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
     private final SimManagerView view;
+    private final Runnable loopRunnable;
     private Duration simStepPeriod = DEFAULT_SIM_STEP_PERIOD;
     private Duration realStepPeriod = DEFAULT_REAL_STEP_PERIOD;
     private Optional<ScheduledFuture<?>> loopHandle = Optional.empty();
-    private Runnable loopRunnable;
     private long timeRate = 1;
 
     /**
@@ -75,7 +75,7 @@ public final class SimManagerImpl implements SimManagerViewObserver {
     }
 
     @Override
-    public void setTimeRate(long timeRate) {
+    public void setTimeRate(final long timeRate) {
         this.timeRate = Math.max(1, timeRate);
         updateView();
     }

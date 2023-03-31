@@ -4,10 +4,9 @@ import java.util.Map;
 
 import homer.api.Device;
 import homer.api.DeviceId;
-import homer.controller.command.Command;
 
 /**
- * Manages devices and allows {@link Command}s to be
+ * Manages devices and allows {@link homer.controller.command.Command}s to be
  * executed.
  */
 public interface DeviceManager extends DeviceManagerObserver {

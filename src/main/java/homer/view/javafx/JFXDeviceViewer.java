@@ -18,7 +18,7 @@ public class JFXDeviceViewer extends VBox implements DeviceViewer {
     private Controller controller;
     private final Map<DeviceId, DeviceView> deviceMap = new LinkedHashMap<>();
 
-    public JFXDeviceViewer(Controller controller) {
+    public JFXDeviceViewer(final Controller controller) {
         this.controller = controller;
         this.getChildren().add(new AddDevicesView(controller));
     }
@@ -31,7 +31,7 @@ public class JFXDeviceViewer extends VBox implements DeviceViewer {
                 deviceView.setState(deviceState);
             } else {
                 if (deviceState instanceof TemperatureChangerState) {
-                    var deviceView = new TemperatureChangerView(deviceId, (TemperatureChangerState) deviceState,
+                    final var deviceView = new TemperatureChangerView(deviceId, (TemperatureChangerState) deviceState,
                             controller);
                     this.deviceMap.put(deviceId, deviceView);
                     this.getChildren().add(deviceView);
@@ -52,7 +52,7 @@ public class JFXDeviceViewer extends VBox implements DeviceViewer {
     }
 
     @Override
-    public void start(Controller controller) {
+    public void start(final Controller controller) {
         this.controller = controller;
     }
 

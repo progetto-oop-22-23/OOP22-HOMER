@@ -6,7 +6,7 @@ import homer.model.outlets.OutletFactory;
 public class CreateLoutlet implements CreateDeviceCommand {
 
     @Override
-    public void execute(Controller controller) {
+    public void execute(final Controller controller) {
         controller.getDeviceManager().addDevice(OutletFactory.lOutlet(0));
     }
 
