@@ -1,5 +1,8 @@
 package homer.view;
 
+import java.io.File;
+import java.io.FileOutputStream;
+
 import homer.api.DeviceIdImpl;
 import homer.controller.Controller;
 import homer.controller.ControllerImpl;
@@ -49,7 +52,7 @@ public class JFXApplication extends Application {
         final var viewManager = controller.getViewManager();
         final var dashboard = new JFXDeviceViewer(controller);
         viewManager.addView(dashboard);
-        final Logger loggerImpl = new LoggerImpl(System.out);
+        final Logger loggerImpl = new LoggerImpl(new FileOutputStream(new File("out")));
         viewManager.addView(loggerImpl);
         loggerImpl.updateDeviceState(new DeviceIdImpl(), new LightState(true));
 

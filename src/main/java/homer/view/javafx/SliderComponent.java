@@ -1,5 +1,7 @@
 package homer.view.javafx;
 
+import java.util.function.Consumer;
+
 import homer.view.StateSelector;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -20,10 +22,10 @@ public final class SliderComponent extends VBox implements StateSelector<Double>
      * @param max
      * @param min
      * @param value
-     * @param onDragDone the event that gets triggered on drag done.
+     * @param consumer 
      */
     public SliderComponent(final double max, final double min, final double value,
-            final Runnable onDragDone) {
+            final Consumer<Double> consumer) {
         label = new Label(Double.toString(value));
         this.slider = new Slider(min, max, value);
         this.slider.setShowTickLabels(true);
@@ -35,7 +37,7 @@ public final class SliderComponent extends VBox implements StateSelector<Double>
                     public void changed(final ObservableValue<? extends Number> observable,
                             final Number oldValue, final Number newValue) {
                         updateValue((Double) newValue);
-                        onDragDone.run();
+                        consumer.accept(value);
                     }
                 });
     }

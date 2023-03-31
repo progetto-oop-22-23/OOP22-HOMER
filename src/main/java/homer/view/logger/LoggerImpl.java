@@ -65,6 +65,7 @@ public final class LoggerImpl implements Logger {
         } else if (deviceState instanceof ThermometerState state) {
             log("TEMPERATURE:" + state.getTemperature().getCelsius() + "C");
         }
+        log("\n");
     }
 
     @Override
