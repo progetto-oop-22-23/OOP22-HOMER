@@ -5,16 +5,16 @@ import homer.api.DeviceState;
 /**
  * Implementation of {@link DeviceState} for a {@link ToggleableDevice}.
  */
-public final class OnOffState implements DeviceState {
+public final class LockState implements DeviceState {
 
     private final boolean isOn;
 
     /**
-     * Creates a new {@link OnOffState}.
+     * Creates a new {@link LockState}.
      * 
      * @param isOn the current state.
      */
-    public OnOffState(final boolean isOn) {
+    public LockState(final boolean isOn) {
         this.isOn = isOn;
     }
 

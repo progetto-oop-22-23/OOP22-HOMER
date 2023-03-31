@@ -9,6 +9,7 @@ import homer.api.DeviceView;
 import homer.controller.Controller;
 import homer.model.temperaturechangers.TemperatureChangerState;
 import homer.view.DeviceViewer;
+import javafx.scene.Node;
 import javafx.scene.layout.VBox;
 import javafx.application.Platform;
 
@@ -41,13 +42,13 @@ public class JFXDeviceViewer extends VBox implements DeviceViewer {
 
     @Override
     public void removeDevice(final DeviceId deviceId) {
-        Platform.runLater(() -> {
-            if (deviceMap.containsKey(deviceId)) {
-                final var target = deviceMap.get(deviceId);
-                this.getChildren().remove(this.deviceMap.get(deviceId));
-                deviceMap.remove(deviceId);
-            }
-        });
+        if (deviceMap.containsKey(deviceId)) {
+            final var target = deviceMap.get(deviceId);
+            // since all javaFX components (and derived classes) we are using extend Node,
+            // this is fine
+            this.getChildren().remove((Node) target);
+            deviceMap.remove(deviceId);
+        }
     }
 
     @Override

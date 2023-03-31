@@ -7,7 +7,7 @@ import homer.api.PoweredDevice;
 import homer.api.PoweredDeviceInfo;
 import homer.api.PoweredDeviceInfoImpl;
 import homer.api.ToggleableDevice;
-import homer.api.state.OnOffState;
+import homer.api.state.LockState;
 import homer.common.limit.Limit;
 import homer.common.time.DurationConverter;
 import homer.core.DiscreteObject;
@@ -19,9 +19,9 @@ import homer.model.outlets.OutletFactory;
  * 
  * @author Alessandro Monticelli
  */
-public final class Light implements ToggleableDevice<OnOffState>, PoweredDevice, DiscreteObject {
+public final class Light implements ToggleableDevice<LockState>, PoweredDevice, DiscreteObject {
 
-    private OnOffState state;
+    private LightState state;
     private final PoweredDeviceInfo power;
     private double instantConsumption;
 
@@ -32,7 +32,7 @@ public final class Light implements ToggleableDevice<OnOffState>, PoweredDevice,
      * @param power See {@link homer.api.PoweredDeviceInfo}.
      */
     public Light(final Boolean state, final PoweredDeviceInfo power) {
-        this.state = new OnOffState(Objects.requireNonNull(state));
+        this.state = new LightState(Objects.requireNonNull(state));
         this.power = new PoweredDeviceInfoImpl(power.getMaxConsumption(), power.getOutlet());
         this.instantConsumption = 0.0;
     }
@@ -43,15 +43,15 @@ public final class Light implements ToggleableDevice<OnOffState>, PoweredDevice,
      * @param state On/Off.
      */
     public Light(final Boolean state) {
-        this.state = new OnOffState(Objects.requireNonNull(state));
+        this.state = new LightState(Objects.requireNonNull(state));
         this.power = new PoweredDeviceInfoImpl(10.0,
                 OutletFactory.cOutlet(0));
         this.instantConsumption = 0.0;
     }
 
     @Override
-    public OnOffState getState() {
-        return new OnOffState(this.isToggled());
+    public LockState getState() {
+        return new LockState(this.isToggled());
     }
 
     @Override
@@ -61,7 +61,7 @@ public final class Light implements ToggleableDevice<OnOffState>, PoweredDevice,
 
     @Override
     public void toggle() {
-        this.state = new OnOffState(this.isToggled() ^ true);
+        this.state = new LightState(this.isToggled() ^ true);
     }
 
     @Override
