@@ -13,7 +13,7 @@ import javafx.scene.Node;
 import javafx.scene.layout.VBox;
 import javafx.application.Platform;
 
-public class JFXDeviceViewer extends VBox implements DeviceViewer {
+public final class JFXDeviceViewer extends VBox implements DeviceViewer {
 
     private Controller controller;
     private final Map<DeviceId, DeviceView> deviceMap = new LinkedHashMap<>();

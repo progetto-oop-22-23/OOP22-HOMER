@@ -3,7 +3,7 @@ package homer.controller.command.createdevicecommand;
 import homer.controller.Controller;
 import homer.model.outlets.OutletFactory;
 
-public class CreateCoutlet implements CreateDeviceCommand {
+public final class CreateCoutlet implements CreateDeviceCommand {
 
     @Override
     public void execute(final Controller controller) {
