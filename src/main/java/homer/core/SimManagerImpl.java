@@ -20,8 +20,8 @@ public final class SimManagerImpl implements SimManagerViewObserver {
     private final ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
     private final SimManagerView view;
     private final Runnable loopRunnable;
+    private final Duration realStepPeriod = DEFAULT_REAL_STEP_PERIOD;
     private Duration simStepPeriod = DEFAULT_SIM_STEP_PERIOD;
-    private Duration realStepPeriod = DEFAULT_REAL_STEP_PERIOD;
     private Optional<ScheduledFuture<?>> loopHandle = Optional.empty();
     private long timeRate = 1;
 

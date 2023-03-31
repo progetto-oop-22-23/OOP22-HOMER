@@ -7,7 +7,7 @@ import homer.api.state.LockState;
  */
 public final class SimpleLock implements Lock {
 
-    private boolean isLocked = false;
+    private boolean isLocked;
 
     @Override
     public LockState getState() {

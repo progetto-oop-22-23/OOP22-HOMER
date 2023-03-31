@@ -65,7 +65,7 @@ public final class ControllerImpl implements Controller {
         // Run the temperature scheduler check.
         getDeviceManager().getDevices().values().stream()
                 .filter(Thermometer.class::isInstance)
-                .map(d -> ((Thermometer) d))
+                .map(d -> (Thermometer) d)
                 .findAny()
                 .ifPresent(t -> this.tempScheduler.checkSchedules(this.clock.getDateTime().toLocalTime(),
                         t.getState().getTemperature()));
