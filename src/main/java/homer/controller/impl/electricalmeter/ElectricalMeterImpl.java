@@ -85,7 +85,7 @@ public final class ElectricalMeterImpl implements ElectricalMeter, DiscreteObjec
 
     @Override
     public void checkConsumption() {
-        ListIterator<Outlet> iterator = outlets.listIterator();
+        final ListIterator<Outlet> iterator = outlets.listIterator();
         double globalConsumption = this.getGlobalConsumption();
         if (globalConsumption >= ElectricalMeterImpl.MAX_GLOBAL_CONSUMPTION) {
             this.sortOutletsForConsumption();

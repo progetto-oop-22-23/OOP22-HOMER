@@ -24,13 +24,14 @@ public final class SliderComponent extends VBox implements StateSelector<Double>
      */
     public SliderComponent(final double max, final double min, final double value,
             final Runnable onDragDone) {
-        label = new Label("" + value);
+        label = new Label(Double.toString(value));
         this.slider = new Slider(min, max, value);
         this.slider.setShowTickLabels(true);
         this.slider.setShowTickMarks(true);
         this.getChildren().addAll(this.slider, this.label);
         this.slider.valueProperty().addListener(
                 new ChangeListener<Number>() {
+                    @Override
                     public void changed(final ObservableValue<? extends Number> observable,
                             final Number oldValue, final Number newValue) {
                         updateValue((Double) newValue);

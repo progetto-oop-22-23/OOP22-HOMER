@@ -32,7 +32,7 @@ public abstract class AbstractTemperatureChanger implements TemperatureChanger, 
     private final Environment environment;
     private Temperature minTemperature = TemperatureFactory.fromKelvin(0);
     private Optional<Temperature> maxTemperature = Optional.empty();
-    private double instantConsumption = 0.0;
+    private double instantConsumption;
     private PoweredDeviceInfo power;
     private static final double MAX_CONSUMPTION = 1000;
 
@@ -108,7 +108,7 @@ public abstract class AbstractTemperatureChanger implements TemperatureChanger, 
     @Override
     public final void setState(final DeviceState state) {
         if (state instanceof TemperatureChangerState) {
-            TemperatureChangerState temperatureChangerState = (TemperatureChangerState) state;
+            final TemperatureChangerState temperatureChangerState = (TemperatureChangerState) state;
             if (temperatureChangerState.getCurrentIntensity().isPresent()) {
                 this.intensity = temperatureChangerState.getCurrentIntensity().get();
             }

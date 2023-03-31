@@ -14,7 +14,7 @@ import javafx.scene.text.Text;
  * Implements view for {@link Lock} {@link Device}s.
  */
 public final class LockView extends VBox implements DeviceView {
-    private ButtonComponent<Boolean> button;
+    private ButtonComponent<Boolean> button; // NOPMD
 
     /**
      * 
@@ -24,7 +24,7 @@ public final class LockView extends VBox implements DeviceView {
      */
     public LockView(final DeviceId deviceId, final Controller controller, final DeviceState deviceState) {
         this.getChildren().add(new Text("Lock:"));
-        button = new ButtonComponent<Boolean>(
+        button = new ButtonComponent<>(
                 e -> controller.receiveCommand(new UpdateDeviceState(deviceId, new LockState(!button.getState()))),
                 "Lock:", false);
         this.setState(deviceState);

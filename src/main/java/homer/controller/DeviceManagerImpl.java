@@ -88,7 +88,7 @@ public final class DeviceManagerImpl implements DeviceManager {
     public void updateDeviceState(final DeviceId deviceId, final DeviceState state) {
         final Device<?> targetDevice = this.deviceMap.get(deviceId);
         if (targetDevice instanceof AdjustableDevice) {
-            AdjustableDevice<?> adjustableDevice = (AdjustableDevice<?>) targetDevice;
+            final AdjustableDevice<?> adjustableDevice = (AdjustableDevice<?>) targetDevice;
             adjustableDevice.setState(state);
             updateToView(deviceId);
         }

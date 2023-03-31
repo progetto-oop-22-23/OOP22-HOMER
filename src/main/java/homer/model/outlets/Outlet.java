@@ -18,7 +18,7 @@ import homer.core.DiscreteObject;
 
 public final class Outlet implements AdjustableDevice<OutletState>, DiscreteObject {
 
-    private OutletState state;
+    private final OutletState state;
 
     /**
      * Constructor for class Outlet.
@@ -52,7 +52,7 @@ public final class Outlet implements AdjustableDevice<OutletState>, DiscreteObje
     @Override
     public void setState(final DeviceState state) {
         if (state instanceof OutletState) {
-            OutletState outletState = (OutletState) state;
+            final OutletState outletState = (OutletState) state;
             if (outletState.getPower().isPresent()) {
                 this.state.addValue(outletState.getPower().get());
             }
@@ -63,7 +63,7 @@ public final class Outlet implements AdjustableDevice<OutletState>, DiscreteObje
     public void updateTick(final Duration deltaTime) {
         final double defaultMaxPower = 150.0;
         final double defaultRandomIncrement = Math.random() * 10 + 1;
-        OutletState energy = this.getState();
+        final OutletState energy = this.getState();
         if (this.getState().getPower().equals(Optional.empty())) {
             energy.addValue(Math.min(defaultMaxPower,
                     Math.pow(this.getState().getPower().get(), 2) + defaultRandomIncrement));

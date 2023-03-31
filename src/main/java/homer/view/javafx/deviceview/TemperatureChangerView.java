@@ -17,7 +17,7 @@ import javafx.scene.text.Text;
  * {@link AirConditioning} device.
  */
 public final class TemperatureChangerView extends VBox implements DeviceView {
-    private SliderComponent sliderComponent;
+    private SliderComponent sliderComponent; // NOPMD
 
     /**
      * @param deviceId   the device's id.
