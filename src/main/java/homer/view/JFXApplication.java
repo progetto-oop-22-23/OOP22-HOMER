@@ -56,8 +56,6 @@ public class JFXApplication extends Application {
         var loggerImpl = new LoggerImpl(System.out);
         viewManager.addView(loggerImpl);
         loggerImpl.updateDeviceState(new DeviceIdImpl(), new LightState(true));
-        // final Logger logger = new LoggerImpl(null);
-        // viewManager.addView(logger);
 
         // CREATE MAIN WINDOW
         // add tabs:
