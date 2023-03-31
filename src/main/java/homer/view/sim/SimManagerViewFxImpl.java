@@ -56,12 +56,12 @@ public final class SimManagerViewFxImpl extends VBox implements SimManagerView {
     }
 
     @Override
-    public void setDateTime(LocalDateTime simTime) {
+    public void setDateTime(final LocalDateTime simTime) {
         Platform.runLater(() -> this.datetime.setText(simTime.format(DateTimeFormatter.ISO_DATE_TIME)));
     }
 
     @Override
-    public void setTimeRate(long timeRate) {
+    public void setTimeRate(final long timeRate) {
         Platform.runLater(() -> this.timerate.setText(Long.toString(timeRate)));
     }
 
