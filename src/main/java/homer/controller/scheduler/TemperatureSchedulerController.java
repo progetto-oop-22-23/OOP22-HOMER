@@ -12,6 +12,10 @@ import homer.model.scheduler.TemperatureScheduler;
 import homer.model.scheduler.TimeScheduler;
 import homer.view.scheduler.TimeSchedulerView;
 
+/**
+ * Implentation of {@link TimeSchedulerController} for the control of
+ * {@link Temperature}.
+ */
 public final class TemperatureSchedulerController implements TimeSchedulerController<Temperature> {
 
     private final TimeScheduler<Temperature> scheduler = new TemperatureScheduler();
@@ -19,6 +23,12 @@ public final class TemperatureSchedulerController implements TimeSchedulerContro
     private final TemperatureCommands commands;
     private final Controller controller;
 
+    /**
+     * Creates a new {@link TemperatureSchedulerController}.
+     * 
+     * @param view       the scheduler view.
+     * @param controller the domotic controller.
+     */
     public TemperatureSchedulerController(final TimeSchedulerView<Temperature> view,
             final Controller controller) {
         this.view = view;
