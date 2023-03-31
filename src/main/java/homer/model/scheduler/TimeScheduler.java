@@ -14,10 +14,26 @@ import java.time.LocalTime;
  */
 public interface TimeScheduler<T extends Comparable<T>> {
 
+    /**
+     * Indicates where the current parameter stands when checked against the
+     * schedule, or whether no applicable schedule was found.
+     */
     enum ParameterResult {
+        /**
+         * Parameter is below the target bounds.
+         */
         BELOW_BOUNDS,
+        /**
+         * Parameter is within the target bounds.
+         */
         IN_BOUNDS,
+        /**
+         * Parameter is above the target bounds.
+         */
         ABOVE_BOUNDS,
+        /**
+         * No applicable schedule was found.
+         */
         NOT_FOUND;
     }
 
@@ -50,6 +66,8 @@ public interface TimeScheduler<T extends Comparable<T>> {
      * @param currentTime      The current 24h clock time.
      * @param currentParameter The current parameter to check against the
      *                         constraints.
+     * @return the state of the {@code currentParameter} with regards to the
+     *         schedules.
      */
     ParameterResult checkSchedule(LocalTime currentTime, T currentParameter);
 
