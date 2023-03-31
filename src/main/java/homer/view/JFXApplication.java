@@ -8,6 +8,7 @@ import homer.view.javafx.JFXDeviceViewer;
 import homer.view.javafx.TemperatureChangerView;
 import homer.view.logger.Logger;
 import homer.view.logger.LoggerImpl;
+import homer.view.scheduler.TemperatureSchedulerViewFx;
 import homer.core.SimManagerImpl;
 import homer.model.lights.LightState;
 import homer.model.temperaturechangers.TemperatureChangerState;
@@ -41,16 +42,13 @@ public class JFXApplication extends Application {
 
         final var root = new BorderPane();
         final Scene scene = new Scene(root, INITIAL_W, INITIAL_H);
-        final Controller controller = new ControllerImpl();
-        // var temperatureChangerView = new TemperatureChangerView(new DeviceIdImpl(),
-        //         new TemperatureChangerState().addCurrentIntensity(1).addMinIntensity(0).addMaxIntensity(10),
-        //         controller);
+        
+        final var tempSchedulerView = new TemperatureSchedulerViewFx();
+        final Controller controller = new ControllerImpl(tempSchedulerView);
 
         final var simView = new SimManagerViewFxImpl();
         final var simManager = new SimManagerImpl(simView, controller);
-        Platform.runLater(() -> {
-            simView.setObserver(simManager);
-        });
+        simView.setObserver(simManager);
 
         final var viewManager = controller.getViewManager();
         final var dashboard = new JFXDeviceViewer(controller);
@@ -79,10 +77,10 @@ public class JFXApplication extends Application {
         dashboardScrollPane.setFitToWidth(true);
         // TODO separate the add devices from the device list, so that only the list is scrollable
         final Tab devicesView = new Tab("DEVICES", dashboardScrollPane); // TODO add dashboard
-        final Tab schedulerView = new Tab("SCHEDULER", null); // TODO
+        final Tab schedulerTab = new Tab("SCHEDULER", tempSchedulerView); // TODO
         final Tab graphView = new Tab("GRAPHS", null); // TODO
 
-        tabPane.getTabs().addAll(devicesView, schedulerView, graphView);
+        tabPane.getTabs().addAll(devicesView, schedulerTab, graphView);
 
         root.setCenter(tabPane);
         root.setBottom(simView);
