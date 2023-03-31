@@ -1,6 +1,7 @@
 package homer.view.javafx;
 
 import homer.view.StateSelector;
+import javafx.application.Platform;
 import javafx.event.EventHandler;
 import javafx.scene.control.Button;
 import javafx.scene.input.MouseEvent;
@@ -37,7 +38,7 @@ public final class ButtonComponent<T> extends VBox implements StateSelector<T> {
     @Override
     public void setState(final T state) {
         this.state = state;
-        this.stateText.setText(state.toString());
+        Platform.runLater(() ->  this.stateText.setText(state.toString()));
     }
 
 
