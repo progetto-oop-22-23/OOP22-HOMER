@@ -5,7 +5,7 @@ import homer.controller.Controller;
 import homer.controller.ControllerImpl;
 import homer.view.javafx.AddDevicesView;
 import homer.view.javafx.JFXDeviceViewer;
-import homer.view.javafx.TemperatureChangerView;
+import homer.view.javafx.deviceview.TemperatureChangerView;
 import homer.view.logger.Logger;
 import homer.view.logger.LoggerImpl;
 import homer.view.scheduler.TemperatureSchedulerViewFx;

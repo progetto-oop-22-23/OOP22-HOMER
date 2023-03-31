@@ -9,6 +9,7 @@ import homer.api.DeviceView;
 import homer.controller.Controller;
 import homer.model.temperaturechangers.TemperatureChangerState;
 import homer.view.DeviceViewer;
+import homer.view.javafx.deviceview.TemperatureChangerView;
 import javafx.scene.Node;
 import javafx.scene.layout.VBox;
 import javafx.application.Platform;

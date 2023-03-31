@@ -1,11 +1,15 @@
-package homer.view.javafx;
+package homer.view.javafx.deviceview;
 
 import homer.api.DeviceId;
 import homer.api.DeviceState;
 import homer.api.DeviceView;
 import homer.controller.Controller;
 import homer.controller.command.UpdateDeviceState;
+import homer.model.temperaturechangers.AirConditioning;
 import homer.model.temperaturechangers.TemperatureChangerState;
+import homer.model.temperaturechangers.TemperatureChangerType;
+import homer.view.javafx.DisconnectDeviceButton;
+import homer.view.javafx.SliderComponent;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 
@@ -14,7 +18,6 @@ import javafx.scene.text.Text;
  * {@link AirConditioning} device.
  */
 public final class TemperatureChangerView extends VBox implements DeviceView {
-    private final Text text = new Text("Temperature changer");
     private SliderComponent sliderComponent;
 
     /**
@@ -28,7 +31,10 @@ public final class TemperatureChangerView extends VBox implements DeviceView {
                 state.getCurrentIntensity().get(),
                 () -> controller.receiveCommand(new UpdateDeviceState(deviceId,
                         new TemperatureChangerState().addCurrentIntensity(sliderComponent.getState()))));
-        this.getChildren().addAll(text, sliderComponent, new DisconnectDeviceButton(controller, deviceId));
+        final String title = state.getType()
+                .map(x -> x.equals(TemperatureChangerType.AIRCONDITIONING) ? "Air" : "Heating")
+                .orElseGet(() -> "Undefined Temperature Changer Device");
+        this.getChildren().addAll(new Text(title), sliderComponent, new DisconnectDeviceButton(controller, deviceId));
     }
 
     @Override
@@ -38,4 +44,5 @@ public final class TemperatureChangerView extends VBox implements DeviceView {
             this.sliderComponent.setState(temperatureChangerState.getCurrentIntensity().get());
         }
     }
+
 }
