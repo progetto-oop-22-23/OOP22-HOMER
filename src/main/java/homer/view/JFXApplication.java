@@ -59,8 +59,6 @@ public class JFXApplication extends Application {
         // - scheduler
         // - graphs
 
-        // TODO display the sim world time somewhere (top/bottom)
-
         final TabPane tabPane = new TabPane();
         tabPane.setTabClosingPolicy(TabClosingPolicy.UNAVAILABLE);
         tabPane.setTabDragPolicy(TabDragPolicy.REORDER);
