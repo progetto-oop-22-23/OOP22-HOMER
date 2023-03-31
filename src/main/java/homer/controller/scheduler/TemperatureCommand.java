@@ -3,7 +3,7 @@ package homer.controller.scheduler;
 import java.util.function.Function;
 
 import homer.controller.Controller;
-import homer.model.scheduler.SchedulerCommand;
+import homer.controller.command.Command;
 import homer.model.temperaturechangers.AirConditioning;
 import homer.model.temperaturechangers.Heating;
 import homer.model.temperaturechangers.TemperatureChanger;
@@ -13,41 +13,38 @@ import homer.model.temperaturechangers.TemperatureChangerState;
  * Implementation of a {@link SchedulerCommand} for the control of the
  * temperature.
  */
-public final class TemperatureCommand implements SchedulerCommand {
+public final class TemperatureCommand implements Command {
 
-    private final Controller controller;
     private final Function<TemperatureChangerState, Double> heating;
     private final Function<TemperatureChangerState, Double> cooling;
 
     /**
      * Creates a new {@link TemperatureCommand}.
      * 
-     * @param controller the controller.
-     * @param heating    the function to decide the intensity for heating.
-     * @param cooling    the function to decide the intensity for cooling.
+     * @param heating the function to decide the intensity for heating.
+     * @param cooling the function to decide the intensity for cooling.
      */
-    public TemperatureCommand(final Controller controller,
-            final Function<TemperatureChangerState, Double> heating,
+    public TemperatureCommand(final Function<TemperatureChangerState, Double> heating,
             final Function<TemperatureChangerState, Double> cooling) {
-        this.controller = controller;
         this.heating = heating;
         this.cooling = cooling;
     }
 
     @Override
-    public void execute() {
-        setState(Heating.class, heating);
-        setState(AirConditioning.class, cooling);
+    public void execute(final Controller controller) {
+        setState(controller, Heating.class, heating);
+        setState(controller, AirConditioning.class, cooling);
     }
 
-    private <T extends TemperatureChanger> void setState(final Class<T> deviceType,
+    private <T extends TemperatureChanger> void setState(final Controller controller, final Class<T> deviceType,
             final Function<TemperatureChangerState, Double> deviceFunction) {
-        this.controller.getDeviceManager().getDevices().values().stream()
-                .filter(deviceType::isInstance)
-                .map(d -> ((TemperatureChanger) d))
-                .forEach(tc -> {
+        controller.getDeviceManager().getDevices().entrySet().stream()
+                .filter(e -> deviceType.isInstance(e.getValue()))
+                .forEach(e -> {
+                    final var tc = ((TemperatureChanger) e.getValue());
                     final var newIntensity = deviceFunction.apply(tc.getState());
-                    tc.setState(new TemperatureChangerState().addCurrentIntensity(newIntensity));
+                    controller.getDeviceManager().updateDeviceState(e.getKey(),
+                            new TemperatureChangerState().addCurrentIntensity(newIntensity));
                 });
     }
 

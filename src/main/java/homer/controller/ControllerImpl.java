@@ -8,7 +8,6 @@ import homer.common.temperature.Temperature;
 import homer.common.time.Clock;
 import homer.common.time.ClockImpl;
 import homer.controller.command.Command;
-import homer.controller.scheduler.TemperatureCommandsImpl;
 import homer.controller.scheduler.TemperatureSchedulerController;
 import homer.controller.scheduler.TimeSchedulerController;
 import homer.model.thermometer.Thermometer;
@@ -26,7 +25,7 @@ public final class ControllerImpl implements Controller {
     private final TimeSchedulerController<Temperature> tempScheduler;
 
     public ControllerImpl(final TimeSchedulerView<Temperature> schedulerView) {
-        this.tempScheduler = new TemperatureSchedulerController(schedulerView, new TemperatureCommandsImpl(this));
+        this.tempScheduler = new TemperatureSchedulerController(schedulerView, this);
         schedulerView.setScheduler(this.tempScheduler);
     }
 

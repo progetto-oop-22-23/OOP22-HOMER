@@ -5,8 +5,9 @@ import java.util.Optional;
 
 import homer.common.bounds.Bounds;
 import homer.common.temperature.Temperature;
+import homer.controller.Controller;
+import homer.controller.command.Command;
 import homer.model.scheduler.ScheduleId;
-import homer.model.scheduler.SchedulerCommand;
 import homer.model.scheduler.TemperatureScheduler;
 import homer.model.scheduler.TimeScheduler;
 import homer.view.scheduler.TimeSchedulerView;
@@ -16,11 +17,13 @@ public final class TemperatureSchedulerController implements TimeSchedulerContro
     private final TimeScheduler<Temperature> scheduler = new TemperatureScheduler();
     private final TimeSchedulerView<Temperature> view;
     private final TemperatureCommands commands;
+    private final Controller controller;
 
     public TemperatureSchedulerController(final TimeSchedulerView<Temperature> view,
-            final TemperatureCommands commands) {
+            final Controller controller) {
         this.view = view;
-        this.commands = commands;
+        this.controller = controller;
+        this.commands = new TemperatureCommandsImpl();
     }
 
     @Override
@@ -37,7 +40,7 @@ public final class TemperatureSchedulerController implements TimeSchedulerContro
 
     @Override
     public void checkSchedules(final LocalTime currentTime, final Temperature currentParameter) {
-        final Optional<SchedulerCommand> chosenCommand = switch (this.scheduler.checkSchedule(currentTime,
+        final Optional<Command> chosenCommand = switch (this.scheduler.checkSchedule(currentTime,
                 currentParameter)) {
             case ABOVE_BOUNDS -> Optional.of(this.commands.coolCommand());
             case BELOW_BOUNDS -> Optional.of(this.commands.heatCommand());
@@ -46,7 +49,7 @@ public final class TemperatureSchedulerController implements TimeSchedulerContro
             default -> throw new IllegalArgumentException();
         };
         if (chosenCommand.isPresent()) {
-            chosenCommand.get().execute();
+            this.controller.receiveCommand(chosenCommand.get());
         }
     }
 

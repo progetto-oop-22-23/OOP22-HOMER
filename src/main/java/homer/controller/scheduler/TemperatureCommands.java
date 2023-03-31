@@ -1,6 +1,6 @@
 package homer.controller.scheduler;
 
-import homer.model.scheduler.SchedulerCommand;
+import homer.controller.command.Command;
 
 /**
  * Interface of the commands for the control of temperature.
@@ -12,20 +12,20 @@ public interface TemperatureCommands {
          * 
          * @return the command.
          */
-        SchedulerCommand heatCommand();
+        Command heatCommand();
 
         /**
          * Stops both heating and cooling devices.
          * 
          * @return the command.
          */
-        SchedulerCommand stopCommand();
+        Command stopCommand();
 
         /**
          * Manages the devices so as to cool the environment.
          * 
          * @return the command.
          */
-        SchedulerCommand coolCommand();
+        Command coolCommand();
 
 }
