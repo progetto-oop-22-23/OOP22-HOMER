@@ -15,7 +15,7 @@ import javafx.scene.layout.VBox;
  */
 public final class SliderComponent extends VBox implements StateSelector<Double> {
 
-    private final Slider slider; 
+    private final Slider slider;
     private final Label label;
 
     /**
@@ -23,7 +23,7 @@ public final class SliderComponent extends VBox implements StateSelector<Double>
      * @param max
      * @param min
      * @param value
-     * @param consumer 
+     * @param consumer
      */
     public SliderComponent(final double max, final double min, final double value,
             final Consumer<Double> consumer) {
@@ -43,7 +43,7 @@ public final class SliderComponent extends VBox implements StateSelector<Double>
     }
 
     private void updateValue(final Double value) {
-        Platform.runLater( () -> {
+        Platform.runLater(() -> {
             this.slider.setValue(value);
             this.label.setText(Double.toString(value));
         });

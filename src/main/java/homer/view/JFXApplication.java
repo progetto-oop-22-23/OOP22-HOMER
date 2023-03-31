@@ -52,7 +52,7 @@ public class JFXApplication extends Application {
         final var viewManager = controller.getViewManager();
         final var dashboard = new JFXDeviceViewer(controller);
         viewManager.addView(dashboard);
-        final Logger loggerImpl = new LoggerImpl(new FileOutputStream(new File("out")));
+        final Logger loggerImpl = new LoggerImpl(new FileOutputStream(new File(".log")));
         viewManager.addView(loggerImpl);
         loggerImpl.updateDeviceState(new DeviceIdImpl(), new LightState(true));
 
