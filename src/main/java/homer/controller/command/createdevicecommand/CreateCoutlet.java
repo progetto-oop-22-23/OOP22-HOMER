@@ -14,5 +14,5 @@ public class CreateCoutlet implements CreateDeviceCommand {
     public String getStringRep() {
         return "Create Coutlet";
     }
-    
+
 }
