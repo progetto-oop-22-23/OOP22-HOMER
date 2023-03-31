@@ -12,7 +12,7 @@ public final class ThermometerState implements DeviceState {
     private final Temperature temperature;
 
     /**
-     * Creates a new {@link ThermometerState}
+     * Creates a new {@link ThermometerState}.
      * 
      * @param temperature the sensed temperature.
      */
