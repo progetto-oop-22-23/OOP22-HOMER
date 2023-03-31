@@ -3,15 +3,11 @@ package homer.view;
 import homer.api.DeviceIdImpl;
 import homer.controller.Controller;
 import homer.controller.ControllerImpl;
-import homer.view.javafx.AddDevicesView;
 import homer.view.javafx.JFXDeviceViewer;
-import homer.view.javafx.TemperatureChangerView;
-import homer.view.logger.Logger;
 import homer.view.logger.LoggerImpl;
 import homer.view.scheduler.TemperatureSchedulerViewFx;
 import homer.core.SimManagerImpl;
 import homer.model.lights.LightState;
-import homer.model.temperaturechangers.TemperatureChangerState;
 import homer.view.sim.SimManagerViewFxImpl;
 import javafx.application.Application;
 import javafx.application.Platform;
@@ -22,7 +18,6 @@ import javafx.scene.control.TabPane;
 import javafx.scene.control.TabPane.TabClosingPolicy;
 import javafx.scene.control.TabPane.TabDragPolicy;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 /**
