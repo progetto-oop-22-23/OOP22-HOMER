@@ -13,11 +13,17 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 
+/**
+ * Implementation of {@link TimeSchedulerView} for the temperature, with JavaFX.
+ */
 public final class TemperatureSchedulerViewFx extends BorderPane implements TimeSchedulerView<Temperature> {
 
     private TimeSchedulerController<Temperature> scheduler;
     private final VBox schedules = new VBox();
 
+    /**
+     * Creates a new {@link TemperatureSchedulerViewFx}.
+     */
     public TemperatureSchedulerViewFx() {
         final var addSection = new AddTemperatureScheduleViewFx((tb, pb) -> {
             try {
