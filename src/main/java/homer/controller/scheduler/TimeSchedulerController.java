@@ -7,6 +7,8 @@ import homer.model.scheduler.ScheduleId;
 
 /**
  * This interface models the controller of a time-based scheduler.
+ * 
+ * @param <T> the type of the target parameter.
  */
 public interface TimeSchedulerController<T extends Comparable<T>> {
 
