@@ -3,6 +3,7 @@ package homer.controller.scheduler;
 import java.time.LocalTime;
 
 import homer.common.bounds.Bounds;
+import homer.core.DiscreteObject;
 import homer.model.scheduler.ScheduleId;
 
 /**
@@ -10,7 +11,7 @@ import homer.model.scheduler.ScheduleId;
  * 
  * @param <T> the type of the target parameter.
  */
-public interface TimeSchedulerController<T extends Comparable<T>> {
+public interface TimeSchedulerController<T extends Comparable<T>> extends DiscreteObject {
 
     /**
      * Adds a new schedule.
@@ -26,14 +27,5 @@ public interface TimeSchedulerController<T extends Comparable<T>> {
      * @param scheduleId the id of the schedule to remove.
      */
     void removeSchedule(ScheduleId scheduleId);
-
-    /**
-     * Checks the schedules with the current time and parameter and executes the
-     * necessary actions.
-     * 
-     * @param currentTime      the current time.
-     * @param currentParameter the current parameter.
-     */
-    void checkSchedules(LocalTime currentTime, T currentParameter);
 
 }

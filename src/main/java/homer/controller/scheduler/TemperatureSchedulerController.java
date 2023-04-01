@@ -1,5 +1,6 @@
 package homer.controller.scheduler;
 
+import java.time.Duration;
 import java.time.LocalTime;
 import java.util.Optional;
 
@@ -10,6 +11,7 @@ import homer.controller.command.Command;
 import homer.model.scheduler.ScheduleId;
 import homer.model.scheduler.TemperatureScheduler;
 import homer.model.scheduler.TimeScheduler;
+import homer.model.thermometer.Thermometer;
 import homer.view.scheduler.TimeSchedulerView;
 
 /**
@@ -49,7 +51,25 @@ public final class TemperatureSchedulerController implements TimeSchedulerContro
     }
 
     @Override
-    public void checkSchedules(final LocalTime currentTime, final Temperature currentParameter) {
+    public void updateTick(final Duration deltaTime) {
+        // Run the temperature scheduler check.
+        final var clock = this.controller.getClock();
+        this.controller.getDeviceManager().getDevices().values().stream()
+                .filter(Thermometer.class::isInstance)
+                .map(d -> (Thermometer) d)
+                .findAny()
+                .ifPresent(t -> this.checkSchedules(clock.getDateTime().toLocalTime(),
+                        t.getState().getTemperature()));
+    }
+
+    /**
+     * Checks the schedules with the current time and parameter and executes the
+     * necessary actions.
+     * 
+     * @param currentTime      the current time.
+     * @param currentParameter the current parameter.
+     */
+    private void checkSchedules(final LocalTime currentTime, final Temperature currentParameter) {
         final Optional<Command> chosenCommand = switch (this.scheduler.checkSchedule(currentTime,
                 currentParameter)) {
             case ABOVE_BOUNDS -> Optional.of(this.commands.coolCommand());

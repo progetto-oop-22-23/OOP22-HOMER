@@ -1,7 +1,9 @@
 package homer.core;
 
 import java.time.Duration;
+import java.util.HashSet;
 import java.util.Optional;
+import java.util.Set;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.ScheduledFuture;
@@ -13,16 +15,17 @@ import homer.view.sim.SimManagerView;
 /**
  * Implementation of {@link SimManagerViewObserver}.
  */
-public final class SimManagerImpl implements SimManagerViewObserver {
+public final class SimManagerImpl implements SimManager, SimManagerViewObserver {
 
     private static final Duration DEFAULT_SIM_STEP_PERIOD = Duration.of(10, TimeUnit.MILLISECONDS.toChronoUnit());
     private static final Duration DEFAULT_REAL_STEP_PERIOD = Duration.of(10, TimeUnit.MILLISECONDS.toChronoUnit());
     private static final long MIN_TIME_RATE = 1;
     private static final Duration REAL_STEP_PERIOD = DEFAULT_REAL_STEP_PERIOD;
+    private static final Duration SIM_STEP_PERIOD = DEFAULT_SIM_STEP_PERIOD;
     private final ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
     private final SimManagerView view;
     private final Runnable loopRunnable;
-    private Duration simStepPeriod = DEFAULT_SIM_STEP_PERIOD;
+    private final Set<DiscreteObject> observers = new HashSet<>();
     private Optional<ScheduledFuture<?>> loopHandle = Optional.empty();
     private long timeRate = MIN_TIME_RATE;
 
@@ -43,6 +46,7 @@ public final class SimManagerImpl implements SimManagerViewObserver {
                     .filter(DiscreteObject.class::isInstance)
                     .forEach(d -> ((DiscreteObject) d).updateTick(dt));
             view.setDateTime(controller.getClock().getDateTime());
+            this.observers.forEach(o -> o.updateTick(dt));
         };
         resume();
     }
@@ -64,19 +68,18 @@ public final class SimManagerImpl implements SimManagerViewObserver {
     }
 
     @Override
-    public Duration getSimStepPeriod() {
-        return this.simStepPeriod;
-    }
-
-    @Override
-    public void setSimStepPeriod(final Duration simStepTime) {
-        this.simStepPeriod = simStepTime;
-    }
-
-    @Override
     public void setTimeRate(final long timeRate) {
         this.timeRate = Math.max(MIN_TIME_RATE, timeRate);
         updateView();
+    }
+
+    @Override
+    public void addObserver(final DiscreteObject observer) {
+        this.observers.add(observer);
+    }
+
+    private Duration getSimStepPeriod() {
+        return SIM_STEP_PERIOD;
     }
 
     private void updateView() {

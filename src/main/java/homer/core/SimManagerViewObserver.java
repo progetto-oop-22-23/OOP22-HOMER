@@ -1,11 +1,9 @@
 package homer.core;
 
-import java.time.Duration;
-
 /**
- * Interface for the control of the simulation.
+ * Interface for the control of the simulation from the view.
  */
-public interface SimManagerViewObserver extends SimManager {
+public interface SimManagerViewObserver {
 
     /**
      * Resumes the simulation.
@@ -16,13 +14,6 @@ public interface SimManagerViewObserver extends SimManager {
      * Pauses the simulation.
      */
     void pause();
-
-    /**
-     * Sets the simulation step period.
-     * 
-     * @param simStepTime the simulation step period.
-     */
-    void setSimStepPeriod(Duration simStepTime);
 
     /**
      * Sets the simulation time rate.
