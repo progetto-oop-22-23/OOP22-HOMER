@@ -1,4 +1,4 @@
-package homer.view.javafx.electricalmeter.scenebuilder;
+package homer.view.javafx.sensorsview;
 
 import java.net.URL;
 import java.util.Objects;
@@ -50,7 +50,7 @@ public final class ElectricalMeterViewManager {
     private ElectricalMeterImpl meter;
 
     /**
-     * Constructor for {@link homer.view.javafx.electricalmeter.scenebuilder.ElectricalMeterViewManager}.
+     * Constructor for {@link homer.view.javafx.sensorsview.ElectricalMeterViewManager}.
      * @param meter the {@link homer.controller.impl.electricalmeter.ElectricalMeterImpl} to use.
      */
     public ElectricalMeterViewManager(final ElectricalMeterImpl meter) {

@@ -13,7 +13,7 @@ import homer.controller.impl.electricalmeter.ElectricalMeterImpl;
 import homer.model.lights.Light;
 import homer.model.outlets.Outlet;
 import homer.model.outlets.OutletFactory;
-import homer.view.javafx.electricalmeter.scenebuilder.ElectricalMeterViewManager;
+import homer.view.javafx.sensorsview.ElectricalMeterViewManager;
 import homer.view.logger.LoggerImpl;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
