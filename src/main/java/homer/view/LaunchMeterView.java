@@ -58,7 +58,7 @@ public final class LaunchMeterView extends Application {
 
         final FXMLLoader loader = new FXMLLoader();
         final URL url = App.class.getClassLoader()
-                .getResource("homer/view/javafx/electricalmeter/scenebuilder/ElectricalMeterView.fxml");
+                .getResource("homer/view/javafx/sensors/ElectricalMeterView.fxml");
         loader.setLocation(url);
         try {
             root = loader.load();
