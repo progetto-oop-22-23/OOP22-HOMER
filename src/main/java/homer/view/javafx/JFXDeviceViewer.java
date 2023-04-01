@@ -44,9 +44,8 @@ public final class JFXDeviceViewer extends VBox implements DeviceViewer {
                     deviceView = new TemperatureChangerView(deviceId, temperatureChangerState,
                             controller);
                 } else if (deviceState instanceof LockState lockState) {
-                    deviceView = new LockView(deviceId, controller, lockState);
-                }
-                 else {
+                    deviceView = new LockView(deviceId, controller);
+                } else {
                     throw new IllegalStateException();
                 }
                 this.deviceMap.put(deviceId, deviceView);
