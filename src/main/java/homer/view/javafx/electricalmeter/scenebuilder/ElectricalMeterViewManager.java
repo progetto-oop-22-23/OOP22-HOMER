@@ -1,6 +1,7 @@
 package homer.view.javafx.electricalmeter.scenebuilder;
 
 import java.net.URL;
+import java.util.Objects;
 import java.util.ResourceBundle;
 
 import homer.controller.impl.electricalmeter.ElectricalMeterImpl;
@@ -16,6 +17,9 @@ import javafx.scene.control.TableView;
  * View manager for {@link homer.controller.impl.electricalmeter}.
  */
 public final class ElectricalMeterViewManager {
+
+    // Used to print no. of Outlet in labels.
+    private static int outletNumber;
 
     @FXML
     // Reference of consumptionLabel for the FXML loader.
@@ -46,9 +50,18 @@ public final class ElectricalMeterViewManager {
     private ElectricalMeterImpl meter;
 
     /**
+     * Constructor for {@link homer.view.javafx.electricalmeter.scenebuilder.ElectricalMeterViewManager}.
+     * @param meter the {@link homer.controller.impl.electricalmeter.ElectricalMeterImpl} to use.
+     */
+    public ElectricalMeterViewManager(final ElectricalMeterImpl meter) {
+        this.meter = new ElectricalMeterImpl(meter.getOutlets());
+    }
+
+    /**
      * Empty constructor.
      */
     public ElectricalMeterViewManager() {
+        this.meter = null;
     }
 
     /**
@@ -57,14 +70,9 @@ public final class ElectricalMeterViewManager {
      * @param meter the meter.
      */
     public void setMeter(final ElectricalMeterImpl meter) {
-        this.meter = meter;
+        Objects.requireNonNull(meter);
+        this.meter = new ElectricalMeterImpl(meter.getOutlets());
     }
-
-    @FXML
-    private void init() {
-    }
-
-    private static int count = 0;
 
     /**
      * Sets the labels' values in the view.
@@ -81,7 +89,7 @@ public final class ElectricalMeterViewManager {
                         String.format("%.2f Wh", cellData.getValue().getState().getPower().get())));
         outletIDColumn.setCellValueFactory(
                 cellData -> new ReadOnlyObjectWrapper<String>(
-                        cellData.getValue().getClass().getSimpleName() + count++));
+                        cellData.getValue().getClass().getSimpleName() + outletNumber++));
     }
 
 }

@@ -14,6 +14,7 @@ import homer.model.lights.Light;
 import homer.model.outlets.Outlet;
 import homer.model.outlets.OutletFactory;
 import homer.view.javafx.electricalmeter.scenebuilder.ElectricalMeterViewManager;
+import homer.view.logger.LoggerImpl;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Application;
@@ -36,10 +37,8 @@ public final class LaunchMeterView extends Application {
     public void start(final Stage stage) throws Exception {
         stage.setOnCloseRequest(event -> {
             Platform.exit();
-            System.exit(0);
         });
         var root = new BorderPane();
-        Scene scene = new Scene(root, INITIAL_W, INITIAL_H);
         final double cOutletState = 10.0;
         final double lOutletState = 15.0;
         final List<Outlet> outlets = new ArrayList<>();
@@ -55,30 +54,31 @@ public final class LaunchMeterView extends Application {
         for (final Outlet outlet : outlets) {
             lights.add(new Light(true, new PoweredDeviceInfoImpl(maxLightConsumption, outlet)));
         }
-        ElectricalMeterImpl meter = new ElectricalMeterImpl(outlets);
+        final ElectricalMeterImpl meter = new ElectricalMeterImpl(outlets);
 
-        FXMLLoader loader = new FXMLLoader();
-        URL url = App.class.getClassLoader()
+        final FXMLLoader loader = new FXMLLoader();
+        final URL url = App.class.getClassLoader()
                 .getResource("homer/view/javafx/electricalmeter/scenebuilder/ElectricalMeterView.fxml");
         loader.setLocation(url);
         try {
             root = loader.load();
         } catch (IOException e) {
-            e.printStackTrace();
+            final LoggerImpl logger = new LoggerImpl(System.err);
+            logger.log(e.toString());
         }
 
-        ElectricalMeterViewManager view = loader.getController();
+        final ElectricalMeterViewManager view = loader.getController();
         view.setMeter(meter);
-        final long millis = 5;
-        final long hours = 2;
-        scene = new Scene(root);
+        final byte millis = 5;
+        final byte hours = 2;
+        final int frequency = 300;
+        final Scene scene = new Scene(root, INITIAL_W, INITIAL_H);
         stage.setTitle(TITLE);
         stage.setScene(scene);
         stage.show();
-        Timeline timeline = new Timeline(new KeyFrame(javafx.util.Duration.millis(300), event -> {
-            for (int i = 0; i < lights.size(); i++) {
-                Light light = lights.get(i);
-                Outlet outlet = light.getPowerInfo().getOutlet();
+        final Timeline timeline = new Timeline(new KeyFrame(javafx.util.Duration.millis(frequency), event -> {
+            for (final Light light : lights) {
+                final Outlet outlet = light.getPowerInfo().getOutlet();
                 light.updateTick(Duration.ofMillis(millis));
                 outlet.getState().addValue(light.getInstantConsumption());
                 outlet.updateTick(Duration.ofHours(hours));
