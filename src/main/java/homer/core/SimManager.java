@@ -1,17 +1,15 @@
 package homer.core;
 
-import java.time.Duration;
-
 /**
- * Interface for the retrieval of the simulation information.
+ * Interface for the simulation core management.
  */
 public interface SimManager {
 
     /**
-     * Gets the simulation step period.
+     * Adds an object which should be updated in the loop.
      * 
-     * @return the simulation step period.
+     * @param observer an object which should be updated in the loop.
      */
-    Duration getSimStepPeriod();
+    void addObserver(DiscreteObject observer);
 
 }
