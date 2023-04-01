@@ -3,6 +3,7 @@ package homer.view.logger;
 import java.io.OutputStream;
 import java.util.Objects;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import homer.api.DeviceId;
 import homer.api.DeviceState;
 import homer.common.time.Clock;
@@ -22,6 +23,9 @@ public final class TimeStampLogger implements Logger {
      * @param logger the base logger.
      * @param clock  the clock used for timestamps.
      */
+    @SuppressFBWarnings(
+        value = "EI_EXPOSE_REP",
+        justification = "We need a reference to both logger and clock")
     public TimeStampLogger(final Logger logger, final Clock clock) {
         Objects.requireNonNull(logger);
         Objects.requireNonNull(clock);
