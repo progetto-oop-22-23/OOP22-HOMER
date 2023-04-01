@@ -5,4 +5,11 @@ package homer.core;
  */
 public interface SimManager {
 
+    /**
+     * Adds an object which should be updated in the loop.
+     * 
+     * @param observer an object which should be updated in the loop.
+     */
+    void addObserver(DiscreteObject observer);
+
 }
