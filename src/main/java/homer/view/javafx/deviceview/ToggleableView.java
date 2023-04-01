@@ -7,16 +7,26 @@ import javafx.application.Platform;
 import javafx.scene.control.Button;
 import javafx.scene.layout.VBox;
 
+/**
+ * Generic view for toggleable devices.
+ */
 public final class ToggleableView extends VBox implements StateSelector<Boolean> {
 
     private Boolean state = false;
-    private final String isOff;
-    private final String isOn;
+    private final String offRepresentation;
+    private final String onRepresentation;
     private final Button button = new Button();
 
-    public ToggleableView(final String isOn, final String isOff, final Consumer<Boolean> consumer) {
-        this.isOn = isOn;
-        this.isOff = isOff;
+    /**
+     * 
+     * @param onRepresentation
+     * @param offRepresentation
+     * @param consumer
+     */
+    public ToggleableView(final String onRepresentation, final String offRepresentation,
+            final Consumer<Boolean> consumer) {
+        this.onRepresentation = onRepresentation;
+        this.offRepresentation = offRepresentation;
         this.getChildren().add(button);
         button.setOnMouseClicked(e -> {
             consumer.accept(!state);
@@ -26,7 +36,7 @@ public final class ToggleableView extends VBox implements StateSelector<Boolean>
 
     private void updateState(final Boolean state) {
         this.state = state;
-        Platform.runLater(() -> button.setText(this.state ? isOn : isOff));
+        Platform.runLater(() -> button.setText(this.state ? onRepresentation : offRepresentation));
     }
 
     @Override
@@ -35,7 +45,7 @@ public final class ToggleableView extends VBox implements StateSelector<Boolean>
     }
 
     @Override
-    public void setState(Boolean state) {
+    public void setState(final Boolean state) {
 
     }
 }
