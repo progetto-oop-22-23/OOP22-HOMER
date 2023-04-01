@@ -26,7 +26,9 @@ public final class AddDevicesView extends VBox {
      */
     public AddDevicesView(final Controller controller) {
         this.controller = controller;
-        this.getChildren().addAll(choiceBox, addDeviceButton);
+        this.getChildren().addAll(choiceBox, addDeviceButton, new ButtonComponent<>((e) -> {
+            System.out.println();
+        } , "something", 3));
         this.update();
         this.addDeviceButton.setOnMouseClicked(e -> controller.receiveCommand(map.get(choiceBox.getValue())));
     }

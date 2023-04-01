@@ -25,7 +25,7 @@ public final class LockView extends VBox implements DeviceView {
     public LockView(final DeviceId deviceId, final Controller controller, final DeviceState deviceState) {
         this.getChildren().add(new Label("Lock:"));
         button = new ButtonComponent<>(
-                e -> controller.receiveCommand(new UpdateDeviceState(deviceId, new LockState(!button.getState()))),
+                s -> controller.receiveCommand(new UpdateDeviceState(deviceId, new LockState(!s))),
                 "Lock:", false);
         this.setState(deviceState);
         this.getChildren().add(button);
