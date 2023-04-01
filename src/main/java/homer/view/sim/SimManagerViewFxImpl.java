@@ -1,23 +1,31 @@
 package homer.view.sim;
 
-import java.time.Duration;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 import homer.core.SimManagerViewObserver;
+import javafx.application.Platform;
 import javafx.scene.control.Button;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
 
 /**
  * Implementation of {@link SimManagerView} using JavaFX.
  */
-public final class SimManagerViewFxImpl extends HBox implements SimManagerView {
+public final class SimManagerViewFxImpl extends VBox implements SimManagerView {
 
     private static final String RESUME = "Resume";
     private static final String PAUSE = "Pause";
-    private static final String ONE_SEC = "1s";
-    private static final String ONE_MIN = "1m";
-    private static final String ONE_HOUR = "1h";
-    // private static final double HEIGHT_SCALE = 0.2;
-    // private static final double WIDTH_SCALE = 0.2;
+    private static final long ONE_X = 1L;
+    private static final long FIFTY_X = 50L;
+    private static final long FIVE_THOUSAND_X = 5000L;
+    private static final String RATE_TEXT = "Time rate: ";
+    private final HBox buttonsBox = new HBox();
+    private final HBox clockBox = new HBox();
+    private final HBox rateBox = new HBox();
+    private final Text datetime = new Text();
+    private final Text timerate = new Text();
     private SimManagerViewObserver simManager;
 
     /**
@@ -26,22 +34,35 @@ public final class SimManagerViewFxImpl extends HBox implements SimManagerView {
     public SimManagerViewFxImpl() {
         final Button resume = new Button(RESUME);
         final Button pause = new Button(PAUSE);
-        final Button oneSec = new Button(ONE_SEC);
-        final Button oneMin = new Button(ONE_MIN);
-        final Button oneHour = new Button(ONE_HOUR);
+        final Button oneX = new Button(ONE_X + "x");
+        final Button fiftyX = new Button(FIFTY_X + "x");
+        final Button fiveThousandX = new Button(FIVE_THOUSAND_X + "x");
 
         resume.setOnAction(event -> this.simManager.resume());
         pause.setOnAction(event -> this.simManager.pause());
-        oneSec.setOnAction(event -> this.simManager.setSimStepPeriod(Duration.ofSeconds(1)));
-        oneMin.setOnAction(event -> this.simManager.setSimStepPeriod(Duration.ofMinutes(1)));
-        oneHour.setOnAction(event -> this.simManager.setSimStepPeriod(Duration.ofHours(1)));
+        oneX.setOnAction(event -> this.simManager.setTimeRate(ONE_X));
+        fiftyX.setOnAction(event -> this.simManager.setTimeRate(FIFTY_X));
+        fiveThousandX.setOnAction(event -> this.simManager.setTimeRate(FIVE_THOUSAND_X));
 
-        this.getChildren().addAll(resume, pause, oneSec, oneMin, oneHour);
+        buttonsBox.getChildren().addAll(resume, pause, oneX, fiftyX, fiveThousandX);
+        clockBox.getChildren().addAll(datetime);
+        rateBox.getChildren().addAll(new Text(RATE_TEXT), timerate);
+        this.getChildren().addAll(buttonsBox, clockBox, rateBox);
     }
 
     @Override
     public void setObserver(final SimManagerViewObserver simManager) {
         this.simManager = simManager;
+    }
+
+    @Override
+    public void setDateTime(final LocalDateTime simTime) {
+        Platform.runLater(() -> this.datetime.setText(simTime.format(DateTimeFormatter.ISO_DATE_TIME)));
+    }
+
+    @Override
+    public void setTimeRate(final long timeRate) {
+        Platform.runLater(() -> this.timerate.setText(Long.toString(timeRate)));
     }
 
 }

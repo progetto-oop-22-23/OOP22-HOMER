@@ -1,9 +1,12 @@
 package homer.model.thermometer;
 
+import java.time.Duration;
 import java.util.Objects;
 
 import homer.api.state.ThermometerState;
 import homer.common.temperature.Temperature;
+import homer.common.temperature.TemperatureFactory;
+import homer.model.environment.Environment;
 
 /**
  * Implementation of a {@link Device} which returns the temperature of the
@@ -11,15 +14,17 @@ import homer.common.temperature.Temperature;
  */
 public final class SimpleThermometer implements Thermometer {
 
+    private final Environment environment;
     private Temperature temperature;
 
     /**
      * Creates a new {@link SimpleThermometer}.
      * 
-     * @param temperature The initial temperature.
+     * @param environment the environment in which the thermometer is placed.
      */
-    public SimpleThermometer(final Temperature temperature) {
-        this.temperature = Objects.requireNonNull(temperature);
+    public SimpleThermometer(final Environment environment) {
+        this.environment = Objects.requireNonNull(environment);
+        senseTemperature();
     }
 
     @Override
@@ -28,8 +33,12 @@ public final class SimpleThermometer implements Thermometer {
     }
 
     @Override
-    public void setTemperature(final Temperature temperature) {
-        this.temperature = Objects.requireNonNull(temperature);
+    public void updateTick(final Duration deltaTime) {
+        senseTemperature();
+    }
+
+    private void senseTemperature() {
+        this.temperature = TemperatureFactory.fromKelvin(this.environment.getTemperature().getKelvin());
     }
 
 }

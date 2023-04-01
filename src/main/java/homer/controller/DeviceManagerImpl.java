@@ -13,8 +13,13 @@ import homer.api.ToggleableDevice;
 import homer.common.temperature.Temperature;
 import homer.common.temperature.TemperatureFactory;
 import homer.controller.command.createdevicecommand.CreateAirConditioning;
+import homer.controller.command.createdevicecommand.CreateBlinds;
 import homer.controller.command.createdevicecommand.CreateDeviceCommand;
+import homer.controller.command.createdevicecommand.CreateDoor;
 import homer.controller.command.createdevicecommand.CreateHeating;
+import homer.controller.command.createdevicecommand.CreateLock;
+import homer.controller.command.createdevicecommand.CreateThermometer;
+import homer.controller.command.createdevicecommand.CreateWindow;
 import homer.model.airquality.AirQualityState;
 import homer.model.airquality.AirQualityStateFactory;
 import homer.model.environment.Environment;
@@ -79,14 +84,16 @@ public final class DeviceManagerImpl implements DeviceManager {
 
     @Override
     public Set<CreateDeviceCommand> getValidCreateDeviceCommands() {
-        return Set.of(new CreateAirConditioning(this.environment), new CreateHeating(this.environment));
+        return Set.of(new CreateAirConditioning(this.environment), new CreateHeating(this.environment),
+                new CreateThermometer(this.environment), new CreateLock(),
+                new CreateWindow(), new CreateDoor(), new CreateBlinds());
     }
 
     @Override
     public void updateDeviceState(final DeviceId deviceId, final DeviceState state) {
         final Device<?> targetDevice = this.deviceMap.get(deviceId);
         if (targetDevice instanceof AdjustableDevice) {
-            AdjustableDevice<?> adjustableDevice = (AdjustableDevice<?>) targetDevice;
+            final AdjustableDevice<?> adjustableDevice = (AdjustableDevice<?>) targetDevice;
             adjustableDevice.setState(state);
             updateToView(deviceId);
         }

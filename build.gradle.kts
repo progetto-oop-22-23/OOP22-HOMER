@@ -12,7 +12,7 @@ plugins {
      * The runnable jar will be found in build/libs/projectname-all.jar
      */
     id("com.github.johnrengelman.shadow") version "7.0.0"
-    id("org.danilopianini.gradle-java-qa") version "0.41.0"
+    id("org.danilopianini.gradle-java-qa") version "1.6.0"
 }
 
 group = "HOMER"
@@ -42,6 +42,9 @@ dependencies {
             implementation("org.openjfx:javafx-$module:$javaFxVersion:$platform")
         }
     }
+
+    // ControlsFX
+    implementation("org.controlsfx:controlsfx:11.1.2")
 
     val jUnitVersion = "5.9.1"
     // JUnit API and testing engine

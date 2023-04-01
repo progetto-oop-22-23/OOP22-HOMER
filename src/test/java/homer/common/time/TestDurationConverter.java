@@ -13,7 +13,7 @@ class TestDurationConverter {
     private static final long TWENTY = 20;
     private static final long THIRTY = 30;
     private static final long TWELVE = 12;
-    private static final long SECONDS_IN_A_DAY = 86400;
+    private static final long SECONDS_IN_A_DAY = 86_400;
     private static final long ONE_THOUSAND = 1000;
 
     @Test

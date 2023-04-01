@@ -1,33 +1,33 @@
 package homer.view.javafx;
 
-import homer.controller.Controller;
+import java.util.function.Consumer;
+
 import homer.view.StateSelector;
-import javafx.event.EventHandler;
 import javafx.scene.control.Button;
-import javafx.scene.input.MouseEvent;
+import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
-import javafx.scene.text.Text;
 
 /**
  * Button component.
- * @param <T> not really sure about keeping this
+ * @param <T> The state parameter that is going to be displayed.
  */
 public final class ButtonComponent<T> extends VBox implements StateSelector<T> {
 
-    private Button button;
-    private Text text = new Text();
-    private Text value = new Text();
     private T state;
+    private final Label stateLabel = new Label();
 
     /**
      * 
-     * @param controller
-     * @param e
+     * @param onclick What should happen when the button is clicked.
+     * @param title The button's title. Effectively final.
+     * @param state The initial state.
      */
-    public ButtonComponent(final Controller controller, final EventHandler<? super MouseEvent> e) {
-        this.getChildren().add(text);
-        this.getChildren().addAll(button, value);
-        button.setOnMouseClicked(e);
+    public ButtonComponent(final Consumer<T> onclick, final String title, final T state) {
+        final var button = new Button(title);
+        this.setState(state);
+        this.stateLabel.setText(state.toString());
+        this.getChildren().addAll(stateLabel, button);
+        button.setOnMouseClicked(e -> onclick.accept(state));
     }
 
     @Override
@@ -38,7 +38,7 @@ public final class ButtonComponent<T> extends VBox implements StateSelector<T> {
     @Override
     public void setState(final T state) {
         this.state = state;
-        this.value.setText(state.toString());
+        this.stateLabel.setText(state.toString());
     }
 
 

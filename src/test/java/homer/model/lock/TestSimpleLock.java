@@ -15,7 +15,7 @@ final class TestSimpleLock {
         assertNotNull(this.lock);
     }
 
-    @RepeatedTest(value = 3)
+    @RepeatedTest(3)
     void testToggle() {
         final var wasLocked = this.lock.getState().isOn();
         this.lock.toggle();

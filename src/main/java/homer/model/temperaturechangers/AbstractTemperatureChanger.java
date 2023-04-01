@@ -32,8 +32,8 @@ public abstract class AbstractTemperatureChanger implements TemperatureChanger, 
     private final Environment environment;
     private Temperature minTemperature = TemperatureFactory.fromKelvin(0);
     private Optional<Temperature> maxTemperature = Optional.empty();
-    private double instantConsumption = 0.0;
-    private PoweredDeviceInfo power;
+    private double instantConsumption;
+    private final PoweredDeviceInfo power;
     private static final double MAX_CONSUMPTION = 1000;
 
     @Override
@@ -51,7 +51,9 @@ public abstract class AbstractTemperatureChanger implements TemperatureChanger, 
      * @param maxIntensity the maximum intensity allowed.
      * @param environment  the environment that is modified by the heating device.
      */
-    @SuppressFBWarnings(value = "EI_EXPOSE_REP", justification = "Updating a reference is better than reallocating objects on the heap")
+    @SuppressFBWarnings(
+        value = "EI_EXPOSE_REP",
+        justification = "Updating a reference is better than reallocating objects on the heap")
     public AbstractTemperatureChanger(final double minIntensity, final double maxIntensity,
             final Environment environment) {
         this.minIntensity = minIntensity;
@@ -63,7 +65,8 @@ public abstract class AbstractTemperatureChanger implements TemperatureChanger, 
 
     /**
      * 
-     * @return
+     * Returns The temperaturechanger's state that we want to pass to the view.
+     * @return The temperaturechanger's state that we want to pass to the view.
      */
     protected final TemperatureChangerState getTemperatureState() {
         return new TemperatureChangerState().addCurrentIntensity(intensity).addMaxIntensity(maxIntensity)
@@ -105,7 +108,7 @@ public abstract class AbstractTemperatureChanger implements TemperatureChanger, 
     @Override
     public final void setState(final DeviceState state) {
         if (state instanceof TemperatureChangerState) {
-            TemperatureChangerState temperatureChangerState = (TemperatureChangerState) state;
+            final TemperatureChangerState temperatureChangerState = (TemperatureChangerState) state;
             if (temperatureChangerState.getCurrentIntensity().isPresent()) {
                 this.intensity = temperatureChangerState.getCurrentIntensity().get();
             }

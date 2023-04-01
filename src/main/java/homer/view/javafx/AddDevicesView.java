@@ -13,9 +13,9 @@ import javafx.scene.layout.VBox;
  * View that allows the user to add devices.
  */
 public final class AddDevicesView extends VBox {
-    private Controller controller;
-    private ChoiceBox<String> choiceBox = new ChoiceBox<>();
-    private Button addDeviceButton = new Button("Add");
+    private final Controller controller;
+    private final ChoiceBox<String> choiceBox = new ChoiceBox<>();
+    private final Button addDeviceButton = new Button("Add");
     private Map<String, CreateDeviceCommand> map;
 
     /**
@@ -36,7 +36,7 @@ public final class AddDevicesView extends VBox {
      */
     public void update() {
         this.choiceBox.getItems().clear();
-        var valid = this.controller.getDeviceManager().getValidCreateDeviceCommands();
+        final var valid = this.controller.getDeviceManager().getValidCreateDeviceCommands();
         map = valid.stream()
                 .collect(Collectors.toMap(CreateDeviceCommand::getStringRep, x -> x));
         this.choiceBox.getItems().addAll(map.keySet());

@@ -1,5 +1,7 @@
 package homer.view.javafx;
 
+import java.util.function.Consumer;
+
 import homer.view.StateSelector;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -12,7 +14,7 @@ import javafx.scene.layout.VBox;
  */
 public final class SliderComponent extends VBox implements StateSelector<Double> {
 
-    private Slider slider;
+    private final Slider slider;
     private final Label label;
 
     /**
@@ -23,20 +25,25 @@ public final class SliderComponent extends VBox implements StateSelector<Double>
      * @param onDragDone the event that gets triggered on drag done.
      */
     public SliderComponent(final double max, final double min, final double value,
-            final Runnable onDragDone) {
-        label = new Label("" + value);
+            final Consumer<Double> onDragDone) {
+        label = new Label(Double.toString(value));
         this.slider = new Slider(min, max, value);
         this.slider.setShowTickLabels(true);
         this.slider.setShowTickMarks(true);
         this.getChildren().addAll(this.slider, this.label);
         this.slider.valueProperty().addListener(
                 new ChangeListener<Number>() {
+                    @Override
                     public void changed(final ObservableValue<? extends Number> observable,
                             final Number oldValue, final Number newValue) {
-                        updateValue((Double) newValue);
-                        onDragDone.run();
-                    };
+                        updateValue(newValue.doubleValue());
+                    }
                 });
+        this.slider.valueChangingProperty().addListener((observable, oldValue, newValue) -> {
+            if (!newValue) {
+                onDragDone.accept(getState());
+            }
+        });
     }
 
     private void updateValue(final Double value) {
