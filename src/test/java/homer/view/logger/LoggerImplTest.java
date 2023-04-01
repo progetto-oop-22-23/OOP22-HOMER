@@ -12,11 +12,10 @@ import org.junit.jupiter.api.Test;
 import homer.api.DeviceId;
 import homer.api.DeviceIdImpl;
 import homer.model.temperaturechangers.TemperatureChangerState;
-import homer.model.temperaturechangers.TemperatureChangerType;
 
 class LoggerImplTest {
     private static final TemperatureChangerState AIRCONDITIONING_STATE = new TemperatureChangerState()
-            .addTemperatureChangerType(TemperatureChangerType.AIRCONDITIONING).addCurrentIntensity(10);
+            .addTemperatureChangerType("AIR CONDITIONING").addCurrentIntensity(10);
     private static final DeviceId DEVICE_ID = new DeviceIdImpl();
     private static final Charset STANDARD_CHARSET = Charset.defaultCharset();
 
@@ -47,7 +46,7 @@ class LoggerImplTest {
         final var outputStream = new ByteArrayOutputStream();
         final var logger = new LoggerImpl(outputStream);
         logger.updateDeviceState(DEVICE_ID,
-                new TemperatureChangerState().addTemperatureChangerType(TemperatureChangerType.HEATING)
+                new TemperatureChangerState().addTemperatureChangerType("HEATING")
                         .addCurrentIntensity(10));
         assertContains(outputStream, "Heating");
     }

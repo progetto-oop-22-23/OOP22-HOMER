@@ -16,7 +16,6 @@ import homer.controller.Controller;
 import homer.model.lights.LightState;
 import homer.model.outlets.OutletState;
 import homer.model.temperaturechangers.TemperatureChangerState;
-import homer.model.temperaturechangers.TemperatureChangerType;
 
 /**
  * Basic {@link Logger} that can be decorated.
@@ -97,7 +96,7 @@ public final class LoggerImpl implements Logger {
     private String deviceCreationInfo(final DeviceState deviceState) {
         if (deviceState instanceof TemperatureChangerState state) {
             return "Temperature Changer " + state.getType()
-                    .map(x -> x.equals(TemperatureChangerType.AIRCONDITIONING) ? "Air conditioning" : "Heating")
+                    .map(x -> x.equals("AIR CONDITIONING") ? "Air conditioning" : "Heating")
                     .orElseGet(() -> UNDEFINED);
         } else if (deviceState instanceof ActuatedDeviceState state) {
             return "Actuated device"

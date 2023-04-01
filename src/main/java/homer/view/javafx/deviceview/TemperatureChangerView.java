@@ -5,7 +5,6 @@ import homer.api.DeviceState;
 import homer.controller.Controller;
 import homer.controller.command.UpdateDeviceState;
 import homer.model.temperaturechangers.TemperatureChangerState;
-import homer.model.temperaturechangers.TemperatureChangerType;
 import homer.view.javafx.DisconnectDeviceButton;
 import homer.view.javafx.JFXDeviceView;
 import homer.view.javafx.SliderComponent;
@@ -30,7 +29,7 @@ public final class TemperatureChangerView extends JFXDeviceView {
                 s -> controller.receiveCommand(new UpdateDeviceState(deviceId,
                         new TemperatureChangerState().addCurrentIntensity(s))));
         final String title = state.getType()
-                .map(x -> x.equals(TemperatureChangerType.AIRCONDITIONING) ? "Air" : "Heating")
+                .map(x -> "AIR CONDITIONING".equals(x) ? "Air" : "Heating")
                 .orElseGet(() -> "Undefined Temperature Changer Device");
         this.getChildren().addAll(new Label(title), sliderComponent, new DisconnectDeviceButton(controller, deviceId));
     }
