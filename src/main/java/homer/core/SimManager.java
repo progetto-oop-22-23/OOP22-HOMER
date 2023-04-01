@@ -1,7 +1,7 @@
 package homer.core;
 
 /**
- * Interface for the retrieval of the simulation information.
+ * Interface for the simulation core management.
  */
 public interface SimManager {
 

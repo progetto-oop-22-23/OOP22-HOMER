@@ -1,7 +1,7 @@
 package homer.core;
 
 /**
- * Interface for the control of the simulation.
+ * Interface for the control of the simulation from the view.
  */
 public interface SimManagerViewObserver extends SimManager {
 
