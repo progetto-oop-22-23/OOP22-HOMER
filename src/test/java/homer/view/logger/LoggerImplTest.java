@@ -5,6 +5,8 @@ import static org.junit.jupiter.api.Assertions.assertThrowsExactly;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.ByteArrayOutputStream;
+import java.nio.charset.Charset;
+
 import org.junit.jupiter.api.Test;
 
 import homer.api.DeviceId;
@@ -16,6 +18,7 @@ class LoggerImplTest {
     private static final TemperatureChangerState AIRCONDITIONING_STATE = new TemperatureChangerState()
             .addTemperatureChangerType(TemperatureChangerType.AIRCONDITIONING).addCurrentIntensity(10);
     private static final DeviceId DEVICE_ID = new DeviceIdImpl();
+    private static final Charset STANDARD_CHARSET = Charset.defaultCharset();
 
     @Test
     void testEmptyOutputStream() {
@@ -36,7 +39,7 @@ class LoggerImplTest {
         final var outputStream = new ByteArrayOutputStream();
         final var logger = new LoggerImpl(outputStream);
         logger.updateDeviceState(DEVICE_ID, AIRCONDITIONING_STATE);
-        assertTrue(outputStream.toString().contains("Air conditioning"));
+        assertContains(outputStream, "Air conditioning");
     }
 
     @Test
@@ -46,7 +49,7 @@ class LoggerImplTest {
         logger.updateDeviceState(DEVICE_ID,
                 new TemperatureChangerState().addTemperatureChangerType(TemperatureChangerType.HEATING)
                         .addCurrentIntensity(10));
-        assertTrue(outputStream.toString().contains("Heating"));
+        assertContains(outputStream, "Heating");
     }
 
     @Test
@@ -55,7 +58,7 @@ class LoggerImplTest {
         final var logger = new LoggerImpl(outputStream);
         logger.updateDeviceState(DEVICE_ID, AIRCONDITIONING_STATE);
         logger.removeDevice(DEVICE_ID);
-        assertTrue(outputStream.toString().contains("REMOVE DEVICE"));
+        assertContains(outputStream, "REMOVE DEVICE");
     }
 
     @Test
@@ -63,7 +66,7 @@ class LoggerImplTest {
         final var outputStream = new ByteArrayOutputStream();
         final var logger = new LoggerImpl(outputStream);
         logger.updateDeviceState(DEVICE_ID, AIRCONDITIONING_STATE);
-        assertTrue(outputStream.toString().contains("ADD DEVICE"));
+        assertContains(outputStream, "ADD DEVICE");
     }
 
     @Test
@@ -72,6 +75,12 @@ class LoggerImplTest {
         final var logger = new LoggerImpl(outputStream);
         logger.updateDeviceState(DEVICE_ID, AIRCONDITIONING_STATE);
         logger.updateDeviceState(DEVICE_ID, AIRCONDITIONING_STATE);
-        assertTrue(outputStream.toString().contains("UPDATE DEVICE"));
+        assertContains(outputStream, "UPDATE DEVICE");
+    }
+
+    private void assertContains(final ByteArrayOutputStream outputStream, final String string) {
+        final var outputStreamToString = outputStream.toString(STANDARD_CHARSET);
+        assertTrue(outputStreamToString.contains(string),
+                () -> "Expected Output stream" + outputStream + " to contain: " + string);
     }
 }
