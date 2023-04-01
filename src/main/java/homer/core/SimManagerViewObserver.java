@@ -3,7 +3,7 @@ package homer.core;
 /**
  * Interface for the control of the simulation from the view.
  */
-public interface SimManagerViewObserver extends SimManager {
+public interface SimManagerViewObserver {
 
     /**
      * Resumes the simulation.
