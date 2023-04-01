@@ -21,7 +21,7 @@ import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 /**
@@ -38,7 +38,7 @@ public final class LaunchMeterView extends Application {
         stage.setOnCloseRequest(event -> {
             Platform.exit();
         });
-        var root = new BorderPane();
+        var root = new AnchorPane();
         final double cOutletState = 10.0;
         final double lOutletState = 15.0;
         final List<Outlet> outlets = new ArrayList<>();
@@ -88,7 +88,6 @@ public final class LaunchMeterView extends Application {
         }));
         timeline.setCycleCount(Timeline.INDEFINITE);
         timeline.play();
-
     }
 
 }
