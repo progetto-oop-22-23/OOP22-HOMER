@@ -38,9 +38,10 @@ public final class WarningLogger implements Logger {
     @Override
     public void removeDevice(final DeviceId deviceId) {
         if (!activeDevices.contains(deviceId)) {
-            logger.log("Tried to remove non-existent device with id " + deviceId.toString());
+            logger.log("WARNING: Tried to remove non-existent device with id " + deviceId.toString());
+        } else {
+            logger.removeDevice(deviceId);
         }
-        logger.removeDevice(deviceId);
     }
 
     @Override
