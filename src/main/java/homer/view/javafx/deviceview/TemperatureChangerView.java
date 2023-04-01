@@ -28,8 +28,8 @@ public final class TemperatureChangerView extends VBox implements DeviceView {
             final Controller controller) {
         sliderComponent = new SliderComponent(state.getMaxIntensity().get(), state.getMinIntensity().get(),
                 state.getCurrentIntensity().get(),
-                () -> controller.receiveCommand(new UpdateDeviceState(deviceId,
-                        new TemperatureChangerState().addCurrentIntensity(sliderComponent.getState()))));
+                s -> controller.receiveCommand(new UpdateDeviceState(deviceId,
+                        new TemperatureChangerState().addCurrentIntensity(s))));
         final String title = state.getType()
                 .map(x -> x.equals(TemperatureChangerType.AIRCONDITIONING) ? "Air" : "Heating")
                 .orElseGet(() -> "Undefined Temperature Changer Device");
