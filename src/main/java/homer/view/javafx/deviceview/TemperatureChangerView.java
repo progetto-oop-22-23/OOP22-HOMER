@@ -9,8 +9,8 @@ import homer.model.temperaturechangers.TemperatureChangerState;
 import homer.model.temperaturechangers.TemperatureChangerType;
 import homer.view.javafx.DisconnectDeviceButton;
 import homer.view.javafx.SliderComponent;
+import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
-import javafx.scene.text.Text;
 
 /**
  * View used to display intensity data from a {@link Heating} or an
@@ -33,7 +33,7 @@ public final class TemperatureChangerView extends VBox implements DeviceView {
         final String title = state.getType()
                 .map(x -> x.equals(TemperatureChangerType.AIRCONDITIONING) ? "Air" : "Heating")
                 .orElseGet(() -> "Undefined Temperature Changer Device");
-        this.getChildren().addAll(new Text(title), sliderComponent, new DisconnectDeviceButton(controller, deviceId));
+        this.getChildren().addAll(new Label(title), sliderComponent, new DisconnectDeviceButton(controller, deviceId));
     }
 
     @Override

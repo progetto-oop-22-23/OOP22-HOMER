@@ -7,8 +7,8 @@ import homer.api.state.LockState;
 import homer.controller.Controller;
 import homer.controller.command.UpdateDeviceState;
 import homer.view.javafx.ButtonComponent;
+import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
-import javafx.scene.text.Text;
 
 /**
  * Implements view for {@link Lock} {@link Device}s.
@@ -23,7 +23,7 @@ public final class LockView extends VBox implements DeviceView {
      * @param deviceState the device's state.
      */
     public LockView(final DeviceId deviceId, final Controller controller, final DeviceState deviceState) {
-        this.getChildren().add(new Text("Lock:"));
+        this.getChildren().add(new Label("Lock:"));
         button = new ButtonComponent<>(
                 e -> controller.receiveCommand(new UpdateDeviceState(deviceId, new LockState(!button.getState()))),
                 "Lock:", false);
