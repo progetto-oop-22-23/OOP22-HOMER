@@ -5,10 +5,11 @@ import java.util.Map;
 
 import homer.api.DeviceId;
 import homer.api.DeviceState;
-import homer.api.DeviceView;
+import homer.api.state.LockState;
 import homer.controller.Controller;
 import homer.model.temperaturechangers.TemperatureChangerState;
 import homer.view.DeviceViewer;
+import homer.view.javafx.deviceview.LockView;
 import homer.view.javafx.deviceview.TemperatureChangerView;
 import javafx.scene.Node;
 import javafx.scene.layout.VBox;
@@ -20,7 +21,7 @@ import javafx.application.Platform;
 public final class JFXDeviceViewer extends VBox implements DeviceViewer {
 
     private Controller controller;
-    private final Map<DeviceId, DeviceView> deviceMap = new LinkedHashMap<>();
+    private final Map<DeviceId, JFXDeviceView> deviceMap = new LinkedHashMap<>();
 
     /**
      * 
@@ -38,12 +39,18 @@ public final class JFXDeviceViewer extends VBox implements DeviceViewer {
                 final var deviceView = this.deviceMap.get(deviceId);
                 deviceView.setState(deviceState);
             } else {
-                if (deviceState instanceof TemperatureChangerState) {
-                    final var deviceView = new TemperatureChangerView(deviceId, (TemperatureChangerState) deviceState,
+                final JFXDeviceView deviceView;
+                if (deviceState instanceof TemperatureChangerState temperatureChangerState) {
+                    deviceView = new TemperatureChangerView(deviceId, temperatureChangerState,
                             controller);
-                    this.deviceMap.put(deviceId, deviceView);
-                    this.getChildren().add(deviceView);
+                } else if (deviceState instanceof LockState lockState) {
+                    deviceView = new LockView(deviceId, controller, lockState);
                 }
+                 else {
+                    throw new IllegalStateException();
+                }
+                this.deviceMap.put(deviceId, deviceView);
+                this.getChildren().add(deviceView);
             }
         });
     }
@@ -51,13 +58,15 @@ public final class JFXDeviceViewer extends VBox implements DeviceViewer {
     @Override
     public void removeDevice(final DeviceId deviceId) {
         Platform.runLater(() -> {
-        if (deviceMap.containsKey(deviceId)) {
-            final var target = deviceMap.get(deviceId);
-            // since all javaFX components (and derived classes) we are using extend Node,
-            // this is fine
-            this.getChildren().remove((Node) target);
-            deviceMap.remove(deviceId);
-        }
+            if (deviceMap.containsKey(deviceId)) {
+                final var target = deviceMap.get(deviceId);
+                /**
+                 * since all javaFX components (and derived classes) in DeviceMap extend Node,
+                 * this is fine
+                 */
+                this.getChildren().remove((Node) target);
+                deviceMap.remove(deviceId);
+            }
         });
     }
 

@@ -2,21 +2,20 @@ package homer.view.javafx.deviceview;
 
 import homer.api.DeviceId;
 import homer.api.DeviceState;
-import homer.api.DeviceView;
 import homer.controller.Controller;
 import homer.controller.command.UpdateDeviceState;
 import homer.model.temperaturechangers.TemperatureChangerState;
 import homer.model.temperaturechangers.TemperatureChangerType;
 import homer.view.javafx.DisconnectDeviceButton;
+import homer.view.javafx.JFXDeviceView;
 import homer.view.javafx.SliderComponent;
 import javafx.scene.control.Label;
-import javafx.scene.layout.VBox;
 
 /**
  * View used to display intensity data from a {@link Heating} or an
  * {@link AirConditioning} device.
  */
-public final class TemperatureChangerView extends VBox implements DeviceView {
+public final class TemperatureChangerView extends JFXDeviceView {
     private SliderComponent sliderComponent; // NOPMD
 
     /**
