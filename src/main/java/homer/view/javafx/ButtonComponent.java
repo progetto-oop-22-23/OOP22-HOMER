@@ -1,11 +1,11 @@
 package homer.view.javafx;
 
+import java.util.function.Consumer;
+
 import homer.view.StateSelector;
-import javafx.event.EventHandler;
 import javafx.scene.control.Button;
-import javafx.scene.input.MouseEvent;
+import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
-import javafx.scene.text.Text;
 
 /**
  * Button component.
@@ -13,9 +13,8 @@ import javafx.scene.text.Text;
  */
 public final class ButtonComponent<T> extends VBox implements StateSelector<T> {
 
-    private Button button;
     private T state;
-    private final Text stateText = new Text();
+    private final Label stateLabel = new Label();
 
     /**
      * 
@@ -23,10 +22,12 @@ public final class ButtonComponent<T> extends VBox implements StateSelector<T> {
      * @param title The button's title. Effectively final.
      * @param state The initial state.
      */
-    public ButtonComponent(final EventHandler<? super MouseEvent> onclick, final String title, final T state) {
+    public ButtonComponent(final Consumer<T> onclick, final String title, final T state) {
+        final var button = new Button(title);
         this.setState(state);
-        this.getChildren().addAll(button, new Text(title), stateText);
-        button.setOnMouseClicked(onclick);
+        this.stateLabel.setText(state.toString());
+        this.getChildren().addAll(stateLabel, button);
+        button.setOnMouseClicked(e -> onclick.accept(state));
     }
 
     @Override
@@ -37,7 +38,7 @@ public final class ButtonComponent<T> extends VBox implements StateSelector<T> {
     @Override
     public void setState(final T state) {
         this.state = state;
-        this.stateText.setText(state.toString());
+        this.stateLabel.setText(state.toString());
     }
 
 
