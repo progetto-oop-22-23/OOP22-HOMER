@@ -3,6 +3,7 @@ package homer.view;
 import homer.api.DeviceIdImpl;
 import homer.controller.Controller;
 import homer.controller.ControllerImpl;
+import homer.controller.scheduler.TemperatureSchedulerController;
 import homer.view.javafx.JFXDeviceViewer;
 import homer.view.logger.Logger;
 import homer.view.logger.LoggerImpl;
@@ -39,12 +40,16 @@ public class JFXApplication extends Application {
         final var root = new BorderPane();
         final Scene scene = new Scene(root, INITIAL_W, INITIAL_H);
 
+        final Controller controller = new ControllerImpl();
+
         final var tempSchedulerView = new TemperatureSchedulerViewFx();
-        final Controller controller = new ControllerImpl(tempSchedulerView);
+        final var tempScheduler = new TemperatureSchedulerController(tempSchedulerView, controller);
+        tempSchedulerView.setScheduler(tempScheduler);
 
         final var simView = new SimManagerViewFxImpl();
         final var simManager = new SimManagerImpl(simView, controller);
         simView.setObserver(simManager);
+        simManager.addObserver(tempScheduler);
 
         final var viewManager = controller.getViewManager();
         final var dashboard = new JFXDeviceViewer(controller);
@@ -67,7 +72,8 @@ public class JFXApplication extends Application {
         final ScrollPane dashboardScrollPane = new ScrollPane(dashboard);
         dashboardScrollPane.setFitToHeight(true);
         dashboardScrollPane.setFitToWidth(true);
-        // TODO separate the add devices from the device list, so that only the list is scrollable
+        // TODO separate the add devices from the device list, so that only the list is
+        // scrollable
         final Tab devicesView = new Tab("DEVICES", dashboardScrollPane);
         final Tab schedulerTab = new Tab("SCHEDULER", tempSchedulerView);
         final Tab graphView = new Tab("GRAPHS", null); // TODO
