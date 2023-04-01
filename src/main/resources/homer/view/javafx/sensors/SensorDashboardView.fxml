@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<BorderPane prefHeight="435.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane prefHeight="435.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="homer.view.javafx.sensorsview.SensorDashboardViewManager">
    <center>
       <TabPane prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER">
         <tabs>
@@ -22,14 +22,14 @@
                         <ColumnConstraints hgrow="SOMETIMES" maxWidth="460.0" minWidth="10.0" prefWidth="234.0" />
                     </columnConstraints>
                     <rowConstraints>
-                      <RowConstraints maxHeight="211.0" minHeight="10.0" prefHeight="36.0" vgrow="SOMETIMES" />
-                      <RowConstraints maxHeight="355.0" minHeight="10.0" prefHeight="34.0" vgrow="SOMETIMES" />
-                        <RowConstraints maxHeight="355.0" minHeight="10.0" prefHeight="336.0" vgrow="SOMETIMES" />
+                      <RowConstraints maxHeight="211.0" minHeight="10.0" prefHeight="126.0" vgrow="SOMETIMES" />
+                      <RowConstraints maxHeight="355.0" minHeight="10.0" prefHeight="146.0" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="355.0" minHeight="10.0" prefHeight="132.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                      <children>
                         <Label prefHeight="22.0" prefWidth="144.0" text="Electricity" />
-                        <Label prefHeight="18.0" prefWidth="253.0" text="Global Consumption (W):" GridPane.columnIndex="1" />
-                        <Label prefHeight="18.0" prefWidth="274.0" text="Power Absorption (Wh):" GridPane.columnIndex="2" />
+                        <Label fx:id="consumptionLabel" prefHeight="18.0" prefWidth="253.0" text="Global Consumption (W):" GridPane.columnIndex="1" />
+                        <Label fx:id="powerLabel" prefHeight="18.0" prefWidth="274.0" text="Power Absorption (Wh):" GridPane.columnIndex="2" />
                         <Label text="Air Quality" GridPane.rowIndex="1" />
                         <GridPane GridPane.columnIndex="1" GridPane.rowIndex="1">
                           <columnConstraints>
@@ -57,7 +57,7 @@
                               <Label prefHeight="18.0" prefWidth="147.0" text="Toxic gas (%):" GridPane.columnIndex="1" />
                            </children>
                         </GridPane>
-                        <Label prefHeight="18.0" prefWidth="141.0" text="Temperature (°C): " GridPane.rowIndex="2" />
+                        <Label fx:id="temperatureLabel" prefHeight="18.0" prefWidth="141.0" text="Temperature (°C): " GridPane.rowIndex="2" />
                      </children>
                   </GridPane>
                </content></Tab>
