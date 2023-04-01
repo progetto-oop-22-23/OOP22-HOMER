@@ -5,35 +5,32 @@ import homer.api.DeviceState;
 import homer.api.state.LockState;
 import homer.controller.Controller;
 import homer.controller.command.UpdateDeviceState;
-import homer.view.javafx.ButtonComponent;
 import homer.view.javafx.JFXDeviceView;
 import javafx.scene.control.Label;
 
 /**
- * Implements view for {@link Lock} {@link Device}s.
+ * {@link Lock} view.
  */
 public final class LockView extends JFXDeviceView {
-    private ButtonComponent<Boolean> button; // NOPMD
+
+    private final Label label = new Label("Lock");
+    private final ToggleableView toggleableView;
 
     /**
      * 
-     * @param deviceId the device's id
-     * @param controller the controller that receives the update
-     * @param deviceState the device's state.
+     * @param deviceId
+     * @param controller
      */
-    public LockView(final DeviceId deviceId, final Controller controller, final LockState deviceState) {
-        this.getChildren().add(new Label("Lock:"));
-        button = new ButtonComponent<>(
-                s -> controller.receiveCommand(new UpdateDeviceState(deviceId, new LockState(!s))),
-                "Lock:", false);
-        this.setState(deviceState);
-        this.getChildren().add(button);
+    public LockView(final DeviceId deviceId, final Controller controller) {
+        toggleableView = new ToggleableView("LOCKED", "UNLOCKED",
+                s -> controller.receiveCommand(new UpdateDeviceState(deviceId, new LockState(s))));
+        this.getChildren().addAll(label, toggleableView);
     }
 
     @Override
     public void setState(final DeviceState state) {
         if (state instanceof LockState lockState) {
-            this.button.setState(lockState.isOn());
+            toggleableView.setState(lockState.isOn());
         }
     }
 
