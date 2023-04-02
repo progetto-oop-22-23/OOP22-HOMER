@@ -54,4 +54,42 @@ public final class HomeEnvironment implements Environment {
         return new AirQualityStateImpl(this.airQualityState);
     }
 
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((temperature == null) ? 0 : temperature.hashCode());
+        result = prime * result + ((airQualityState == null) ? 0 : airQualityState.hashCode());
+        return result;
+    }
+
+    @Override
+    public boolean equals(final Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final HomeEnvironment other = (HomeEnvironment) obj;
+        if (temperature == null) {
+            if (other.temperature != null) {
+                return false;
+            }
+        } else if (!temperature.equals(other.temperature)) {
+            return false;
+        }
+        if (airQualityState == null) {
+            if (other.airQualityState != null) {
+                return false;
+            }
+        } else if (!airQualityState.equals(other.airQualityState)) {
+            return false;
+        }
+        return true;
+    }
+
 }

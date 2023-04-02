@@ -61,7 +61,7 @@ public final class TimeStampLogger implements Logger {
     }
 
     private void logTimeZone() {
-        logger.log(clock.getDateTime().toString());
+        logger.log(clock.getDateTime().toString() + "\n");
     }
 
 }

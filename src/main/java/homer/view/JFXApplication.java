@@ -1,15 +1,14 @@
 package homer.view;
 
-import homer.api.DeviceIdImpl;
 import homer.controller.Controller;
 import homer.controller.ControllerImpl;
 import homer.controller.scheduler.TemperatureSchedulerController;
 import homer.view.javafx.JFXDeviceViewer;
 import homer.view.logger.Logger;
 import homer.view.logger.LoggerImpl;
+import homer.view.logger.TimeStampLogger;
 import homer.view.scheduler.TemperatureSchedulerViewFx;
 import homer.core.SimManagerImpl;
-import homer.model.lights.LightState;
 import homer.view.sim.SimManagerViewFxImpl;
 import javafx.application.Application;
 import javafx.application.Platform;
@@ -54,9 +53,8 @@ public class JFXApplication extends Application {
         final var viewManager = controller.getViewManager();
         final var dashboard = new JFXDeviceViewer(controller);
         viewManager.addView(dashboard);
-        final Logger loggerImpl = new LoggerImpl(System.out);
-        viewManager.addView(loggerImpl);
-        loggerImpl.updateDeviceState(new DeviceIdImpl(), new LightState(true));
+        final Logger logger = new LoggerImpl(System.out);
+        viewManager.addView(new TimeStampLogger(logger, controller.getClock()));
 
         // CREATE MAIN WINDOW
         // add tabs:

@@ -5,7 +5,6 @@ import java.io.OutputStream;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Objects;
-
 import homer.api.DeviceId;
 import homer.api.DeviceState;
 import homer.api.state.ActuatedDeviceState;
@@ -33,6 +32,7 @@ public final class LoggerImpl implements Logger {
     public LoggerImpl(final OutputStream outputStream) {
         Objects.requireNonNull(outputStream);
         this.outputStream = outputStream;
+        log("LOGGER STARTED\n");
     }
 
     @Override
@@ -114,5 +114,6 @@ public final class LoggerImpl implements Logger {
             throw new IllegalArgumentException();
         }
     }
+
 
 }
