@@ -125,4 +125,10 @@ public final class AirQualityStateImpl implements AirQualityState {
         return Double.doubleToLongBits(pm25) == Double.doubleToLongBits(other.pm25);
     }
 
+    @Override
+    public String toString() {
+        return "AirQualityStateImpl [co2=" + co2 + ", pm10=" + pm10 + ", toxicGasPercentage=" + toxicGasPercentage
+                + ", pm25=" + pm25 + "]";
+    }
+
 }
