@@ -11,7 +11,7 @@ public final class TemperatureChangerState implements DeviceState {
     private Optional<Double> minIntensity = Optional.empty();
     private Optional<Double> maxIntensity = Optional.empty();
     private Optional<Double> currentIntensity = Optional.empty();
-    private Optional<TemperatureChangerType> type = Optional.empty();
+    private Optional<String> type = Optional.empty();
 
     /**
      * 
@@ -78,7 +78,7 @@ public final class TemperatureChangerState implements DeviceState {
      * @param type the {@link TemperatureChanger}'s type
      * @return the updated instance.
      */
-    public TemperatureChangerState addTemperatureChangerType(final TemperatureChangerType type) {
+    public TemperatureChangerState addTemperatureChangerType(final String type) {
         this.type = Optional.of(type);
         return this;
     }
@@ -88,7 +88,7 @@ public final class TemperatureChangerState implements DeviceState {
      * Returns the type of the temperaturechanger.
      * @return the type of the temperaturechanger.
      */
-    public Optional<TemperatureChangerType> getType() {
+    public Optional<String> getType() {
         return this.type;
     }
 }

@@ -32,7 +32,7 @@ public final class AirConditioning extends AbstractTemperatureChanger {
 
     @Override
     public TemperatureChangerState getState() {
-        return super.getTemperatureState().addTemperatureChangerType(TemperatureChangerType.AIRCONDITIONING);
+        return super.getTemperatureState().addTemperatureChangerType("AIR CONDITIONING");
     }
 
 }
