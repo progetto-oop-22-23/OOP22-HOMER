@@ -19,12 +19,6 @@ public final class ViewManagerImpl implements ViewManager {
     }
 
     @Override
-    public void removeView(final DeviceViewer view) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'removeView'");
-    }
-
-    @Override
     public void updateDeviceState(final DeviceId deviceId, final DeviceState serializedState) {
         views.forEach(x -> x.updateDeviceState(deviceId, serializedState));
     }

@@ -15,10 +15,4 @@ public interface ViewManager extends DeviceViewer {
      */
     void addView(DeviceViewer view);
 
-    /**
-     * 
-     * @param view View to be removed.
-     */
-    void removeView(DeviceViewer view);
-
 }
