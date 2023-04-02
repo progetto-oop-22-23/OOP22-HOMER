@@ -102,23 +102,27 @@ public final class AirQualityStateImpl implements AirQualityState {
     }
 
     @Override
-    public boolean equals(Object obj) {
-        if (this == obj)
+    public boolean equals(final Object obj) {
+        if (this == obj) {
             return true;
-        if (obj == null)
+        }
+        if (obj == null) {
             return false;
-        if (getClass() != obj.getClass())
+        }
+        if (getClass() != obj.getClass()) {
             return false;
-        AirQualityStateImpl other = (AirQualityStateImpl) obj;
-        if (Double.doubleToLongBits(co2) != Double.doubleToLongBits(other.co2))
+        }
+        final AirQualityStateImpl other = (AirQualityStateImpl) obj;
+        if (Double.doubleToLongBits(co2) != Double.doubleToLongBits(other.co2)) {
             return false;
-        if (Double.doubleToLongBits(pm10) != Double.doubleToLongBits(other.pm10))
+        }
+        if (Double.doubleToLongBits(pm10) != Double.doubleToLongBits(other.pm10)) {
             return false;
-        if (Double.doubleToLongBits(toxicGasPercentage) != Double.doubleToLongBits(other.toxicGasPercentage))
+        }
+        if (Double.doubleToLongBits(toxicGasPercentage) != Double.doubleToLongBits(other.toxicGasPercentage)) {
             return false;
-        if (Double.doubleToLongBits(pm25) != Double.doubleToLongBits(other.pm25))
-            return false;
-        return true;
+        }
+        return Double.doubleToLongBits(pm25) == Double.doubleToLongBits(other.pm25);
     }
 
 }

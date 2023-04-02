@@ -9,7 +9,6 @@ import homer.api.state.LockState;
 import homer.api.state.ThermometerState;
 import homer.controller.Controller;
 import homer.model.temperaturechangers.TemperatureChangerState;
-import homer.model.thermometer.SimpleThermometer;
 import homer.view.DeviceViewer;
 import homer.view.javafx.deviceview.LockView;
 import homer.view.javafx.deviceview.TemperatureChangerView;
@@ -49,7 +48,7 @@ public final class JFXDeviceViewer extends VBox implements DeviceViewer {
                 } else if (deviceState instanceof LockState lockState) {
                     deviceView = new LockView(deviceId, controller);
                 } else if (deviceState instanceof ThermometerState thermometerState) {
-                    deviceView = new ThermometerView(deviceId, thermometerState);
+                    deviceView = new ThermometerView(thermometerState);
                 } else {
                     throw new IllegalStateException();
                 }

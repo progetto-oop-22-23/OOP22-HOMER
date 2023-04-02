@@ -7,18 +7,22 @@ import homer.model.airquality.AirqualitySensor;
 import homer.model.environment.Environment;
 
 /**
- * Implementation of {@link CreateDeviceCommand} for {@link AiqualitySensor}
+ * Implementation of {@link CreateDeviceCommand} for {@link AiqualitySensor}.
  */
-public class CreateAirQualitySensor implements CreateDeviceCommand {
+public final class CreateAirQualitySensor implements CreateDeviceCommand {
 
     private final Environment environment;
 
+    /**
+     * 
+     * @param environment
+     */
     public CreateAirQualitySensor(final Environment environment) {
         this.environment = Objects.requireNonNull(environment);
     }
 
     @Override
-    public void execute(Controller controller) {
+    public void execute(final Controller controller) {
         controller.getDeviceManager().addDevice(new AirqualitySensor(this.environment));
     }
 
@@ -26,5 +30,5 @@ public class CreateAirQualitySensor implements CreateDeviceCommand {
     public String getStringRep() {
         return "Add Air quality sensor";
     }
-    
+
 }

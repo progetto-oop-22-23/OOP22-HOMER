@@ -64,24 +64,31 @@ public final class HomeEnvironment implements Environment {
     }
 
     @Override
-    public boolean equals(Object obj) {
-        if (this == obj)
+    public boolean equals(final Object obj) {
+        if (this == obj) {
             return true;
-        if (obj == null)
+        }
+        if (obj == null) {
             return false;
-        if (getClass() != obj.getClass())
+        }
+        if (getClass() != obj.getClass()) {
             return false;
-        HomeEnvironment other = (HomeEnvironment) obj;
+        }
+        final HomeEnvironment other = (HomeEnvironment) obj;
         if (temperature == null) {
-            if (other.temperature != null)
+            if (other.temperature != null) {
                 return false;
-        } else if (!temperature.equals(other.temperature))
+            }
+        } else if (!temperature.equals(other.temperature)) {
             return false;
+        }
         if (airQualityState == null) {
-            if (other.airQualityState != null)
+            if (other.airQualityState != null) {
                 return false;
-        } else if (!airQualityState.equals(other.airQualityState))
+            }
+        } else if (!airQualityState.equals(other.airQualityState)) {
             return false;
+        }
         return true;
     }
 

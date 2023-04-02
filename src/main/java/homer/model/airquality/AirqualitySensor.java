@@ -10,10 +10,10 @@ import homer.model.environment.Environment;
 /**
  * Simple air quality sensor.
  */
-public class AirqualitySensor implements Device<AirQualityState>, DiscreteObject {
+public final class AirqualitySensor implements Device<AirQualityState>, DiscreteObject {
 
-    private Environment environment;
-    private AirQualityState airQualityState; 
+    private final Environment environment;
+    private AirQualityState airQualityState;
 
     /**
      * 
@@ -24,13 +24,13 @@ public class AirqualitySensor implements Device<AirQualityState>, DiscreteObject
     }
 
     @Override
-    public void updateTick(Duration deltaTime) {
+    public void updateTick(final Duration deltaTime) {
         this.airQualityState = new AirQualityStateImpl(environment.getAirQualityState());
     }
 
     @Override
     public AirQualityState getState() {
-        return this.airQualityState;        
+        return this.airQualityState;
     }
-    
+
 }
