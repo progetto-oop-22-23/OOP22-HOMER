@@ -3,7 +3,9 @@ package homer.view;
 import homer.api.DeviceIdImpl;
 import homer.controller.Controller;
 import homer.controller.ControllerImpl;
+import homer.controller.history.TemperatureLogger;
 import homer.controller.scheduler.TemperatureSchedulerController;
+import homer.view.graph.TemperatureGraphFx;
 import homer.view.javafx.JFXDeviceViewer;
 import homer.view.logger.Logger;
 import homer.view.logger.LoggerImpl;
@@ -65,6 +67,10 @@ public class JFXApplication extends Application {
         // - scheduler
         // - graphs
 
+        final var tempGraph = new TemperatureGraphFx();
+        final var tempLogger = new TemperatureLogger(tempGraph, controller);
+        simManager.addObserver(tempLogger);
+
         final TabPane tabPane = new TabPane();
         tabPane.setTabClosingPolicy(TabClosingPolicy.UNAVAILABLE);
         tabPane.setTabDragPolicy(TabDragPolicy.REORDER);
@@ -76,7 +82,7 @@ public class JFXApplication extends Application {
         // scrollable
         final Tab devicesView = new Tab("DEVICES", dashboardScrollPane);
         final Tab schedulerTab = new Tab("SCHEDULER", tempSchedulerView);
-        final Tab graphView = new Tab("GRAPHS", null); // TODO
+        final Tab graphView = new Tab("GRAPHS", tempGraph);
 
         tabPane.getTabs().addAll(devicesView, schedulerTab, graphView);
 
