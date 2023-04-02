@@ -15,7 +15,7 @@ import javafx.scene.control.Label;
  * {@link AirConditioning} device.
  */
 public final class TemperatureChangerView extends JFXDeviceView {
-    private SliderComponent sliderComponent; // NOPMD
+    private final SliderComponent sliderComponent;
 
     /**
      * @param deviceId   the device's id.
