@@ -7,6 +7,8 @@ import java.util.List;
 import homer.common.time.Clock;
 import homer.common.time.ClockImpl;
 import homer.controller.command.Command;
+import homer.model.airquality.AirQualityState;
+import homer.model.airquality.AirqualitySensor;
 import homer.model.thermometer.Thermometer;
 
 /**
@@ -40,8 +42,11 @@ public final class ControllerImpl implements Controller {
     public void updateTick(final Duration deltaTime) {
         this.clock.updateTick(deltaTime);
         deviceManager.getDevices().entrySet().stream()
-            .filter(x -> x.getValue() instanceof Thermometer thermometer)
+            .filter(x -> x.getValue() instanceof Thermometer)
             .forEach(x -> viewManager.updateDeviceState(x.getKey(), ((Thermometer) x.getValue()).getState()));
+        deviceManager.getDevices().entrySet().stream()
+            .filter(x -> x.getValue() instanceof AirqualitySensor)
+            .forEach(x -> viewManager.updateDeviceState(x.getKey(), ((AirQualityState) x.getValue())));
 
         // Run the queued commands.
         for (final var it = this.commands.iterator(); it.hasNext();) {

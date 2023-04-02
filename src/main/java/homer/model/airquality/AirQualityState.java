@@ -1,10 +1,12 @@
 package homer.model.airquality;
 
+import homer.api.DeviceState;
+
 /**
  * Models the air quality information we want to return to users.
  * Since the units of measurement are unlikely to change, they are defined as doubles.
  */
-public interface AirQualityState {
+public interface AirQualityState extends DeviceState {
 
     /**
      * 
