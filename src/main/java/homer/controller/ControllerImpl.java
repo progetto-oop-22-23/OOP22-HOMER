@@ -7,7 +7,6 @@ import java.util.List;
 import homer.common.time.Clock;
 import homer.common.time.ClockImpl;
 import homer.controller.command.Command;
-import homer.model.airquality.AirQualityState;
 import homer.model.airquality.AirqualitySensor;
 import homer.model.thermometer.Thermometer;
 

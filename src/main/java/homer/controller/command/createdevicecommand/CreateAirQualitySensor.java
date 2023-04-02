@@ -6,6 +6,7 @@ import homer.model.environment.Environment;
 
 /**
  * Implementation of {@link CreateDeviceCommand} for {@link AiqualitySensor}.
+ * @param environment the environment which is going to be observed by the sensor.
  */
 public record CreateAirQualitySensor(Environment environment) implements CreateDeviceCommand {
 
