@@ -8,6 +8,7 @@ import homer.api.DeviceId;
 import homer.api.DeviceState;
 import homer.common.time.Clock;
 import homer.controller.Controller;
+import homer.model.environment.Environment;
 
 /**
  * Decorator for {@link Logger}. Adds the corresponding timestamp to the event
@@ -61,7 +62,12 @@ public final class TimeStampLogger implements Logger {
     }
 
     private void logTimeZone() {
-        logger.log(clock.getDateTime().toString());
+        logger.log(clock.getDateTime().toString() + "\n");
     }
 
+    @Override
+    public void updateEnvironment(final Environment environment) {
+        logTimeZone();
+        logger.updateEnvironment(environment); 
+    }
 }

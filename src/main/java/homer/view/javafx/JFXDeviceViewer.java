@@ -7,6 +7,7 @@ import homer.api.DeviceId;
 import homer.api.DeviceState;
 import homer.api.state.LockState;
 import homer.controller.Controller;
+import homer.model.environment.Environment;
 import homer.model.temperaturechangers.TemperatureChangerState;
 import homer.view.DeviceViewer;
 import homer.view.javafx.deviceview.LockView;
@@ -72,6 +73,11 @@ public final class JFXDeviceViewer extends VBox implements DeviceViewer {
     @Override
     public void start(final Controller controller) {
         this.controller = controller;
+    }
+
+    @Override
+    public void updateEnvironment(final Environment environment) {
+
     }
 
 }

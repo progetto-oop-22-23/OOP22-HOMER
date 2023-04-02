@@ -5,6 +5,7 @@ import java.util.List;
 
 import homer.api.DeviceId;
 import homer.api.DeviceState;
+import homer.model.environment.Environment;
 import homer.view.DeviceViewer;
 
 /**
@@ -21,6 +22,11 @@ public final class ViewManagerImpl implements ViewManager {
     @Override
     public void updateDeviceState(final DeviceId deviceId, final DeviceState serializedState) {
         views.forEach(x -> x.updateDeviceState(deviceId, serializedState));
+    }
+
+    @Override
+    public void updateEnvironment(final Environment environment) {
+        views.forEach(x -> x.updateEnvironment(environment));
     }
 
     @Override

@@ -13,6 +13,7 @@ import homer.api.state.LockState;
 import homer.api.state.ThermometerState;
 import homer.common.bounds.Bounds;
 import homer.controller.Controller;
+import homer.model.environment.Environment;
 import homer.model.lights.LightState;
 import homer.model.outlets.OutletState;
 import homer.model.temperaturechangers.TemperatureChangerState;
@@ -33,6 +34,7 @@ public final class LoggerImpl implements Logger {
     public LoggerImpl(final OutputStream outputStream) {
         Objects.requireNonNull(outputStream);
         this.outputStream = outputStream;
+        log("LOGGER STARTED");
     }
 
     @Override
@@ -113,6 +115,11 @@ public final class LoggerImpl implements Logger {
         } else {
             throw new IllegalArgumentException();
         }
+    }
+
+    @Override
+    public void updateEnvironment(final Environment environment) {
+        log("UPDATE ENVIRONMENT\n");
     }
 
 }
