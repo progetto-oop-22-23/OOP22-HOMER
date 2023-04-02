@@ -2,18 +2,23 @@ package homer.view.javafx;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
+import java.util.Optional;
 
 import homer.api.DeviceId;
 import homer.api.DeviceState;
 import homer.api.state.LockState;
 import homer.api.state.ThermometerState;
 import homer.controller.Controller;
+import homer.model.airquality.AirQualityState;
 import homer.model.temperaturechangers.TemperatureChangerState;
 import homer.view.DeviceViewer;
+import homer.view.javafx.deviceview.AirqualityView;
 import homer.view.javafx.deviceview.LockView;
 import homer.view.javafx.deviceview.TemperatureChangerView;
 import homer.view.javafx.deviceview.ThermometerView;
-import javafx.scene.Node;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.VBox;
 import javafx.application.Platform;
 
@@ -24,6 +29,7 @@ public final class JFXDeviceViewer extends VBox implements DeviceViewer {
 
     private Controller controller;
     private final Map<DeviceId, JFXDeviceView> deviceMap = new LinkedHashMap<>();
+    private final Alert alert = new Alert(AlertType.ERROR, "Invalid state");
 
     /**
      * 
@@ -41,19 +47,24 @@ public final class JFXDeviceViewer extends VBox implements DeviceViewer {
                 final var deviceView = this.deviceMap.get(deviceId);
                 deviceView.setState(deviceState);
             } else {
-                final JFXDeviceView deviceView;
+                final Optional<JFXDeviceView> deviceView;
                 if (deviceState instanceof TemperatureChangerState temperatureChangerState) {
-                    deviceView = new TemperatureChangerView(deviceId, temperatureChangerState,
-                            controller);
+                    deviceView = Optional.of(new TemperatureChangerView(deviceId, temperatureChangerState,
+                            controller));
                 } else if (deviceState instanceof LockState lockState) {
-                    deviceView = new LockView(deviceId, controller);
+                    deviceView = Optional.of(new LockView(deviceId, controller));
                 } else if (deviceState instanceof ThermometerState thermometerState) {
-                    deviceView = new ThermometerView(thermometerState);
+                    deviceView = Optional.of(new ThermometerView(thermometerState));
+                } else if (deviceState instanceof AirQualityState airQualityState) {
+                    deviceView = Optional.of(new AirqualityView(airQualityState));
                 } else {
-                    throw new IllegalStateException();
+                    alert.showAndWait().filter(r -> r == ButtonType.OK);
+                    deviceView = Optional.empty();
                 }
-                this.deviceMap.put(deviceId, deviceView);
-                this.getChildren().add(deviceView);
+                deviceView.ifPresentOrElse(s -> {
+                    deviceMap.put(deviceId, s);
+                    this.getChildren().add(s);
+                }, () -> controller.getDeviceManager().removeDevice(deviceId));
             }
         });
     }
@@ -63,11 +74,7 @@ public final class JFXDeviceViewer extends VBox implements DeviceViewer {
         Platform.runLater(() -> {
             if (deviceMap.containsKey(deviceId)) {
                 final var target = deviceMap.get(deviceId);
-                /**
-                 * since all javaFX components (and derived classes) in DeviceMap extend Node,
-                 * this is fine
-                 */
-                this.getChildren().remove((Node) target);
+                this.getChildren().remove(target);
                 deviceMap.remove(deviceId);
             }
         });
@@ -77,6 +84,5 @@ public final class JFXDeviceViewer extends VBox implements DeviceViewer {
     public void start(final Controller controller) {
         this.controller = controller;
     }
-
 
 }

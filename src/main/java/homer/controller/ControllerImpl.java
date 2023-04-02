@@ -46,7 +46,7 @@ public final class ControllerImpl implements Controller {
             .forEach(x -> viewManager.updateDeviceState(x.getKey(), ((Thermometer) x.getValue()).getState()));
         deviceManager.getDevices().entrySet().stream()
             .filter(x -> x.getValue() instanceof AirqualitySensor)
-            .forEach(x -> viewManager.updateDeviceState(x.getKey(), (AirQualityState) x.getValue()));
+            .forEach(x -> viewManager.updateDeviceState(x.getKey(), ((AirqualitySensor) x.getValue()).getState()));
 
         // Run the queued commands.
         for (final var it = this.commands.iterator(); it.hasNext();) {

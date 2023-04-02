@@ -12,6 +12,7 @@ import homer.api.state.LockState;
 import homer.api.state.ThermometerState;
 import homer.common.bounds.Bounds;
 import homer.controller.Controller;
+import homer.model.airquality.AirQualityState;
 import homer.model.lights.LightState;
 import homer.model.outlets.OutletState;
 import homer.model.temperaturechangers.TemperatureChangerState;
@@ -47,11 +48,11 @@ public final class LoggerImpl implements Logger {
         log(SEPARATOR);
         log(String.join(SEPARATOR, deviceId.toString(), stringReps.get(deviceId)));
         log(SEPARATOR);
-        if (deviceState instanceof TemperatureChangerState) {
-            log("CURRENT INTENSITY:"  + ((TemperatureChangerState) deviceState)
-                .getCurrentIntensity()
-                .map(x -> x.toString())
-                .orElseGet(() -> UNDEFINED));
+        if (deviceState instanceof TemperatureChangerState state) {
+            log("CURRENT INTENSITY:" + state
+                    .getCurrentIntensity()
+                    .map(x -> x.toString())
+                    .orElseGet(() -> UNDEFINED));
         } else if (deviceState instanceof ActuatedDeviceState state) {
             log(Integer.toString(state.getPosition()));
         } else if (deviceState instanceof LockState state) {
@@ -60,9 +61,11 @@ public final class LoggerImpl implements Logger {
             log("TURNED ON:" + state.isOn());
         } else if (deviceState instanceof OutletState state) {
             log("POWER:" + state.getPower()
-            .map(x -> toString()).orElseGet(() -> UNDEFINED));
+                    .map(x -> toString()).orElseGet(() -> UNDEFINED));
         } else if (deviceState instanceof ThermometerState state) {
             log("TEMPERATURE:" + state.getTemperature().getCelsius() + "C");
+        } else if (deviceState instanceof AirQualityState state) {
+            log("AIRQUALITY:" + state.toString());
         }
         log("\n");
     }
@@ -114,6 +117,5 @@ public final class LoggerImpl implements Logger {
             throw new IllegalArgumentException();
         }
     }
-
 
 }
