@@ -3,7 +3,6 @@ package homer.view;
 import homer.api.DeviceId;
 import homer.api.DeviceState;
 import homer.controller.Controller;
-import homer.model.environment.Environment;
 
 /**
  * View that supports adding, removing and updating state of the devices.
@@ -31,8 +30,4 @@ public interface DeviceViewer {
      */
     void start(Controller controller);
 
-    /**
-     * @param environment The environment to be updated.
-     */
-    void updateEnvironment(Environment environment);
 }

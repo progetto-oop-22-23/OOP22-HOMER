@@ -5,8 +5,6 @@ import java.io.OutputStream;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Objects;
-import java.util.Optional;
-
 import homer.api.DeviceId;
 import homer.api.DeviceState;
 import homer.api.state.ActuatedDeviceState;
@@ -14,7 +12,6 @@ import homer.api.state.LockState;
 import homer.api.state.ThermometerState;
 import homer.common.bounds.Bounds;
 import homer.controller.Controller;
-import homer.model.environment.Environment;
 import homer.model.lights.LightState;
 import homer.model.outlets.OutletState;
 import homer.model.temperaturechangers.TemperatureChangerState;
@@ -27,7 +24,6 @@ public final class LoggerImpl implements Logger {
     private OutputStream outputStream;
     private static final String SEPARATOR = ":";
     private static final String UNDEFINED = "UNDEFINED";
-    private Optional<Environment> previousEnvironment = Optional.empty();
 
     /**
      * 
@@ -119,12 +115,5 @@ public final class LoggerImpl implements Logger {
         }
     }
 
-    @Override
-    public void updateEnvironment(final Environment environment) {
-        if (previousEnvironment.isEmpty() || !previousEnvironment.get().equals(environment)) {
-            previousEnvironment = Optional.of(environment);
-            log("UPDATE ENVIRONMENT\n");
-        }
-    }
 
 }

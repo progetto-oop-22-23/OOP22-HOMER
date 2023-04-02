@@ -9,7 +9,6 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import homer.api.DeviceId;
 import homer.api.DeviceState;
 import homer.controller.Controller;
-import homer.model.environment.Environment;
 
 /**
  * Decorates a {@link Logger} with additional warnings.
@@ -58,11 +57,6 @@ public final class WarningLogger implements Logger {
     @Override
     public void log(final String string) {
         logger.log(string);
-    }
-
-    @Override
-    public void updateEnvironment(final Environment environment) {
-        logger.updateEnvironment(environment);
     }
 
 }

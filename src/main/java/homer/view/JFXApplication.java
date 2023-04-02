@@ -1,6 +1,5 @@
 package homer.view;
 
-import homer.common.time.ClockImpl;
 import homer.controller.Controller;
 import homer.controller.ControllerImpl;
 import homer.controller.scheduler.TemperatureSchedulerController;
