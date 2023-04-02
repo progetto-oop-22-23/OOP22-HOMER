@@ -5,6 +5,7 @@ import java.io.OutputStream;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Objects;
+import java.util.Optional;
 
 import homer.api.DeviceId;
 import homer.api.DeviceState;
@@ -26,6 +27,7 @@ public final class LoggerImpl implements Logger {
     private OutputStream outputStream;
     private static final String SEPARATOR = ":";
     private static final String UNDEFINED = "UNDEFINED";
+    private Optional<Environment> previousEnvironment = Optional.empty();
 
     /**
      * 
@@ -34,7 +36,7 @@ public final class LoggerImpl implements Logger {
     public LoggerImpl(final OutputStream outputStream) {
         Objects.requireNonNull(outputStream);
         this.outputStream = outputStream;
-        log("LOGGER STARTED");
+        log("LOGGER STARTED\n");
     }
 
     @Override
@@ -119,7 +121,10 @@ public final class LoggerImpl implements Logger {
 
     @Override
     public void updateEnvironment(final Environment environment) {
-        log("UPDATE ENVIRONMENT\n");
+        if (previousEnvironment.isEmpty() || !previousEnvironment.get().equals(environment)) {
+            previousEnvironment = Optional.of(environment);
+            log("UPDATE ENVIRONMENT\n");
+        }
     }
 
 }

@@ -67,7 +67,7 @@ public final class TimeStampLogger implements Logger {
 
     @Override
     public void updateEnvironment(final Environment environment) {
-        logTimeZone();
+        // logTimeZone();
         logger.updateEnvironment(environment); 
     }
 }
