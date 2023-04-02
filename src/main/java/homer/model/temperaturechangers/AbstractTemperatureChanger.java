@@ -135,4 +135,5 @@ public abstract class AbstractTemperatureChanger implements TemperatureChanger, 
         final double newConsumption = instantConsumption + maxConsumption * this.intensity * hours;
         this.instantConsumption = Limit.clamp(newConsumption, this.getPowerInfo().getMinConsumption(), maxConsumption);
     }
+
 }

@@ -13,6 +13,7 @@ import homer.api.ToggleableDevice;
 import homer.common.temperature.Temperature;
 import homer.common.temperature.TemperatureFactory;
 import homer.controller.command.createdevicecommand.CreateAirConditioning;
+import homer.controller.command.createdevicecommand.CreateAirQualitySensor;
 import homer.controller.command.createdevicecommand.CreateBlinds;
 import homer.controller.command.createdevicecommand.CreateDeviceCommand;
 import homer.controller.command.createdevicecommand.CreateDoor;
@@ -86,7 +87,8 @@ public final class DeviceManagerImpl implements DeviceManager {
     public Set<CreateDeviceCommand> getValidCreateDeviceCommands() {
         return Set.of(new CreateAirConditioning(this.environment), new CreateHeating(this.environment),
                 new CreateThermometer(this.environment), new CreateLock(),
-                new CreateWindow(), new CreateDoor(), new CreateBlinds());
+                new CreateWindow(), new CreateDoor(), new CreateBlinds(),
+                new CreateAirQualitySensor(this.environment));
     }
 
     @Override
