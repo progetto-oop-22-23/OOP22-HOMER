@@ -6,11 +6,14 @@ import java.util.Map;
 import homer.api.DeviceId;
 import homer.api.DeviceState;
 import homer.api.state.LockState;
+import homer.api.state.ThermometerState;
 import homer.controller.Controller;
 import homer.model.temperaturechangers.TemperatureChangerState;
+import homer.model.thermometer.SimpleThermometer;
 import homer.view.DeviceViewer;
 import homer.view.javafx.deviceview.LockView;
 import homer.view.javafx.deviceview.TemperatureChangerView;
+import homer.view.javafx.deviceview.ThermometerView;
 import javafx.scene.Node;
 import javafx.scene.layout.VBox;
 import javafx.application.Platform;
@@ -45,6 +48,8 @@ public final class JFXDeviceViewer extends VBox implements DeviceViewer {
                             controller);
                 } else if (deviceState instanceof LockState lockState) {
                     deviceView = new LockView(deviceId, controller);
+                } else if (deviceState instanceof ThermometerState thermometerState) {
+                    deviceView = new ThermometerView(deviceId, thermometerState);
                 } else {
                     throw new IllegalStateException();
                 }
