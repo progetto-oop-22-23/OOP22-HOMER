@@ -14,7 +14,6 @@ import javafx.scene.layout.VBox;
 
 public abstract class AbstractGraphViewFx<T> extends VBox implements GraphView<T> {
 
-    private static final long LIMIT_ENTRIES = 30;
     private final Axis<String> timeAxis = new CategoryAxis();
     private final NumberAxis dataAxis = new NumberAxis();
     private final AreaChart<String, Number> ac = new AreaChart<>(timeAxis, dataAxis);
@@ -33,13 +32,12 @@ public abstract class AbstractGraphViewFx<T> extends VBox implements GraphView<T
     }
 
     @Override
-    public void updateGraph(final Set<HistoryData<T>> historyData) {
+    public final void updateGraph(final Set<HistoryData<T>> historyData) {
         Platform.runLater(() -> {
             this.ac.getData().clear();
             final XYChart.Series<String, Number> series = new XYChart.Series<>();
             historyData.stream()
-                    .sorted((dt0, dt1) -> dt0.dateTime().compareTo(dt1.dateTime()))
-                    .skip(historyData.size() < LIMIT_ENTRIES ? 0 : historyData.size() - LIMIT_ENTRIES)
+                    .sorted()
                     .forEach(hd -> {
                         series.getData().add(
                                 new XYChart.Data<>(hd.dateTime().toString(),

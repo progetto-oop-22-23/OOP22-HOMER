@@ -1,6 +1,7 @@
 package homer.controller.history;
 
 import java.time.Duration;
+import java.util.stream.Collectors;
 
 import homer.common.history.HistoryData;
 import homer.common.temperature.Temperature;
@@ -16,6 +17,7 @@ import homer.view.graph.GraphView;
  */
 public final class TemperatureLogger implements HistoricalDataController<Temperature> {
 
+    private static final long LIMIT_ENTRIES = 30;
     private static final Duration LOG_INTERVAL = Duration.ofHours(1);
     private final HistoricalDataLogger<Temperature> log = new HistoricalDataLoggerImpl<>();
     private final GraphView<Temperature> view;
@@ -48,7 +50,11 @@ public final class TemperatureLogger implements HistoricalDataController<Tempera
                      */
                     .findFirst()
                     .ifPresent(t -> this.log.logData(new HistoryData<>(currTime, t.getState().getTemperature())));
-            this.view.updateGraph(this.log.getHistory());
+            final var historyData = this.log.getHistory();
+            this.view.updateGraph(historyData.stream()
+                    .sorted()
+                    .skip(historyData.size() < LIMIT_ENTRIES ? 0 : historyData.size() - LIMIT_ENTRIES)
+                    .collect(Collectors.toSet()));
             this.accumulatedTime = Duration.ofNanos(0);
         }
         this.accumulatedTime = this.accumulatedTime.plus(deltaTime);
