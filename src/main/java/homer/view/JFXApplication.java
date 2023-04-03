@@ -4,6 +4,8 @@ import homer.controller.Controller;
 import homer.controller.ControllerImpl;
 import homer.controller.scheduler.TemperatureSchedulerController;
 import homer.view.javafx.JFXDeviceViewer;
+import homer.view.javafx.sensorsview.ElectricalMeterViewManager;
+import homer.view.javafx.sensorsview.SensorDashboardViewManager;
 import homer.view.logger.Logger;
 import homer.view.logger.LoggerImpl;
 import homer.view.logger.TimeStampLogger;
@@ -12,6 +14,8 @@ import homer.core.SimManagerImpl;
 import homer.view.sim.SimManagerViewFxImpl;
 import javafx.application.Application;
 import javafx.application.Platform;
+import javafx.collections.ObservableList;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.Tab;
@@ -36,11 +40,30 @@ public class JFXApplication extends Application {
             System.exit(0);
         });
 
+        final Stage sensorStage = new Stage();
+        final FXMLLoader dashboardLoader = new FXMLLoader(
+                getClass().getResource("/homer/view/javafx/sensors/SensorDashboardView.fxml"));
+        final FXMLLoader meterLoader = new FXMLLoader(
+                getClass().getResource("/homer/view/javafx/sensors/ElectricalMeterView.fxml"));
+        final BorderPane sensorRoot = dashboardLoader.load();
+
         final var root = new BorderPane();
         final Scene scene = new Scene(root, INITIAL_W, INITIAL_H);
 
         final Controller controller = new ControllerImpl();
 
+        // Load the second FXML file into the second tab
+        final TabPane sensorTabPane = (TabPane) sensorRoot.getCenter();
+        final ObservableList<Tab> tabs = sensorTabPane.getTabs();
+
+        for (final Tab tab : tabs) {
+            final String id = "meterTab";
+            if (tab.getId().equals(id)) {
+                tab.setContent(meterLoader.load());
+                break;
+            }
+        }
+        
         final var tempSchedulerView = new TemperatureSchedulerViewFx();
         final var tempScheduler = new TemperatureSchedulerController(tempSchedulerView, controller);
         tempSchedulerView.setScheduler(tempScheduler);
@@ -84,6 +107,12 @@ public class JFXApplication extends Application {
         stage.setTitle(TITLE);
         stage.setScene(scene);
         stage.show();
+
+        final Scene sensorScene = new Scene(sensorRoot, INITIAL_W, INITIAL_H);
+
+        sensorStage.setTitle(TITLE);
+        sensorStage.setScene(sensorScene);
+        sensorStage.show();
     }
 
 }
