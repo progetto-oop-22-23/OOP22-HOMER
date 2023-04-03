@@ -6,12 +6,14 @@ import java.util.Optional;
 
 import homer.api.DeviceId;
 import homer.api.DeviceState;
+import homer.api.state.ActuatedDeviceState;
 import homer.api.state.LockState;
 import homer.api.state.ThermometerState;
 import homer.controller.Controller;
 import homer.model.airquality.AirQualityState;
 import homer.model.temperaturechangers.TemperatureChangerState;
 import homer.view.DeviceViewer;
+import homer.view.javafx.deviceview.ActuatedDeviceView;
 import homer.view.javafx.deviceview.AirqualityView;
 import homer.view.javafx.deviceview.LockView;
 import homer.view.javafx.deviceview.TemperatureChangerView;
@@ -29,7 +31,7 @@ public final class JFXDeviceViewer extends VBox implements DeviceViewer {
 
     private Controller controller;
     private final Map<DeviceId, JFXDeviceView> deviceMap = new LinkedHashMap<>();
-    private final Alert alert = new Alert(AlertType.ERROR, "Invalid state");
+    private final Alert invalidDeviceType = new Alert(AlertType.ERROR, "Invalid device type");
 
     /**
      * 
@@ -57,8 +59,11 @@ public final class JFXDeviceViewer extends VBox implements DeviceViewer {
                     deviceView = Optional.of(new ThermometerView(thermometerState));
                 } else if (deviceState instanceof AirQualityState airQualityState) {
                     deviceView = Optional.of(new AirqualityView(airQualityState));
+                } else if (deviceState instanceof ActuatedDeviceState actuatedDeviceState) {
+                    deviceView = Optional.of(new ActuatedDeviceView(actuatedDeviceState));
+
                 } else {
-                    alert.showAndWait().filter(r -> r == ButtonType.OK);
+                    invalidDeviceType.showAndWait().filter(r -> r == ButtonType.OK);
                     deviceView = Optional.empty();
                 }
                 deviceView.ifPresentOrElse(s -> {
