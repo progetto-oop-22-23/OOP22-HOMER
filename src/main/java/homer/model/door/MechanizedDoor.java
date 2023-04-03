@@ -1,5 +1,6 @@
 package homer.model.door;
 
+import homer.api.state.ActuatedDeviceState;
 import homer.model.actuator.AbstractActuatedDevice;
 import homer.model.actuator.Actuator;
 
@@ -17,6 +18,7 @@ public class MechanizedDoor extends AbstractActuatedDevice implements Door {
      */
     public MechanizedDoor(final Actuator actuator) {
         super(actuator);
+        this.getState().setType(ActuatedDeviceState.DOOR);
     }
 
 }

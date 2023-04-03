@@ -12,6 +12,19 @@ public final class ActuatedDeviceState implements DeviceState {
 
     private final Optional<Bounds<Integer>> positionBounds;
     private final int position;
+    /**
+     * Mechanized blinds.
+     */
+    public static final String BLINDS = "Mechanized blinds";
+    /**
+     * Mechanzized door.
+     */
+    public static final String DOOR = "Mechanized Door";
+    /**
+     * Mechanized window.
+     */
+    public static final String WINDOW = "Mechanized Window";
+    private Optional<String> type = Optional.empty();
 
     /**
      * Creates a new {@link ActuatedDeviceState} given the position and the bounds.
@@ -51,6 +64,23 @@ public final class ActuatedDeviceState implements DeviceState {
      */
     public Optional<Bounds<Integer>> getPositionBounds() {
         return this.positionBounds;
+    }
+
+    /**
+     * 
+     * @param string the new type to be set.
+     */
+    public void setType(final String string) {
+        this.type = Optional.of(string);
+    }
+
+    /**
+     * 
+     * Returnss the device's type.
+     * @return the device's type.
+     */
+    public Optional<String> getType() {
+        return this.type;
     }
 
 }

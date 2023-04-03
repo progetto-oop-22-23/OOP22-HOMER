@@ -1,5 +1,6 @@
 package homer.model.window;
 
+import homer.api.state.ActuatedDeviceState;
 import homer.model.actuator.AbstractActuatedDevice;
 import homer.model.actuator.Actuator;
 
@@ -17,6 +18,7 @@ public final class MechanizedWindow extends AbstractActuatedDevice implements Wi
      */
     public MechanizedWindow(final Actuator actuator) {
         super(actuator);
+        this.getState().setType(ActuatedDeviceState.WINDOW);
     }
 
 }

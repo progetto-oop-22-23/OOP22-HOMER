@@ -102,7 +102,7 @@ public final class LoggerImpl implements Logger {
                     .map(x -> TemperatureChangerState.AIRCONDITIONING.equals(x) ? "Air conditioning" : "Heating")
                     .orElseGet(() -> UNDEFINED);
         } else if (deviceState instanceof ActuatedDeviceState state) {
-            return "Actuated device"
+            return state.getType().orElseGet(() -> UNDEFINED)
                     + (state.getPositionBounds()
                             .map(Bounds::toString).orElseGet(() -> UNDEFINED));
         } else if (deviceState instanceof LockState) {
