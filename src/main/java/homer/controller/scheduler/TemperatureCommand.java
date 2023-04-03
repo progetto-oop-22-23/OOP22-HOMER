@@ -43,8 +43,10 @@ public final class TemperatureCommand implements Command {
                 .forEach(e -> {
                     final var tc = (TemperatureChanger) e.getValue();
                     final var newIntensity = deviceFunction.apply(tc.getState());
-                    controller.getDeviceManager().updateDeviceState(e.getKey(),
-                            new TemperatureChangerState().addCurrentIntensity(newIntensity));
+                    if (tc.getState().getCurrentIntensity().get().compareTo(newIntensity) != 0) {
+                        controller.getDeviceManager().updateDeviceState(e.getKey(),
+                                new TemperatureChangerState().addCurrentIntensity(newIntensity));
+                    }
                 });
     }
 
