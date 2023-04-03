@@ -99,7 +99,7 @@ public final class LoggerImpl implements Logger {
     private String deviceCreationInfo(final DeviceState deviceState) {
         if (deviceState instanceof TemperatureChangerState state) {
             return "Temperature Changer " + state.getType()
-                    .map(x -> "AIR CONDITIONING".equals(x) ? "Air conditioning" : "Heating")
+                    .map(x -> TemperatureChangerState.AIRCONDITIONING.equals(x) ? "Air conditioning" : "Heating")
                     .orElseGet(() -> UNDEFINED);
         } else if (deviceState instanceof ActuatedDeviceState state) {
             return "Actuated device"
@@ -113,7 +113,7 @@ public final class LoggerImpl implements Logger {
             return "Thermometer";
         } else if (deviceState instanceof LightState) {
             return "Light";
-        }  else if (deviceState instanceof AirQualityState) {
+        } else if (deviceState instanceof AirQualityState) {
             return "Air quality";
         } else {
             return "ILLEGAL TYPE";
