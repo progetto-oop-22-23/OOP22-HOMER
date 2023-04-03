@@ -24,7 +24,7 @@ public final class ActuatedDeviceState implements DeviceState {
      * Mechanized window.
      */
     public static final String WINDOW = "Mechanized Window";
-    private Optional<String> type = Optional.empty();
+    private final Optional<String> type;
 
     /**
      * Creates a new {@link ActuatedDeviceState} given the position and the bounds.
@@ -32,9 +32,10 @@ public final class ActuatedDeviceState implements DeviceState {
      * @param position       the actuator position.
      * @param positionBounds the actuator bounds.
      */
-    public ActuatedDeviceState(final int position, final Bounds<Integer> positionBounds) {
+    public ActuatedDeviceState(final int position, final Bounds<Integer> positionBounds, Optional<String> type) {
         this.position = position;
         this.positionBounds = Optional.of(positionBounds);
+        this.type = type;
     }
 
     /**
@@ -43,9 +44,10 @@ public final class ActuatedDeviceState implements DeviceState {
      * 
      * @param position the new commanded position.
      */
-    public ActuatedDeviceState(final int position) {
+    public ActuatedDeviceState(final int position, Optional<String> type) {
         this.position = position;
         this.positionBounds = Optional.empty();
+        this.type = type;
     }
 
     /**
@@ -68,15 +70,8 @@ public final class ActuatedDeviceState implements DeviceState {
 
     /**
      * 
-     * @param string the new type to be set.
-     */
-    public void setType(final String string) {
-        this.type = Optional.of(string);
-    }
-
-    /**
-     * 
      * Returnss the device's type.
+     * 
      * @return the device's type.
      */
     public Optional<String> getType() {

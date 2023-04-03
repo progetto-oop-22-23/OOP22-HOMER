@@ -2,6 +2,7 @@ package homer.model.actuator;
 
 import java.time.Duration;
 import java.util.Objects;
+import java.util.Optional;
 
 import homer.api.DeviceState;
 import homer.api.state.ActuatedDeviceState;
@@ -12,6 +13,7 @@ import homer.api.state.ActuatedDeviceState;
 public class AbstractActuatedDevice implements ActuatedDevice {
 
     private final Actuator actuator;
+    private Optional<String> type;
 
     /**
      * Creates a {@link AbstractActuatedDevice} whose position is controlled by an
@@ -19,13 +21,14 @@ public class AbstractActuatedDevice implements ActuatedDevice {
      * 
      * @param actuator The {@link Actuator} controlling the device.
      */
-    public AbstractActuatedDevice(final Actuator actuator) {
+    public AbstractActuatedDevice(final Actuator actuator, Optional<String> type) {
+        this.type = type;
         this.actuator = Objects.requireNonNull(actuator);
     }
 
     @Override
     public final ActuatedDeviceState getState() {
-        return new ActuatedDeviceState(this.actuator.getPosition(), this.actuator.getBounds());
+        return new ActuatedDeviceState(this.actuator.getPosition(), this.actuator.getBounds(), this.type);
     }
 
     @Override
