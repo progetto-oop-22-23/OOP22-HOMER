@@ -1,6 +1,5 @@
 package homer.view.scheduler;
 
-import java.time.LocalTime;
 import java.util.function.BiConsumer;
 import java.util.stream.Stream;
 
@@ -23,7 +22,6 @@ public final class AddTemperatureScheduleViewFx extends VBox {
     private static final double TEMP_MIN = 15;
     private static final double TEMP_MAX = 30;
     private static final double MAJOR_TICK_UNIT = 1.0d;
-    private static final int FIFTY_NINE = 59;
     private static final int MINOR_TICK_UNIT = 0;
     private final Text timeText = new Text("Time");
     private final Text tempText = new Text("Temperature (C)");
@@ -36,7 +34,7 @@ public final class AddTemperatureScheduleViewFx extends VBox {
      * 
      * @param addAction The action to perform when the add button is pressed.
      */
-    public AddTemperatureScheduleViewFx(final BiConsumer<Bounds<LocalTime>, Bounds<Temperature>> addAction) {
+    public AddTemperatureScheduleViewFx(final BiConsumer<Bounds<Integer>, Bounds<Temperature>> addAction) {
         Stream.of(timeRange, tempRange).forEach(rs -> {
             rs.setShowTickLabels(true);
             rs.setShowTickMarks(true);
@@ -50,8 +48,7 @@ public final class AddTemperatureScheduleViewFx extends VBox {
             final var tempMin = TemperatureFactory.fromCelsius(tempRange.getLowValue());
             final var tempMax = TemperatureFactory.fromCelsius(tempRange.getHighValue());
             addAction.accept(
-                    new Bounds<>(LocalTime.of((int) timeRange.getLowValue(), 0),
-                            LocalTime.of((int) timeRange.getHighValue() - 1, FIFTY_NINE)), // TODO fix logic bug away from view
+                    new Bounds<>((int) timeRange.getLowValue(), (int) timeRange.getHighValue()),
                     new Bounds<>(tempMin, tempMax));
         });
         this.getChildren().addAll(timeText, timeRange, tempText, tempRange, addBtn);
