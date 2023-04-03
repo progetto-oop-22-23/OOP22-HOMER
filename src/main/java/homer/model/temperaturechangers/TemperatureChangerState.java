@@ -12,6 +12,14 @@ public final class TemperatureChangerState implements DeviceState {
     private Optional<Double> maxIntensity = Optional.empty();
     private Optional<Double> currentIntensity = Optional.empty();
     private Optional<String> type = Optional.empty();
+    /**
+     * Normal Heating type.
+     */
+    public static final String HEATING = "HEATING";
+    /**
+     * Normal Air conditioning type.
+     */
+    public static final String AIRCONDITIONING = "AIR CONDITIONING";
 
     /**
      * 

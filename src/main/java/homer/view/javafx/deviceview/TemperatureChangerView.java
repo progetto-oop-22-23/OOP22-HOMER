@@ -29,7 +29,7 @@ public final class TemperatureChangerView extends JFXDeviceView {
                 s -> controller.receiveCommand(new UpdateDeviceState(deviceId,
                         new TemperatureChangerState().addCurrentIntensity(s))));
         final String title = state.getType()
-                .map(x -> "AIR CONDITIONING".equals(x) ? "Air" : "Heating")
+                .map(x -> TemperatureChangerState.AIRCONDITIONING.equals(x) ? "Air Conditioning" : "Heating")
                 .orElseGet(() -> "Undefined Temperature Changer Device");
         this.getChildren().addAll(new Label(title), sliderComponent, new DisconnectDeviceButton(controller, deviceId));
     }
