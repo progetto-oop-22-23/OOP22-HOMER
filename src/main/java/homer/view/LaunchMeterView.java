@@ -1,27 +1,27 @@
 package homer.view;
 
-import java.io.IOException;
-import java.net.URL;
 import java.time.Duration;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import homer.App;
 import homer.api.PoweredDeviceInfoImpl;
 import homer.controller.impl.electricalmeter.ElectricalMeterImpl;
 import homer.model.lights.Light;
 import homer.model.outlets.Outlet;
 import homer.model.outlets.OutletFactory;
 import homer.view.javafx.sensorsview.ElectricalMeterViewManager;
-import homer.view.logger.LoggerImpl;
+import homer.view.javafx.sensorsview.SensorDashboardViewManager;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Application;
 import javafx.application.Platform;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.layout.AnchorPane;
+import javafx.scene.control.Tab;
+import javafx.scene.control.TabPane;
+import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
 /**
@@ -38,7 +38,31 @@ public final class LaunchMeterView extends Application {
         stage.setOnCloseRequest(event -> {
             Platform.exit();
         });
-        var root = new AnchorPane();
+        // Load the first FXML file
+        final FXMLLoader dashboardLoader = new FXMLLoader(
+            getClass().getResource("/homer/view/javafx/sensors/SensorDashboardView.fxml"));
+        final FXMLLoader meterLoader = new FXMLLoader(
+            getClass().getResource("/homer/view/javafx/sensors/ElectricalMeterView.fxml"));
+        final BorderPane root = dashboardLoader.load();
+
+        // Load the second FXML file into the second tab
+        // FXMLLoader fxmlLoader2 = new
+        // FXMLLoader(getClass().getResource("path/to/second/fxml/file.fxml"));
+        // root.getCenter().lookup("#meterTab").setContent(fxmlLoader2.load());
+        final TabPane tabPane = (TabPane) root.getCenter();
+        final ObservableList<Tab> tabs = tabPane.getTabs();
+
+        for (final Tab tab : tabs) {
+            final String id = "meterTab";
+            if (tab.getId().equals(id)) {
+                tab.setContent(meterLoader.load());
+                break;
+            }
+        }
+        // Set the controller for the first FXML file
+        // dashboardLoader.<SensorDashboardViewManager>getController().init();
+        // meterLoader.<ElectricalMeterViewManager>getController().init();
+
         final double cOutletState = 10.0;
         final double lOutletState = 15.0;
         final List<Outlet> outlets = new ArrayList<>();
@@ -55,23 +79,14 @@ public final class LaunchMeterView extends Application {
             lights.add(new Light(true, new PoweredDeviceInfoImpl(maxLightConsumption, outlet)));
         }
         final ElectricalMeterImpl meter = new ElectricalMeterImpl(outlets);
+        final SensorDashboardViewManager dashboard = dashboardLoader.getController();
+        final ElectricalMeterViewManager meterView = meterLoader.getController();
 
-        final FXMLLoader loader = new FXMLLoader();
-        final URL url = App.class.getClassLoader()
-                .getResource("homer/view/javafx/sensors/ElectricalMeterView.fxml");
-        loader.setLocation(url);
-        try {
-            root = loader.load();
-        } catch (IOException e) {
-            final LoggerImpl logger = new LoggerImpl(System.err);
-            logger.log(e.toString());
-        }
-
-        final ElectricalMeterViewManager view = loader.getController();
-        view.setMeter(meter);
+        dashboard.setMeter(meter);
+        meterView.setMeter(meter);
         final byte millis = 5;
         final byte hours = 2;
-        final int frequency = 300;
+        final int frequency = 300; // ms
         final Scene scene = new Scene(root, INITIAL_W, INITIAL_H);
         stage.setTitle(TITLE);
         stage.setScene(scene);
@@ -84,7 +99,8 @@ public final class LaunchMeterView extends Application {
                 outlet.updateTick(Duration.ofHours(hours));
             }
             meter.updateTick(Duration.ofHours(hours));
-            view.setLabels();
+            meterView.setLabels();
+            dashboard.setLabels();
         }));
         timeline.setCycleCount(Timeline.INDEFINITE);
         timeline.play();
