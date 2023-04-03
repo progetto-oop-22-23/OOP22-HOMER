@@ -40,15 +40,12 @@ public final class LaunchMeterView extends Application {
         });
         // Load the first FXML file
         final FXMLLoader dashboardLoader = new FXMLLoader(
-            getClass().getResource("/homer/view/javafx/sensors/SensorDashboardView.fxml"));
+                getClass().getResource("/homer/view/javafx/sensors/SensorDashboardView.fxml"));
         final FXMLLoader meterLoader = new FXMLLoader(
-            getClass().getResource("/homer/view/javafx/sensors/ElectricalMeterView.fxml"));
+                getClass().getResource("/homer/view/javafx/sensors/ElectricalMeterView.fxml"));
         final BorderPane root = dashboardLoader.load();
 
         // Load the second FXML file into the second tab
-        // FXMLLoader fxmlLoader2 = new
-        // FXMLLoader(getClass().getResource("path/to/second/fxml/file.fxml"));
-        // root.getCenter().lookup("#meterTab").setContent(fxmlLoader2.load());
         final TabPane tabPane = (TabPane) root.getCenter();
         final ObservableList<Tab> tabs = tabPane.getTabs();
 
@@ -59,9 +56,6 @@ public final class LaunchMeterView extends Application {
                 break;
             }
         }
-        // Set the controller for the first FXML file
-        // dashboardLoader.<SensorDashboardViewManager>getController().init();
-        // meterLoader.<ElectricalMeterViewManager>getController().init();
 
         final double cOutletState = 10.0;
         final double lOutletState = 15.0;
