@@ -13,7 +13,7 @@
    <center>
       <TabPane prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER">
         <tabs>
-          <Tab text="General">
+          <Tab fx:id="generalTab" text="General">
                <content>
                   <GridPane alignment="CENTER">
                     <columnConstraints>
@@ -41,7 +41,7 @@
                           </rowConstraints>
                            <children>
                               <Label fx:id="pm10Label" prefHeight="18.0" prefWidth="119.0" text="PM10 (ppM):" />
-                              <Label fx:id="pm25Label" prefHeight="18.0" prefWidth="115.0" text="PM2.5 (ppM):" GridPane.columnIndex="1" />
+                              <Label fx:id="PM25Label" prefHeight="18.0" prefWidth="115.0" text="PM2.5 (ppM):" GridPane.columnIndex="1" />
                            </children>
                         </GridPane>
                         <GridPane GridPane.columnIndex="2" GridPane.rowIndex="1">
@@ -53,25 +53,25 @@
                             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                           </rowConstraints>
                            <children>
-                              <Label fx:id="co2Label" prefHeight="18.0" prefWidth="126.0" text="CO2 (%):" />
-                              <Label fx:id="toxicGasLabel" prefHeight="18.0" prefWidth="147.0" text="Toxic gas (%):" GridPane.columnIndex="1" />
+                              <Label fx:id="CO2Label" prefHeight="18.0" prefWidth="126.0" text="CO2 (%):" />
+                              <Label fx:id="ToxicGasLabel" prefHeight="18.0" prefWidth="147.0" text="Toxic gas (%):" GridPane.columnIndex="1" />
                            </children>
                         </GridPane>
                         <Label fx:id="temperatureLabel" prefHeight="18.0" prefWidth="141.0" text="Temperature (°C): " GridPane.rowIndex="2" />
                      </children>
                   </GridPane>
                </content></Tab>
-          <Tab text="Meter">
+          <Tab fx:id="meterTab" text="Meter">
             <content>
               <fx:include fx:id="meterTab" source="ElectricalMeterView.fxml" />
             </content>
           </Tab>
-            <Tab text="Air Quality">
+            <Tab fx:id="airTab" text="Air Quality">
               <content>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
               </content>
             </Tab>
-            <Tab text="Temperature">
+            <Tab fx:id="temperatureTab" text="Temperature">
               <content>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
               </content>
