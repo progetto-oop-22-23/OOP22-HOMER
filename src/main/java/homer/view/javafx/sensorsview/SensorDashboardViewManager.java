@@ -58,13 +58,20 @@ public final class SensorDashboardViewManager {
     private HomeEnvironment environment;
 
     /**
-     * Constructor for
+     * 
+     * 
+     * public SensorDashboardViewManager() {
+     * 
+     * }
+     */
+    /**
+     * Sets sensors
      * {@link homer.view.javafx.sensorsview.SensorDashboardViewManager}.
      * 
      * @param meter       The {@link homer.controller.impl.electricalmeter}.
      * @param environment The {@link homer.model.environment.HomeEnvironment}.
      */
-    public SensorDashboardViewManager(final ElectricalMeterImpl meter, final HomeEnvironment environment) {
+    public void setSensors(final ElectricalMeterImpl meter, final HomeEnvironment environment) {
         this.meter = new ElectricalMeterImpl(meter.getOutlets());
         this.environment = new HomeEnvironment(environment);
         this.airQuality = new AirqualitySensor(this.environment);

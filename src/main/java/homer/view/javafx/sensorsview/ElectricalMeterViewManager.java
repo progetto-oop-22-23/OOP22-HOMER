@@ -50,20 +50,12 @@ public final class ElectricalMeterViewManager {
     private ElectricalMeterImpl meter;
 
     /**
-     * Constructor for {@link homer.view.javafx.sensorsview.ElectricalMeterViewManager}.
-     * @param meter the {@link homer.controller.impl.electricalmeter.ElectricalMeterImpl} to use.
-     */
-    public ElectricalMeterViewManager(final ElectricalMeterImpl meter) {
-        this.meter = new ElectricalMeterImpl(meter.getOutlets());
-    }
-
-    /**
      * Empty constructor.
+     * 
+     * public ElectricalMeterViewManager() {
+     * 
+     * }
      */
-    public ElectricalMeterViewManager() {
-        this.meter = null;
-    }
-
     /**
      * Sets the {@link homer.controller.impl.electricalmeter}.
      * 
@@ -91,5 +83,4 @@ public final class ElectricalMeterViewManager {
                 cellData -> new ReadOnlyObjectWrapper<String>(
                         cellData.getValue().getClass().getSimpleName() + outletNumber++));
     }
-
 }
