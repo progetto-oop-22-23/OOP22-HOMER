@@ -20,6 +20,7 @@ import homer.view.scheduler.TimeSchedulerView;
  */
 public final class TemperatureSchedulerController implements TimeSchedulerController<Temperature> {
 
+    private static final int FIFTY_NINE = 59;
     private final TimeScheduler<Temperature> scheduler = new TemperatureScheduler();
     private final TimeSchedulerView<Temperature> view;
     private final TemperatureCommands commands;
@@ -39,8 +40,11 @@ public final class TemperatureSchedulerController implements TimeSchedulerContro
     }
 
     @Override
-    public void addSchedule(final Bounds<LocalTime> timeBounds, final Bounds<Temperature> paramBounds) {
-        this.scheduler.addSchedule(timeBounds, paramBounds);
+    public void addSchedule(final Bounds<Integer> timeBounds, final Bounds<Temperature> paramBounds) {
+        this.scheduler.addSchedule(
+                new Bounds<>(LocalTime.of(timeBounds.getLowerBound(), 0),
+                        LocalTime.of(timeBounds.getUpperBound() - 1, FIFTY_NINE)),
+                paramBounds);
         updateView();
     }
 
