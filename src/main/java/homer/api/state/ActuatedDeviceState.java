@@ -31,8 +31,9 @@ public final class ActuatedDeviceState implements DeviceState {
      * 
      * @param position       the actuator position.
      * @param positionBounds the actuator bounds.
+     * @param type
      */
-    public ActuatedDeviceState(final int position, final Bounds<Integer> positionBounds, Optional<String> type) {
+    public ActuatedDeviceState(final int position, final Bounds<Integer> positionBounds, final Optional<String> type) {
         this.position = position;
         this.positionBounds = Optional.of(positionBounds);
         this.type = type;
@@ -43,8 +44,9 @@ public final class ActuatedDeviceState implements DeviceState {
      * Used to set a new state.
      * 
      * @param position the new commanded position.
+     * @param type the device's type.
      */
-    public ActuatedDeviceState(final int position, Optional<String> type) {
+    public ActuatedDeviceState(final int position, final Optional<String> type) {
         this.position = position;
         this.positionBounds = Optional.empty();
         this.type = type;

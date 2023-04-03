@@ -1,6 +1,5 @@
 package homer.model.blinds;
 
-import java.lang.StackWalker.Option;
 import java.util.Optional;
 
 import homer.api.state.ActuatedDeviceState;

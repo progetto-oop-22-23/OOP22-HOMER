@@ -13,15 +13,16 @@ import homer.api.state.ActuatedDeviceState;
 public class AbstractActuatedDevice implements ActuatedDevice {
 
     private final Actuator actuator;
-    private Optional<String> type;
+    private final Optional<String> type;
 
     /**
      * Creates a {@link AbstractActuatedDevice} whose position is controlled by an
      * {@link Actuator}.
      * 
      * @param actuator The {@link Actuator} controlling the device.
+     * @param type
      */
-    public AbstractActuatedDevice(final Actuator actuator, Optional<String> type) {
+    public AbstractActuatedDevice(final Actuator actuator, final Optional<String> type) {
         this.type = type;
         this.actuator = Objects.requireNonNull(actuator);
     }
