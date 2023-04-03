@@ -4,8 +4,6 @@ import homer.controller.Controller;
 import homer.controller.ControllerImpl;
 import homer.controller.scheduler.TemperatureSchedulerController;
 import homer.view.javafx.JFXDeviceViewer;
-import homer.view.javafx.sensorsview.ElectricalMeterViewManager;
-import homer.view.javafx.sensorsview.SensorDashboardViewManager;
 import homer.view.logger.Logger;
 import homer.view.logger.LoggerImpl;
 import homer.view.logger.TimeStampLogger;
