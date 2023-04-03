@@ -1,5 +1,6 @@
 package homer.controller.command.createdevicecommand;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import homer.controller.Controller;
 import homer.model.environment.Environment;
 import homer.model.temperaturechangers.Heating;
@@ -11,6 +12,7 @@ public record CreateHeating(Environment environment) implements CreateDeviceComm
     private static final double HEATING_MAX_DEFAULT_INTENSITY = 10;
 
     @Override
+    @SuppressFBWarnings(value = "EI_EXPOSE_REP", justification = "Reference is needed in order for this to work")
     public void execute(final Controller controller) {
         controller.getDeviceManager().addDevice(new Heating(0, HEATING_MAX_DEFAULT_INTENSITY, environment));
     }

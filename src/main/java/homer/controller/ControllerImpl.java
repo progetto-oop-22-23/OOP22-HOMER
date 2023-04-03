@@ -7,7 +7,6 @@ import java.util.List;
 import homer.common.time.Clock;
 import homer.common.time.ClockImpl;
 import homer.controller.command.Command;
-import homer.model.airquality.AirQualityState;
 import homer.model.airquality.AirqualitySensor;
 import homer.model.thermometer.Thermometer;
 
@@ -46,7 +45,7 @@ public final class ControllerImpl implements Controller {
             .forEach(x -> viewManager.updateDeviceState(x.getKey(), ((Thermometer) x.getValue()).getState()));
         deviceManager.getDevices().entrySet().stream()
             .filter(x -> x.getValue() instanceof AirqualitySensor)
-            .forEach(x -> viewManager.updateDeviceState(x.getKey(), (AirQualityState) x.getValue()));
+            .forEach(x -> viewManager.updateDeviceState(x.getKey(), ((AirqualitySensor) x.getValue()).getState()));
 
         // Run the queued commands.
         for (final var it = this.commands.iterator(); it.hasNext();) {

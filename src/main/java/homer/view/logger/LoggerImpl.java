@@ -2,6 +2,7 @@ package homer.view.logger;
 
 import java.io.IOException;
 import java.io.OutputStream;
+import java.nio.charset.Charset;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Objects;
@@ -10,8 +11,8 @@ import homer.api.DeviceState;
 import homer.api.state.ActuatedDeviceState;
 import homer.api.state.LockState;
 import homer.api.state.ThermometerState;
-import homer.common.bounds.Bounds;
 import homer.controller.Controller;
+import homer.model.airquality.AirQualityState;
 import homer.model.lights.LightState;
 import homer.model.outlets.OutletState;
 import homer.model.temperaturechangers.TemperatureChangerState;
@@ -24,6 +25,7 @@ public final class LoggerImpl implements Logger {
     private OutputStream outputStream;
     private static final String SEPARATOR = ":";
     private static final String UNDEFINED = "UNDEFINED";
+    private static final Charset STANDARD_CHARSET = Charset.defaultCharset();
 
     /**
      * 
@@ -47,11 +49,11 @@ public final class LoggerImpl implements Logger {
         log(SEPARATOR);
         log(String.join(SEPARATOR, deviceId.toString(), stringReps.get(deviceId)));
         log(SEPARATOR);
-        if (deviceState instanceof TemperatureChangerState) {
-            log("CURRENT INTENSITY:"  + ((TemperatureChangerState) deviceState)
-                .getCurrentIntensity()
-                .map(x -> x.toString())
-                .orElseGet(() -> UNDEFINED));
+        if (deviceState instanceof TemperatureChangerState state) {
+            log("CURRENT INTENSITY:" + state
+                    .getCurrentIntensity()
+                    .map(x -> x.toString())
+                    .orElseGet(() -> UNDEFINED));
         } else if (deviceState instanceof ActuatedDeviceState state) {
             log(Integer.toString(state.getPosition()));
         } else if (deviceState instanceof LockState state) {
@@ -60,9 +62,11 @@ public final class LoggerImpl implements Logger {
             log("TURNED ON:" + state.isOn());
         } else if (deviceState instanceof OutletState state) {
             log("POWER:" + state.getPower()
-            .map(x -> toString()).orElseGet(() -> UNDEFINED));
+                    .map(x -> toString()).orElseGet(() -> UNDEFINED));
         } else if (deviceState instanceof ThermometerState state) {
             log("TEMPERATURE:" + state.getTemperature().getCelsius() + "C");
+        } else if (deviceState instanceof AirQualityState state) {
+            log("AIRQUALITY:" + state.toString());
         }
         log("\n");
     }
@@ -87,7 +91,7 @@ public final class LoggerImpl implements Logger {
     @Override
     public void log(final String string) {
         try {
-            this.outputStream.write(string.getBytes());
+            this.outputStream.write(string.getBytes(STANDARD_CHARSET));
         } catch (IOException e) {
             System.out.println(e.toString()); // NOPMD if logger fails, we have to report it somewhere.
         }
@@ -96,12 +100,14 @@ public final class LoggerImpl implements Logger {
     private String deviceCreationInfo(final DeviceState deviceState) {
         if (deviceState instanceof TemperatureChangerState state) {
             return "Temperature Changer " + state.getType()
-                    .map(x -> "AIR CONDITIONING".equals(x) ? "Air conditioning" : "Heating")
+                    .map(x -> TemperatureChangerState.AIRCONDITIONING.equals(x) ? "Air conditioning" : "Heating")
                     .orElseGet(() -> UNDEFINED);
         } else if (deviceState instanceof ActuatedDeviceState state) {
-            return "Actuated device"
-                    + (state.getPositionBounds()
-                            .map(Bounds::toString).orElseGet(() -> UNDEFINED));
+            return state.getType().orElseGet(() -> UNDEFINED)
+                    + " " + (state.getPositionBounds()
+                            .map(x -> "lower: " + x.getLowerBound() + " " + "upper: " + x.getUpperBound())
+                            .orElseGet(() -> ""))
+                    + " current:" + state.getPosition();
         } else if (deviceState instanceof LockState) {
             return "Lock";
         } else if (deviceState instanceof OutletState) {
@@ -110,10 +116,11 @@ public final class LoggerImpl implements Logger {
             return "Thermometer";
         } else if (deviceState instanceof LightState) {
             return "Light";
+        } else if (deviceState instanceof AirQualityState) {
+            return "Air quality";
         } else {
-            throw new IllegalArgumentException();
+            return "ILLEGAL TYPE";
         }
     }
-
 
 }
