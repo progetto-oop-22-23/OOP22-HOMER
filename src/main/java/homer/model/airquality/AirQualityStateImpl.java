@@ -85,4 +85,44 @@ public final class AirQualityStateImpl implements AirQualityState {
         }
     }
 
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        long temp;
+        temp = Double.doubleToLongBits(co2);
+        result = prime * result + (int) (temp ^ (temp >>> 32));
+        temp = Double.doubleToLongBits(pm10);
+        result = prime * result + (int) (temp ^ (temp >>> 32));
+        temp = Double.doubleToLongBits(toxicGasPercentage);
+        result = prime * result + (int) (temp ^ (temp >>> 32));
+        temp = Double.doubleToLongBits(pm25);
+        result = prime * result + (int) (temp ^ (temp >>> 32));
+        return result;
+    }
+
+    @Override
+    public boolean equals(final Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final AirQualityStateImpl other = (AirQualityStateImpl) obj;
+        if (Double.doubleToLongBits(co2) != Double.doubleToLongBits(other.co2)) {
+            return false;
+        }
+        if (Double.doubleToLongBits(pm10) != Double.doubleToLongBits(other.pm10)) {
+            return false;
+        }
+        if (Double.doubleToLongBits(toxicGasPercentage) != Double.doubleToLongBits(other.toxicGasPercentage)) {
+            return false;
+        }
+        return Double.doubleToLongBits(pm25) == Double.doubleToLongBits(other.pm25);
+    }
+
 }

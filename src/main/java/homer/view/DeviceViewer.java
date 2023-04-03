@@ -12,7 +12,7 @@ public interface DeviceViewer {
      * Updates the selected device's state on the view, and creates a new view if
      * it's not present yet.
      * 
-     * @param deviceId        the id of the device to be updated
+     * @param deviceId    the id of the device to be updated
      * @param deviceState the device's new state
      */
     void updateDeviceState(DeviceId deviceId, DeviceState deviceState);

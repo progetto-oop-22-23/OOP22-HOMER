@@ -5,7 +5,6 @@ import java.io.OutputStream;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Objects;
-
 import homer.api.DeviceId;
 import homer.api.DeviceState;
 import homer.api.state.ActuatedDeviceState;
@@ -16,7 +15,6 @@ import homer.controller.Controller;
 import homer.model.lights.LightState;
 import homer.model.outlets.OutletState;
 import homer.model.temperaturechangers.TemperatureChangerState;
-import homer.model.temperaturechangers.TemperatureChangerType;
 
 /**
  * Basic {@link Logger} that can be decorated.
@@ -34,6 +32,7 @@ public final class LoggerImpl implements Logger {
     public LoggerImpl(final OutputStream outputStream) {
         Objects.requireNonNull(outputStream);
         this.outputStream = outputStream;
+        log("LOGGER STARTED\n");
     }
 
     @Override
@@ -97,7 +96,7 @@ public final class LoggerImpl implements Logger {
     private String deviceCreationInfo(final DeviceState deviceState) {
         if (deviceState instanceof TemperatureChangerState state) {
             return "Temperature Changer " + state.getType()
-                    .map(x -> x.equals(TemperatureChangerType.AIRCONDITIONING) ? "Air conditioning" : "Heating")
+                    .map(x -> "AIR CONDITIONING".equals(x) ? "Air conditioning" : "Heating")
                     .orElseGet(() -> UNDEFINED);
         } else if (deviceState instanceof ActuatedDeviceState state) {
             return "Actuated device"
@@ -115,5 +114,6 @@ public final class LoggerImpl implements Logger {
             throw new IllegalArgumentException();
         }
     }
+
 
 }
