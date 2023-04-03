@@ -1,7 +1,5 @@
 package homer.model.blinds;
 
-import java.util.Optional;
-
 import homer.api.state.ActuatedDeviceState;
 import homer.model.actuator.AbstractActuatedDevice;
 import homer.model.actuator.Actuator;
@@ -19,7 +17,7 @@ public final class MechanizedBlinds extends AbstractActuatedDevice implements Bl
      * @param actuator The {@link Actuator} controlling the blinds.
      */
     public MechanizedBlinds(final Actuator actuator) {
-        super(actuator, Optional.of(ActuatedDeviceState.BLINDS));
+        super(actuator, ActuatedDeviceState.BLINDS);
     }
 
 }

@@ -20,7 +20,7 @@ final class TestAbstractActuatedDevice {
     private static final int UPPER_BOUND = 100;
     private static final Bounds<Integer> BOUNDS = new Bounds<>(LOWER_BOUND, UPPER_BOUND);
     private final Actuator actuator = new SimpleActuator(BOUNDS);
-    private final AbstractActuatedDevice device = new AbstractActuatedDevice(actuator, Optional.empty());
+    private final AbstractActuatedDevice device = new AbstractActuatedDevice(actuator);
 
     @Test
     void testGetState() {

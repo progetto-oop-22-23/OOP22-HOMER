@@ -1,7 +1,5 @@
 package homer.model.door;
 
-import java.util.Optional;
-
 import homer.api.state.ActuatedDeviceState;
 import homer.model.actuator.AbstractActuatedDevice;
 import homer.model.actuator.Actuator;
@@ -19,7 +17,7 @@ public class MechanizedDoor extends AbstractActuatedDevice implements Door {
      * @param actuator The {@link Actuator} controlling the window.
      */
     public MechanizedDoor(final Actuator actuator) {
-        super(actuator, Optional.of(ActuatedDeviceState.DOOR));
+        super(actuator, ActuatedDeviceState.DOOR);
     }
 
 }

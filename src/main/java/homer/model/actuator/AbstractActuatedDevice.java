@@ -20,10 +20,21 @@ public class AbstractActuatedDevice implements ActuatedDevice {
      * {@link Actuator}.
      * 
      * @param actuator The {@link Actuator} controlling the device.
-     * @param type
      */
-    public AbstractActuatedDevice(final Actuator actuator, final Optional<String> type) {
-        this.type = type;
+    public AbstractActuatedDevice(final Actuator actuator) {
+        this.type = Optional.empty();
+        this.actuator = Objects.requireNonNull(actuator);
+    }
+
+    /**
+     * Creates a {@link AbstractActuatedDevice} whose position is controlled by an
+     * {@link Actuator}.
+     * 
+     * @param actuator The {@link Actuator} controlling the device.
+     * @param type the device's type.
+     */
+    public AbstractActuatedDevice(final Actuator actuator, final String type) {
+        this.type = Optional.of(type);
         this.actuator = Objects.requireNonNull(actuator);
     }
 
