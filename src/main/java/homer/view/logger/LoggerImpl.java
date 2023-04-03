@@ -10,7 +10,6 @@ import homer.api.DeviceState;
 import homer.api.state.ActuatedDeviceState;
 import homer.api.state.LockState;
 import homer.api.state.ThermometerState;
-import homer.common.bounds.Bounds;
 import homer.controller.Controller;
 import homer.model.airquality.AirQualityState;
 import homer.model.lights.LightState;
@@ -103,8 +102,10 @@ public final class LoggerImpl implements Logger {
                     .orElseGet(() -> UNDEFINED);
         } else if (deviceState instanceof ActuatedDeviceState state) {
             return state.getType().orElseGet(() -> UNDEFINED)
-                    + (state.getPositionBounds()
-                            .map(Bounds::toString).orElseGet(() -> UNDEFINED));
+                    + " " + (state.getPositionBounds()
+                            .map(x -> "lower: " + x.getLowerBound() + " " + "upper: " + x.getUpperBound())
+                            .orElseGet(() -> ""))
+                    + " current:" + state.getPosition();
         } else if (deviceState instanceof LockState) {
             return "Lock";
         } else if (deviceState instanceof OutletState) {
