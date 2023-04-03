@@ -2,6 +2,7 @@ package homer.view.logger;
 
 import java.io.IOException;
 import java.io.OutputStream;
+import java.nio.charset.Charset;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Objects;
@@ -24,6 +25,7 @@ public final class LoggerImpl implements Logger {
     private OutputStream outputStream;
     private static final String SEPARATOR = ":";
     private static final String UNDEFINED = "UNDEFINED";
+    private static final Charset STANDARD_CHARSET = Charset.defaultCharset();
 
     /**
      * 
@@ -89,7 +91,7 @@ public final class LoggerImpl implements Logger {
     @Override
     public void log(final String string) {
         try {
-            this.outputStream.write(string.getBytes());
+            this.outputStream.write(string.getBytes(STANDARD_CHARSET));
         } catch (IOException e) {
             System.out.println(e.toString()); // NOPMD if logger fails, we have to report it somewhere.
         }

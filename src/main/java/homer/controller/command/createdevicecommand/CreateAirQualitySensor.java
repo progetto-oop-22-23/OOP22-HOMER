@@ -1,5 +1,6 @@
 package homer.controller.command.createdevicecommand;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import homer.controller.Controller;
 import homer.model.airquality.AirqualitySensor;
 import homer.model.environment.Environment;
@@ -11,6 +12,7 @@ import homer.model.environment.Environment;
 public record CreateAirQualitySensor(Environment environment) implements CreateDeviceCommand {
 
     @Override
+    @SuppressFBWarnings(value = "EI_EXPOSE_REP", justification = "Reference is needed in order for this to work")
     public void execute(final Controller controller) {
         controller.getDeviceManager().addDevice(new AirqualitySensor(this.environment));
     }
