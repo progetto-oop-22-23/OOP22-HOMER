@@ -22,7 +22,7 @@ public final class TemperatureLogger extends AbstractLogger<Temperature> {
     public TemperatureLogger(final GraphView<Temperature> view, final Controller controller) {
         super(() -> {
             final var currTime = controller.getClock().getDateTime();
-            final var term = controller.getDeviceManager().getDevices().values().stream()
+            final var thermometer = controller.getDeviceManager().getDevices().values().stream()
                     .filter(Thermometer.class::isInstance)
                     .map(d -> (Thermometer) d)
                     /*
@@ -32,7 +32,8 @@ public final class TemperatureLogger extends AbstractLogger<Temperature> {
                      * thermometers.
                      */
                     .findFirst();
-            return term.isPresent() ? Optional.of(new HistoryData<>(currTime, term.get().getState().getTemperature()))
+            return thermometer.isPresent()
+                    ? Optional.of(new HistoryData<>(currTime, thermometer.get().getState().getTemperature()))
                     : Optional.empty();
         }, view);
     }
