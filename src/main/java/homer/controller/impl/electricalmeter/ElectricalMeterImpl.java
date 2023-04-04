@@ -36,6 +36,12 @@ public final class ElectricalMeterImpl implements ElectricalMeter, DiscreteObjec
         this.outlets = new CopyOnWriteArrayList<>(outlets);
     }
 
+    public ElectricalMeterImpl() {
+        this.globalConsumption = 0.0;
+        this.averagePower = 0.0;
+        this.outlets = new CopyOnWriteArrayList<>();
+    }
+
     @Override
     public List<Outlet> getOutlets() {
         return new CopyOnWriteArrayList<>(this.outlets);
