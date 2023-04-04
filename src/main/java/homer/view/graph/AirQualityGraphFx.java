@@ -63,6 +63,7 @@ public final class AirQualityGraphFx extends ScrollPane implements GraphView<Air
             super(new CategoryAxis(), new NumberAxis());
             this.setTitle(title);
             this.setAnimated(false);
+            this.legendVisibleProperty().set(false);
             this.dataFunc = dataFunc;
         }
 

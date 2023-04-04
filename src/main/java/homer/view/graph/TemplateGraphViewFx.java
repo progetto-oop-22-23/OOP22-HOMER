@@ -37,6 +37,7 @@ public class TemplateGraphViewFx<T> extends VBox implements GraphView<T> {
         this.dataTransform = dataTransform;
         this.ac.setAnimated(false);
         this.ac.setTitle(title);
+        this.ac.legendVisibleProperty().set(false);
 
         this.getChildren().addAll(ac);
         this.timeAxis.autosize();
