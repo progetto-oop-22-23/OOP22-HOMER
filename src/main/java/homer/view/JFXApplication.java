@@ -5,8 +5,12 @@ import java.io.FileOutputStream;
 
 import homer.controller.Controller;
 import homer.controller.ControllerImpl;
+import homer.controller.history.AirQualityLogger;
+import homer.controller.history.ConsumptionLogger;
 import homer.controller.history.TemperatureLogger;
 import homer.controller.scheduler.TemperatureSchedulerController;
+import homer.view.graph.AirQualityGraphFx;
+import homer.view.graph.ConsumptionGraphFx;
 import homer.view.graph.TabViewBuilderFx;
 import homer.view.graph.TemperatureGraphFx;
 import homer.view.javafx.JFXDeviceViewer;
@@ -72,6 +76,13 @@ public class JFXApplication extends Application {
         final var tempGraph = new TemperatureGraphFx();
         final var tempLogger = new TemperatureLogger(tempGraph, controller);
         simManager.addObserver(tempLogger);
+        final var consumptionGraph = new ConsumptionGraphFx();
+        // TODO add meter
+        final var consumptionLogger = new ConsumptionLogger(controller.getClock(), null, consumptionGraph);
+        simManager.addObserver(consumptionLogger);
+        final var airQualityGraph = new AirQualityGraphFx();
+        final var airQualityLogger = new AirQualityLogger(controller, airQualityGraph);
+        simManager.addObserver(airQualityLogger);
 
         final TabPane tabPane = new TabPane();
         tabPane.setTabClosingPolicy(TabClosingPolicy.UNAVAILABLE);
@@ -87,6 +98,8 @@ public class JFXApplication extends Application {
         final Tab graphView = new Tab("GRAPHS",
                 new TabViewBuilderFx()
                         .addNode("TEMPERATURE", tempGraph)
+                        .addNode("ENERGY CONSUMPTION", consumptionGraph)
+                        .addNode("AIR QUALITY", airQualityGraph)
                         .build());
 
         tabPane.getTabs().addAll(devicesView, schedulerTab, graphView);
