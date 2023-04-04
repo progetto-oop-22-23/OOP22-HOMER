@@ -31,7 +31,7 @@ public abstract class AbstractGraphViewFx<T> extends VBox implements GraphView<T
      * @param dataTransform function that takes the data and converts it to a
      *                      {@link Number}.
      */
-    public AbstractGraphViewFx(final String title, final Function<T, Number> dataTransform) {
+    protected AbstractGraphViewFx(final String title, final Function<T, Number> dataTransform) {
         this.dataTransform = dataTransform;
         this.ac.setAnimated(false);
         this.ac.setTitle(title);
