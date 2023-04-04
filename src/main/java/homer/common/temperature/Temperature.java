@@ -6,7 +6,7 @@ package homer.common.temperature;
  */
 public interface Temperature extends Comparable<Temperature> {
     //CHECKSTYLE: JavadocVariable OFF
-    // These names are self explanatory, and have no reason to have an associated docstring
+    // These names are self-explanatory, and have no reason to have an associated docstring
     double DELTA_KELVIN_CELSIUS = 273.15;
     double DELTA_FARENHEIT_KELVIN = 459.67;
     double FIVE_NINES = 5 / 9f;
@@ -20,13 +20,13 @@ public interface Temperature extends Comparable<Temperature> {
     double getKelvin();
 
     /**
-     * Returns the temperature in farenheit.
-     * @return farenheit temperature
+     * Returns the temperature in fahrenheit.
+     * @return fahrenheit temperature
      */
     double getFarenheit();
 
     /**
-     * Returns the temperature in celsius.
+     * Returns the temperature in Celsius.
      * @return celsius temperature
      */
     double getCelsius();

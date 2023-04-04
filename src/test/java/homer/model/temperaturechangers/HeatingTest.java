@@ -16,8 +16,7 @@ import homer.model.environment.HomeEnvironment;
 
 @SuppressWarnings("PMD")
 class HeatingTest {
-    private Temperature temperature = TemperatureFactory.fromCelsius(0);
-    private Temperature highTemperature = TemperatureFactory.fromCelsius(100);
+    private final Temperature highTemperature = TemperatureFactory.fromCelsius(100);
     private Environment environment; 
     private TemperatureChanger heating;
     private static final int ONE_BILLION = 1_000_000_000;
@@ -26,7 +25,7 @@ class HeatingTest {
 
     @BeforeEach
     void setup() {
-        temperature = TemperatureFactory.fromCelsius(0);
+        Temperature temperature = TemperatureFactory.fromCelsius(0);
         this.environment = new HomeEnvironment(temperature, AIR_QUALITY_STATE);
         this.heating = new Heating(1, 10, environment);
         this.heating.setMinTemperature(temperature);

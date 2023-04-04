@@ -9,7 +9,7 @@ import homer.common.temperature.TemperatureFactory;
 import homer.model.environment.Environment;
 
 /**
- * Implementation of a {@link Device} which returns the temperature of the
+ * Implementation of a {@link homer.api.Device} which returns the temperature of the
  * environment as it is, without errors or lags.
  */
 public final class SimpleThermometer implements Thermometer {

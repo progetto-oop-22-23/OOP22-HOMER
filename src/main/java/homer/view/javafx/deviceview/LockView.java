@@ -9,21 +9,21 @@ import homer.view.javafx.JFXDeviceView;
 import javafx.scene.control.Label;
 
 /**
- * {@link Lock} view.
+ * {@link homer.model.lock.Lock} view.
  */
 public final class LockView extends JFXDeviceView {
 
-    private final Label label = new Label("Lock");
     private final ToggleableView toggleableView;
 
     /**
      * 
-     * @param deviceId
-     * @param controller
+     * @param deviceId the {@link homer.api.Device}'s id.
+     * @param controller the {@link Controller} that will be updated.
      */
     public LockView(final DeviceId deviceId, final Controller controller) {
         toggleableView = new ToggleableView("LOCKED", "UNLOCKED",
                 s -> controller.receiveCommand(new UpdateDeviceState(deviceId, new LockState(s))));
+        final Label label = new Label("Lock");
         this.getChildren().addAll(label, toggleableView);
     }
 

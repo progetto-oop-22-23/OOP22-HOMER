@@ -25,7 +25,7 @@ import javafx.scene.layout.VBox;
 import javafx.application.Platform;
 
 /**
- * Main view for {@link Device}s.
+ * Main view for {@link homer.api.Device}s.
  */
 public final class JFXDeviceViewer extends VBox implements DeviceViewer {
 

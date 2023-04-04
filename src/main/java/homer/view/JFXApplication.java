@@ -1,6 +1,5 @@
 package homer.view;
 
-import java.io.File;
 import java.io.FileOutputStream;
 
 import homer.controller.Controller;
@@ -56,7 +55,7 @@ public class JFXApplication extends Application {
         final var viewManager = controller.getViewManager();
         final var dashboard = new JFXDeviceViewer(controller);
         viewManager.addView(dashboard);
-        final Logger logger = new LoggerImpl(new FileOutputStream(new File(".log")));
+        final Logger logger = new LoggerImpl(new FileOutputStream(".log"));
         viewManager.addView(new TimeStampLogger(logger, controller.getClock()));
 
         // CREATE MAIN WINDOW

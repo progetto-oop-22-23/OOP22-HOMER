@@ -4,7 +4,8 @@ import homer.controller.Controller;
 import homer.model.outlets.OutletFactory;
 
 /**
- * Adds a {@link Outlet} with initial consumption 0 to the controller..
+ * Tells the controller to create a {@link homer.model.outlets.Outlet},
+ * specifically an L Outlet.
  */
 public record CreateLoutlet() implements CreateDeviceCommand {
 
