@@ -97,9 +97,9 @@ public class JFXApplication extends Application {
         final Tab schedulerTab = new Tab("SCHEDULER", tempSchedulerView);
         final Tab graphView = new Tab("GRAPHS",
                 new TabViewBuilderFx()
-                        .addNode("TEMPERATURE", tempGraph)
-                        .addNode("ENERGY CONSUMPTION", consumptionGraph)
-                        .addNode("AIR QUALITY", airQualityGraph)
+                        .addTab("TEMPERATURE", tempGraph)
+                        .addTab("ENERGY CONSUMPTION", consumptionGraph)
+                        .addTab("AIR QUALITY", airQualityGraph)
                         .build());
 
         tabPane.getTabs().addAll(devicesView, schedulerTab, graphView);

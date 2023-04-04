@@ -23,7 +23,7 @@ public final class TabViewBuilderFx {
      * @param node    the node.
      * @return the builder.
      */
-    public TabViewBuilderFx addNode(final String tabName, final Node node) {
+    public TabViewBuilderFx addTab(final String tabName, final Node node) {
         this.nodes.put(tabName, node);
         return this;
     }
