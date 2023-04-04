@@ -47,11 +47,10 @@ public final class AirQualityGraphFx extends ScrollPane implements GraphView<Air
     @Override
     public void updateGraph(final Set<HistoryData<AirQualityState>> historyData) {
         Platform.runLater(() -> {
-            this.charts.forEach(c -> c.getData().clear());
+            this.charts.forEach(c -> c.clearSeries());
             historyData.stream()
                     .sorted()
                     .forEach(hd -> this.charts.forEach(c -> c.addData(hd)));
-            this.charts.forEach(c -> c.updateSeries());
         });
     }
 
@@ -65,14 +64,15 @@ public final class AirQualityGraphFx extends ScrollPane implements GraphView<Air
             this.setAnimated(false);
             this.legendVisibleProperty().set(false);
             this.dataFunc = dataFunc;
+            this.getData().add(this.series);
         }
 
         public void addData(final HistoryData<AirQualityState> hd) {
             this.series.getData().add(new XYChart.Data<>(hd.dateTime().toString(), dataFunc.apply(hd)));
         }
 
-        public void updateSeries() {
-            this.getData().add(this.series);
+        public void clearSeries() {
+            this.series.getData().clear();
         }
     }
 
