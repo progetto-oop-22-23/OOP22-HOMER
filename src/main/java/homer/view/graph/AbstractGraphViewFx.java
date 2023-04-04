@@ -12,6 +12,11 @@ import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
 import javafx.scene.layout.VBox;
 
+/**
+ * Abstract implementation of {@link GraphView} in JavaFX.
+ * 
+ * @param <T> the type of data logged to be displayed.
+ */
 public abstract class AbstractGraphViewFx<T> extends VBox implements GraphView<T> {
 
     private final Axis<String> timeAxis = new CategoryAxis();
@@ -19,6 +24,13 @@ public abstract class AbstractGraphViewFx<T> extends VBox implements GraphView<T
     private final AreaChart<String, Number> ac = new AreaChart<>(timeAxis, dataAxis);
     private final Function<T, Number> dataTransform;
 
+    /**
+     * Constructor for {@link AbstractGraphViewFx}.
+     * 
+     * @param title         the title of the graph to display.
+     * @param dataTransform function that takes the data and converts it to a
+     *                      {@link Number}.
+     */
     public AbstractGraphViewFx(final String title, final Function<T, Number> dataTransform) {
         this.dataTransform = dataTransform;
         this.ac.setAnimated(false);

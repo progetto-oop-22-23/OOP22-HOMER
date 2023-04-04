@@ -5,7 +5,9 @@ import java.time.LocalDateTime;
 /**
  * Represents some data associated to a datetime.
  * 
- * @param <T> the type of data.
+ * @param <T>      the type of data.
+ * @param dateTime the time associated to the data.
+ * @param data     the data to log.
  */
 public record HistoryData<T>(LocalDateTime dateTime, T data) implements Comparable<HistoryData<T>> {
 
