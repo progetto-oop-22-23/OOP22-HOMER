@@ -5,7 +5,7 @@ import homer.common.temperature.Temperature;
 /**
  * Implementation of the temperature graph in javafx.
  */
-public final class TemperatureGraphFx extends AbstractGraphViewFx<Temperature> {
+public final class TemperatureGraphFx extends TemplateGraphViewFx<Temperature> {
 
     private static final String TITLE = "Temperature (C)";
 

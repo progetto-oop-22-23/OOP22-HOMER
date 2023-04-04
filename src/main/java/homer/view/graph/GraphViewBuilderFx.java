@@ -23,7 +23,7 @@ public final class GraphViewBuilderFx {
      * @param graph   the graph node.
      * @return the builder.
      */
-    public GraphViewBuilderFx addGraph(final String tabName, final AbstractGraphViewFx<?> graph) {
+    public GraphViewBuilderFx addGraph(final String tabName, final TemplateGraphViewFx<?> graph) {
         this.graphs.put(tabName, graph);
         return this;
     }
