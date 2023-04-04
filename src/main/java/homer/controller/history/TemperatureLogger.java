@@ -20,7 +20,7 @@ public final class TemperatureLogger extends AbstractLogger<Temperature> {
      * @param controller the domotic controller.
      */
     public TemperatureLogger(final GraphView<Temperature> view, final Controller controller) {
-        super(() -> {
+        super(view, () -> {
             final var currTime = controller.getClock().getDateTime();
             final var thermometer = controller.getDeviceManager().getDevices().values().stream()
                     .filter(Thermometer.class::isInstance)
@@ -35,7 +35,7 @@ public final class TemperatureLogger extends AbstractLogger<Temperature> {
             return thermometer.isPresent()
                     ? Optional.of(new HistoryData<>(currTime, thermometer.get().getState().getTemperature()))
                     : Optional.empty();
-        }, view);
+        });
     }
 
 }

@@ -9,9 +9,8 @@ import homer.view.graph.GraphView;
 
 public final class AirQualityLogger extends AbstractLogger<AirQualityState> {
 
-    public AirQualityLogger(final Controller controller,
-            final GraphView<AirQualityState> view) {
-        super(() -> {
+    public AirQualityLogger(final GraphView<AirQualityState> view, final Controller controller) {
+        super(view, () -> {
             final var currTime = controller.getClock().getDateTime();
             final var sensor = controller.getDeviceManager().getDevices().values().stream()
                     .filter(AirqualitySensor.class::isInstance)
@@ -20,7 +19,7 @@ public final class AirQualityLogger extends AbstractLogger<AirQualityState> {
             return sensor.isPresent()
                     ? Optional.of(new HistoryData<>(currTime, sensor.get().getState()))
                     : Optional.empty();
-        }, view);
+        });
     }
 
 }

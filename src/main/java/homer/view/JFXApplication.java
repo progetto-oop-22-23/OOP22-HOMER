@@ -78,10 +78,10 @@ public class JFXApplication extends Application {
         simManager.addObserver(tempLogger);
         final var consumptionGraph = new ConsumptionGraphFx();
         // TODO add meter
-        final var consumptionLogger = new ConsumptionLogger(controller.getClock(), null, consumptionGraph);
+        final var consumptionLogger = new ConsumptionLogger(consumptionGraph, controller.getClock(), null);
         simManager.addObserver(consumptionLogger);
         final var airQualityGraph = new AirQualityGraphFx();
-        final var airQualityLogger = new AirQualityLogger(controller, airQualityGraph);
+        final var airQualityLogger = new AirQualityLogger(airQualityGraph, controller);
         simManager.addObserver(airQualityLogger);
 
         final TabPane tabPane = new TabPane();

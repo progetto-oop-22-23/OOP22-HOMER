@@ -30,7 +30,7 @@ public abstract class AbstractLogger<T> implements HistoricalDataController<T> {
      * @param dataSupplier supplier of optional {@link HistoryData} to log.
      * @param view         the graph view.
      */
-    protected AbstractLogger(final Supplier<Optional<HistoryData<T>>> dataSupplier, final GraphView<T> view) {
+    protected AbstractLogger(final GraphView<T> view, final Supplier<Optional<HistoryData<T>>> dataSupplier) {
         this.dataSupplier = dataSupplier;
         this.view = view;
     }
