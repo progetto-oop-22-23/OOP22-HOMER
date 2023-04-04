@@ -1,7 +1,6 @@
 package homer.view.javafx.sensorsview;
 
 import java.net.URL;
-import java.util.List;
 import java.util.Objects;
 import java.util.ResourceBundle;
 
@@ -75,6 +74,10 @@ public final class ElectricalMeterViewManager {
     public void setMeter(final ElectricalMeterImpl meter) {
         Objects.requireNonNull(meter);
         this.meter = new ElectricalMeterImpl(meter.getOutlets());
+    }
+
+    public ElectricalMeterImpl getMeter() {
+        return new ElectricalMeterImpl(this.meter.getOutlets());
     }
 
     /**
