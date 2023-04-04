@@ -43,28 +43,28 @@ public class JFXApplication extends Application {
 
         final Stage sensorStage = new Stage();
         final FXMLLoader dashboardLoader = new FXMLLoader(
-                getClass().getResource("/homer/view/javafx/sensors/SensorDashboardView.fxml"));
+                JFXApplication.class.getResource("/homer/view/javafx/sensorsview/SensorDashboardView.fxml"));
         final FXMLLoader meterLoader = new FXMLLoader(
-                getClass().getResource("/homer/view/javafx/sensors/ElectricalMeterView.fxml"));
+                JFXApplication.class.getResource("/homer/view/javafx/sensorsview/ElectricalMeterView.fxml"));
         final BorderPane sensorRoot = dashboardLoader.load();
-
-        final var root = new BorderPane();
-        final Scene scene = new Scene(root, INITIAL_W, INITIAL_H);
-
-        final Controller controller = new ControllerImpl();
 
         // Load the second FXML file into the second tab
         final TabPane sensorTabPane = (TabPane) sensorRoot.getCenter();
         final ObservableList<Tab> tabs = sensorTabPane.getTabs();
 
         for (final Tab tab : tabs) {
-            final String id = "meterTab";
+            final String id = "#meterTab";
             if (tab.getId().equals(id)) {
                 tab.setContent(meterLoader.load());
                 break;
             }
         }
-        
+
+        final var root = new BorderPane();
+        final Scene scene = new Scene(root, INITIAL_W, INITIAL_H);
+
+        final Controller controller = new ControllerImpl();
+
         final var tempSchedulerView = new TemperatureSchedulerViewFx();
         final var tempScheduler = new TemperatureSchedulerController(tempSchedulerView, controller);
         tempSchedulerView.setScheduler(tempScheduler);
