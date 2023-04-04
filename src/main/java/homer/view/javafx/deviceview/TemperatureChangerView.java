@@ -13,7 +13,7 @@ import javafx.scene.control.Label;
 /**
  * View used to display intensity data from a
  * {@link homer.model.temperaturechangers.Heating} or an
- * {@link homer.model.temperaturechangers.Airconditioning} device.
+ * {@link homer.model.temperaturechangers.AirConditioning} device.
  */
 public final class TemperatureChangerView extends JFXDeviceView {
     private final SliderComponent sliderComponent;

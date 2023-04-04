@@ -9,7 +9,7 @@ import homer.view.javafx.JFXDeviceView;
 import javafx.scene.control.Label;
 
 /**
- * {@link Lock} view.
+ * {@link homer.model.lock.Lock} view.
  */
 public final class LockView extends JFXDeviceView {
 
