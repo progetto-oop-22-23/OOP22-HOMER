@@ -12,7 +12,7 @@ import homer.api.DeviceIdImpl;
 import homer.model.temperaturechangers.TemperatureChangerState;
 
 class LoggerImplTest {
-    private static final TemperatureChangerState AIRCONDITIONING_STATE = new TemperatureChangerState()
+    private static final TemperatureChangerState AIR_CONDITIONING_STATE = new TemperatureChangerState()
             .addTemperatureChangerType("AIR CONDITIONING").addCurrentIntensity(10);
     private static final DeviceId DEVICE_ID = new DeviceIdImpl();
 
@@ -34,7 +34,7 @@ class LoggerImplTest {
     void testAirconditioning() {
         final var outputStream = new ByteArrayOutputStream();
         final var logger = new LoggerImpl(outputStream);
-        logger.updateDeviceState(DEVICE_ID, AIRCONDITIONING_STATE);
+        logger.updateDeviceState(DEVICE_ID, AIR_CONDITIONING_STATE);
         TestLoggerUtil.assertContains(outputStream, "Air conditioning");
     }
 
@@ -52,7 +52,7 @@ class LoggerImplTest {
     void testRemoveDevice() {
         final var outputStream = new ByteArrayOutputStream();
         final var logger = new LoggerImpl(outputStream);
-        logger.updateDeviceState(DEVICE_ID, AIRCONDITIONING_STATE);
+        logger.updateDeviceState(DEVICE_ID, AIR_CONDITIONING_STATE);
         logger.removeDevice(DEVICE_ID);
         TestLoggerUtil.assertContains(outputStream, "REMOVE DEVICE");
     }
@@ -61,7 +61,7 @@ class LoggerImplTest {
     void testCreateDevice() {
         final var outputStream = new ByteArrayOutputStream();
         final var logger = new LoggerImpl(outputStream);
-        logger.updateDeviceState(DEVICE_ID, AIRCONDITIONING_STATE);
+        logger.updateDeviceState(DEVICE_ID, AIR_CONDITIONING_STATE);
         TestLoggerUtil.assertContains(outputStream, "ADD DEVICE");
     }
 
@@ -69,8 +69,8 @@ class LoggerImplTest {
     void testUpdateDevice() {
         final var outputStream = new ByteArrayOutputStream();
         final var logger = new LoggerImpl(outputStream);
-        logger.updateDeviceState(DEVICE_ID, AIRCONDITIONING_STATE);
-        logger.updateDeviceState(DEVICE_ID, AIRCONDITIONING_STATE);
+        logger.updateDeviceState(DEVICE_ID, AIR_CONDITIONING_STATE);
+        logger.updateDeviceState(DEVICE_ID, AIR_CONDITIONING_STATE);
         TestLoggerUtil.assertContains(outputStream, "UPDATE DEVICE");
     }
 

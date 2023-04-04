@@ -20,7 +20,7 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 /**
  * Uses template method on updateTick. At a default intensity, it changes the
  * temperature by
- * 1 celsius degree each hour. By default, minimum temperature is the absolute
+ * 1 Celsius degree each hour. By default, minimum temperature is the absolute
  * 0, and the maximum temperature
  * is not set.
  */
