@@ -10,6 +10,11 @@ import homer.model.history.HistoricalDataLogger;
 import homer.model.history.HistoricalDataLoggerImpl;
 import homer.view.graph.GraphView;
 
+/**
+ * Abstract implementation of {@link HistoricalDataController}.
+ * 
+ * @param <T> the type of data to log.
+ */
 public abstract class AbstractLogger<T> implements HistoricalDataController<T> {
 
     private static final long LIMIT_ENTRIES = 30;
