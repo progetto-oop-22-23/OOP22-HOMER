@@ -1,7 +1,5 @@
 package homer.controller.scheduler;
 
-import java.time.LocalTime;
-
 import homer.common.bounds.Bounds;
 import homer.core.DiscreteObject;
 import homer.model.scheduler.ScheduleId;
@@ -16,10 +14,10 @@ public interface TimeSchedulerController<T extends Comparable<T>> extends Discre
     /**
      * Adds a new schedule.
      * 
-     * @param timeBounds  the time bounds for the schedule.
+     * @param timeBounds  the time bounds for the schedule in hours 0-24.
      * @param paramBounds the target parameter bounds for the schedule.
      */
-    void addSchedule(Bounds<LocalTime> timeBounds, Bounds<T> paramBounds);
+    void addSchedule(Bounds<Integer> timeBounds, Bounds<T> paramBounds);
 
     /**
      * Removes a schedule.

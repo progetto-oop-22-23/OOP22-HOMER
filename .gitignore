@@ -30,3 +30,6 @@ build
 
 # Ignore VSCode directory
 .vscode
+
+# Temporary file out from console
+/out

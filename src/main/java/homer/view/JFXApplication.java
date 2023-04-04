@@ -1,5 +1,8 @@
 package homer.view;
 
+import java.io.File;
+import java.io.FileOutputStream;
+
 import homer.controller.Controller;
 import homer.controller.ControllerImpl;
 import homer.controller.scheduler.TemperatureSchedulerController;
@@ -74,7 +77,7 @@ public class JFXApplication extends Application {
         final var viewManager = controller.getViewManager();
         final var dashboard = new JFXDeviceViewer(controller);
         viewManager.addView(dashboard);
-        final Logger logger = new LoggerImpl(System.out);
+        final Logger logger = new LoggerImpl(new FileOutputStream(new File(".log")));
         viewManager.addView(new TimeStampLogger(logger, controller.getClock()));
 
         // CREATE MAIN WINDOW

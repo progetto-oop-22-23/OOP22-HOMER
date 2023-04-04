@@ -2,6 +2,7 @@ package homer.controller.command.createdevicecommand;
 
 import java.util.Objects;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import homer.controller.Controller;
 import homer.model.environment.Environment;
 import homer.model.thermometer.SimpleThermometer;
@@ -23,6 +24,7 @@ public final class CreateThermometer implements CreateDeviceCommand {
         this.environment = Objects.requireNonNull(environment);
     }
 
+    @SuppressFBWarnings(value = "EI_EXPOSE_REP", justification = "Exposing a reference is intended here")
     @Override
     public void execute(final Controller controller) {
         controller.getDeviceManager().addDevice(new SimpleThermometer(this.environment));

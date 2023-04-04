@@ -37,6 +37,6 @@ public final class Heating extends AbstractTemperatureChanger {
 
     @Override
     public TemperatureChangerState getState() {
-        return super.getTemperatureState().addTemperatureChangerType("HEATING");
+        return super.getTemperatureState().addTemperatureChangerType(TemperatureChangerState.HEATING);
     }
 }
