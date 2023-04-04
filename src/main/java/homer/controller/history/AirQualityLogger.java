@@ -7,8 +7,17 @@ import homer.model.airquality.AirQualityState;
 import homer.model.airquality.AirqualitySensor;
 import homer.view.graph.GraphView;
 
+/**
+ * Implementation of historical data controller for air quality.
+ */
 public final class AirQualityLogger extends AbstractLogger<AirQualityState> {
 
+    /**
+     * Creates a new {@link AirQualityLogger}.
+     * 
+     * @param view       the graph view.
+     * @param controller the domotic controller.
+     */
     public AirQualityLogger(final GraphView<AirQualityState> view, final Controller controller) {
         super(view, () -> {
             final var currTime = controller.getClock().getDateTime();
