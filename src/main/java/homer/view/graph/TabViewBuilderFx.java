@@ -10,34 +10,34 @@ import javafx.scene.control.TabPane.TabClosingPolicy;
 import javafx.scene.control.TabPane.TabDragPolicy;
 
 /**
- * Utility class to build the graph tabs.
+ * Utility class to build a tab pane.
  */
-public final class GraphViewBuilderFx {
+public final class TabViewBuilderFx {
 
-    private final Map<String, Node> graphs = new HashMap<>();
+    private final Map<String, Node> nodes = new HashMap<>();
 
     /**
-     * Add a new tab with the given graph.
+     * Add a new tab with the given node.
      * 
      * @param tabName the tab title name.
-     * @param graph   the graph node.
+     * @param node    the node.
      * @return the builder.
      */
-    public GraphViewBuilderFx addGraph(final String tabName, final TemplateGraphViewFx<?> graph) {
-        this.graphs.put(tabName, graph);
+    public TabViewBuilderFx addNode(final String tabName, final Node node) {
+        this.nodes.put(tabName, node);
         return this;
     }
 
     /**
-     * Builds the tabpane with the graph tabs.
+     * Builds the tabpane with the tabs.
      * 
-     * @return the tabpane with the graph tabs.
+     * @return the tabpane with the tabs.
      */
     public TabPane build() {
         final TabPane tabPane = new TabPane();
         tabPane.setTabClosingPolicy(TabClosingPolicy.UNAVAILABLE);
         tabPane.setTabDragPolicy(TabDragPolicy.REORDER);
-        graphs.forEach((name, node) -> tabPane.getTabs().add(new Tab(name, node)));
+        nodes.forEach((name, node) -> tabPane.getTabs().add(new Tab(name, node)));
         tabPane.autosize();
         return tabPane;
     }

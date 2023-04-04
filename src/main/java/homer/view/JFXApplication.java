@@ -7,7 +7,7 @@ import homer.controller.Controller;
 import homer.controller.ControllerImpl;
 import homer.controller.history.TemperatureLogger;
 import homer.controller.scheduler.TemperatureSchedulerController;
-import homer.view.graph.GraphViewBuilderFx;
+import homer.view.graph.TabViewBuilderFx;
 import homer.view.graph.TemperatureGraphFx;
 import homer.view.javafx.JFXDeviceViewer;
 import homer.view.logger.Logger;
@@ -85,8 +85,8 @@ public class JFXApplication extends Application {
         final Tab devicesView = new Tab("DEVICES", dashboardScrollPane);
         final Tab schedulerTab = new Tab("SCHEDULER", tempSchedulerView);
         final Tab graphView = new Tab("GRAPHS",
-                new GraphViewBuilderFx()
-                        .addGraph("TEMPERATURE", tempGraph)
+                new TabViewBuilderFx()
+                        .addNode("TEMPERATURE", tempGraph)
                         .build());
 
         tabPane.getTabs().addAll(devicesView, schedulerTab, graphView);
