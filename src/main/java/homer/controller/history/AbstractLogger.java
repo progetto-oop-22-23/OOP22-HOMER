@@ -24,6 +24,12 @@ public abstract class AbstractLogger<T> implements HistoricalDataController<T> {
     private final Supplier<Optional<HistoryData<T>>> dataSupplier;
     private Duration accumulatedTime = Duration.ofNanos(0);
 
+    /**
+     * Constructor for {@link AbstractLogger}.
+     * 
+     * @param dataSupplier supplier of optional {@link HistoryData} to log.
+     * @param view         the graph view.
+     */
     protected AbstractLogger(final Supplier<Optional<HistoryData<T>>> dataSupplier, final GraphView<T> view) {
         this.dataSupplier = dataSupplier;
         this.view = view;
