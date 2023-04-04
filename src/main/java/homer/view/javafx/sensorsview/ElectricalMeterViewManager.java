@@ -1,14 +1,17 @@
 package homer.view.javafx.sensorsview;
 
 import java.net.URL;
+import java.util.List;
 import java.util.Objects;
 import java.util.ResourceBundle;
 
 import homer.controller.impl.electricalmeter.ElectricalMeterImpl;
 import homer.model.outlets.Outlet;
+import homer.model.outlets.OutletFactory;
 import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -19,7 +22,9 @@ import javafx.scene.control.TableView;
 public final class ElectricalMeterViewManager {
 
     // Used to print no. of Outlet in labels.
-    private static int outletNumber;
+    private static int outletNumber = 0;
+
+    private ElectricalMeterImpl meter;
 
     @FXML
     // Reference of consumptionLabel for the FXML loader.
@@ -40,6 +45,14 @@ public final class ElectricalMeterViewManager {
     // Reference of outletStateColumn for the FXML loader.
     private TableColumn<Outlet, String> outletIDColumn;
 
+    @FXML
+    // Reference of removeOutlet for the FXML loader.
+    private Button addOutlet;
+
+    @FXML
+    // Reference of removeOutlet for the FXML loader.
+    private Button removeOutlet;
+
     // Automatically set by FXML Loader
     @FXML
     private URL location;
@@ -47,15 +60,13 @@ public final class ElectricalMeterViewManager {
     @FXML
     private ResourceBundle resources;
 
-    private ElectricalMeterImpl meter;
-
     /**
      * Empty constructor.
-     * 
-     * public ElectricalMeterViewManager() {
-     * 
-     * }
      */
+    public ElectricalMeterViewManager() {
+        this.meter = new ElectricalMeterImpl();
+    }
+
     /**
      * Sets the {@link homer.controller.impl.electricalmeter}.
      * 
@@ -81,6 +92,28 @@ public final class ElectricalMeterViewManager {
                         String.format("%.2f Wh", cellData.getValue().getState().getPower().get())));
         outletIDColumn.setCellValueFactory(
                 cellData -> new ReadOnlyObjectWrapper<String>(
-                        cellData.getValue().getClass().getSimpleName() + outletNumber++));
+                        cellData.getValue().getClass().getSimpleName()));
+    }
+
+    /**
+     * Adds an Outlet.
+     */
+    @FXML
+    public void addOutlet() {
+        meter.addOutlet(OutletFactory.lOutlet(0.0));
+        outletTable.setItems(FXCollections.observableArrayList(meter.getOutlets()));
+        outletNumber++;
+        this.setLabels();
+    }
+
+    /**
+     * Removes an Outlet.
+     */
+    @FXML
+    public void removeOutlet() {
+        meter.removeOutlet(meter.getOutlets().get(outletNumber-1));
+        outletTable.setItems(FXCollections.observableArrayList(meter.getOutlets()));
+        outletNumber--;
+        this.setLabels();
     }
 }
