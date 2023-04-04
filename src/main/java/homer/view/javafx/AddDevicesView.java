@@ -15,7 +15,6 @@ import javafx.scene.layout.VBox;
 public final class AddDevicesView extends VBox {
     private final Controller controller;
     private final ChoiceBox<String> choiceBox = new ChoiceBox<>();
-    private final Button addDeviceButton = new Button("Add");
     private Map<String, CreateDeviceCommand> map;
 
     /**
@@ -26,9 +25,10 @@ public final class AddDevicesView extends VBox {
      */
     public AddDevicesView(final Controller controller) {
         this.controller = controller;
+        final Button addDeviceButton = new Button("Add");
         this.getChildren().addAll(choiceBox, addDeviceButton);
         this.update();
-        this.addDeviceButton.setOnMouseClicked(e -> controller.receiveCommand(map.get(choiceBox.getValue())));
+        addDeviceButton.setOnMouseClicked(e -> controller.receiveCommand(map.get(choiceBox.getValue())));
     }
 
     /**

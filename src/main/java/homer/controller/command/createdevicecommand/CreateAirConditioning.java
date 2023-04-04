@@ -7,7 +7,7 @@ import homer.model.temperaturechangers.AirConditioning;
 
 /** 
  * Tells the controller to create an air conditioning device.
- * @param environment
+ * @param environment the {@link Environment} that will be updated.
 */
 public record CreateAirConditioning(Environment environment) implements CreateDeviceCommand {
     private static final double HEATING_MAX_DEFAULT_INTENSITY = 10;

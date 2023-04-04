@@ -3,7 +3,7 @@ package homer.controller.command.createdevicecommand;
 import homer.controller.command.Command;
 
 /**
- * These commands tell the {@link Controller} to create a new {@link Device}.
+ * These commands tell the {@link homer.controller.Controller } to create a new {@link homer.api.Device}.
  */
 public interface CreateDeviceCommand extends Command {
 

@@ -52,8 +52,8 @@ public final class LoggerImpl implements Logger {
         if (deviceState instanceof TemperatureChangerState state) {
             log("CURRENT INTENSITY:" + state
                     .getCurrentIntensity()
-                    .map(x -> x.toString())
-                    .orElseGet(() -> UNDEFINED));
+                    .map(Object::toString)
+                    .orElse(UNDEFINED));
         } else if (deviceState instanceof ActuatedDeviceState state) {
             log(Integer.toString(state.getPosition()));
         } else if (deviceState instanceof LockState state) {
@@ -62,11 +62,11 @@ public final class LoggerImpl implements Logger {
             log("TURNED ON:" + state.isOn());
         } else if (deviceState instanceof OutletState state) {
             log("POWER:" + state.getPower()
-                    .map(x -> toString()).orElseGet(() -> UNDEFINED));
+                    .map(x -> toString()).orElse(UNDEFINED));
         } else if (deviceState instanceof ThermometerState state) {
             log("TEMPERATURE:" + state.getTemperature().getCelsius() + "C");
         } else if (deviceState instanceof AirQualityState state) {
-            log("AIRQUALITY:" + state.toString());
+            log("AIR QUALITY:" + state.toString());
         }
         log("\n");
     }
@@ -101,12 +101,12 @@ public final class LoggerImpl implements Logger {
         if (deviceState instanceof TemperatureChangerState state) {
             return "Temperature Changer " + state.getType()
                     .map(x -> TemperatureChangerState.AIRCONDITIONING.equals(x) ? "Air conditioning" : "Heating")
-                    .orElseGet(() -> UNDEFINED);
+                    .orElse(UNDEFINED);
         } else if (deviceState instanceof ActuatedDeviceState state) {
-            return state.getType().orElseGet(() -> UNDEFINED)
+            return state.getType().orElse(UNDEFINED)
                     + " " + (state.getPositionBounds()
                             .map(x -> "lower: " + x.getLowerBound() + " " + "upper: " + x.getUpperBound())
-                            .orElseGet(() -> ""))
+                            .orElse(""))
                     + " current:" + state.getPosition();
         } else if (deviceState instanceof LockState) {
             return "Lock";
