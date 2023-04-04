@@ -20,7 +20,7 @@ public final class ConsumptionLogger extends AbstractLogger<Double> {
      * @param meter the electrical meter.
      * @param view  the graph view.
      */
-    protected ConsumptionLogger(final Clock clock, final ElectricalMeter meter, final GraphView<Double> view) {
+    public ConsumptionLogger(final Clock clock, final ElectricalMeter meter, final GraphView<Double> view) {
         super(() -> Optional.of(new HistoryData<>(clock.getDateTime(), meter.getGlobalConsumption())), view);
     }
 
