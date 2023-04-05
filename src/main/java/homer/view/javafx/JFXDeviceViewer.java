@@ -60,8 +60,11 @@ public final class JFXDeviceViewer extends VBox implements DeviceViewer {
                 } else if (deviceState instanceof AirQualityState airQualityState) {
                     deviceView = Optional.of(new AirqualityView(airQualityState));
                 } else if (deviceState instanceof ActuatedDeviceState actuatedDeviceState) {
-                    deviceView = Optional.of(new ActuatedDeviceView(actuatedDeviceState));
-
+                    if (actuatedDeviceState.getType().isPresent()) {
+                        deviceView = Optional.of(new ActuatedDeviceView(deviceId, actuatedDeviceState, controller));
+                    } else {
+                        deviceView = Optional.empty();
+                    }
                 } else {
                     invalidDeviceType.showAndWait().filter(r -> r == ButtonType.OK);
                     deviceView = Optional.empty();
