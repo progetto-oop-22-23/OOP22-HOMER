@@ -5,7 +5,6 @@ import java.util.Objects;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
-import homer.controller.DeviceManagerImpl;
 import homer.controller.impl.electricalmeter.ElectricalMeterImpl;
 import homer.model.airquality.AirqualitySensor;
 import homer.model.environment.HomeEnvironment;
@@ -72,7 +71,7 @@ public final class SensorDashboardViewManager {
      * @param environment The {@link homer.model.environment.HomeEnvironment}.
      */
     public void setSensors(final ElectricalMeterImpl meter, final HomeEnvironment environment) {
-        this.meter = new ElectricalMeterImpl(meter.getOutlets(), (DeviceManagerImpl) meter.getDeviceManager());
+        this.meter = meter;
         this.environment = new HomeEnvironment(environment);
         this.airQuality = new AirqualitySensor(this.environment);
         this.thermometer = new SimpleThermometer(this.environment);
@@ -86,7 +85,11 @@ public final class SensorDashboardViewManager {
      */
     public void setMeter(final ElectricalMeterImpl meter) {
         Objects.requireNonNull(meter);
-        this.meter = new ElectricalMeterImpl(meter.getOutlets(), (DeviceManagerImpl) meter.getDeviceManager());
+        this.meter = meter;
+    }
+
+    public ElectricalMeterImpl getMeter() {
+        return this.meter;
     }
 
     /**

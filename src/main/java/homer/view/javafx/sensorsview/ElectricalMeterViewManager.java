@@ -4,7 +4,6 @@ import java.net.URL;
 import java.util.Objects;
 import java.util.ResourceBundle;
 
-import homer.controller.DeviceManagerImpl;
 import homer.controller.impl.electricalmeter.ElectricalMeterImpl;
 import homer.model.outlets.Outlet;
 import homer.model.outlets.OutletFactory;
@@ -74,7 +73,7 @@ public final class ElectricalMeterViewManager {
      */
     public void setMeter(final ElectricalMeterImpl meter) {
         Objects.requireNonNull(meter);
-        this.meter = new ElectricalMeterImpl(meter.getOutlets(), (DeviceManagerImpl) meter.getDeviceManager());
+        this.meter = meter;
     }
 
     /**
@@ -82,8 +81,8 @@ public final class ElectricalMeterViewManager {
      * 
      * @return the {@code ElectricalMeter}.
      */
-    public ElectricalMeterImpl getMeter() {
-        return new ElectricalMeterImpl(this.meter.getOutlets(), (DeviceManagerImpl) meter.getDeviceManager());
+    public final ElectricalMeterImpl getMeter() {
+        return this.meter;
     }
 
     /**
