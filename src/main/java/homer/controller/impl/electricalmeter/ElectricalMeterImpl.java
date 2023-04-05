@@ -133,6 +133,7 @@ public final class ElectricalMeterImpl implements ElectricalMeter, DiscreteObjec
     public void cutPowerTo(final Outlet outlet) {
         Objects.requireNonNull(outlet);
         outlet.setState(new OutletState().addValue(0.0));
+        this.outlets.remove(outlet);
     }
 
     @Override
@@ -165,12 +166,16 @@ public final class ElectricalMeterImpl implements ElectricalMeter, DiscreteObjec
     }
 
     private void computeAveragePower(final Duration deltaTime) {
-        final double hours = DurationConverter.toHours(deltaTime);
-        this.setAveragePower(this.getGlobalConsumption() / hours);
+        final double dt = DurationConverter.toMillis(deltaTime);
+        final double delta = 10;
+        this.setAveragePower(this.getGlobalConsumption() / dt * delta);
     }
 
     @Override
     public void updateTick(final Duration deltaTime) {
+        for (Outlet outlet : this.getOutlets()) {
+            outlet.updateTick(deltaTime);
+        }
         this.setPoweredDeviceOutlets();
         this.checkConsumption();
         this.computeAveragePower(deltaTime);
