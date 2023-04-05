@@ -24,6 +24,7 @@ import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.Tab;
@@ -59,20 +60,19 @@ public class JFXApplication extends Application {
         final TabPane sensorTabPane = (TabPane) sensorRoot.getCenter();
         final ObservableList<Tab> tabs = sensorTabPane.getTabs();
 
-        for (final Tab tab : tabs) {
-            final String id = "#meterTab";
-            if (tab.getId().equals(id)) {
-                tab.setContent(meterLoader.load());
-                break;
-            }
-        }
-
         final var root = new BorderPane();
         final Scene scene = new Scene(root, INITIAL_W, INITIAL_H);
 
         final Controller controller = new ControllerImpl();
 
-        meterLoader.load();
+        final Parent meterRoot = meterLoader.load();
+        for (final Tab tab : tabs) {
+            final String id = "meterTab";
+            if (tab.getId().equals(id)) {
+                tab.setContent(meterRoot);
+                break;
+            }
+        }
         final ElectricalMeterViewManager meterViewManager = meterLoader.getController();
         meterViewManager.getMeter().setDeviceManger(controller.getDeviceManager());
 

@@ -63,7 +63,6 @@
                </content></Tab>
           <Tab fx:id="meterTab" text="Meter">
             <content>
-              <fx:include fx:id="meterTab" source="ElectricalMeterView.fxml" />
             </content>
           </Tab>
             <Tab fx:id="airTab" text="Air Quality">
