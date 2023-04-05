@@ -54,7 +54,10 @@ public class JFXApplication extends Application {
                 JFXApplication.class.getResource("/homer/view/javafx/sensorsview/SensorDashboardView.fxml"));
         final FXMLLoader meterLoader = new FXMLLoader(
                 JFXApplication.class.getResource("/homer/view/javafx/sensorsview/ElectricalMeterView.fxml"));
+        final FXMLLoader airQualityLoader = new FXMLLoader(
+                JFXApplication.class.getResource("/homer/view/javafx/sensorsview/AirQualityView.fxml"));
         final BorderPane sensorRoot = dashboardLoader.load();
+
 
         // Load the second FXML file into the second tab
         final TabPane sensorTabPane = (TabPane) sensorRoot.getCenter();
@@ -66,10 +69,14 @@ public class JFXApplication extends Application {
         final Controller controller = new ControllerImpl();
 
         final Parent meterRoot = meterLoader.load();
+        final Parent airRoot = airQualityLoader.load();
         for (final Tab tab : tabs) {
-            final String id = "meterTab";
-            if (tab.getId().equals(id)) {
+            final String meterTab = "meterTab";
+            final String airTab = "airTab";
+            if (tab.getId().equals(meterTab)) {
                 tab.setContent(meterRoot);
+            } else if (tab.getId().equals(airTab)) {
+                tab.setContent(airRoot);
                 break;
             }
         }
