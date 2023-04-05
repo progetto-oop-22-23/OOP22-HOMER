@@ -5,7 +5,9 @@ import java.time.format.DateTimeFormatter;
 
 import homer.core.SimManagerViewObserver;
 import javafx.application.Platform;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
@@ -63,6 +65,17 @@ public final class SimManagerViewFxImpl extends VBox implements SimManagerView {
     @Override
     public void setTimeRate(final long timeRate) {
         Platform.runLater(() -> this.timerate.setText(Long.toString(timeRate)));
+    }
+
+    @Override
+    public void showError(final String title, final String text) {
+        Platform.runLater(() -> {
+            final var alert = new Alert(AlertType.ERROR);
+            alert.setTitle(title);
+            alert.setHeaderText(title);
+            alert.setContentText(text);
+            alert.showAndWait();
+        });
     }
 
 }

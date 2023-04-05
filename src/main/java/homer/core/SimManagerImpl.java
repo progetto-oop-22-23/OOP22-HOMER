@@ -17,6 +17,7 @@ import homer.view.sim.SimManagerView;
  */
 public final class SimManagerImpl implements SimManager, SimManagerViewObserver {
 
+    private static final String ERROR_TITLE = "Unrecoverable simulation error";
     private static final Duration DEFAULT_SIM_STEP_PERIOD = Duration.of(10, TimeUnit.MILLISECONDS.toChronoUnit());
     private static final Duration DEFAULT_REAL_STEP_PERIOD = Duration.of(10, TimeUnit.MILLISECONDS.toChronoUnit());
     private static final long MIN_TIME_RATE = 1;
@@ -40,13 +41,22 @@ public final class SimManagerImpl implements SimManager, SimManagerViewObserver 
         this.view = view;
         updateView();
         this.loopRunnable = () -> {
-            final var dt = getSimStepPeriod().multipliedBy(timeRate);
-            controller.updateTick(dt);
-            controller.getDeviceManager().getDevices().values().stream()
-                    .filter(DiscreteObject.class::isInstance)
-                    .forEach(d -> ((DiscreteObject) d).updateTick(dt));
-            view.setDateTime(controller.getClock().getDateTime());
-            this.observers.forEach(o -> o.updateTick(dt));
+            try {
+                final var dt = getSimStepPeriod().multipliedBy(timeRate);
+                controller.updateTick(dt);
+                controller.getDeviceManager().getDevices().values().stream()
+                        .filter(DiscreteObject.class::isInstance)
+                        .forEach(d -> ((DiscreteObject) d).updateTick(dt));
+                view.setDateTime(controller.getClock().getDateTime());
+                this.observers.forEach(o -> o.updateTick(dt));
+            } catch (final Exception e) {
+                view.showError(ERROR_TITLE, e.toString() + "\n"
+                        + e.getMessage() + "\n"
+                        + e.getStackTrace().toString());
+                // If an exception occurs in the loop, the ScheduledExecutorService will not
+                // keep running it.
+                throw e;
+            }
         };
         resume();
     }
