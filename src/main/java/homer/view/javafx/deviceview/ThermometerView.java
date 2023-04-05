@@ -11,7 +11,6 @@ import javafx.scene.control.Label;
  * 
  */
 public final class ThermometerView extends JFXDeviceView {
-    // TODO the temperature's unit measure could be set unequivocally in the view, but for now this should be fine
     private final Label celsius = new Label();
     private final Label fahrenheit = new Label();
     private final Label kelvin = new Label();

@@ -1,46 +1,46 @@
 package homer.view.javafx.deviceview;
 
+import java.util.Optional;
+
+import homer.api.DeviceId;
 import homer.api.DeviceState;
 import homer.api.state.ActuatedDeviceState;
+import homer.controller.Controller;
+import homer.controller.command.UpdateDeviceState;
+import homer.model.actuator.AbstractActuatedDevice;
 import homer.view.javafx.JFXDeviceView;
-import javafx.application.Platform;
+import homer.view.javafx.SliderComponent;
 import javafx.scene.control.Label;
 
 /**
- * 
+ * View that displays informations relevant to
+ * {@link homer.model.actuator.ActuatedDevice}.
  */
 public final class ActuatedDeviceView extends JFXDeviceView {
-    private final Label title = new Label("UNDEFINED");
-    private final Label position = new Label();
-    private final Label upperBound = new Label();
-    private final Label lowerBound = new Label();
+    private final SliderComponent sliderComponent;
 
     /**
      * 
-     * @param state
+     * @param deviceId the device's id.
+     * @param state the current state we want to set the slider to.
+     * @param controller the controller that will be updated.
      */
-    public ActuatedDeviceView(final ActuatedDeviceState state)  {
-        updateState(state); 
-        this.getChildren().addAll(title, position, lowerBound, upperBound);
+    public ActuatedDeviceView(final DeviceId deviceId, final ActuatedDeviceState state,
+            final Controller controller) {
+        final var bounds = state.getPositionBounds().get(); // we need bounds on constructor
+        sliderComponent = new SliderComponent(bounds.getUpperBound().intValue(), bounds.getLowerBound().intValue(),
+                state.getPosition(),
+                s -> {
+                    controller.receiveCommand(
+                            new UpdateDeviceState(deviceId, new ActuatedDeviceState(s.intValue(), Optional.empty())));
+                });
+        this.getChildren().addAll(new Label(state.getType().get()), sliderComponent);
     }
 
     @Override
     public void setState(final DeviceState state) {
-        if (state instanceof ActuatedDeviceState actuatedDeviceState) {
-            updateState(actuatedDeviceState);
+        if (state instanceof AbstractActuatedDevice temperatureChangerState) {
+            this.sliderComponent.setState((double) temperatureChangerState.getState().getPosition());
         }
-    }
-
-    private void updateState(final ActuatedDeviceState actuatedDeviceState) {
-        Platform.runLater(() -> {
-            actuatedDeviceState.getType().ifPresent(x -> title.setText(x));
-            position.setText(Integer.toString(actuatedDeviceState.getPosition()));
-            upperBound.setVisible(actuatedDeviceState.getPositionBounds().isPresent());
-            lowerBound.setVisible(actuatedDeviceState.getPositionBounds().isPresent());
-            actuatedDeviceState.getPositionBounds().ifPresent(s -> {
-                lowerBound.setText("Lower bound: " + s.getLowerBound());
-                upperBound.setText("Upper bound: " + s.getUpperBound());
-            });
-        }); 
     }
 }

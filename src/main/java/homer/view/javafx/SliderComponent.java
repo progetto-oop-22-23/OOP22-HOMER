@@ -18,7 +18,7 @@ public final class SliderComponent extends VBox implements StateSelector<Double>
     private final Label label;
 
     /**
-     * 
+     * Supports continous values.
      * @param max
      * @param min
      * @param value
@@ -44,6 +44,23 @@ public final class SliderComponent extends VBox implements StateSelector<Double>
                 onDragDone.accept(getState());
             }
         });
+    }
+
+    /**
+     * Supports discrete values only.
+     * @param max maximum slider vlaue.
+     * @param min minimum slider vlaue.
+     * @param value current slider value.
+     * @param onDragDone the event that gets triggered on drag done.
+     */
+    public SliderComponent(final int max, final int min, final int value,
+            final Consumer<Double> onDragDone) {
+                this((double) max, (double) min, (double) value, onDragDone);
+                this.slider.setBlockIncrement(1);
+                this.slider.setMajorTickUnit(1);
+                this.slider.setMinorTickCount(0);
+                this.slider.setSnapToTicks(true);
+                this.slider.setShowTickMarks(false);
     }
 
     private void updateValue(final Double value) {
