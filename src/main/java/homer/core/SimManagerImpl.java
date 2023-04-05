@@ -36,6 +36,7 @@ public final class SimManagerImpl implements SimManager, SimManagerViewObserver 
      * 
      * @param view       the simulation manager view.
      * @param controller the controller.
+     * @param meter      the electrical meter.
      */
     public SimManagerImpl(final SimManagerView view, final Controller controller, final ElectricalMeterImpl meter) {
         this.view = view;

@@ -77,6 +77,11 @@ public final class ElectricalMeterViewManager {
         this.meter = new ElectricalMeterImpl(meter.getOutlets(), (DeviceManagerImpl) meter.getDeviceManager());
     }
 
+    /**
+     * Returns the {@code ElectricalMeter} that controls the view.
+     * 
+     * @return the {@code ElectricalMeter}.
+     */
     public ElectricalMeterImpl getMeter() {
         return new ElectricalMeterImpl(this.meter.getOutlets(), (DeviceManagerImpl) meter.getDeviceManager());
     }
@@ -115,7 +120,7 @@ public final class ElectricalMeterViewManager {
      */
     @FXML
     public void removeOutlet() {
-        meter.removeOutlet(meter.getOutlets().get(outletNumber-1));
+        meter.removeOutlet(meter.getOutlets().get(outletNumber - 1));
         outletTable.setItems(FXCollections.observableArrayList(meter.getOutlets()));
         outletNumber--;
         this.setLabels();

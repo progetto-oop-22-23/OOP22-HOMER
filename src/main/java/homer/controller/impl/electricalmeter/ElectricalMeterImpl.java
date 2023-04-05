@@ -36,29 +36,43 @@ public final class ElectricalMeterImpl implements ElectricalMeter, DiscreteObjec
      * {@link homer.controller.impl.electricalmeter.ElectricalMeterImpl}.
      * 
      * @param outlets The list of outlets to control.
+     * @param deviceManager The device manager.
      */
-    public ElectricalMeterImpl(final List<Outlet> outlets, DeviceManagerImpl deviceManager) {
+    public ElectricalMeterImpl(final List<Outlet> outlets, final DeviceManagerImpl deviceManager) {
         this.globalConsumption = 0.0;
         this.averagePower = 0.0;
         this.outlets = new CopyOnWriteArrayList<>(outlets);
         this.deviceManager = deviceManager;
     }
 
+    /**
+     * Constructor for ElectricalMeterImpl.
+     */
     public ElectricalMeterImpl() {
         this.globalConsumption = 0.0;
         this.averagePower = 0.0;
         this.outlets = new CopyOnWriteArrayList<>();
     }
 
+    /**
+     * Sets the {@code deviceManager}.
+     * @param deviceManager the new {@code deviceManager}.
+     */
     public void setDeviceManger(final DeviceManager deviceManager) {
         this.deviceManager = deviceManager;
     }
 
+    /**
+     * Returns the {@code deviceManager}.
+     * @return the {@code deviceManager}.
+     */
     public DeviceManager getDeviceManager() {
         return this.deviceManager;
     }
 
-
+    /**
+     * Gathers all the outlets from the {@code PoweredDevices}.
+     */
     private synchronized void setPoweredDeviceOutlets() {
         final Set<Outlet> existingOutlets = new HashSet<>(this.outlets); // Create a copy of existing outlets to avoid
                                                                          // mutating the original list
