@@ -34,7 +34,7 @@ public final class ElectricalMeterImpl implements ElectricalMeter, DiscreteObjec
      * Constructor for
      * {@link homer.controller.impl.electricalmeter.ElectricalMeterImpl}.
      * 
-     * @param outlets The list of outlets to control.
+     * @param outlets       The list of outlets to control.
      * @param deviceManager The device manager.
      */
     @SuppressFBWarnings(value = "EI_EXPOSE_REP", justification = "Exposing a reference is intended here")
@@ -56,6 +56,7 @@ public final class ElectricalMeterImpl implements ElectricalMeter, DiscreteObjec
 
     /**
      * Sets the {@code deviceManager}.
+     * 
      * @param deviceManager the new {@code deviceManager}.
      */
     @SuppressFBWarnings(value = "EI_EXPOSE_REP", justification = "Exposing a reference is intended here")
@@ -65,6 +66,7 @@ public final class ElectricalMeterImpl implements ElectricalMeter, DiscreteObjec
 
     /**
      * Returns the {@code deviceManager}.
+     * 
      * @return the {@code deviceManager}.
      */
     @SuppressFBWarnings(value = "EI_EXPOSE_REP", justification = "Exposing a reference is intended here")
@@ -77,7 +79,7 @@ public final class ElectricalMeterImpl implements ElectricalMeter, DiscreteObjec
      */
     private synchronized void setPoweredDeviceOutlets() {
         final List<Outlet> existingOutlets = (this.outlets); // Create a copy of existing outlets to avoid
-                                                                         // mutating the original list
+                                                             // mutating the original list
         final List<Outlet> newOutlets = this.deviceManager.getDevices().values().stream()
                 .filter(device -> device instanceof PoweredDevice)
                 .map(device -> ((PoweredDevice) device).getPowerInfo().getOutlet())
