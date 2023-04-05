@@ -17,6 +17,8 @@ import homer.controller.api.electricalmeter.ElectricalMeter;
 import homer.core.DiscreteObject;
 import homer.model.outlets.Outlet;
 import homer.model.outlets.OutletState;
+import homer.view.javafx.sensorsview.ElectricalMeterViewManager;
+import javafx.application.Platform;
 
 /**
  * Implements {@link homer.controller.api.electricalmeter.ElectricalMeter}.
@@ -28,6 +30,7 @@ public final class ElectricalMeterImpl implements ElectricalMeter, DiscreteObjec
     private double globalConsumption;
     private double averagePower;
     private DeviceManager deviceManager;
+    private ElectricalMeterViewManager viewManager;
     private static final double MAX_GLOBAL_CONSUMPTION = 4000; // Watts
 
     /**
@@ -55,6 +58,16 @@ public final class ElectricalMeterImpl implements ElectricalMeter, DiscreteObjec
     }
 
     /**
+     * Sets the {@code viewManager}.
+     * 
+     * @param viewManager the new {@code viewManager}.
+     */
+    @SuppressFBWarnings(value = "EI_EXPOSE_REP", justification = "Exposing a reference is intended here")
+    public void setViewManager(final ElectricalMeterViewManager viewManager) {
+        this.viewManager = viewManager;
+    }
+
+    /**
      * Sets the {@code deviceManager}.
      * 
      * @param deviceManager the new {@code deviceManager}.
@@ -62,6 +75,15 @@ public final class ElectricalMeterImpl implements ElectricalMeter, DiscreteObjec
     @SuppressFBWarnings(value = "EI_EXPOSE_REP", justification = "Exposing a reference is intended here")
     public void setDeviceManger(final DeviceManager deviceManager) {
         this.deviceManager = deviceManager;
+    }
+
+    /**
+     * Returns the {@code viewManager}.
+     * @return the {@code viewManager}.
+     */
+    @SuppressFBWarnings(value = "EI_EXPOSE_REP", justification = "Exposing a reference is intended here")
+    public ElectricalMeterViewManager getMeterViewManager() {
+        return this.viewManager;
     }
 
     /**
@@ -179,6 +201,14 @@ public final class ElectricalMeterImpl implements ElectricalMeter, DiscreteObjec
         this.setPoweredDeviceOutlets();
         this.checkConsumption();
         this.computeAveragePower(deltaTime);
+        if (viewManager != null) {
+            Platform.runLater(new Runnable() {
+                @Override
+                public void run() {
+                    getMeterViewManager().setLabels();
+                }
+            });
+        }
     }
 
 }
