@@ -69,6 +69,7 @@ public class JFXApplication extends Application {
         meterLoader.load();
         final ElectricalMeterViewManager meterViewManager = meterLoader.getController();
         final ElectricalMeterImpl meter = meterViewManager.getMeter();
+        meter.setDeviceManger(controller.getDeviceManager());
 
         final var tempSchedulerView = new TemperatureSchedulerViewFx();
         final var tempScheduler = new TemperatureSchedulerController(tempSchedulerView, controller);
