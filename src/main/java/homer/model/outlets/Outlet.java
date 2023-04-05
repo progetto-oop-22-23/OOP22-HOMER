@@ -74,4 +74,18 @@ public final class Outlet implements AdjustableDevice<OutletState>, DiscreteObje
         }
         this.setState(energy);
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+
+        Outlet outlet = (Outlet) o;
+
+        return Objects.equals(state, outlet.getState());
+    }
 }
