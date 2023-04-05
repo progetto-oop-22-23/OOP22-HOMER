@@ -10,6 +10,7 @@ import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.TimeUnit;
 
 import homer.controller.Controller;
+import homer.controller.impl.electricalmeter.ElectricalMeterImpl;
 import homer.view.sim.SimManagerView;
 
 /**
@@ -36,12 +37,13 @@ public final class SimManagerImpl implements SimManager, SimManagerViewObserver 
      * @param view       the simulation manager view.
      * @param controller the controller.
      */
-    public SimManagerImpl(final SimManagerView view, final Controller controller) {
+    public SimManagerImpl(final SimManagerView view, final Controller controller, final ElectricalMeterImpl meter) {
         this.view = view;
         updateView();
         this.loopRunnable = () -> {
             final var dt = getSimStepPeriod().multipliedBy(timeRate);
             controller.updateTick(dt);
+            meter.updateTick(dt);
             controller.getDeviceManager().getDevices().values().stream()
                     .filter(DiscreteObject.class::isInstance)
                     .forEach(d -> ((DiscreteObject) d).updateTick(dt));
