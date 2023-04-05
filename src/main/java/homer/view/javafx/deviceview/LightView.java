@@ -8,10 +8,18 @@ import homer.model.lights.LightState;
 import homer.view.javafx.JFXDeviceView;
 import javafx.scene.control.Label;
 
-public class LightView extends JFXDeviceView {
+/**
+ * View for a Light device.
+ */
+public final class LightView extends JFXDeviceView {
 
     private final ToggleableView toggleableView;
 
+    /**
+     * Constructor for LightView.
+     * @param deviceId      The ID of the device.
+     * @param controller    The controller.
+     */
     public LightView(final DeviceId deviceId, final Controller controller) {
         toggleableView = new ToggleableView("ON", "OFF",
                 s -> controller.receiveCommand(new UpdateDeviceState(deviceId, new LightState(s))));
@@ -20,7 +28,7 @@ public class LightView extends JFXDeviceView {
     }
 
     @Override
-    public void setState(DeviceState state) {
+    public void setState(final DeviceState state) {
         if (state instanceof LightState lightState) {
             toggleableView.setState(lightState.isOn());
         }

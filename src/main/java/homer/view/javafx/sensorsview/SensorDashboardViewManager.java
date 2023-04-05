@@ -60,7 +60,7 @@ public final class SensorDashboardViewManager {
      * Sets sensors
      * {@link homer.view.javafx.sensorsview.SensorDashboardViewManager}.
      * 
-     * @param meter       The {@link homer.controller.impl.electricalmeter}.
+     * @param meterView   The {@link homer.view.javafx.sensorsview.ElectricalMeterViewManager}.
      * @param environment The {@link homer.model.environment.HomeEnvironment}.
      */
     public void setSensors(final ElectricalMeterViewManager meterView, final HomeEnvironment environment) {

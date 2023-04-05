@@ -21,6 +21,10 @@ import homer.view.javafx.sensorsview.ElectricalMeterViewManager;
 import javafx.application.Platform;
 
 /**
+ * Reason: Used to suppress other warinings.
+ */
+@SuppressWarnings("PMD.AvoidDuplicateLiterals")
+/**
  * Implements {@link homer.controller.api.electricalmeter.ElectricalMeter}.
  * 
  * @author Alessandro Monticelli
@@ -79,6 +83,7 @@ public final class ElectricalMeterImpl implements ElectricalMeter, DiscreteObjec
 
     /**
      * Returns the {@code viewManager}.
+     * 
      * @return the {@code viewManager}.
      */
     @SuppressFBWarnings(value = "EI_EXPOSE_REP", justification = "Exposing a reference is intended here")
@@ -100,8 +105,8 @@ public final class ElectricalMeterImpl implements ElectricalMeter, DiscreteObjec
      * Gathers all the outlets from the {@code PoweredDevices}.
      */
     private synchronized void setPoweredDeviceOutlets() {
-        final List<Outlet> existingOutlets = (this.outlets); // Create a copy of existing outlets to avoid
-                                                             // mutating the original list
+        final List<Outlet> existingOutlets = this.outlets; // Create a copy of existing outlets to avoid
+                                                           // mutating the original list
         final List<Outlet> newOutlets = this.deviceManager.getDevices().values().stream()
                 .filter(device -> device instanceof PoweredDevice)
                 .map(device -> ((PoweredDevice) device).getPowerInfo().getOutlet())
@@ -195,7 +200,7 @@ public final class ElectricalMeterImpl implements ElectricalMeter, DiscreteObjec
 
     @Override
     public void updateTick(final Duration deltaTime) {
-        for (Outlet outlet : this.getOutlets()) {
+        for (final Outlet outlet : this.getOutlets()) {
             outlet.updateTick(deltaTime);
         }
         this.setPoweredDeviceOutlets();

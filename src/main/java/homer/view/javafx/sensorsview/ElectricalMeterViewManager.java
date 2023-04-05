@@ -69,7 +69,8 @@ public final class ElectricalMeterViewManager {
      * 
      * @param meter the meter.
      */
-    @SuppressFBWarnings(value = "EI_EXPOSE_REP", justification = "Meter HAS to be exactly the same object (can't be a protective copy)")
+    @SuppressFBWarnings(value = "EI_EXPOSE_REP",
+        justification = "Meter HAS to be exactly the same object (can't be a protective copy)")
     public void setMeter(final ElectricalMeterImpl meter) {
         Objects.requireNonNull(meter);
         this.meter = meter;
@@ -80,7 +81,8 @@ public final class ElectricalMeterViewManager {
      * 
      * @return the {@code ElectricalMeter}.
      */
-    @SuppressFBWarnings(value = "EI_EXPOSE_REP", justification = "Meter HAS to be exactly the same object (can't be a protective copy)")
+    @SuppressFBWarnings(value = "EI_EXPOSE_REP",
+        justification = "Meter HAS to be exactly the same object (can't be a protective copy)")
     public ElectricalMeterImpl getMeter() {
         return this.meter;
     }
@@ -118,7 +120,7 @@ public final class ElectricalMeterViewManager {
      */
     @FXML
     public void removeOutlet() {
-        meter.removeOutlet(meter.getOutlets().get(meter.getOutlets().size()-1));
+        meter.removeOutlet(meter.getOutlets().get(meter.getOutlets().size() - 1));
         outletTable.setItems(FXCollections.observableArrayList(meter.getOutlets()));
         this.setLabels();
     }
