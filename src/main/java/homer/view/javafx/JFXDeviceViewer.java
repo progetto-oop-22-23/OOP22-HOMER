@@ -69,7 +69,9 @@ public final class JFXDeviceViewer extends VBox implements DeviceViewer {
                 deviceView.ifPresentOrElse(s -> {
                     deviceMap.put(deviceId, s);
                     this.getChildren().add(s);
-                }, () -> controller.getDeviceManager().removeDevice(deviceId));
+                    // every device is removable at any time, so it makes sense to add it as a default behaviour
+                    deviceMap.get(deviceId).getChildren().add(new DisconnectDeviceButton(controller, deviceId));
+                }, () -> controller.getDeviceManager().removeDevice(deviceId)); 
             }
         });
     }
