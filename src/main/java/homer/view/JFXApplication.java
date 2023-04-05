@@ -76,9 +76,10 @@ public class JFXApplication extends Application {
         tempSchedulerView.setScheduler(tempScheduler);
 
         final var simView = new SimManagerViewFxImpl();
-        final var simManager = new SimManagerImpl(simView, controller, meter);
+        final var simManager = new SimManagerImpl(simView, controller);
         simView.setObserver(simManager);
         simManager.addObserver(tempScheduler);
+        simManager.addObserver(meter);
 
         final var viewManager = controller.getViewManager();
         final var dashboard = new JFXDeviceViewer(controller);
