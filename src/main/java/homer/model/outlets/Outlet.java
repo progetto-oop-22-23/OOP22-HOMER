@@ -27,7 +27,11 @@ public final class Outlet implements AdjustableDevice<OutletState>, DiscreteObje
      * @param state See {@link homer.model.outlets.OutletState}
      */
     public Outlet(final DeviceState state) {
-        this.state = (OutletState) state;
+        if (state instanceof OutletState) {
+            this.state = (OutletState) state;
+        } else {
+            this.state = new OutletState();
+        }
     }
 
     /**
@@ -76,7 +80,7 @@ public final class Outlet implements AdjustableDevice<OutletState>, DiscreteObje
     }
 
     @Override
-    public boolean equals(Object o) {
+    public boolean equals(final Object o) {
         if (this == o) {
             return true;
         }
@@ -84,7 +88,7 @@ public final class Outlet implements AdjustableDevice<OutletState>, DiscreteObje
             return false;
         }
 
-        Outlet outlet = (Outlet) o;
+        final Outlet outlet = (Outlet) o;
 
         return Objects.equals(state, outlet.getState());
     }

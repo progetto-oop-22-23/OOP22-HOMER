@@ -21,7 +21,7 @@ import javafx.scene.control.TableView;
 public final class ElectricalMeterViewManager {
 
     // Used to print no. of Outlet in labels.
-    private static int outletNumber = 0;
+    private static int outletNumber;
 
     private ElectricalMeterImpl meter;
 
@@ -81,7 +81,7 @@ public final class ElectricalMeterViewManager {
      * 
      * @return the {@code ElectricalMeter}.
      */
-    public final ElectricalMeterImpl getMeter() {
+    public ElectricalMeterImpl getMeter() {
         return this.meter;
     }
 

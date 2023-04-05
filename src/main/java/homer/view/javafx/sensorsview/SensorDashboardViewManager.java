@@ -70,8 +70,8 @@ public final class SensorDashboardViewManager {
      * @param meter       The {@link homer.controller.impl.electricalmeter}.
      * @param environment The {@link homer.model.environment.HomeEnvironment}.
      */
-    public void setSensors(final ElectricalMeterImpl meter, final HomeEnvironment environment) {
-        this.meter = meter;
+    public void setSensors(final ElectricalMeterViewManager meterView, final HomeEnvironment environment) {
+        this.meter = meterView.getMeter();
         this.environment = new HomeEnvironment(environment);
         this.airQuality = new AirqualitySensor(this.environment);
         this.thermometer = new SimpleThermometer(this.environment);
@@ -86,10 +86,6 @@ public final class SensorDashboardViewManager {
     public void setMeter(final ElectricalMeterImpl meter) {
         Objects.requireNonNull(meter);
         this.meter = meter;
-    }
-
-    public ElectricalMeterImpl getMeter() {
-        return this.meter;
     }
 
     /**

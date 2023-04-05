@@ -10,6 +10,8 @@ import java.util.Collections;
 import java.util.List;
 import org.junit.jupiter.api.Test;
 
+import homer.controller.ControllerImpl;
+import homer.controller.DeviceManagerImpl;
 import homer.controller.api.electricalmeter.ElectricalMeter;
 import homer.controller.impl.electricalmeter.ElectricalMeterImpl;
 import homer.model.outlets.Outlet;
@@ -28,7 +30,7 @@ final class ElectricalMeterTest {
                 OutletFactory.lOutlet(STATE),
                 OutletFactory.lOutlet(STATE));
 
-        final ElectricalMeter meter = new ElectricalMeterImpl(outlets);
+        final ElectricalMeter meter = new ElectricalMeterImpl(outlets, new DeviceManagerImpl(new ControllerImpl()));
 
         assertEquals(outlets, meter.getOutlets());
     }
@@ -41,7 +43,7 @@ final class ElectricalMeterTest {
                 OutletFactory.lOutlet(STATE),
                 OutletFactory.lOutlet(STATE));
 
-        final ElectricalMeter meter = new ElectricalMeterImpl(outlets);
+        final ElectricalMeter meter = new ElectricalMeterImpl(outlets, new DeviceManagerImpl(new ControllerImpl()));
 
         Collections.addAll(outlets,
                 OutletFactory.cOutlet(STATE),
@@ -56,7 +58,7 @@ final class ElectricalMeterTest {
         outlets.add(OutletFactory.cOutlet(STATE));
         outlets.add(OutletFactory.lOutlet(STATE));
 
-        final ElectricalMeter meter = new ElectricalMeterImpl(outlets);
+        final ElectricalMeter meter = new ElectricalMeterImpl(outlets, new DeviceManagerImpl(new ControllerImpl()));
         final Outlet outlet = OutletFactory.lOutlet(STATE);
         meter.addOutlet(outlet);
 
@@ -74,7 +76,7 @@ final class ElectricalMeterTest {
                 OutletFactory.lOutlet(STATE),
                 OutletFactory.lOutlet(STATE));
 
-        final ElectricalMeter meter = new ElectricalMeterImpl(outlets);
+        final ElectricalMeter meter = new ElectricalMeterImpl(outlets, new DeviceManagerImpl(new ControllerImpl()));
         assertEquals(outlets.size(), meter.getOutlets().size());
         final Outlet toRemove = meter.getOutlets().get(outletIndexToRemove);
         meter.removeOutlet(toRemove);
@@ -94,7 +96,7 @@ final class ElectricalMeterTest {
         final double expectedConsumptionAfterCut = 0.0;
         outlets.add(OutletFactory.cOutlet(STATE));
 
-        final ElectricalMeter meter = new ElectricalMeterImpl(outlets);
+        final ElectricalMeter meter = new ElectricalMeterImpl(outlets, new DeviceManagerImpl(new ControllerImpl()));
 
         meter.getOutlets().get(outletIndexToCut).getState().addValue(outletConsumptionValue);
 
@@ -119,7 +121,7 @@ final class ElectricalMeterTest {
                 OutletFactory.cOutlet(STATE),
                 OutletFactory.cOutlet(STATE));
 
-        final ElectricalMeter meter = new ElectricalMeterImpl(outlets);
+        final ElectricalMeter meter = new ElectricalMeterImpl(outlets, new DeviceManagerImpl(new ControllerImpl()));
         // assertEquals(expectedOutletListSize, meter.getOutlets().size());
         for (final Outlet outlet : meter.getOutlets()) {
             outlet.getState().addValue(outletConsumption);

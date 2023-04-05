@@ -54,7 +54,7 @@ public final class PoweredDeviceInfoImpl implements PoweredDeviceInfo {
     }
 
     @Override
-    public boolean equals(Object o) {
+    public boolean equals(final Object o) {
         if (this == o) {
             return true;
         }
@@ -62,15 +62,15 @@ public final class PoweredDeviceInfoImpl implements PoweredDeviceInfo {
             return false;
         }
 
-        PoweredDeviceInfoImpl that = (PoweredDeviceInfoImpl) o;
+        final PoweredDeviceInfoImpl that = (PoweredDeviceInfoImpl) o;
 
-        if (Double.compare(that.minConsumption, minConsumption) != 0) {
+        if (Double.compare(that.minConsumption, this.minConsumption) != 0) {
             return false;
         }
-        if (Double.compare(that.maxConsumption, maxConsumption) != 0) {
+        if (Double.compare(that.maxConsumption, this.maxConsumption) != 0) {
             return false;
         }
-        return Objects.equals(outlet, that.outlet);
+        return Objects.equals(this.outlet, that.outlet);
     }
 
 }
