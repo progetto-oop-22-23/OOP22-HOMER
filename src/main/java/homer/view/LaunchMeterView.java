@@ -6,6 +6,7 @@ import java.util.Collections;
 import java.util.List;
 
 import homer.api.PoweredDeviceInfoImpl;
+import homer.controller.DeviceManagerImpl;
 import homer.controller.impl.electricalmeter.ElectricalMeterImpl;
 import homer.model.lights.Light;
 import homer.model.outlets.Outlet;
@@ -72,7 +73,7 @@ public final class LaunchMeterView extends Application {
         for (final Outlet outlet : outlets) {
             lights.add(new Light(true, new PoweredDeviceInfoImpl(maxLightConsumption, outlet)));
         }
-        final ElectricalMeterImpl meter = new ElectricalMeterImpl(outlets);
+        final ElectricalMeterImpl meter = new ElectricalMeterImpl(outlets, new DeviceManagerImpl(null));
         final SensorDashboardViewManager dashboard = dashboardLoader.getController();
         final ElectricalMeterViewManager meterView = meterLoader.getController();
 
