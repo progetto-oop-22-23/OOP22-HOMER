@@ -73,4 +73,9 @@ public final class PoweredDeviceInfoImpl implements PoweredDeviceInfo {
         return Objects.equals(this.outlet, that.outlet);
     }
 
+    @Override
+    public int hashCode() {
+        return this.getOutlet().hashCode();
+    }
+
 }

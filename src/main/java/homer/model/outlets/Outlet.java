@@ -92,4 +92,9 @@ public final class Outlet implements AdjustableDevice<OutletState>, DiscreteObje
 
         return Objects.equals(state, outlet.getState());
     }
+
+    @Override
+    public int hashCode() {
+        return this.getState().hashCode();
+    }
 }
