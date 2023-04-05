@@ -19,14 +19,15 @@ public final class ToggleableView extends VBox implements StateSelector<Boolean>
 
     /**
      * 
-     * @param onRepresentation
-     * @param offRepresentation
-     * @param consumer
+     * @param onRepresentation What should be displayed when the state is true.
+     * @param offRepresentation What should be displayed when the state is false.
+     * @param consumer The {@link Consumer} that will get the parameter.
      */
     public ToggleableView(final String onRepresentation, final String offRepresentation,
             final Consumer<Boolean> consumer) {
         this.onRepresentation = onRepresentation;
         this.offRepresentation = offRepresentation;
+        updateState(state);
         this.getChildren().add(button);
         button.setOnMouseClicked(e -> {
             consumer.accept(!state);
@@ -46,6 +47,6 @@ public final class ToggleableView extends VBox implements StateSelector<Boolean>
 
     @Override
     public void setState(final Boolean state) {
-
+        this.state = state;
     }
 }

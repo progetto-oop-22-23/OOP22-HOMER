@@ -43,9 +43,9 @@ public final class TemperatureChangerState implements DeviceState {
 
     /**
      * 
-     * Returns the current intesity.
+     * Returns the current intensity.
      * 
-     * @return the current intesity.
+     * @return the current intensity.
      */
     public Optional<Double> getCurrentIntensity() {
         return this.currentIntensity;
@@ -93,8 +93,8 @@ public final class TemperatureChangerState implements DeviceState {
 
     /**
      * 
-     * Returns the type of the temperaturechanger.
-     * @return the type of the temperaturechanger.
+     * Returns the type of the temperature changer.
+     * @return the type of the temperature changer.
      */
     public Optional<String> getType() {
         return this.type;

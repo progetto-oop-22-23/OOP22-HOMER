@@ -4,7 +4,8 @@ import homer.controller.Controller;
 import homer.model.outlets.OutletFactory;
 
 /**
- * Tells the controller to create a {@link Coutlet}.
+ * Tells the controller to create a {@link homer.model.outlets.Outlet},
+ * specifically a C Outlet.
  */
 public final class CreateCoutlet implements CreateDeviceCommand {
 

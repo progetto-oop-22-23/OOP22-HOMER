@@ -20,10 +20,10 @@ public final class TemperatureFactory {
 
     /**
      * 
-     * @param temperature The temperature in farenheit degrees.
+     * @param temperature The temperature in fahrenheit degrees.
      * @return Temperature class instance.
      */
-    public static Temperature fromFarenheit(final double temperature) {
+    public static Temperature fromFahrenheit(final double temperature) {
         return fromKelvin((temperature + Temperature.DELTA_FARENHEIT_KELVIN) * Temperature.FIVE_NINES);
     }
 

@@ -1,11 +1,17 @@
 package homer.view;
 
-import java.io.File;
 import java.io.FileOutputStream;
 
 import homer.controller.Controller;
 import homer.controller.ControllerImpl;
+import homer.controller.history.AirQualityLogger;
+import homer.controller.history.ConsumptionLogger;
+import homer.controller.history.TemperatureLogger;
 import homer.controller.scheduler.TemperatureSchedulerController;
+import homer.view.graph.AirQualityGraphFx;
+import homer.view.graph.ConsumptionGraphFx;
+import homer.view.graph.TabViewBuilderFx;
+import homer.view.graph.TemperatureGraphFx;
 import homer.view.javafx.JFXDeviceViewer;
 import homer.view.javafx.sensorsview.ElectricalMeterViewManager;
 import homer.view.logger.Logger;
@@ -83,7 +89,7 @@ public class JFXApplication extends Application {
         final var viewManager = controller.getViewManager();
         final var dashboard = new JFXDeviceViewer(controller);
         viewManager.addView(dashboard);
-        final Logger logger = new LoggerImpl(new FileOutputStream(new File(".log")));
+        final Logger logger = new LoggerImpl(new FileOutputStream(".log"));
         viewManager.addView(new TimeStampLogger(logger, controller.getClock()));
 
         // CREATE MAIN WINDOW
@@ -92,6 +98,18 @@ public class JFXApplication extends Application {
         // (device widgets which include the remove button) with add device section
         // - scheduler
         // - graphs
+
+        final var tempGraph = new TemperatureGraphFx();
+        final var tempLogger = new TemperatureLogger(tempGraph, controller);
+        simManager.addObserver(tempLogger);
+        final var consumptionGraph = new ConsumptionGraphFx();
+        // TODO add meter
+        final var consumptionLogger = new ConsumptionLogger(consumptionGraph, controller.getClock(), null);
+        // TODO uncomment once meter added
+        // simManager.addObserver(consumptionLogger);
+        final var airQualityGraph = new AirQualityGraphFx();
+        final var airQualityLogger = new AirQualityLogger(airQualityGraph, controller);
+        simManager.addObserver(airQualityLogger);
 
         final TabPane tabPane = new TabPane();
         tabPane.setTabClosingPolicy(TabClosingPolicy.UNAVAILABLE);
@@ -104,7 +122,12 @@ public class JFXApplication extends Application {
         // scrollable
         final Tab devicesView = new Tab("DEVICES", dashboardScrollPane);
         final Tab schedulerTab = new Tab("SCHEDULER", tempSchedulerView);
-        final Tab graphView = new Tab("GRAPHS", null); // TODO
+        final Tab graphView = new Tab("GRAPHS",
+                new TabViewBuilderFx()
+                        .addTab("TEMPERATURE", tempGraph)
+                        .addTab("ENERGY CONSUMPTION", consumptionGraph)
+                        .addTab("AIR QUALITY", airQualityGraph)
+                        .build());
 
         tabPane.getTabs().addAll(devicesView, schedulerTab, graphView);
 

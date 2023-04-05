@@ -26,7 +26,7 @@ public interface PoweredDevice {
     void setInstantConsumption(double instantConsumption);
 
     /**
-     * Plugs the {@code PoweredDevice} in a {@link home.model.outlets.Outlet}.
+     * Plugs the {@code PoweredDevice} in a {@link homer.model.outlets.Outlet}.
      * 
      * @param outlet the outlet where to plug the {@code PoweredDevice}
      */

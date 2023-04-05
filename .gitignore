@@ -33,3 +33,6 @@ build
 
 # Temporary file out from console
 /out
+
+# Ignore IntelliJ idea directory
+.idea

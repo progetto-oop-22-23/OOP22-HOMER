@@ -30,4 +30,12 @@ public interface SimManagerView {
      */
     void setTimeRate(long timeRate);
 
+    /**
+     * Displays an error.
+     * 
+     * @param title the title.
+     * @param text  the content text.
+     */
+    void showError(String title, String text);
+
 }

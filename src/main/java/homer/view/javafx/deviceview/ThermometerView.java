@@ -11,19 +11,18 @@ import javafx.scene.control.Label;
  * 
  */
 public final class ThermometerView extends JFXDeviceView {
-    // TODO the temperature's unit measure could be set univocally in the view, but for now this should be fine
     private final Label celsius = new Label();
-    private final Label farenheit = new Label();
+    private final Label fahrenheit = new Label();
     private final Label kelvin = new Label();
 
     /**
      * 
-     * @param thermometerState
-     * 
+     * @param thermometerState The {@link ThermometerState} that will be displayed.
+     *
      */
     public ThermometerView(final ThermometerState thermometerState) {
         updateState(thermometerState.getTemperature());
-        this.getChildren().addAll(celsius, farenheit, kelvin);
+        this.getChildren().addAll(celsius, fahrenheit, kelvin);
     }
 
     @Override
@@ -36,7 +35,7 @@ public final class ThermometerView extends JFXDeviceView {
     private void updateState(final Temperature temperature) {
         celsius.setText("CELSIUS:" + temperature.getCelsius());
         kelvin.setText("KELVIN:" + temperature.getKelvin());
-        farenheit.setText("farenheit:" + temperature.getFarenheit());
+        fahrenheit.setText("FAHRENHEIT:" + temperature.getFarenheit());
     }
 
 }
