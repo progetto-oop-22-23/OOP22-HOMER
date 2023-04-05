@@ -2,12 +2,18 @@ package homer.controller.impl.electricalmeter;
 
 import java.time.Duration;
 import java.util.Comparator;
+import java.util.HashSet;
 import java.util.List;
 import java.util.ListIterator;
 import java.util.Objects;
+import java.util.Set;
 import java.util.concurrent.CopyOnWriteArrayList;
+import java.util.stream.Collectors;
 
+import homer.api.PoweredDevice;
 import homer.common.time.DurationConverter;
+import homer.controller.DeviceManager;
+import homer.controller.DeviceManagerImpl;
 import homer.controller.api.electricalmeter.ElectricalMeter;
 import homer.core.DiscreteObject;
 import homer.model.outlets.Outlet;
@@ -19,9 +25,10 @@ import homer.model.outlets.OutletState;
  * @author Alessandro Monticelli
  */
 public final class ElectricalMeterImpl implements ElectricalMeter, DiscreteObject {
-    private List<Outlet> outlets;
+    private CopyOnWriteArrayList<Outlet> outlets;
     private double globalConsumption;
     private double averagePower;
+    private DeviceManager deviceManager;
     private static final double MAX_GLOBAL_CONSUMPTION = 4000; // Watts
 
     /**
@@ -30,16 +37,37 @@ public final class ElectricalMeterImpl implements ElectricalMeter, DiscreteObjec
      * 
      * @param outlets The list of outlets to control.
      */
-    public ElectricalMeterImpl(final List<Outlet> outlets) {
+    public ElectricalMeterImpl(final List<Outlet> outlets, DeviceManagerImpl deviceManager) {
         this.globalConsumption = 0.0;
         this.averagePower = 0.0;
         this.outlets = new CopyOnWriteArrayList<>(outlets);
+        this.deviceManager = deviceManager;
     }
 
     public ElectricalMeterImpl() {
         this.globalConsumption = 0.0;
         this.averagePower = 0.0;
         this.outlets = new CopyOnWriteArrayList<>();
+    }
+
+    public void setDeviceManger(final DeviceManager deviceManager) {
+        this.deviceManager = deviceManager;
+    }
+
+    public DeviceManager getDeviceManager() {
+        return this.deviceManager;
+    }
+
+
+    private synchronized void setPoweredDeviceOutlets() {
+        final Set<Outlet> existingOutlets = new HashSet<>(this.outlets); // Create a copy of existing outlets to avoid
+                                                                         // mutating the original list
+        final List<Outlet> newOutlets = this.deviceManager.getDevices().values().stream()
+                .filter(device -> device instanceof PoweredDevice)
+                .map(device -> ((PoweredDevice) device).getPowerInfo().getOutlet())
+                .filter(outlet -> !existingOutlets.contains(outlet))
+                .collect(Collectors.toList()); // Collect new outlets into a list
+        this.outlets.addAllAbsent(newOutlets);
     }
 
     @Override
@@ -125,6 +153,7 @@ public final class ElectricalMeterImpl implements ElectricalMeter, DiscreteObjec
 
     @Override
     public void updateTick(final Duration deltaTime) {
+        this.setPoweredDeviceOutlets();
         this.checkConsumption();
         this.computeAveragePower(deltaTime);
     }
