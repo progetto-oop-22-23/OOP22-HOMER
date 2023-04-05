@@ -57,13 +57,6 @@ public final class SensorDashboardViewManager {
     private HomeEnvironment environment;
 
     /**
-     * 
-     * 
-     * public SensorDashboardViewManager() {
-     * 
-     * }
-     */
-    /**
      * Sets sensors
      * {@link homer.view.javafx.sensorsview.SensorDashboardViewManager}.
      * 

@@ -10,6 +10,7 @@ import java.util.Set;
 import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.stream.Collectors;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import homer.api.PoweredDevice;
 import homer.common.time.DurationConverter;
 import homer.controller.DeviceManager;
@@ -38,6 +39,7 @@ public final class ElectricalMeterImpl implements ElectricalMeter, DiscreteObjec
      * @param outlets The list of outlets to control.
      * @param deviceManager The device manager.
      */
+    @SuppressFBWarnings(value = "EI_EXPOSE_REP", justification = "Exposing a reference is intended here")
     public ElectricalMeterImpl(final List<Outlet> outlets, final DeviceManagerImpl deviceManager) {
         this.globalConsumption = 0.0;
         this.averagePower = 0.0;
@@ -58,6 +60,7 @@ public final class ElectricalMeterImpl implements ElectricalMeter, DiscreteObjec
      * Sets the {@code deviceManager}.
      * @param deviceManager the new {@code deviceManager}.
      */
+    @SuppressFBWarnings(value = "EI_EXPOSE_REP", justification = "Exposing a reference is intended here")
     public void setDeviceManger(final DeviceManager deviceManager) {
         this.deviceManager = deviceManager;
     }
@@ -66,6 +69,7 @@ public final class ElectricalMeterImpl implements ElectricalMeter, DiscreteObjec
      * Returns the {@code deviceManager}.
      * @return the {@code deviceManager}.
      */
+    @SuppressFBWarnings(value = "EI_EXPOSE_REP", justification = "Exposing a reference is intended here")
     public DeviceManager getDeviceManager() {
         return this.deviceManager;
     }
@@ -74,7 +78,7 @@ public final class ElectricalMeterImpl implements ElectricalMeter, DiscreteObjec
      * Gathers all the outlets from the {@code PoweredDevices}.
      */
     private synchronized void setPoweredDeviceOutlets() {
-        final Set<Outlet> existingOutlets = new HashSet<>(this.outlets); // Create a copy of existing outlets to avoid
+        final List<Outlet> existingOutlets = (this.outlets); // Create a copy of existing outlets to avoid
                                                                          // mutating the original list
         final List<Outlet> newOutlets = this.deviceManager.getDevices().values().stream()
                 .filter(device -> device instanceof PoweredDevice)

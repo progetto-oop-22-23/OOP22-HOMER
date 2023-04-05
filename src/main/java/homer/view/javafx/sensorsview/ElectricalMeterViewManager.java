@@ -4,6 +4,7 @@ import java.net.URL;
 import java.util.Objects;
 import java.util.ResourceBundle;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import homer.controller.impl.electricalmeter.ElectricalMeterImpl;
 import homer.model.outlets.Outlet;
 import homer.model.outlets.OutletFactory;
@@ -71,6 +72,7 @@ public final class ElectricalMeterViewManager {
      * 
      * @param meter the meter.
      */
+    @SuppressFBWarnings(value = "EI_EXPOSE_REP", justification = "Meter HAS to be exactly the same object (can't be a protective copy)")
     public void setMeter(final ElectricalMeterImpl meter) {
         Objects.requireNonNull(meter);
         this.meter = meter;
@@ -81,6 +83,7 @@ public final class ElectricalMeterViewManager {
      * 
      * @return the {@code ElectricalMeter}.
      */
+    @SuppressFBWarnings(value = "EI_EXPOSE_REP", justification = "Meter HAS to be exactly the same object (can't be a protective copy)")
     public ElectricalMeterImpl getMeter() {
         return this.meter;
     }
