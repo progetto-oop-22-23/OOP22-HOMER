@@ -5,7 +5,6 @@ import java.io.FileOutputStream;
 
 import homer.controller.Controller;
 import homer.controller.ControllerImpl;
-import homer.controller.impl.electricalmeter.ElectricalMeterImpl;
 import homer.controller.scheduler.TemperatureSchedulerController;
 import homer.view.javafx.JFXDeviceViewer;
 import homer.view.javafx.sensorsview.ElectricalMeterViewManager;
@@ -66,10 +65,10 @@ public class JFXApplication extends Application {
         final Scene scene = new Scene(root, INITIAL_W, INITIAL_H);
 
         final Controller controller = new ControllerImpl();
+
         meterLoader.load();
         final ElectricalMeterViewManager meterViewManager = meterLoader.getController();
-        final ElectricalMeterImpl meter = meterViewManager.getMeter();
-        meter.setDeviceManger(controller.getDeviceManager());
+        meterViewManager.getMeter().setDeviceManger(controller.getDeviceManager());
 
         final var tempSchedulerView = new TemperatureSchedulerViewFx();
         final var tempScheduler = new TemperatureSchedulerController(tempSchedulerView, controller);
@@ -79,7 +78,7 @@ public class JFXApplication extends Application {
         final var simManager = new SimManagerImpl(simView, controller);
         simView.setObserver(simManager);
         simManager.addObserver(tempScheduler);
-        simManager.addObserver(meter);
+        simManager.addObserver(meterViewManager.getMeter());
 
         final var viewManager = controller.getViewManager();
         final var dashboard = new JFXDeviceViewer(controller);
