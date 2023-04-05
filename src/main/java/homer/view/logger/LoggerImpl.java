@@ -110,6 +110,8 @@ public final class LoggerImpl implements Logger {
                     + " current:" + state.getPosition();
         } else if (deviceState instanceof LockState) {
             return "Lock";
+        } else if (deviceState instanceof LightState) {
+            return "Light";
         } else if (deviceState instanceof OutletState) {
             return "Outlet";
         } else if (deviceState instanceof ThermometerState) {
