@@ -27,6 +27,7 @@ public final class ToggleableView extends VBox implements StateSelector<Boolean>
             final Consumer<Boolean> consumer) {
         this.onRepresentation = onRepresentation;
         this.offRepresentation = offRepresentation;
+        updateState(state);
         this.getChildren().add(button);
         button.setOnMouseClicked(e -> {
             consumer.accept(!state);
@@ -46,6 +47,6 @@ public final class ToggleableView extends VBox implements StateSelector<Boolean>
 
     @Override
     public void setState(final Boolean state) {
-
+        this.state = state;
     }
 }
