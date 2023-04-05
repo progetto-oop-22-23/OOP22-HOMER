@@ -112,7 +112,6 @@ public final class ElectricalMeterViewManager {
     public void addOutlet() {
         meter.addOutlet(OutletFactory.lOutlet(0.0));
         outletTable.setItems(FXCollections.observableArrayList(meter.getOutlets()));
-        this.setLabels();
     }
 
     /**
@@ -122,6 +121,5 @@ public final class ElectricalMeterViewManager {
     public void removeOutlet() {
         meter.removeOutlet(meter.getOutlets().get(meter.getOutlets().size() - 1));
         outletTable.setItems(FXCollections.observableArrayList(meter.getOutlets()));
-        this.setLabels();
     }
 }
