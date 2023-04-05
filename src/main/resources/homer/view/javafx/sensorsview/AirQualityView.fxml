@@ -4,15 +4,14 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.VBox?>
 
-
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="homer.view.javafx.sensorsview.AirQualityViewManager">
    <center>
       <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
          <children>
-            <Label prefHeight="51.0" prefWidth="177.0" text="CO2 (%):" />
-            <Label prefHeight="51.0" prefWidth="177.0" text="pm10 (ppM):" />
-            <Label prefHeight="51.0" prefWidth="177.0" text="pm2.5 (ppM):" />
-            <Label prefHeight="51.0" prefWidth="177.0" text="Toxic Gas (%): " />
+            <Label fx:id="co2Label" prefHeight="51.0" prefWidth="177.0" text="CO2 (%):" />
+            <Label fx:id="pm10Label" prefHeight="51.0" prefWidth="177.0" text="pm10 (ppM):" />
+            <Label fx:id="pm25Label" prefHeight="51.0" prefWidth="177.0" text="pm2.5 (ppM):" />
+            <Label fx:id="toxicGasLabel" prefHeight="51.0" prefWidth="177.0" text="Toxic Gas (%): " />
          </children>
       </VBox>
    </center>
