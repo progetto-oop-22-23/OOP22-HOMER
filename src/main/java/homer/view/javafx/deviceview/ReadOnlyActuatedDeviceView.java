@@ -7,7 +7,7 @@ import javafx.application.Platform;
 import javafx.scene.control.Label;
 
 /**
- * 
+ * Currently only used for undefined actuated devices' state.
  */
 public final class ReadOnlyActuatedDeviceView extends JFXDeviceView {
     private final Label title = new Label("UNDEFINED");
@@ -17,7 +17,7 @@ public final class ReadOnlyActuatedDeviceView extends JFXDeviceView {
 
     /**
      * 
-     * @param state
+     * @param state the state of undefined type we are passing to the view.
      */
     public ReadOnlyActuatedDeviceView(final ActuatedDeviceState state)  {
         updateState(state); 
@@ -33,7 +33,7 @@ public final class ReadOnlyActuatedDeviceView extends JFXDeviceView {
 
     private void updateState(final ActuatedDeviceState actuatedDeviceState) {
         Platform.runLater(() -> {
-            actuatedDeviceState.getType().ifPresent(x -> title.setText(x));
+            actuatedDeviceState.getType().ifPresent(title::setText);
             position.setText(Integer.toString(actuatedDeviceState.getPosition()));
             upperBound.setVisible(actuatedDeviceState.getPositionBounds().isPresent());
             lowerBound.setVisible(actuatedDeviceState.getPositionBounds().isPresent());
