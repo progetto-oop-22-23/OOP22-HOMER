@@ -1,6 +1,7 @@
 package homer.view.scheduler;
 
 import java.util.Map;
+import java.util.Objects;
 
 import org.controlsfx.control.Notifications;
 
@@ -58,7 +59,7 @@ public final class TemperatureSchedulerViewFx extends BorderPane implements Time
 
     @Override
     public void setScheduler(final TimeSchedulerController<Temperature> scheduler) {
-        this.scheduler = scheduler;
+        this.scheduler = Objects.requireNonNull(scheduler);
     }
 
 }
