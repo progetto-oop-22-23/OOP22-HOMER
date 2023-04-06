@@ -136,4 +136,12 @@ public abstract class AbstractTemperatureChanger implements TemperatureChanger, 
         this.instantConsumption = Limit.clamp(newConsumption, this.getPowerInfo().getMinConsumption(), maxConsumption);
     }
 
+    @Override
+    public final void updateTick(final Duration deltaTime) {
+        this.updateConsumption(deltaTime);
+        this.updateTemperature(deltaTime);
+    }
+
+    abstract void updateTemperature(Duration deltaTime);
+
 }
