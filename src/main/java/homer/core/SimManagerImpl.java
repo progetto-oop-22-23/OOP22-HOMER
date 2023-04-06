@@ -72,8 +72,12 @@ public final class SimManagerImpl implements SimManager, SimManagerViewObserver 
                 view.showError(ERROR_TITLE, e.toString() + "\n"
                         + e.getMessage() + "\n"
                         + e.getStackTrace().toString());
-                // If an exception occurs in the loop, the ScheduledExecutorService will not
-                // keep running it.
+                /**
+                 * If an exception occurs in the loop, the ScheduledExecutorService will not
+                 * keep running it. Since we are catching the exceptions to show an alert, we
+                 * still want the loop to stop, otherwise the exceptions could be repeated in a
+                 * loop.
+                 */
                 throw e;
             }
         };
