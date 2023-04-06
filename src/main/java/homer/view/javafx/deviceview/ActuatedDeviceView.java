@@ -8,6 +8,7 @@ import homer.api.state.ActuatedDeviceState;
 import homer.controller.Controller;
 import homer.controller.command.UpdateDeviceState;
 import homer.model.actuator.AbstractActuatedDevice;
+import homer.view.javafx.DiscreteSliderComponent;
 import homer.view.javafx.JFXDeviceView;
 import homer.view.javafx.SliderComponent;
 import javafx.scene.control.Label;
@@ -28,7 +29,7 @@ public final class ActuatedDeviceView extends JFXDeviceView {
     public ActuatedDeviceView(final DeviceId deviceId, final ActuatedDeviceState state,
             final Controller controller) {
         final var bounds = state.getPositionBounds().get(); // we need bounds on constructor
-        sliderComponent = new SliderComponent(bounds.getUpperBound().intValue(), bounds.getLowerBound().intValue(),
+        sliderComponent = new DiscreteSliderComponent(bounds.getUpperBound().intValue(), bounds.getLowerBound().intValue(),
                 state.getPosition(),
                 s -> {
                     controller.receiveCommand(
