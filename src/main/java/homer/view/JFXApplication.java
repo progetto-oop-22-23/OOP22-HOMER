@@ -93,21 +93,13 @@ public class JFXApplication extends Application {
         final Logger logger = new LoggerImpl(new FileOutputStream(".log"));
         viewManager.addView(new TimeStampLogger(logger, controller.getClock()));
 
-        // CREATE MAIN WINDOW
-        // add tabs:
-        // - device viewer
-        // (device widgets which include the remove button) with add device section
-        // - scheduler
-        // - graphs
-
         final var tempGraph = new TemperatureGraphFx();
         final var tempLogger = new TemperatureLogger(tempGraph, controller);
         simManager.addObserver(tempLogger);
         final var consumptionGraph = new ConsumptionGraphFx();
-        // TODO add meter
-        final var consumptionLogger = new ConsumptionLogger(consumptionGraph, controller.getClock(), null);
-        // TODO uncomment once meter added
-        // simManager.addObserver(consumptionLogger);
+        final var consumptionLogger = new ConsumptionLogger(consumptionGraph, controller.getClock(),
+                meterViewManager.getMeter());
+        simManager.addObserver(consumptionLogger);
         final var airQualityGraph = new AirQualityGraphFx();
         final var airQualityLogger = new AirQualityLogger(airQualityGraph, controller);
         simManager.addObserver(airQualityLogger);
@@ -119,8 +111,7 @@ public class JFXApplication extends Application {
         final ScrollPane dashboardScrollPane = new ScrollPane(dashboard);
         dashboardScrollPane.setFitToHeight(true);
         dashboardScrollPane.setFitToWidth(true);
-        // TODO separate the add devices from the device list, so that only the list is
-        // scrollable
+
         final Tab devicesView = new Tab("DEVICES", dashboardScrollPane);
         final Tab schedulerTab = new Tab("SCHEDULER", tempSchedulerView);
         final Tab graphView = new Tab("GRAPHS",

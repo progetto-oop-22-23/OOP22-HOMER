@@ -18,16 +18,16 @@ public final class SliderComponent extends VBox implements StateSelector<Double>
     private final Label label;
 
     /**
-     * Supports continous values.
-     * @param max
-     * @param min
-     * @param value
+     * Supports continuous values.
+     * @param max The maximum value the slider can assume.
+     * @param min The minimum value the slider can assume.
+     * @param current The current value the slider assumes.
      * @param onDragDone the event that gets triggered on drag done.
      */
-    public SliderComponent(final double max, final double min, final double value,
+    public SliderComponent(final double max, final double min, final double current,
             final Consumer<Double> onDragDone) {
-        label = new Label(Double.toString(value));
-        this.slider = new Slider(min, max, value);
+        label = new Label(Double.toString(current));
+        this.slider = new Slider(min, max, current);
         this.slider.setShowTickLabels(true);
         this.slider.setShowTickMarks(true);
         this.getChildren().addAll(this.slider, this.label);
@@ -48,14 +48,14 @@ public final class SliderComponent extends VBox implements StateSelector<Double>
 
     /**
      * Supports discrete values only.
-     * @param max maximum slider vlaue.
-     * @param min minimum slider vlaue.
-     * @param value current slider value.
+     * @param max maximum slider value.
+     * @param min minimum slider value.
+     * @param current current slider value.
      * @param onDragDone the event that gets triggered on drag done.
      */
-    public SliderComponent(final int max, final int min, final int value,
+    public SliderComponent(final int max, final int min, final int current,
             final Consumer<Double> onDragDone) {
-                this((double) max, (double) min, (double) value, onDragDone);
+                this((double) max, (double) min, (double) current, onDragDone);
                 this.slider.setBlockIncrement(1);
                 this.slider.setMajorTickUnit(1);
                 this.slider.setMinorTickCount(0);

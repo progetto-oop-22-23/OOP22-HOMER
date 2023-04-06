@@ -129,7 +129,7 @@ public abstract class AbstractTemperatureChanger implements TemperatureChanger, 
      * 
      * @param deltaTime the delta time elapsed from last tick.
      */
-    protected void updateConsumption(final Duration deltaTime) {
+    private void updateConsumption(final Duration deltaTime) {
         final double maxConsumption = this.getPowerInfo().getMaxConsumption();
         final double hours = DurationConverter.toHours(deltaTime);
         final double newConsumption = instantConsumption + maxConsumption * this.intensity * hours;

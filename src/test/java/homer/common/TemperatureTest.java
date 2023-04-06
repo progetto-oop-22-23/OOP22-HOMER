@@ -23,7 +23,7 @@ final class TemperatureTest {
         final Temperature t = TemperatureFactory.fromCelsius(value);
         assertEquals(celsius, t.getCelsius(), DELTA);
         assertEquals(kelvin, t.getKelvin(), DELTA);
-        assertEquals(fahrenheit, t.getFarenheit(), DELTA);
+        assertEquals(fahrenheit, t.getFahrenheit(), DELTA);
     }
 
 
@@ -36,7 +36,7 @@ final class TemperatureTest {
         final Temperature t = TemperatureFactory.fromFahrenheit(value);
         assertEquals(celsius, t.getCelsius(), DELTA);
         assertEquals(kelvin, t.getKelvin(), DELTA);
-        assertEquals(fahrenheit, t.getFarenheit(), DELTA);
+        assertEquals(fahrenheit, t.getFahrenheit(), DELTA);
     }
 
     @Test
@@ -48,7 +48,7 @@ final class TemperatureTest {
         final Temperature t = TemperatureFactory.fromKelvin(value);
         assertEquals(celsius, t.getCelsius(), DELTA);
         assertEquals(kelvin, t.getKelvin(), DELTA);
-        assertEquals(fahrenheit, t.getFarenheit(), DELTA);
+        assertEquals(fahrenheit, t.getFahrenheit(), DELTA);
     }
 
     @Test 

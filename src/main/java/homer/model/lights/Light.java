@@ -7,7 +7,6 @@ import homer.api.PoweredDevice;
 import homer.api.PoweredDeviceInfo;
 import homer.api.PoweredDeviceInfoImpl;
 import homer.api.ToggleableDevice;
-import homer.api.state.LockState;
 import homer.common.limit.Limit;
 import homer.common.time.DurationConverter;
 import homer.core.DiscreteObject;
@@ -19,7 +18,7 @@ import homer.model.outlets.OutletFactory;
  * 
  * @author Alessandro Monticelli
  */
-public final class Light implements ToggleableDevice<LockState>, PoweredDevice, DiscreteObject {
+public final class Light implements ToggleableDevice<LightState>, PoweredDevice, DiscreteObject {
 
     private LightState state;
     private final PoweredDeviceInfo power;
@@ -50,8 +49,8 @@ public final class Light implements ToggleableDevice<LockState>, PoweredDevice, 
     }
 
     @Override
-    public LockState getState() {
-        return new LockState(this.isToggled());
+    public LightState getState() {
+        return new LightState(this.isToggled());
     }
 
     @Override
