@@ -6,34 +6,113 @@ import java.util.List;
 import java.util.ListIterator;
 import java.util.Objects;
 import java.util.concurrent.CopyOnWriteArrayList;
+import java.util.stream.Collectors;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+import homer.api.PoweredDevice;
 import homer.common.time.DurationConverter;
+import homer.controller.DeviceManager;
+import homer.controller.DeviceManagerImpl;
 import homer.controller.api.electricalmeter.ElectricalMeter;
 import homer.core.DiscreteObject;
 import homer.model.outlets.Outlet;
 import homer.model.outlets.OutletState;
+import homer.view.javafx.sensorsview.ElectricalMeterViewManager;
+import javafx.application.Platform;
 
+/**
+ * Reason: Used to suppress other warinings.
+ */
+@SuppressWarnings("PMD.AvoidDuplicateLiterals")
 /**
  * Implements {@link homer.controller.api.electricalmeter.ElectricalMeter}.
  * 
  * @author Alessandro Monticelli
  */
 public final class ElectricalMeterImpl implements ElectricalMeter, DiscreteObject {
-    private List<Outlet> outlets;
+    private CopyOnWriteArrayList<Outlet> outlets;
     private double globalConsumption;
     private double averagePower;
+    private DeviceManager deviceManager;
+    private ElectricalMeterViewManager viewManager;
     private static final double MAX_GLOBAL_CONSUMPTION = 4000; // Watts
 
     /**
      * Constructor for
      * {@link homer.controller.impl.electricalmeter.ElectricalMeterImpl}.
      * 
-     * @param outlets The list of outlets to control.
+     * @param outlets       The list of outlets to control.
+     * @param deviceManager The device manager.
      */
-    public ElectricalMeterImpl(final List<Outlet> outlets) {
+    @SuppressFBWarnings(value = "EI_EXPOSE_REP", justification = "Exposing a reference is intended here")
+    public ElectricalMeterImpl(final List<Outlet> outlets, final DeviceManagerImpl deviceManager) {
         this.globalConsumption = 0.0;
         this.averagePower = 0.0;
         this.outlets = new CopyOnWriteArrayList<>(outlets);
+        this.deviceManager = deviceManager;
+    }
+
+    /**
+     * Constructor for ElectricalMeterImpl.
+     */
+    public ElectricalMeterImpl() {
+        this.globalConsumption = 0.0;
+        this.averagePower = 0.0;
+        this.outlets = new CopyOnWriteArrayList<>();
+    }
+
+    /**
+     * Sets the {@code viewManager}.
+     * 
+     * @param viewManager the new {@code viewManager}.
+     */
+    @SuppressFBWarnings(value = "EI_EXPOSE_REP", justification = "Exposing a reference is intended here")
+    public void setViewManager(final ElectricalMeterViewManager viewManager) {
+        this.viewManager = viewManager;
+    }
+
+    /**
+     * Sets the {@code deviceManager}.
+     * 
+     * @param deviceManager the new {@code deviceManager}.
+     */
+    @SuppressFBWarnings(value = "EI_EXPOSE_REP", justification = "Exposing a reference is intended here")
+    public void setDeviceManger(final DeviceManager deviceManager) {
+        this.deviceManager = deviceManager;
+    }
+
+    /**
+     * Returns the {@code viewManager}.
+     * 
+     * @return the {@code viewManager}.
+     */
+    @SuppressFBWarnings(value = "EI_EXPOSE_REP", justification = "Exposing a reference is intended here")
+    public ElectricalMeterViewManager getMeterViewManager() {
+        return this.viewManager;
+    }
+
+    /**
+     * Returns the {@code deviceManager}.
+     * 
+     * @return the {@code deviceManager}.
+     */
+    @SuppressFBWarnings(value = "EI_EXPOSE_REP", justification = "Exposing a reference is intended here")
+    public DeviceManager getDeviceManager() {
+        return this.deviceManager;
+    }
+
+    /**
+     * Gathers all the outlets from the {@code PoweredDevices}.
+     */
+    private synchronized void setPoweredDeviceOutlets() {
+        final List<Outlet> existingOutlets = this.outlets; // Create a copy of existing outlets to avoid
+                                                           // mutating the original list
+        final List<Outlet> newOutlets = this.deviceManager.getDevices().values().stream()
+                .filter(device -> device instanceof PoweredDevice)
+                .map(device -> ((PoweredDevice) device).getPowerInfo().getOutlet())
+                .filter(outlet -> !existingOutlets.contains(outlet))
+                .collect(Collectors.toList()); // Collect new outlets into a list
+        this.outlets.addAllAbsent(newOutlets);
     }
 
     @Override
@@ -81,6 +160,7 @@ public final class ElectricalMeterImpl implements ElectricalMeter, DiscreteObjec
     public void cutPowerTo(final Outlet outlet) {
         Objects.requireNonNull(outlet);
         outlet.setState(new OutletState().addValue(0.0));
+        this.outlets.remove(outlet);
     }
 
     @Override
@@ -113,14 +193,27 @@ public final class ElectricalMeterImpl implements ElectricalMeter, DiscreteObjec
     }
 
     private void computeAveragePower(final Duration deltaTime) {
-        final double hours = DurationConverter.toHours(deltaTime);
-        this.setAveragePower(this.getGlobalConsumption() / hours);
+        final double dt = DurationConverter.toMillis(deltaTime);
+        final double delta = 10;
+        this.setAveragePower(this.getGlobalConsumption() / dt * delta);
     }
 
     @Override
     public void updateTick(final Duration deltaTime) {
+        for (final Outlet outlet : this.getOutlets()) {
+            outlet.updateTick(deltaTime);
+        }
+        this.setPoweredDeviceOutlets();
         this.checkConsumption();
         this.computeAveragePower(deltaTime);
+        if (viewManager != null) {
+            Platform.runLater(new Runnable() {
+                @Override
+                public void run() {
+                    getMeterViewManager().setLabels();
+                }
+            });
+        }
     }
 
 }

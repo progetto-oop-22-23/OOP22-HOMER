@@ -11,10 +11,12 @@ import homer.api.state.LockState;
 import homer.api.state.ThermometerState;
 import homer.controller.Controller;
 import homer.model.airquality.AirQualityState;
+import homer.model.lights.LightState;
 import homer.model.temperaturechangers.TemperatureChangerState;
 import homer.view.DeviceViewer;
 import homer.view.javafx.deviceview.ActuatedDeviceView;
 import homer.view.javafx.deviceview.AirqualityView;
+import homer.view.javafx.deviceview.LightView;
 import homer.view.javafx.deviceview.LockView;
 import homer.view.javafx.deviceview.TemperatureChangerView;
 import homer.view.javafx.deviceview.ThermometerView;
@@ -55,6 +57,8 @@ public final class JFXDeviceViewer extends VBox implements DeviceViewer {
                             controller));
                 } else if (deviceState instanceof LockState lockState) {
                     deviceView = Optional.of(new LockView(deviceId, controller));
+                } else if (deviceState instanceof LightState lightState) {
+                    deviceView = Optional.of(new LightView(deviceId, controller));
                 } else if (deviceState instanceof ThermometerState thermometerState) {
                     deviceView = Optional.of(new ThermometerView(thermometerState));
                 } else if (deviceState instanceof AirQualityState airQualityState) {
@@ -72,9 +76,10 @@ public final class JFXDeviceViewer extends VBox implements DeviceViewer {
                 deviceView.ifPresentOrElse(s -> {
                     deviceMap.put(deviceId, s);
                     this.getChildren().add(s);
-                    // every device is removable at any time, so it makes sense to add it as a default behaviour
+                    // every device is removable at any time, so it makes sense to add it as a
+                    // default behaviour
                     deviceMap.get(deviceId).getChildren().add(new DisconnectDeviceButton(controller, deviceId));
-                }, () -> controller.getDeviceManager().removeDevice(deviceId)); 
+                }, () -> controller.getDeviceManager().removeDevice(deviceId));
             }
         });
     }

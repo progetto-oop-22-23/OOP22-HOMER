@@ -1,6 +1,7 @@
 package homer;
 
 import homer.view.JFXApplication;
+
 import javafx.application.Application;
 
 /**
@@ -17,6 +18,8 @@ public final class App {
      * @param args Command line arguments
      */
     public static void main(final String[] args) {
+
         Application.launch(JFXApplication.class, args);
+
     }
 }

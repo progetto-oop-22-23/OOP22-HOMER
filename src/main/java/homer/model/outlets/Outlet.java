@@ -27,7 +27,11 @@ public final class Outlet implements AdjustableDevice<OutletState>, DiscreteObje
      * @param state See {@link homer.model.outlets.OutletState}
      */
     public Outlet(final DeviceState state) {
-        this.state = (OutletState) state;
+        if (state instanceof OutletState) {
+            this.state = (OutletState) state;
+        } else {
+            this.state = new OutletState();
+        }
     }
 
     /**
@@ -68,10 +72,29 @@ public final class Outlet implements AdjustableDevice<OutletState>, DiscreteObje
             energy.addValue(Math.min(defaultMaxPower,
                     Math.pow(this.getState().getPower().get(), 2) + defaultRandomIncrement));
         } else {
-            final double consumption = this.getState().getPower().get();
+            final double consumption = Math.random();
             final double hours = DurationConverter.toHours(deltaTime);
-            energy.addValue(consumption * hours);
+            energy.addValue(consumption * hours + defaultRandomIncrement);
         }
         this.setState(energy);
+    }
+
+    @Override
+    public boolean equals(final Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+
+        final Outlet outlet = (Outlet) o;
+
+        return Objects.equals(state, outlet.getState());
+    }
+
+    @Override
+    public int hashCode() {
+        return this.getState().hashCode();
     }
 }

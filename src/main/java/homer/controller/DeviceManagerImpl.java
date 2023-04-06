@@ -18,6 +18,7 @@ import homer.controller.command.createdevicecommand.CreateBlinds;
 import homer.controller.command.createdevicecommand.CreateDeviceCommand;
 import homer.controller.command.createdevicecommand.CreateDoor;
 import homer.controller.command.createdevicecommand.CreateHeating;
+import homer.controller.command.createdevicecommand.CreateLight;
 import homer.controller.command.createdevicecommand.CreateLock;
 import homer.controller.command.createdevicecommand.CreateThermometer;
 import homer.controller.command.createdevicecommand.CreateWindow;
@@ -88,7 +89,7 @@ public final class DeviceManagerImpl implements DeviceManager {
         return Set.of(new CreateAirConditioning(this.environment), new CreateHeating(this.environment),
                 new CreateThermometer(this.environment), new CreateLock(),
                 new CreateWindow(), new CreateDoor(), new CreateBlinds(),
-                new CreateAirQualitySensor(this.environment));
+                new CreateAirQualitySensor(this.environment), new CreateLight());
     }
 
     @Override

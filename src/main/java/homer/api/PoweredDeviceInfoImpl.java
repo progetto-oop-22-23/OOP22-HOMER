@@ -2,6 +2,9 @@ package homer.api;
 
 import homer.model.outlets.Outlet;
 import homer.model.outlets.OutletState;
+
+import java.util.Objects;
+
 import homer.common.limit.Limit;
 
 /**
@@ -48,6 +51,31 @@ public final class PoweredDeviceInfoImpl implements PoweredDeviceInfo {
     @Override
     public void setOutlet(final Outlet outlet) {
         this.outlet = new Outlet(outlet);
+    }
+
+    @Override
+    public boolean equals(final Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+
+        final PoweredDeviceInfoImpl that = (PoweredDeviceInfoImpl) o;
+
+        if (Double.compare(that.minConsumption, this.minConsumption) != 0) {
+            return false;
+        }
+        if (Double.compare(that.maxConsumption, this.maxConsumption) != 0) {
+            return false;
+        }
+        return Objects.equals(this.outlet, that.outlet);
+    }
+
+    @Override
+    public int hashCode() {
+        return this.getOutlet().hashCode();
     }
 
 }

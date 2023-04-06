@@ -13,6 +13,7 @@ import homer.view.graph.ConsumptionGraphFx;
 import homer.view.graph.TabViewBuilderFx;
 import homer.view.graph.TemperatureGraphFx;
 import homer.view.javafx.JFXDeviceViewer;
+import homer.view.javafx.sensorsview.ElectricalMeterViewManager;
 import homer.view.logger.Logger;
 import homer.view.logger.LoggerImpl;
 import homer.view.logger.TimeStampLogger;
@@ -21,6 +22,9 @@ import homer.core.SimManagerImpl;
 import homer.view.sim.SimManagerViewFxImpl;
 import javafx.application.Application;
 import javafx.application.Platform;
+import javafx.collections.ObservableList;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.Tab;
@@ -45,10 +49,33 @@ public class JFXApplication extends Application {
             System.exit(0);
         });
 
+        final Stage sensorStage = new Stage();
+        final FXMLLoader dashboardLoader = new FXMLLoader(
+                JFXApplication.class.getResource("/homer/view/javafx/sensorsview/SensorDashboardView.fxml"));
+        final FXMLLoader meterLoader = new FXMLLoader(
+                JFXApplication.class.getResource("/homer/view/javafx/sensorsview/ElectricalMeterView.fxml"));
+        final BorderPane sensorRoot = dashboardLoader.load();
+
+        // Load the second FXML file into the second tab
+        final TabPane sensorTabPane = (TabPane) sensorRoot.getCenter();
+        final ObservableList<Tab> tabs = sensorTabPane.getTabs();
+
         final var root = new BorderPane();
         final Scene scene = new Scene(root, INITIAL_W, INITIAL_H);
 
         final Controller controller = new ControllerImpl();
+
+        final Parent meterRoot = meterLoader.load();
+        for (final Tab tab : tabs) {
+            final String id = "meterTab";
+            if (tab.getId().equals(id)) {
+                tab.setContent(meterRoot);
+                break;
+            }
+        }
+        final ElectricalMeterViewManager meterViewManager = meterLoader.getController();
+        meterViewManager.getMeter().setDeviceManger(controller.getDeviceManager());
+        meterViewManager.getMeter().setViewManager(meterViewManager);
 
         final var tempSchedulerView = new TemperatureSchedulerViewFx();
         final var tempScheduler = new TemperatureSchedulerController(tempSchedulerView, controller);
@@ -58,6 +85,7 @@ public class JFXApplication extends Application {
         final var simManager = new SimManagerImpl(simView, controller);
         simView.setObserver(simManager);
         simManager.addObserver(tempScheduler);
+        simManager.addObserver(meterViewManager.getMeter());
 
         final var viewManager = controller.getViewManager();
         final var dashboard = new JFXDeviceViewer(controller);
@@ -110,6 +138,12 @@ public class JFXApplication extends Application {
         stage.setTitle(TITLE);
         stage.setScene(scene);
         stage.show();
+
+        final Scene sensorScene = new Scene(sensorRoot, INITIAL_W, INITIAL_H);
+
+        sensorStage.setTitle(TITLE);
+        sensorStage.setScene(sensorScene);
+        sensorStage.show();
     }
 
 }
