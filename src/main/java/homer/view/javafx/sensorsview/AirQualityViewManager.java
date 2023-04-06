@@ -3,6 +3,8 @@ package homer.view.javafx.sensorsview;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import homer.controller.Controller;
+import homer.model.airquality.AirQualityState;
 import homer.model.airquality.AirqualitySensor;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
@@ -12,7 +14,7 @@ import javafx.scene.control.Label;
  */
 public final class AirQualityViewManager {
 
-    private AirqualitySensor airQuality;
+    private Controller controller;
 
     @FXML
     private Label co2Label;
@@ -40,20 +42,27 @@ public final class AirQualityViewManager {
     }
 
     /**
-     * Sets {@code airQuality}.
-     * @param airQuality    The new {@code airQuality}.
+     * Sets {@code controller}.
+     * 
+     * @param controller The new {@code controller}.
      */
-    public void setAirQuality(AirqualitySensor airQuality) {
-        this.airQuality = airQuality;
+    public void setController(Controller controller) {
+        this.controller = controller;
     }
 
     /**
      * Updates view.
      */
-    public void setLabels() {
-        co2Label.setText("CO2 (%): " + this.airQuality.getState().getCO2());
-        pm10Label.setText("PM10 (ppM): " + this.airQuality.getState().getPM10());
-        pm25Label.setText("PM2.5 (ppM): " + this.airQuality.getState().getPM25());
-        toxicGasLabel.setText("Toxic Gas (%): " + this.airQuality.getState().getToxicGasPercentage());
+    public void updateView() {
+        final AirQualityState state = this.controller.getDeviceManager().getDevices().values().stream()
+                .filter(dev -> dev instanceof AirqualitySensor)
+                .map(dev -> ((AirqualitySensor) dev).getState())
+                .findFirst()
+                .orElse(null);
+
+        co2Label.setText("CO2 (%): " + state.getCO2());
+        pm10Label.setText("PM10 (ppM): " + state.getPM10());
+        pm25Label.setText("PM2.5 (ppM): " + state.getPM25());
+        toxicGasLabel.setText("Toxic Gas (%): " + state.getToxicGasPercentage());
     }
 }
