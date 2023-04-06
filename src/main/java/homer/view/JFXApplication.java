@@ -22,7 +22,6 @@ import homer.core.SimManagerImpl;
 import homer.view.sim.SimManagerViewFxImpl;
 import javafx.application.Application;
 import javafx.application.Platform;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -41,19 +40,15 @@ public class JFXApplication extends Application {
     private static final long INITIAL_W = 300;
     private static final long INITIAL_H = 300;
     private static final String TITLE = "HOMER";
+    private static final long INITIAL_H_METER = 600;
+    private static final long INITIAL_W_METER = 800;
+    private static final String TITLE_METER = TITLE + " - Electrical Meter";
 
     @Override
     public final void start(final Stage stage) throws Exception {
-        final Stage sensorStage = new Stage();
-        final FXMLLoader dashboardLoader = new FXMLLoader(
-                JFXApplication.class.getResource("/homer/view/javafx/sensorsview/SensorDashboardView.fxml"));
+        final Stage meterStage = new Stage();
         final FXMLLoader meterLoader = new FXMLLoader(
                 JFXApplication.class.getResource("/homer/view/javafx/sensorsview/ElectricalMeterView.fxml"));
-        final BorderPane sensorRoot = dashboardLoader.load();
-
-        // Load the second FXML file into the second tab
-        final TabPane sensorTabPane = (TabPane) sensorRoot.getCenter();
-        final ObservableList<Tab> tabs = sensorTabPane.getTabs();
 
         final var root = new BorderPane();
         final Scene scene = new Scene(root, INITIAL_W, INITIAL_H);
@@ -61,13 +56,6 @@ public class JFXApplication extends Application {
         final Controller controller = new ControllerImpl();
 
         final Parent meterRoot = meterLoader.load();
-        for (final Tab tab : tabs) {
-            final String id = "meterTab";
-            if (tab.getId().equals(id)) {
-                tab.setContent(meterRoot);
-                break;
-            }
-        }
         final ElectricalMeterViewManager meterViewManager = meterLoader.getController();
         meterViewManager.getMeter().setDeviceManger(controller.getDeviceManager());
         meterViewManager.getMeter().setViewManager(meterViewManager);
@@ -125,17 +113,20 @@ public class JFXApplication extends Application {
         stage.setScene(scene);
         stage.show();
 
-        final Scene sensorScene = new Scene(sensorRoot, INITIAL_W, INITIAL_H);
+        final Scene meterScene = new Scene(meterRoot, INITIAL_W_METER, INITIAL_H_METER);
 
-        sensorStage.setTitle(TITLE);
-        sensorStage.setScene(sensorScene);
-        sensorStage.show();
+        meterStage.setTitle(TITLE_METER);
+        meterStage.setScene(meterScene);
+        meterStage.setResizable(false);
+        meterStage.setY(stage.getY() + INITIAL_H);
+        meterStage.setX(stage.getX() + INITIAL_W);
+        meterStage.show();
 
         stage.setOnCloseRequest(event -> {
             Platform.exit();
             simManager.shutdown();
         });
-        sensorStage.setOnCloseRequest(event -> {
+        meterStage.setOnCloseRequest(event -> {
             Platform.exit();
             simManager.shutdown();
         });
