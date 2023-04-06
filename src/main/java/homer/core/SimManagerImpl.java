@@ -64,7 +64,9 @@ public final class SimManagerImpl implements SimManager, SimManagerViewObserver 
                  * More on it here:
                  * https://www.dontpanicblog.co.uk/2021/05/15/exception-handling-in-scheduledexecutorservice/
                  * https://stackoverflow.com/questions/6894595/scheduledexecutorservice-exception-handling
-                 * http://web.archive.org/web/20190307143204/http://code.nomad-labs.com:80/2011/12/09/mother-fk-the-scheduledexecutorservice
+                 * http://web.archive.org/web/20190307143204/http://
+                 * code.nomad-labs.com:80/2011/12/09/mother-fk-the-scheduledexecutorservice
+                 * Link above is split because CHECKSTYLE suppression is not working apparently.
                  */
                 // CHECKSTYLE: LineLength ON
                 view.showError(ERROR_TITLE, e.toString() + "\n"
