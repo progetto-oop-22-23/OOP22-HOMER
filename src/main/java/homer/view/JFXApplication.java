@@ -93,13 +93,6 @@ public class JFXApplication extends Application {
         final Logger logger = new LoggerImpl(new FileOutputStream(".log"));
         viewManager.addView(new TimeStampLogger(logger, controller.getClock()));
 
-        // CREATE MAIN WINDOW
-        // add tabs:
-        // - device viewer
-        // (device widgets which include the remove button) with add device section
-        // - scheduler
-        // - graphs
-
         final var tempGraph = new TemperatureGraphFx();
         final var tempLogger = new TemperatureLogger(tempGraph, controller);
         simManager.addObserver(tempLogger);
