@@ -10,6 +10,7 @@ import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.TimeUnit;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import homer.controller.Controller;
 import homer.view.sim.SimManagerView;
 
@@ -38,6 +39,8 @@ public final class SimManagerImpl implements SimManager, SimManagerViewObserver 
      * @param view       the simulation manager view.
      * @param controller the controller.
      */
+    @SuppressFBWarnings(value = "EI_EXPOSE_REP2", justification = "This is a design choice to be able to set the view"
+            + " and interface with the controller")
     public SimManagerImpl(final SimManagerView view, final Controller controller) {
         Objects.requireNonNull(controller);
         this.view = Objects.requireNonNull(view);
