@@ -44,11 +44,6 @@ public class JFXApplication extends Application {
 
     @Override
     public final void start(final Stage stage) throws Exception {
-        stage.setOnCloseRequest(event -> {
-            Platform.exit();
-            System.exit(0);
-        });
-
         final Stage sensorStage = new Stage();
         final FXMLLoader dashboardLoader = new FXMLLoader(
                 JFXApplication.class.getResource("/homer/view/javafx/sensorsview/SensorDashboardView.fxml"));
@@ -135,6 +130,15 @@ public class JFXApplication extends Application {
         sensorStage.setTitle(TITLE);
         sensorStage.setScene(sensorScene);
         sensorStage.show();
+
+        stage.setOnCloseRequest(event -> {
+            Platform.exit();
+            simManager.shutdown();
+        });
+        sensorStage.setOnCloseRequest(event -> {
+            Platform.exit();
+            simManager.shutdown();
+        });
     }
 
 }
