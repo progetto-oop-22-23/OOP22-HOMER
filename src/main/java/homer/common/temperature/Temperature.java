@@ -2,16 +2,25 @@ package homer.common.temperature;
 
 /**
  * Represents a fixed temperature value, that can be represented
- * as kelvin, farenheit, or celsius.
+ * as kelvin, Fahrenheit, or celsius.
  */
 public interface Temperature extends Comparable<Temperature> {
-    //CHECKSTYLE: JavadocVariable OFF
-    // These names are self-explanatory, and have no reason to have an associated docstring
+    /**
+     * Delta from kelvin to celsius.
+     */
     double DELTA_KELVIN_CELSIUS = 273.15;
-    double DELTA_FARENHEIT_KELVIN = 459.67;
+    /**
+     * Delta from fahrenheit to kelvin.
+     */
+    double DELTA_FAHRENHEIT_KELVIN = 459.67;
+    /**
+     * Needed to compute conversions.
+     */
     double FIVE_NINES = 5 / 9f;
-    double DELTA_KELVIN_FARENHEIT = 32;
-    //CHECKSTYLE: JavadocVariable ON
+    /**
+     * The delta between kelvin and fahrenheit.
+     */
+    double DELTA_KELVIN_FAHRENHEIT = 32;
 
     /**
      * Returns the temperature in kelvin.
@@ -23,7 +32,7 @@ public interface Temperature extends Comparable<Temperature> {
      * Returns the temperature in fahrenheit.
      * @return fahrenheit temperature
      */
-    double getFarenheit();
+    double getFahrenheit();
 
     /**
      * Returns the temperature in Celsius.

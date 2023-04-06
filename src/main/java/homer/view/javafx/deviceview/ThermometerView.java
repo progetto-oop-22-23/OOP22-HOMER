@@ -35,7 +35,7 @@ public final class ThermometerView extends JFXDeviceView {
     private void updateState(final Temperature temperature) {
         celsius.setText("CELSIUS:" + temperature.getCelsius());
         kelvin.setText("KELVIN:" + temperature.getKelvin());
-        fahrenheit.setText("FAHRENHEIT:" + temperature.getFarenheit());
+        fahrenheit.setText("FAHRENHEIT:" + temperature.getFahrenheit());
     }
 
 }

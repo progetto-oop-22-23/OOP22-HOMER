@@ -24,7 +24,7 @@ public final class TemperatureFactory {
      * @return Temperature class instance.
      */
     public static Temperature fromFahrenheit(final double temperature) {
-        return fromKelvin((temperature + Temperature.DELTA_FARENHEIT_KELVIN) * Temperature.FIVE_NINES);
+        return fromKelvin((temperature + Temperature.DELTA_FAHRENHEIT_KELVIN) * Temperature.FIVE_NINES);
     }
 
     /**
