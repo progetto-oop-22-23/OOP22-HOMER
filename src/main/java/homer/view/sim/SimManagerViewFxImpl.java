@@ -55,8 +55,8 @@ public final class SimManagerViewFxImpl extends VBox implements SimManagerView {
     }
 
     @Override
-    @SuppressFBWarnings(value = "EI_EXPOSE_REP2", justification = "This is a design choice to be able to" +
-            " interface with the corresponding controller")
+    @SuppressFBWarnings(value = "EI_EXPOSE_REP2", justification = "This is a design choice to be able to"
+            + " interface with the corresponding controller")
     public void setObserver(final SimManagerViewObserver simManager) {
         this.simManager = Objects.requireNonNull(simManager);
     }
