@@ -5,6 +5,8 @@ import java.util.function.Function;
 
 import homer.common.history.HistoryData;
 import javafx.application.Platform;
+import javafx.collections.ObservableList;
+import javafx.scene.Node;
 import javafx.scene.chart.AreaChart;
 import javafx.scene.chart.Axis;
 import javafx.scene.chart.CategoryAxis;
@@ -60,6 +62,12 @@ public class TemplateGraphViewFx<T> extends VBox implements GraphView<T> {
                     });
             this.ac.getData().add(series);
         });
+    }
+
+    // Made final to be able to call it in the constructor safely.
+    @Override
+    public final ObservableList<Node> getChildren() {
+        return super.getChildren();
     }
 
 }
