@@ -1,4 +1,4 @@
-package homer.controller.impl.electricalmeter;
+package homer.controller.electricalmeter;
 
 import java.time.Duration;
 import java.util.Comparator;
@@ -13,7 +13,6 @@ import homer.api.PoweredDevice;
 import homer.common.time.DurationConverter;
 import homer.controller.DeviceManager;
 import homer.controller.DeviceManagerImpl;
-import homer.controller.api.electricalmeter.ElectricalMeter;
 import homer.core.DiscreteObject;
 import homer.model.outlets.Outlet;
 import homer.model.outlets.OutletState;
@@ -25,7 +24,7 @@ import javafx.application.Platform;
  */
 @SuppressWarnings("PMD.AvoidDuplicateLiterals")
 /**
- * Implements {@link homer.controller.api.electricalmeter.ElectricalMeter}.
+ * Implements {@link homer.controller.electricalmeter.ElectricalMeter}.
  * 
  * @author Alessandro Monticelli
  */
@@ -39,7 +38,7 @@ public final class ElectricalMeterImpl implements ElectricalMeter, DiscreteObjec
 
     /**
      * Constructor for
-     * {@link homer.controller.impl.electricalmeter.ElectricalMeterImpl}.
+     * {@link homer.controller.electricalmeter.ElectricalMeterImpl}.
      * 
      * @param outlets       The list of outlets to control.
      * @param deviceManager The device manager.

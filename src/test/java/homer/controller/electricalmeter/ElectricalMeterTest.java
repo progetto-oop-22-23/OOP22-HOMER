@@ -12,8 +12,6 @@ import org.junit.jupiter.api.Test;
 
 import homer.controller.ControllerImpl;
 import homer.controller.DeviceManagerImpl;
-import homer.controller.api.electricalmeter.ElectricalMeter;
-import homer.controller.impl.electricalmeter.ElectricalMeterImpl;
 import homer.model.outlets.Outlet;
 import homer.model.outlets.OutletFactory;
 

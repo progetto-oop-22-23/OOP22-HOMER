@@ -1,4 +1,4 @@
-package homer.controller.api.electricalmeter;
+package homer.controller.electricalmeter;
 
 import java.util.List;
 
