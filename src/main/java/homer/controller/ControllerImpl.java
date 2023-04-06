@@ -4,6 +4,7 @@ import java.time.Duration;
 import java.util.LinkedList;
 import java.util.List;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import homer.common.time.Clock;
 import homer.common.time.ClockImpl;
 import homer.controller.command.Command;
@@ -28,11 +29,13 @@ public final class ControllerImpl implements Controller {
     }
 
     @Override
+    @SuppressFBWarnings(value = "EI_EXPOSE_REP", justification = "This is a design choice")
     public DeviceManager getDeviceManager() {
         return this.deviceManager;
     }
 
     @Override
+    @SuppressFBWarnings(value = "EI_EXPOSE_REP", justification = "This is a design choice")
     public ViewManager getViewManager() {
         return this.viewManager;
     }
@@ -56,6 +59,7 @@ public final class ControllerImpl implements Controller {
     }
 
     @Override
+    @SuppressFBWarnings(value = "EI_EXPOSE_REP", justification = "This is a design choice")
     public Clock getClock() {
         return this.clock;
     }

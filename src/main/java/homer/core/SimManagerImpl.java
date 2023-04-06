@@ -102,10 +102,13 @@ public final class SimManagerImpl implements SimManager, SimManagerViewObserver 
 
     @Override
     public void pause() {
-        if (this.loopHandle.isPresent()) {
-            this.loopHandle.get().cancel(false);
-            this.loopHandle = Optional.empty();
-        }
+        cancelLoop(false);
+    }
+
+    @Override
+    public void shutdown() {
+        cancelLoop(true);
+        this.scheduler.shutdown();
     }
 
     @Override
@@ -125,5 +128,12 @@ public final class SimManagerImpl implements SimManager, SimManagerViewObserver 
 
     private void updateView() {
         this.view.setTimeRate(this.timeRate);
+    }
+
+    private void cancelLoop(final boolean mayInterruptIfRunning) {
+        if (this.loopHandle.isPresent()) {
+            this.loopHandle.get().cancel(mayInterruptIfRunning);
+            this.loopHandle = Optional.empty();
+        }
     }
 }

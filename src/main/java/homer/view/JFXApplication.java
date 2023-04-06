@@ -46,11 +46,6 @@ public class JFXApplication extends Application {
 
     @Override
     public final void start(final Stage stage) throws Exception {
-        stage.setOnCloseRequest(event -> {
-            Platform.exit();
-            System.exit(0);
-        });
-
         final Stage meterStage = new Stage();
         final FXMLLoader meterLoader = new FXMLLoader(
                 JFXApplication.class.getResource("/homer/view/javafx/sensorsview/ElectricalMeterView.fxml"));
@@ -126,6 +121,15 @@ public class JFXApplication extends Application {
         meterStage.setY(stage.getY() + INITIAL_H);
         meterStage.setX(stage.getX() + INITIAL_W);
         meterStage.show();
+
+        stage.setOnCloseRequest(event -> {
+            Platform.exit();
+            simManager.shutdown();
+        });
+        meterStage.setOnCloseRequest(event -> {
+            Platform.exit();
+            simManager.shutdown();
+        });
     }
 
 }

@@ -20,6 +20,7 @@ public final class CreateThermometer implements CreateDeviceCommand {
      * 
      * @param environment the environment in which to create the thermometer.
      */
+    @SuppressFBWarnings(value = "EI_EXPOSE_REP2", justification = "This is intentional for the creation of the thermometer")
     public CreateThermometer(final Environment environment) {
         this.environment = Objects.requireNonNull(environment);
     }
