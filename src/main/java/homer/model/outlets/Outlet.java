@@ -2,11 +2,9 @@ package homer.model.outlets;
 
 import java.time.Duration;
 import java.util.Objects;
-import java.util.Optional;
 
 import homer.api.AdjustableDevice;
 import homer.api.DeviceState;
-import homer.common.time.DurationConverter;
 import homer.core.DiscreteObject;
 
 /**
@@ -65,18 +63,15 @@ public final class Outlet implements AdjustableDevice<OutletState>, DiscreteObje
 
     @Override
     public void updateTick(final Duration deltaTime) {
-        final double defaultMaxPower = 150.0;
-        final double defaultRandomIncrement = Math.random() * 10 + 1;
+        final double randomIncrement = Math.sin(deltaTime.toSeconds());
         final OutletState energy = this.getState();
-        if (this.getState().getPower().equals(Optional.empty())) {
-            energy.addValue(Math.min(defaultMaxPower,
-                    this.getState().getPower().get() + defaultRandomIncrement));
-        } else {
-            final double consumption = Math.random();
-            final double hours = DurationConverter.toHours(deltaTime);
-            energy.addValue(consumption * hours + defaultRandomIncrement);
+        if (energy.getPower().isPresent()) {
+            final double newPower = energy.getPower().get() + randomIncrement;
+            if (newPower >= 0) {
+                energy.addValue(newPower);
+            }
+            this.setState(energy);
         }
-        this.setState(energy);
     }
 
     @Override
