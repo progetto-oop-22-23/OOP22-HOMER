@@ -28,4 +28,15 @@ class AirQualityStateTest {
         assertDoesNotThrow(() -> airQuality.setPM10(1));
         assertDoesNotThrow(() -> airQuality.setPM25(1));
     }
+
+    @Test
+    void requireToxicGasPercentageSmallerThanZero() {
+        final double greaterThanOneHundredDiscrete = 101;
+        final double greaterThanOneHundredContinuous = 100.5;
+        final var airQualityState = new AirQualityStateImpl(0, 0, 0, 0);
+        assertThrowsExactly(IllegalArgumentException.class,
+                () -> airQualityState.setToxicGasPercentage(greaterThanOneHundredDiscrete));
+        assertThrowsExactly(IllegalArgumentException.class,
+                () -> airQualityState.setToxicGasPercentage(greaterThanOneHundredContinuous));
+    }
 }

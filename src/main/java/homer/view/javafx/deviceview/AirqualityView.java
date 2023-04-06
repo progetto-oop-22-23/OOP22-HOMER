@@ -17,7 +17,7 @@ public final class AirqualityView extends JFXDeviceView {
 
     /**
      * 
-     * @param airQualityState
+     * @param airQualityState The current air quality state.
      */
     public AirqualityView(final AirQualityState airQualityState) {
         updateState(airQualityState);

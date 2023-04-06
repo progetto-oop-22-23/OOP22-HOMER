@@ -193,9 +193,8 @@ public final class ElectricalMeterImpl implements ElectricalMeter, DiscreteObjec
     }
 
     private void computeAveragePower(final Duration deltaTime) {
-        final double dt = DurationConverter.toMillis(deltaTime);
-        final double delta = 10;
-        this.setAveragePower(this.getGlobalConsumption() / dt * delta);
+        final double dt = DurationConverter.toHours(deltaTime);
+        this.setAveragePower(this.getGlobalConsumption() / dt);
     }
 
     @Override

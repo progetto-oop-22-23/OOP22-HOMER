@@ -70,7 +70,7 @@ public final class Outlet implements AdjustableDevice<OutletState>, DiscreteObje
         final OutletState energy = this.getState();
         if (this.getState().getPower().equals(Optional.empty())) {
             energy.addValue(Math.min(defaultMaxPower,
-                    Math.pow(this.getState().getPower().get(), 2) + defaultRandomIncrement));
+                    this.getState().getPower().get() + defaultRandomIncrement));
         } else {
             final double consumption = Math.random();
             final double hours = DurationConverter.toHours(deltaTime);

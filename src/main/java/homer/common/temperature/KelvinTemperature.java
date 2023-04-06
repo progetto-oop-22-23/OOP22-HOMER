@@ -9,7 +9,7 @@ public final class KelvinTemperature implements Temperature {
 
     /**
      * 
-     * @param temperature
+     * @param temperature the kelvin temperature.
      */
     public KelvinTemperature(final double temperature) {
         this.temperature = temperature;
@@ -21,8 +21,8 @@ public final class KelvinTemperature implements Temperature {
     }
 
     @Override
-    public double getFarenheit() {
-        return this.getCelsius() / Temperature.FIVE_NINES + Temperature.DELTA_KELVIN_FARENHEIT;
+    public double getFahrenheit() {
+        return this.getCelsius() / Temperature.FIVE_NINES + Temperature.DELTA_KELVIN_FAHRENHEIT;
     }
 
     @Override
