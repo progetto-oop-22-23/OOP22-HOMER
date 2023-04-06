@@ -12,4 +12,9 @@ public interface SimManager {
      */
     void addObserver(DiscreteObject observer);
 
+    /**
+     * Shutdown the simulation.
+     */
+    void shutdown();
+
 }
