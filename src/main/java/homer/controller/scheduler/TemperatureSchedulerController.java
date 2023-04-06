@@ -2,6 +2,7 @@ package homer.controller.scheduler;
 
 import java.time.Duration;
 import java.time.LocalTime;
+import java.util.Objects;
 import java.util.Optional;
 
 import homer.common.bounds.Bounds;
@@ -34,8 +35,8 @@ public final class TemperatureSchedulerController implements TimeSchedulerContro
      */
     public TemperatureSchedulerController(final TimeSchedulerView<Temperature> view,
             final Controller controller) {
-        this.view = view;
-        this.controller = controller;
+        this.view = Objects.requireNonNull(view);
+        this.controller = Objects.requireNonNull(controller);
         this.commands = new TemperatureCommandsImpl();
     }
 
