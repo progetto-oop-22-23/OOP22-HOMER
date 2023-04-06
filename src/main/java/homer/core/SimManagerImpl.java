@@ -74,9 +74,12 @@ public final class SimManagerImpl implements SimManager, SimManagerViewObserver 
                  * Link above is split because CHECKSTYLE suppression is not working apparently.
                  */
                 // CHECKSTYLE: LineLength ON
-                view.showError(ERROR_TITLE, e.toString() + "\n"
-                        + e.getMessage() + "\n"
-                        + e.getStackTrace().toString());
+                final var msg = new StringBuilder(e.toString() + "\n"
+                        + e.getMessage() + "\n");
+                for (final var line : e.getStackTrace()) {
+                    msg.append(line + "\n");
+                }
+                view.showError(ERROR_TITLE, msg.toString());
                 /**
                  * If an exception occurs in the loop, the ScheduledExecutorService will not
                  * keep running it. Since we are catching the exceptions to show an alert, we
