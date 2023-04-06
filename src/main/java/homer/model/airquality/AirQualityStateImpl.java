@@ -12,10 +12,10 @@ public final class AirQualityStateImpl implements AirQualityState {
 
     /**
      * 
-     * @param co2
-     * @param pm10
-     * @param toxicGasPercentage
-     * @param pm25
+     * @param co2 The co2 level.
+     * @param pm10 The pm10 level.
+     * @param toxicGasPercentage The toxic gas percentage. Must be between 0 and 100.
+     * @param pm25 The pm25 level.
      */
     public AirQualityStateImpl(final double co2, final double pm10, final double toxicGasPercentage, final double pm25) {
         this.setCO2(co2);
@@ -65,6 +65,9 @@ public final class AirQualityStateImpl implements AirQualityState {
     @Override
     public void setToxicGasPercentage(final double toxicGasPercentage) {
         requireGreaterOrEqualThanZero(toxicGasPercentage);
+        if (toxicGasPercentage > 100) {
+            throw new IllegalArgumentException("Toxic gas percentage can't be greater than 100");
+        }
         this.toxicGasPercentage = toxicGasPercentage;
     }
 
