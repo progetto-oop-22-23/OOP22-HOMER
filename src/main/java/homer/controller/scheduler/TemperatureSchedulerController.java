@@ -2,8 +2,10 @@ package homer.controller.scheduler;
 
 import java.time.Duration;
 import java.time.LocalTime;
+import java.util.Objects;
 import java.util.Optional;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import homer.common.bounds.Bounds;
 import homer.common.temperature.Temperature;
 import homer.controller.Controller;
@@ -32,10 +34,12 @@ public final class TemperatureSchedulerController implements TimeSchedulerContro
      * @param view       the scheduler view.
      * @param controller the domotic controller.
      */
+    @SuppressFBWarnings(value = "EI_EXPOSE_REP2", justification = "This is a design choice to be able to"
+            + " interface with the domotic controller")
     public TemperatureSchedulerController(final TimeSchedulerView<Temperature> view,
             final Controller controller) {
-        this.view = view;
-        this.controller = controller;
+        this.view = Objects.requireNonNull(view);
+        this.controller = Objects.requireNonNull(controller);
         this.commands = new TemperatureCommandsImpl();
     }
 

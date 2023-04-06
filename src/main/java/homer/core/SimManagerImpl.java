@@ -2,6 +2,7 @@ package homer.core;
 
 import java.time.Duration;
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
 import java.util.concurrent.Executors;
@@ -9,6 +10,7 @@ import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.TimeUnit;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import homer.controller.Controller;
 import homer.view.sim.SimManagerView;
 
@@ -37,8 +39,11 @@ public final class SimManagerImpl implements SimManager, SimManagerViewObserver 
      * @param view       the simulation manager view.
      * @param controller the controller.
      */
+    @SuppressFBWarnings(value = "EI_EXPOSE_REP2", justification = "This is a design choice to be able to set the view"
+            + " and interface with the controller")
     public SimManagerImpl(final SimManagerView view, final Controller controller) {
-        this.view = view;
+        Objects.requireNonNull(controller);
+        this.view = Objects.requireNonNull(view);
         updateView();
         this.loopRunnable = () -> {
             try {
@@ -69,9 +74,12 @@ public final class SimManagerImpl implements SimManager, SimManagerViewObserver 
                  * Link above is split because CHECKSTYLE suppression is not working apparently.
                  */
                 // CHECKSTYLE: LineLength ON
-                view.showError(ERROR_TITLE, e.toString() + "\n"
-                        + e.getMessage() + "\n"
-                        + e.getStackTrace().toString());
+                final var msg = new StringBuilder(e.toString() + "\n"
+                        + e.getMessage() + "\n");
+                for (final var line : e.getStackTrace()) {
+                    msg.append(line + "\n");
+                }
+                view.showError(ERROR_TITLE, msg.toString());
                 /**
                  * If an exception occurs in the loop, the ScheduledExecutorService will not
                  * keep running it. Since we are catching the exceptions to show an alert, we
@@ -108,7 +116,7 @@ public final class SimManagerImpl implements SimManager, SimManagerViewObserver 
 
     @Override
     public void addObserver(final DiscreteObject observer) {
-        this.observers.add(observer);
+        this.observers.add(Objects.requireNonNull(observer));
     }
 
     private Duration getSimStepPeriod() {

@@ -1,9 +1,11 @@
 package homer.view.scheduler;
 
 import java.util.Map;
+import java.util.Objects;
 
 import org.controlsfx.control.Notifications;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import homer.common.temperature.Temperature;
 import homer.controller.scheduler.TimeSchedulerController;
 import homer.model.scheduler.ScheduleId;
@@ -57,8 +59,10 @@ public final class TemperatureSchedulerViewFx extends BorderPane implements Time
     }
 
     @Override
+    @SuppressFBWarnings(value = "EI_EXPOSE_REP2", justification = "This is a design choice to be to set the corresponding"
+            + " controller to communicate to")
     public void setScheduler(final TimeSchedulerController<Temperature> scheduler) {
-        this.scheduler = scheduler;
+        this.scheduler = Objects.requireNonNull(scheduler);
     }
 
 }
