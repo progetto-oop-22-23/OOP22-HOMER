@@ -117,8 +117,7 @@ public class JFXApplication extends Application {
         final ScrollPane dashboardScrollPane = new ScrollPane(dashboard);
         dashboardScrollPane.setFitToHeight(true);
         dashboardScrollPane.setFitToWidth(true);
-        // TODO separate the add devices from the device list, so that only the list is
-        // scrollable
+
         final Tab devicesView = new Tab("DEVICES", dashboardScrollPane);
         final Tab schedulerTab = new Tab("SCHEDULER", tempSchedulerView);
         final Tab graphView = new Tab("GRAPHS",
