@@ -60,9 +60,11 @@ public final class AirQualityViewManager {
                 .findFirst()
                 .orElse(null);
 
-        co2Label.setText("CO2 (%): " + state.getCO2());
-        pm10Label.setText("PM10 (ppM): " + state.getPM10());
-        pm25Label.setText("PM2.5 (ppM): " + state.getPM25());
-        toxicGasLabel.setText("Toxic Gas (%): " + state.getToxicGasPercentage());
+        if (state != null) {
+            co2Label.setText("CO2 (%): " + state.getCO2());
+            pm10Label.setText("PM10 (ppM): " + state.getPM10());
+            pm25Label.setText("PM2.5 (ppM): " + state.getPM25());
+            toxicGasLabel.setText("Toxic Gas (%): " + state.getToxicGasPercentage());
+        }
     }
 }
