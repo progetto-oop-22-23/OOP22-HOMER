@@ -2,6 +2,7 @@ package homer.view.sim;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Objects;
 
 import homer.core.SimManagerViewObserver;
 import javafx.application.Platform;
@@ -54,7 +55,7 @@ public final class SimManagerViewFxImpl extends VBox implements SimManagerView {
 
     @Override
     public void setObserver(final SimManagerViewObserver simManager) {
-        this.simManager = simManager;
+        this.simManager = Objects.requireNonNull(simManager);
     }
 
     @Override

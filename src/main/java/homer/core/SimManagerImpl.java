@@ -2,6 +2,7 @@ package homer.core;
 
 import java.time.Duration;
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
 import java.util.concurrent.Executors;
@@ -38,7 +39,8 @@ public final class SimManagerImpl implements SimManager, SimManagerViewObserver 
      * @param controller the controller.
      */
     public SimManagerImpl(final SimManagerView view, final Controller controller) {
-        this.view = view;
+        Objects.requireNonNull(controller);
+        this.view = Objects.requireNonNull(view);
         updateView();
         this.loopRunnable = () -> {
             try {
@@ -108,7 +110,7 @@ public final class SimManagerImpl implements SimManager, SimManagerViewObserver 
 
     @Override
     public void addObserver(final DiscreteObject observer) {
-        this.observers.add(observer);
+        this.observers.add(Objects.requireNonNull(observer));
     }
 
     private Duration getSimStepPeriod() {
