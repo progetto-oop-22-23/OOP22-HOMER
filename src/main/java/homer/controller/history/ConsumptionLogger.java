@@ -4,7 +4,7 @@ import java.util.Optional;
 
 import homer.common.history.HistoryData;
 import homer.common.time.Clock;
-import homer.controller.api.electricalmeter.ElectricalMeter;
+import homer.controller.electricalmeter.ElectricalMeter;
 import homer.view.graph.GraphView;
 
 /**

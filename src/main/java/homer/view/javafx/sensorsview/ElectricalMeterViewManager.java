@@ -5,7 +5,7 @@ import java.util.Objects;
 import java.util.ResourceBundle;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
-import homer.controller.impl.electricalmeter.ElectricalMeterImpl;
+import homer.controller.electricalmeter.ElectricalMeterImpl;
 import homer.model.outlets.Outlet;
 import homer.model.outlets.OutletFactory;
 import javafx.beans.property.ReadOnlyObjectWrapper;
