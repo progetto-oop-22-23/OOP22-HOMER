@@ -49,7 +49,24 @@ public final class SimManagerImpl implements SimManager, SimManagerViewObserver 
                         .forEach(d -> ((DiscreteObject) d).updateTick(dt));
                 view.setDateTime(controller.getClock().getDateTime());
                 this.observers.forEach(o -> o.updateTick(dt));
-            } catch (final Exception e) {
+            } catch (final Exception e) { // NOPMD
+                // CHECKSTYLE: LineLength OFF
+                // Link in comment is breaking the rule.
+                /**
+                 * Suppressed because it's necessary to catch every exception.
+                 * Any exception being thrown here will cause the ScheduledExecutorService to
+                 * stop running the task without any error or message. Therefore we want to
+                 * catch anything to be able to alert the user, who would otherwise only see the
+                 * clock stopping and various actions not working.
+                 * It was chosen to do it here for simplicity, because catching the exception of
+                 * the ScheduledFuture would require another thread, leading to other possible
+                 * side-effects.
+                 * More on it here:
+                 * https://www.dontpanicblog.co.uk/2021/05/15/exception-handling-in-scheduledexecutorservice/
+                 * https://stackoverflow.com/questions/6894595/scheduledexecutorservice-exception-handling
+                 * http://web.archive.org/web/20190307143204/http://code.nomad-labs.com:80/2011/12/09/mother-fk-the-scheduledexecutorservice
+                 */
+                // CHECKSTYLE: LineLength ON
                 view.showError(ERROR_TITLE, e.toString() + "\n"
                         + e.getMessage() + "\n"
                         + e.getStackTrace().toString());
