@@ -22,7 +22,6 @@ public final class Light implements ToggleableDevice<LightState>, PoweredDevice,
 
     private LightState state;
     private final PoweredDeviceInfo power;
-    private double instantConsumption;
 
     /**
      * Constructor for class Light.
@@ -33,7 +32,6 @@ public final class Light implements ToggleableDevice<LightState>, PoweredDevice,
     public Light(final Boolean state, final PoweredDeviceInfo power) {
         this.state = new LightState(Objects.requireNonNull(state));
         this.power = new PoweredDeviceInfoImpl(power.getMaxConsumption(), power.getOutlet());
-        this.instantConsumption = 0.0;
     }
 
     /**
@@ -45,7 +43,6 @@ public final class Light implements ToggleableDevice<LightState>, PoweredDevice,
         this.state = new LightState(Objects.requireNonNull(state));
         this.power = new PoweredDeviceInfoImpl(10.0,
                 OutletFactory.cOutlet(0));
-        this.instantConsumption = 0.0;
     }
 
     @Override
@@ -65,8 +62,6 @@ public final class Light implements ToggleableDevice<LightState>, PoweredDevice,
 
     @Override
     public void updateTick(final Duration deltaTime) {
-        final double oldConsumption = this.getInstantConsumption();
-        final double maxConsumption = this.getPowerInfo().getMaxConsumption();
         final double milliseconds = DurationConverter.toMillis(deltaTime);
         final double oneTenth = 0.1;
         final double oneCent = 0.01;
@@ -75,19 +70,20 @@ public final class Light implements ToggleableDevice<LightState>, PoweredDevice,
         if (this.isToggled()) {
             intensity = Math.sin(milliseconds * oneTenth) - (oneCent + Math.random() * fiveCents);
         }
-        final double newConsumption = oldConsumption + intensity * milliseconds;
+        final double maxConsumption = this.getPowerInfo().getMaxConsumption();
+        final double newConsumption = maxConsumption * Math.pow(intensity, 2) * milliseconds;
         this.setInstantConsumption(
                 Limit.clamp(newConsumption, this.getPowerInfo().getMinConsumption(), maxConsumption));
     }
 
     @Override
     public double getInstantConsumption() {
-        return this.instantConsumption;
+        return this.getPowerInfo().getOutlet().getState().getPower().get();
     }
 
     @Override
     public void setInstantConsumption(final double instantConsumption) {
-        this.instantConsumption = instantConsumption;
+        this.power.getOutlet().getState().addValue(instantConsumption);
     }
 
     @Override

@@ -32,18 +32,17 @@ public abstract class AbstractTemperatureChanger implements TemperatureChanger, 
     private final Environment environment;
     private Temperature minTemperature = TemperatureFactory.fromKelvin(0);
     private Optional<Temperature> maxTemperature = Optional.empty();
-    private double instantConsumption;
     private final PoweredDeviceInfo power;
     private static final double MAX_CONSUMPTION = 1000;
 
     @Override
     public final double getInstantConsumption() {
-        return instantConsumption;
+        return this.getPowerInfo().getOutlet().getState().getPower().get();
     }
 
     @Override
     public final void setInstantConsumption(final double instantConsumption) {
-        this.instantConsumption = instantConsumption;
+        this.power.getOutlet().getState().addValue(instantConsumption);
     }
 
     /**
@@ -51,8 +50,7 @@ public abstract class AbstractTemperatureChanger implements TemperatureChanger, 
      * @param maxIntensity the maximum intensity allowed.
      * @param environment  the environment that is modified by the heating device.
      */
-    @SuppressFBWarnings(
-        value = "EI_EXPOSE_REP",
+    @SuppressFBWarnings(value = "EI_EXPOSE_REP", 
         justification = "Updating a reference is better than reallocating objects on the heap")
     public AbstractTemperatureChanger(final double minIntensity, final double maxIntensity,
             final Environment environment) {
@@ -66,6 +64,7 @@ public abstract class AbstractTemperatureChanger implements TemperatureChanger, 
     /**
      * 
      * Returns The temperaturechanger's state that we want to pass to the view.
+     * 
      * @return The temperaturechanger's state that we want to pass to the view.
      */
     protected final TemperatureChangerState getTemperatureState() {
@@ -132,8 +131,9 @@ public abstract class AbstractTemperatureChanger implements TemperatureChanger, 
     private void updateConsumption(final Duration deltaTime) {
         final double maxConsumption = this.getPowerInfo().getMaxConsumption();
         final double hours = DurationConverter.toHours(deltaTime);
-        final double newConsumption = instantConsumption + maxConsumption * this.intensity * hours;
-        this.instantConsumption = Limit.clamp(newConsumption, this.getPowerInfo().getMinConsumption(), maxConsumption);
+        final double newConsumption = maxConsumption * Math.pow(this.intensity, 2) * hours;
+        this.setInstantConsumption(
+                Limit.clamp(newConsumption, this.getPowerInfo().getMinConsumption(), maxConsumption));
     }
 
     @Override

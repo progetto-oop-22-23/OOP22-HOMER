@@ -104,9 +104,9 @@ final class ElectricalMeterTest {
 
     @Test
     void testUpdateTick() {
-        final double outletConsumption = 1500.0;
-        final double expectedConsumptionAfterCheck = 30;
-        final double expectedAveragePowerAfterCheck = 15;
+        final double outletConsumption = 150;
+        final double expectedConsumptionAfterCheck = 650;
+        final double expectedAveragePowerAfterCheck = 325;
         final double delta = 2.5;
         final int hours = 2;
         assertTrue(outlets.isEmpty());
