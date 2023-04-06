@@ -5,7 +5,7 @@ import java.util.Objects;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
-import homer.controller.impl.electricalmeter.ElectricalMeterImpl;
+import homer.controller.electricalmeter.ElectricalMeterImpl;
 import homer.model.airquality.AirqualitySensor;
 import homer.model.environment.HomeEnvironment;
 import homer.model.thermometer.SimpleThermometer;
@@ -72,7 +72,7 @@ public final class SensorDashboardViewManager {
 
     /**
      * Set {@code meter} to a new
-     * {@link homer.controller.impl.electricalmeter.ElectricalMeterImpl}.
+     * {@link homer.controller.electricalmeter.ElectricalMeterImpl}.
      * 
      * @param meter the new {@code ElectricalMeterImpl}.
      */

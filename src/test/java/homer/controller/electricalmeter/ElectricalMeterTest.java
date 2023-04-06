@@ -12,8 +12,6 @@ import org.junit.jupiter.api.Test;
 
 import homer.controller.ControllerImpl;
 import homer.controller.DeviceManagerImpl;
-import homer.controller.api.electricalmeter.ElectricalMeter;
-import homer.controller.impl.electricalmeter.ElectricalMeterImpl;
 import homer.model.outlets.Outlet;
 import homer.model.outlets.OutletFactory;
 
@@ -109,6 +107,7 @@ final class ElectricalMeterTest {
         final double outletConsumption = 1500.0;
         final double expectedConsumptionAfterCheck = 30;
         final double expectedAveragePowerAfterCheck = 15;
+        final double delta = 2.5;
         final int hours = 2;
         assertTrue(outlets.isEmpty());
         Collections.addAll(outlets,
@@ -130,9 +129,7 @@ final class ElectricalMeterTest {
 
         // The power and the consumption have oscillations from the
         // expected value, due to the stacking od Outlet consumption obsillations.c
-        final double deltaPower = expectedAveragePowerAfterCheck / 2.5;
-        final double deltaConsumption = expectedConsumptionAfterCheck / 2.5;
-        assertEquals(expectedAveragePowerAfterCheck, meter.getAveragePower(), deltaPower);
-        assertEquals(expectedConsumptionAfterCheck, meter.getGlobalConsumption(), deltaConsumption);
+        assertEquals(expectedAveragePowerAfterCheck, meter.getAveragePower(), expectedAveragePowerAfterCheck / delta);
+        assertEquals(expectedConsumptionAfterCheck, meter.getGlobalConsumption(), expectedConsumptionAfterCheck / delta);
     }
 }
