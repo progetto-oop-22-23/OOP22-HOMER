@@ -12,6 +12,7 @@ import homer.model.environment.Environment;
  * @param environment the environment which is going to be observed by the
  *                    sensor.
  */
+@SuppressFBWarnings(value = "EI_EXPOSE_REP", justification = "Reference is needed in order for this to work")
 public record CreateAirQualitySensor(Environment environment) implements CreateDeviceCommand {
 
     @Override

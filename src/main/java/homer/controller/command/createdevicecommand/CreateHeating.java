@@ -8,6 +8,7 @@ import homer.model.temperaturechangers.Heating;
 /**
  * @param environment the environment.
  */
+@SuppressFBWarnings(value = "EI_EXPOSE_REP", justification = "Reference is needed in order for this to work")
 public record CreateHeating(Environment environment) implements CreateDeviceCommand {
     private static final double HEATING_MAX_DEFAULT_INTENSITY = 10;
 

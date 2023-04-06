@@ -6,6 +6,8 @@ import java.nio.charset.Charset;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Objects;
+
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import homer.api.DeviceId;
 import homer.api.DeviceState;
 import homer.api.state.ActuatedDeviceState;
@@ -29,8 +31,9 @@ public final class LoggerImpl implements Logger {
 
     /**
      * 
-     * @param outputStream
+     * @param outputStream the output stream we are logging to.
      */
+    @SuppressFBWarnings(value = "EI_EXPOSE_REP", justification = "storing a reference is intended.")
     public LoggerImpl(final OutputStream outputStream) {
         Objects.requireNonNull(outputStream);
         this.outputStream = outputStream;
@@ -78,6 +81,7 @@ public final class LoggerImpl implements Logger {
     }
 
     @Override
+    @SuppressFBWarnings(value = "EI_EXPOSE_REP", justification = "storing a reference is intended.")
     public void setOutputStream(final OutputStream outputStream) {
         Objects.requireNonNull(outputStream);
         this.outputStream = outputStream;
