@@ -6,7 +6,8 @@ import homer.api.DeviceState;
 import homer.common.bounds.Bounds;
 
 /**
- * Implementation of {@link DeviceState} for an {@link homer.model.actuator.ActuatedDevice}.
+ * Implementation of {@link DeviceState} for an
+ * {@link homer.model.actuator.ActuatedDevice}.
  */
 public final class ActuatedDeviceState implements DeviceState {
 
