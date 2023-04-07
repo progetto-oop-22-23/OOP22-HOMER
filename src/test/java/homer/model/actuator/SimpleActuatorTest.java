@@ -9,7 +9,7 @@ import org.junit.jupiter.api.Test;
 
 import homer.common.bounds.Bounds;
 
-final class TestSimpleActuator {
+final class SimpleActuatorTest {
 
     private static final int MIN_POSITION = 0;
     private static final int MAX_POSITION = 100;
