@@ -9,7 +9,7 @@ import java.time.LocalDateTime;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-final class TestClockImpl {
+final class ClockImplTest {
 
     private final Clock clock = new ClockImpl();
 

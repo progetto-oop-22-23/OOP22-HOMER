@@ -6,7 +6,7 @@ import org.junit.jupiter.api.Test;
 
 import homer.common.bounds.Bounds;
 
-final class TestNormalizedValue {
+final class NormalizedValueTest {
 
     private static final double NORMALIZED_BOTTOM = 0.0;
     private static final double NORMALIZED_TOP = 100.0;

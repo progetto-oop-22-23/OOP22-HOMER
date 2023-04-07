@@ -7,7 +7,7 @@ import java.math.BigInteger;
 
 import org.junit.jupiter.api.Test;
 
-final class TestLimit {
+final class LimitTest {
 
     @Test
     void testLimitInt() {

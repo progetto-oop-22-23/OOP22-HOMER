@@ -6,7 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.RepeatedTest;
 
-final class TestSimpleLock {
+final class SimpleLockTest {
 
     private final Lock lock = new SimpleLock();
 

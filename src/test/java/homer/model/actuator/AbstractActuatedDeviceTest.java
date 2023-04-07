@@ -12,7 +12,7 @@ import homer.api.DeviceState;
 import homer.api.state.ActuatedDeviceState;
 import homer.common.bounds.Bounds;
 
-final class TestAbstractActuatedDevice {
+final class AbstractActuatedDeviceTest {
 
     private static final int LOWER_BOUND = 0;
     private static final int UPPER_BOUND = 100;

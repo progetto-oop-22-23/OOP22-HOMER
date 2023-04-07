@@ -11,7 +11,7 @@ import homer.api.state.ActuatedDeviceState;
 import homer.common.bounds.Bounds;
 import homer.model.actuator.SimpleActuator;
 
-final class TestMechanizedWindow {
+final class MechanizedWindowTest {
 
     private static final int MIN_VALUE = -50;
     private static final int MAX_VALUE = 100;

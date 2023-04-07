@@ -5,7 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertThrowsExactly;
 
 import org.junit.jupiter.api.Test;
 
-final class TestBounds {
+final class BoundsTest {
 
     private static final int LOWER_BOUND = 0;
     private static final int UPPER_BOUND = 1;

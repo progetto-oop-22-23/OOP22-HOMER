@@ -15,7 +15,7 @@ import homer.common.temperature.Temperature;
 import homer.common.temperature.TemperatureFactory;
 import homer.model.scheduler.TimeScheduler.ParameterResult;
 
-final class TestTemperatureScheduler {
+final class TemperatureSchedulerTest {
 
     private static final Bounds<LocalTime> TIME_RANGE = new Bounds<>(LocalTime.of(9, 0), LocalTime.of(12, 0));
     private static final Bounds<Temperature> TEMP_RANGE = new Bounds<>(TemperatureFactory.fromCelsius(19),
