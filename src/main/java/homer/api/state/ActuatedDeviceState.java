@@ -11,8 +11,6 @@ import homer.common.bounds.Bounds;
  */
 public final class ActuatedDeviceState implements DeviceState {
 
-    private final Optional<Bounds<Integer>> positionBounds;
-    private final int position;
     /**
      * Mechanized blinds.
      */
@@ -25,6 +23,8 @@ public final class ActuatedDeviceState implements DeviceState {
      * Mechanized window.
      */
     public static final String WINDOW = "Mechanized Window";
+    private final Optional<Bounds<Integer>> positionBounds;
+    private final int position;
     private final Optional<String> type;
 
     /**
