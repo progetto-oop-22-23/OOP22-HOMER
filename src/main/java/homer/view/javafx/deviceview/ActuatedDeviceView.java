@@ -38,8 +38,8 @@ public final class ActuatedDeviceView extends JFXDeviceView {
 
     @Override
     public void setState(final DeviceState state) {
-        if (state instanceof AbstractActuatedDevice temperatureChangerState) {
-            this.sliderComponent.setState((double) temperatureChangerState.getState().getPosition());
+        if (state instanceof AbstractActuatedDevice actuatedDeviceState) {
+            this.sliderComponent.setState((double) actuatedDeviceState.getState().getPosition());
         }
     }
 }
