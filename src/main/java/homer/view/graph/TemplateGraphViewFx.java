@@ -55,11 +55,7 @@ public class TemplateGraphViewFx<T> extends VBox implements GraphView<T> {
             final XYChart.Series<String, Number> series = new XYChart.Series<>();
             historyData.stream()
                     .sorted()
-                    .forEach(hd -> {
-                        series.getData().add(
-                                new XYChart.Data<>(hd.dateTime().toString(),
-                                        dataTransform.apply(hd.data())));
-                    });
+                    .forEach(hd -> series.getData().add(createData(hd)));
             this.ac.getData().add(series);
         });
     }
@@ -68,6 +64,10 @@ public class TemplateGraphViewFx<T> extends VBox implements GraphView<T> {
     @Override
     public final ObservableList<Node> getChildren() {
         return super.getChildren();
+    }
+
+    private XYChart.Data<String, Number> createData(final HistoryData<T> hd) {
+        return new XYChart.Data<>(hd.dateTime().toString(), this.dataTransform.apply(hd.data()));
     }
 
 }
