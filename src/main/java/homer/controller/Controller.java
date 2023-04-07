@@ -12,7 +12,7 @@ public interface Controller extends DiscreteObject {
     /**
      * Register the user sending the {@link Command} command.
      * 
-     * @param command
+     * @param command the command to send.
      */
     void receiveCommand(Command command);
 

@@ -3,7 +3,7 @@ package homer.api.state;
 import homer.api.DeviceState;
 
 /**
- * Implementation of {@link DeviceState} for a {@link ToggleableDevice}.
+ * Implementation of {@link DeviceState} for a {@link homer.model.lock.Lock}.
  */
 public final class LockState implements DeviceState {
 

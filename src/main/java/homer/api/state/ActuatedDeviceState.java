@@ -31,7 +31,7 @@ public final class ActuatedDeviceState implements DeviceState {
      * 
      * @param position       the actuator position.
      * @param positionBounds the actuator bounds.
-     * @param type
+     * @param type           the device's type.
      */
     public ActuatedDeviceState(final int position, final Bounds<Integer> positionBounds, final Optional<String> type) {
         this.position = position;
