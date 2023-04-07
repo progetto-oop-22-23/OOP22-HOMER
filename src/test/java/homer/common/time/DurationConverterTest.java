@@ -6,7 +6,7 @@ import java.time.Duration;
 
 import org.junit.jupiter.api.Test;
 
-class TestDurationConverter {
+class DurationConverterTest {
     private static final double DELTA = 0.0001d;
     private static final long FIVE_HUNDRED = 500;
     private static final double ONE_THIRD = 1 / 3d;

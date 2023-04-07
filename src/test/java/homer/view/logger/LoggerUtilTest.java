@@ -5,10 +5,10 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import java.io.ByteArrayOutputStream;
 import java.nio.charset.Charset;
 
-final class TestLoggerUtil {
+final class LoggerUtilTest {
     private static final Charset STANDARD_CHARSET = Charset.defaultCharset();
 
-    private TestLoggerUtil() {
+    private LoggerUtilTest() {
     }
 
     public static void assertContains(final ByteArrayOutputStream outputStream, final String string) {
