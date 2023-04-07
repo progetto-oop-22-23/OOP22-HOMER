@@ -20,7 +20,7 @@ public record CreateHeating(Environment environment) implements CreateDeviceComm
 
     @Override
     public String getStringRep() {
-        return "Create heating";
+        return "Add heating";
     }
 
 }
