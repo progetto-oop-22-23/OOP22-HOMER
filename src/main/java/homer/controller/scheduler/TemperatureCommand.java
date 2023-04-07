@@ -10,7 +10,7 @@ import homer.model.temperaturechangers.TemperatureChanger;
 import homer.model.temperaturechangers.TemperatureChangerState;
 
 /**
- * Implementation of a {@link SchedulerCommand} for the control of the
+ * Implementation of a Scheduler {@link Command} for the control of the
  * temperature.
  */
 public final class TemperatureCommand implements Command {

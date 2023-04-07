@@ -5,7 +5,8 @@ import homer.common.temperature.Temperature;
 import homer.common.temperature.TemperatureFactory;
 
 /**
- * Implementation of {@link DeviceState} for a {@link Thermometer}.
+ * Implementation of {@link DeviceState} for a
+ * {@link homer.model.thermometer.Thermometer}.
  */
 public final class ThermometerState implements DeviceState {
 
