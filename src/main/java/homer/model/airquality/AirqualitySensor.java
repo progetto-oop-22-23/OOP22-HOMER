@@ -18,7 +18,7 @@ public final class AirqualitySensor implements Device<AirQualityState>, Discrete
 
     /**
      * 
-     * @param environment The {@link Environment`} the sensor is observing.
+     * @param environment The {@link Environment} the sensor is observing.
      */
     @SuppressFBWarnings(value = "EI_EXPOSE_REP", justification = "Reference is needed in order for this to work")
     public AirqualitySensor(final Environment environment) {

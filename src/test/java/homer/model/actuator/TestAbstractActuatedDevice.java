@@ -6,8 +6,6 @@ import static org.junit.jupiter.api.Assertions.assertThrowsExactly;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.time.Duration;
-import java.util.Optional;
-
 import org.junit.jupiter.api.Test;
 
 import homer.api.DeviceState;
@@ -18,9 +16,10 @@ final class TestAbstractActuatedDevice {
 
     private static final int LOWER_BOUND = 0;
     private static final int UPPER_BOUND = 100;
+    private static final String ORIGINAL_TYPE = "Generic";
     private static final Bounds<Integer> BOUNDS = new Bounds<>(LOWER_BOUND, UPPER_BOUND);
     private final Actuator actuator = new SimpleActuator(BOUNDS);
-    private final AbstractActuatedDevice device = new AbstractActuatedDevice(actuator);
+    private final AbstractActuatedDevice device = new AbstractActuatedDevice(actuator, ORIGINAL_TYPE);
 
     @Test
     void testGetState() {
@@ -32,11 +31,12 @@ final class TestAbstractActuatedDevice {
     void testSetState() {
         final var validPosition = (LOWER_BOUND + UPPER_BOUND) / 2;
         final var invalidNewBounds = new Bounds<>(0, 50);
-        final var newState = new ActuatedDeviceState(validPosition, invalidNewBounds, Optional.empty());
+        final var newState = new ActuatedDeviceState(validPosition, invalidNewBounds, "ChangedType");
         device.setState(newState);
         device.updateTick(Duration.ofNanos(1));
         assertEquals(validPosition, device.getState().getPosition());
         assertEquals(BOUNDS, device.getState().getPositionBounds().get()); // bounds must be unchanged
+        assertEquals(ORIGINAL_TYPE, device.getState().getType().get()); // type must be unchanged
     }
 
     @Test

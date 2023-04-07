@@ -5,8 +5,6 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.time.Duration;
-import java.util.Optional;
-
 import org.junit.jupiter.api.Test;
 
 import homer.api.state.ActuatedDeviceState;
@@ -40,7 +38,7 @@ final class TestMechanizedWindow {
     @Test
     void testMinValue() {
         final var minValue = window.getState().getPositionBounds().get().getLowerBound();
-        window.setState(new ActuatedDeviceState(minValue - Math.abs(MAX_VALUE), Optional.empty()));
+        window.setState(new ActuatedDeviceState(minValue - Math.abs(MAX_VALUE)));
         window.updateTick(Duration.ofMillis(1));
         assertEquals(minValue, window.getState().getPosition());
     }
@@ -51,7 +49,7 @@ final class TestMechanizedWindow {
     @Test
     void testMaxValue() {
         final var maxValue = window.getState().getPositionBounds().get().getUpperBound();
-        window.setState(new ActuatedDeviceState(maxValue + Math.abs(MAX_VALUE), Optional.empty()));
+        window.setState(new ActuatedDeviceState(maxValue + Math.abs(MAX_VALUE)));
         window.updateTick(Duration.ofMillis(1));
         assertEquals(maxValue, window.getState().getPosition());
     }
@@ -68,7 +66,7 @@ final class TestMechanizedWindow {
 
     private void checkSetValue(final int newValue) {
         assertTrue(newValue >= MIN_VALUE && newValue <= MAX_VALUE, "value not in range");
-        window.setState(new ActuatedDeviceState(newValue, Optional.empty()));
+        window.setState(new ActuatedDeviceState(newValue));
         window.updateTick(Duration.ofMillis(1));
         assertEquals(newValue, window.getState().getPosition());
     }
