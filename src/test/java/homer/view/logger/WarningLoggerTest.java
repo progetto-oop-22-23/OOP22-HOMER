@@ -13,6 +13,6 @@ class WarningLoggerTest {
         final var outputStream = new ByteArrayOutputStream();
         final var logger = new WarningLogger(new LoggerImpl(outputStream));
         logger.removeDevice(new DeviceIdImpl());
-        TestLoggerUtil.assertContains(outputStream, "WARNING"); 
+        LoggerUtilTest.assertContains(outputStream, "WARNING"); 
     }
 }
