@@ -27,3 +27,13 @@ hs_err_pid*
 
 # Ignore Gradle build output directory
 build
+bin/
+
+# Ignore VSCode directory
+.vscode
+
+# Temporary file out from console
+/out
+
+# Ignore IntelliJ idea directory
+.idea
