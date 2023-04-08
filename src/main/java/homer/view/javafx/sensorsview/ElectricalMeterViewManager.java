@@ -17,7 +17,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 
 /**
- * View manager for {@link homer.controller.impl.electricalmeter}.
+ * View manager for {@link homer.controller.electricalmeter.ElectricalMeterImpl}.
  */
 public final class ElectricalMeterViewManager {
 
@@ -65,7 +65,7 @@ public final class ElectricalMeterViewManager {
     }
 
     /**
-     * Sets the {@link homer.controller.impl.electricalmeter}.
+     * Sets the {@link homer.controller.electricalmeter.ElectricalMeterImpl}.
      * 
      * @param meter the meter.
      */
@@ -103,6 +103,7 @@ public final class ElectricalMeterViewManager {
         outletIDColumn.setCellValueFactory(
                 cellData -> new ReadOnlyObjectWrapper<String>(
                         cellData.getValue().getClass().getSimpleName()));
+        outletTable.refresh();
     }
 
     /**

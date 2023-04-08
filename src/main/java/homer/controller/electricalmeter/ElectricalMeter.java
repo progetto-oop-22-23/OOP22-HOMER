@@ -31,7 +31,7 @@ public interface ElectricalMeter {
      * 
      * @param outlet The Outlet to add.
      * 
-     * @throws IllegalArgumentException
+     * @throws IllegalArgumentException The Outlet must not be in he Outlets list.
      */
     void addOutlet(Outlet outlet);
 
