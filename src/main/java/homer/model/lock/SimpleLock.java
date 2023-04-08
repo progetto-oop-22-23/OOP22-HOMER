@@ -16,7 +16,7 @@ public final class SimpleLock implements Lock {
 
     @Override
     public boolean isToggled() {
-        return getState().isOn();
+        return getState().isLocked();
     }
 
     @Override

@@ -17,9 +17,9 @@ final class SimpleLockTest {
 
     @RepeatedTest(3)
     void testToggle() {
-        final var wasLocked = this.lock.getState().isOn();
+        final var wasLocked = this.lock.getState().isLocked();
         this.lock.toggle();
-        final var isLocked = this.lock.getState().isOn();
+        final var isLocked = this.lock.getState().isLocked();
         assertTrue(wasLocked ? !isLocked : isLocked);
     }
 

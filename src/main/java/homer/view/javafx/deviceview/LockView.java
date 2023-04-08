@@ -30,7 +30,7 @@ public final class LockView extends JFXDeviceView {
     @Override
     public void setState(final DeviceState state) {
         if (state instanceof LockState lockState) {
-            toggleableView.setState(lockState.isOn());
+            toggleableView.setState(lockState.isLocked());
         }
     }
 
