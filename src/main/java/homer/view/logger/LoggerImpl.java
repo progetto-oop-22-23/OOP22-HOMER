@@ -60,7 +60,7 @@ public final class LoggerImpl implements Logger {
         } else if (deviceState instanceof ActuatedDeviceState state) {
             log(Integer.toString(state.getPosition()));
         } else if (deviceState instanceof LockState state) {
-            log("LOCKED:" + state.isOn());
+            log("LOCKED:" + state.isLocked());
         } else if (deviceState instanceof LightState state) {
             log("TURNED ON:" + state.isOn());
         } else if (deviceState instanceof OutletState state) {

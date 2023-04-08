@@ -7,24 +7,24 @@ import homer.api.DeviceState;
  */
 public final class LockState implements DeviceState {
 
-    private final boolean isOn;
+    private final boolean isLocked;
 
     /**
      * Creates a new {@link LockState}.
      * 
-     * @param isOn the current state.
+     * @param isLocked the current state.
      */
-    public LockState(final boolean isOn) {
-        this.isOn = isOn;
+    public LockState(final boolean isLocked) {
+        this.isLocked = isLocked;
     }
 
     /**
-     * Returns whether the device is activated.
+     * Returns whether the lock is activated.
      * 
-     * @return whether the device is activated.
+     * @return whether the lock is activated.
      */
-    public boolean isOn() {
-        return this.isOn;
+    public boolean isLocked() {
+        return this.isLocked;
     }
 
 }
