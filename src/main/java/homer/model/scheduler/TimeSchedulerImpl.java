@@ -5,17 +5,18 @@ import java.util.HashMap;
 import java.util.Map;
 
 import homer.common.bounds.Bounds;
-import homer.common.temperature.Temperature;
 
 /**
- * Implementation of a time scheduler for the control of the temperature.
+ * Implementation of a {@link TimeScheduler}.
+ * 
+ * @param <T> the type of data to target for the schedule.
  */
-public final class TemperatureScheduler implements TimeScheduler<Temperature> {
+public final class TimeSchedulerImpl<T extends Comparable<T>> implements TimeScheduler<T> {
 
-    private final Map<ScheduleId, TimeSchedule<Temperature>> schedules = new HashMap<>();
+    private final Map<ScheduleId, TimeSchedule<T>> schedules = new HashMap<>();
 
     @Override
-    public void addSchedule(final Bounds<LocalTime> timeBounds, final Bounds<Temperature> paramBounds) {
+    public void addSchedule(final Bounds<LocalTime> timeBounds, final Bounds<T> paramBounds) {
         if (!isOverlapsing(timeBounds)) {
             this.schedules.put(new ScheduleId(), new TimeSchedule<>(timeBounds, paramBounds));
         } else {
@@ -29,12 +30,12 @@ public final class TemperatureScheduler implements TimeScheduler<Temperature> {
     }
 
     @Override
-    public Map<ScheduleId, TimeSchedule<Temperature>> getSchedules() {
+    public Map<ScheduleId, TimeSchedule<T>> getSchedules() {
         return Map.copyOf(this.schedules);
     }
 
     @Override
-    public ParameterResult checkSchedule(final LocalTime currentTime, final Temperature currentParameter) {
+    public ParameterResult checkSchedule(final LocalTime currentTime, final T currentParameter) {
         final var targetBounds = this.schedules.values().stream()
                 .filter(s -> isTimeWithinBounds(currentTime, s.timeBounds()))
                 .map(TimeSchedule::paramBounds)

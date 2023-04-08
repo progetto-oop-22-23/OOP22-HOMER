@@ -27,11 +27,11 @@ final class TemperatureSchedulerTest {
     private static final Temperature TEMP_IN_RANGE = TemperatureFactory.fromCelsius(20);
     private static final Temperature TEMP_ABOVE = TemperatureFactory.fromCelsius(30);
 
-    private TemperatureScheduler scheduler;
+    private TimeSchedulerImpl<Temperature> scheduler;
 
     @BeforeEach
     void start() {
-        this.scheduler = new TemperatureScheduler();
+        this.scheduler = new TimeSchedulerImpl<>();
     }
 
     @Test

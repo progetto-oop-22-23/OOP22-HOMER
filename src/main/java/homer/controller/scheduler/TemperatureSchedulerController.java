@@ -11,7 +11,7 @@ import homer.common.temperature.Temperature;
 import homer.controller.Controller;
 import homer.controller.command.Command;
 import homer.model.scheduler.ScheduleId;
-import homer.model.scheduler.TemperatureScheduler;
+import homer.model.scheduler.TimeSchedulerImpl;
 import homer.model.scheduler.TimeScheduler;
 import homer.model.thermometer.Thermometer;
 import homer.view.scheduler.TimeSchedulerView;
@@ -23,7 +23,7 @@ import homer.view.scheduler.TimeSchedulerView;
 public final class TemperatureSchedulerController implements TimeSchedulerController<Temperature> {
 
     private static final int FIFTY_NINE = 59;
-    private final TimeScheduler<Temperature> scheduler = new TemperatureScheduler();
+    private final TimeScheduler<Temperature> scheduler = new TimeSchedulerImpl<>();
     private final TemperatureCommands commands;
     private final Controller controller;
     private Optional<TimeSchedulerView<Temperature>> view = Optional.empty();
