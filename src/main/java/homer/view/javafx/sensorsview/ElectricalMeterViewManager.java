@@ -103,6 +103,7 @@ public final class ElectricalMeterViewManager {
         outletIDColumn.setCellValueFactory(
                 cellData -> new ReadOnlyObjectWrapper<String>(
                         cellData.getValue().getClass().getSimpleName()));
+        outletTable.refresh();
     }
 
     /**
