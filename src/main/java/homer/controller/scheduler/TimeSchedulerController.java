@@ -3,6 +3,7 @@ package homer.controller.scheduler;
 import homer.common.bounds.Bounds;
 import homer.core.DiscreteObject;
 import homer.model.scheduler.ScheduleId;
+import homer.view.scheduler.TimeSchedulerView;
 
 /**
  * This interface models the controller of a time-based scheduler.
@@ -25,5 +26,12 @@ public interface TimeSchedulerController<T extends Comparable<T>> extends Discre
      * @param scheduleId the id of the schedule to remove.
      */
     void removeSchedule(ScheduleId scheduleId);
+
+    /**
+     * Sets the view to update.
+     * 
+     * @param view the view to update.
+     */
+    void setView(TimeSchedulerView<T> view);
 
 }

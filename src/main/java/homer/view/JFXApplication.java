@@ -60,9 +60,9 @@ public class JFXApplication extends Application {
         meterViewManager.getMeter().setDeviceManger(controller.getDeviceManager());
         meterViewManager.getMeter().setViewManager(meterViewManager);
 
-        final var tempSchedulerView = new TemperatureSchedulerViewFx();
-        final var tempScheduler = new TemperatureSchedulerController(tempSchedulerView, controller);
-        tempSchedulerView.setScheduler(tempScheduler);
+        final var tempScheduler = new TemperatureSchedulerController(controller);
+        final var tempSchedulerView = new TemperatureSchedulerViewFx(tempScheduler);
+        tempScheduler.setView(tempSchedulerView);
 
         final var simView = new SimManagerViewFxImpl();
         final var simManager = new SimManagerImpl(simView, controller);
