@@ -199,9 +199,8 @@ public final class ElectricalMeterImpl implements ElectricalMeter, DiscreteObjec
 
     @Override
     public void updateTick(final Duration deltaTime) {
-        for (final Outlet outlet : this.getOutlets()) {
-            outlet.updateTick(deltaTime);
-        }
+        List<Outlet> outlets = this.getOutlets();
+        outlets.stream().forEach(outlet -> outlet.updateTick(deltaTime));
         this.setPoweredDeviceOutlets();
         this.checkConsumption();
         this.computeAveragePower(deltaTime);
