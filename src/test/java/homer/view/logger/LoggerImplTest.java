@@ -35,7 +35,7 @@ class LoggerImplTest {
         final var outputStream = new ByteArrayOutputStream();
         final var logger = new LoggerImpl(outputStream);
         logger.updateDeviceState(DEVICE_ID, AIR_CONDITIONING_STATE);
-        TestLoggerUtil.assertContains(outputStream, "Air conditioning");
+        LoggerUtilTest.assertContains(outputStream, "Air conditioning");
     }
 
     @Test
@@ -45,7 +45,7 @@ class LoggerImplTest {
         logger.updateDeviceState(DEVICE_ID,
                 new TemperatureChangerState().addTemperatureChangerType("HEATING")
                         .addCurrentIntensity(10));
-        TestLoggerUtil.assertContains(outputStream, "Heating");
+        LoggerUtilTest.assertContains(outputStream, "Heating");
     }
 
     @Test
@@ -54,7 +54,7 @@ class LoggerImplTest {
         final var logger = new LoggerImpl(outputStream);
         logger.updateDeviceState(DEVICE_ID, AIR_CONDITIONING_STATE);
         logger.removeDevice(DEVICE_ID);
-        TestLoggerUtil.assertContains(outputStream, "REMOVE DEVICE");
+        LoggerUtilTest.assertContains(outputStream, "REMOVE DEVICE");
     }
 
     @Test
@@ -62,7 +62,7 @@ class LoggerImplTest {
         final var outputStream = new ByteArrayOutputStream();
         final var logger = new LoggerImpl(outputStream);
         logger.updateDeviceState(DEVICE_ID, AIR_CONDITIONING_STATE);
-        TestLoggerUtil.assertContains(outputStream, "ADD DEVICE");
+        LoggerUtilTest.assertContains(outputStream, "ADD DEVICE");
     }
 
     @Test
@@ -71,7 +71,7 @@ class LoggerImplTest {
         final var logger = new LoggerImpl(outputStream);
         logger.updateDeviceState(DEVICE_ID, AIR_CONDITIONING_STATE);
         logger.updateDeviceState(DEVICE_ID, AIR_CONDITIONING_STATE);
-        TestLoggerUtil.assertContains(outputStream, "UPDATE DEVICE");
+        LoggerUtilTest.assertContains(outputStream, "UPDATE DEVICE");
     }
 
 }

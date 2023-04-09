@@ -1,7 +1,5 @@
 package homer.view.javafx.deviceview;
 
-import java.util.Optional;
-
 import homer.api.DeviceId;
 import homer.api.DeviceState;
 import homer.api.state.ActuatedDeviceState;
@@ -33,15 +31,15 @@ public final class ActuatedDeviceView extends JFXDeviceView {
                 state.getPosition(),
                 s -> {
                     controller.receiveCommand(
-                            new UpdateDeviceState(deviceId, new ActuatedDeviceState(s.intValue(), Optional.empty())));
+                            new UpdateDeviceState(deviceId, new ActuatedDeviceState(s.intValue())));
                 });
         this.getChildren().addAll(new Label(state.getType().get()), sliderComponent);
     }
 
     @Override
     public void setState(final DeviceState state) {
-        if (state instanceof AbstractActuatedDevice temperatureChangerState) {
-            this.sliderComponent.setState((double) temperatureChangerState.getState().getPosition());
+        if (state instanceof AbstractActuatedDevice actuatedDeviceState) {
+            this.sliderComponent.setState((double) actuatedDeviceState.getState().getPosition());
         }
     }
 }

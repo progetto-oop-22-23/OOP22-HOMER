@@ -20,13 +20,18 @@ import javafx.scene.layout.VBox;
  */
 public final class TemperatureSchedulerViewFx extends BorderPane implements TimeSchedulerView<Temperature> {
 
-    private TimeSchedulerController<Temperature> scheduler;
+    private final TimeSchedulerController<Temperature> scheduler;
     private final VBox schedules = new VBox();
 
     /**
      * Creates a new {@link TemperatureSchedulerViewFx}.
+     * 
+     * @param scheduler the corresponding scheduler controller.
      */
-    public TemperatureSchedulerViewFx() {
+    @SuppressFBWarnings(value = "EI_EXPOSE_REP2", justification = "This is a design choice to be able to set the corresponding"
+            + " controller to communicate to")
+    public TemperatureSchedulerViewFx(final TimeSchedulerController<Temperature> scheduler) {
+        this.scheduler = Objects.requireNonNull(scheduler);
         final var addSection = new AddTemperatureScheduleViewFx((tb, pb) -> {
             try {
                 this.scheduler.addSchedule(tb, pb);
@@ -56,13 +61,6 @@ public final class TemperatureSchedulerViewFx extends BorderPane implements Time
                         this.schedules.getChildren().addAll(scheduleView);
                     });
         });
-    }
-
-    @Override
-    @SuppressFBWarnings(value = "EI_EXPOSE_REP2", justification = "This is a design choice to be to set the corresponding"
-            + " controller to communicate to")
-    public void setScheduler(final TimeSchedulerController<Temperature> scheduler) {
-        this.scheduler = Objects.requireNonNull(scheduler);
     }
 
 }

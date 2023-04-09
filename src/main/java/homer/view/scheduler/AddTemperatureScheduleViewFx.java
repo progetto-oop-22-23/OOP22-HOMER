@@ -22,7 +22,7 @@ public final class AddTemperatureScheduleViewFx extends VBox {
     private static final double TEMP_MIN = 15;
     private static final double TEMP_MAX = 30;
     private static final double MAJOR_TICK_UNIT = 1.0d;
-    private static final int MINOR_TICK_UNIT = 0;
+    private static final int MINOR_TICK_COUNT = 0;
     private final Text timeText = new Text("Time");
     private final Text tempText = new Text("Temperature (C)");
     private final RangeSlider timeRange = new RangeSlider(TIME_MIN, TIME_MAX, TIME_MIN, TIME_MAX);
@@ -40,7 +40,7 @@ public final class AddTemperatureScheduleViewFx extends VBox {
             rs.setShowTickMarks(true);
             rs.setBlockIncrement(MAJOR_TICK_UNIT);
             rs.setMajorTickUnit(MAJOR_TICK_UNIT);
-            rs.setMinorTickCount(MINOR_TICK_UNIT);
+            rs.setMinorTickCount(MINOR_TICK_COUNT);
             rs.setSnapToTicks(true);
         });
 

@@ -6,12 +6,11 @@ import homer.api.DeviceState;
 import homer.common.bounds.Bounds;
 
 /**
- * Implementation of {@link DeviceState} for an {@link homer.model.actuator.ActuatedDevice}.
+ * Implementation of {@link DeviceState} for an
+ * {@link homer.model.actuator.ActuatedDevice}.
  */
 public final class ActuatedDeviceState implements DeviceState {
 
-    private final Optional<Bounds<Integer>> positionBounds;
-    private final int position;
     /**
      * Mechanized blinds.
      */
@@ -24,6 +23,8 @@ public final class ActuatedDeviceState implements DeviceState {
      * Mechanized window.
      */
     public static final String WINDOW = "Mechanized Window";
+    private final Optional<Bounds<Integer>> positionBounds;
+    private final int position;
     private final Optional<String> type;
 
     /**
@@ -31,12 +32,12 @@ public final class ActuatedDeviceState implements DeviceState {
      * 
      * @param position       the actuator position.
      * @param positionBounds the actuator bounds.
-     * @param type
+     * @param type           the device's type.
      */
-    public ActuatedDeviceState(final int position, final Bounds<Integer> positionBounds, final Optional<String> type) {
+    public ActuatedDeviceState(final int position, final Bounds<Integer> positionBounds, final String type) {
         this.position = position;
         this.positionBounds = Optional.of(positionBounds);
-        this.type = type;
+        this.type = Optional.of(type);
     }
 
     /**
@@ -44,12 +45,11 @@ public final class ActuatedDeviceState implements DeviceState {
      * Used to set a new state.
      * 
      * @param position the new commanded position.
-     * @param type the device's type.
      */
-    public ActuatedDeviceState(final int position, final Optional<String> type) {
+    public ActuatedDeviceState(final int position) {
         this.position = position;
         this.positionBounds = Optional.empty();
-        this.type = type;
+        this.type = Optional.empty();
     }
 
     /**

@@ -21,7 +21,7 @@ public record CreateAirConditioning(Environment environment) implements CreateDe
 
     @Override
     public String getStringRep() {
-        return "Create Air conditioning";
+        return "Add Air conditioning";
     }
 
 }

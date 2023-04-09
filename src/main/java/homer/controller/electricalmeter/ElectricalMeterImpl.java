@@ -5,6 +5,7 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.ListIterator;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.stream.Collectors;
 
@@ -33,7 +34,7 @@ public final class ElectricalMeterImpl implements ElectricalMeter, DiscreteObjec
     private double globalConsumption;
     private double averagePower;
     private DeviceManager deviceManager;
-    private ElectricalMeterViewManager viewManager;
+    private Optional<ElectricalMeterViewManager> viewManager;
     private static final double MAX_GLOBAL_CONSUMPTION = 4000; // Watts
 
     /**
@@ -67,7 +68,7 @@ public final class ElectricalMeterImpl implements ElectricalMeter, DiscreteObjec
      */
     @SuppressFBWarnings(value = "EI_EXPOSE_REP", justification = "Exposing a reference is intended here")
     public void setViewManager(final ElectricalMeterViewManager viewManager) {
-        this.viewManager = viewManager;
+        this.viewManager = Optional.of(viewManager);
     }
 
     /**
@@ -86,7 +87,7 @@ public final class ElectricalMeterImpl implements ElectricalMeter, DiscreteObjec
      * @return the {@code viewManager}.
      */
     @SuppressFBWarnings(value = "EI_EXPOSE_REP", justification = "Exposing a reference is intended here")
-    public ElectricalMeterViewManager getMeterViewManager() {
+    public Optional<ElectricalMeterViewManager> getMeterViewManager() {
         return this.viewManager;
     }
 
@@ -198,9 +199,8 @@ public final class ElectricalMeterImpl implements ElectricalMeter, DiscreteObjec
 
     @Override
     public void updateTick(final Duration deltaTime) {
-        for (final Outlet outlet : this.getOutlets()) {
-            outlet.updateTick(deltaTime);
-        }
+        final List<Outlet> outlets = this.getOutlets();
+        outlets.stream().forEach(outlet -> outlet.updateTick(deltaTime));
         this.setPoweredDeviceOutlets();
         this.checkConsumption();
         this.computeAveragePower(deltaTime);
@@ -208,7 +208,7 @@ public final class ElectricalMeterImpl implements ElectricalMeter, DiscreteObjec
             Platform.runLater(new Runnable() {
                 @Override
                 public void run() {
-                    getMeterViewManager().setLabels();
+                    getMeterViewManager().get().setLabels();
                 }
             });
         }

@@ -15,7 +15,7 @@ public final class CreateLight implements CreateDeviceCommand {
 
     @Override
     public String getStringRep() {
-        return "Create Light";
+        return "Add Light";
     }
 
 }

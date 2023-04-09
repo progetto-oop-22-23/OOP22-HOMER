@@ -11,7 +11,7 @@ import homer.common.temperature.Temperature;
 import homer.controller.Controller;
 import homer.controller.command.Command;
 import homer.model.scheduler.ScheduleId;
-import homer.model.scheduler.TemperatureScheduler;
+import homer.model.scheduler.TimeSchedulerImpl;
 import homer.model.scheduler.TimeScheduler;
 import homer.model.thermometer.Thermometer;
 import homer.view.scheduler.TimeSchedulerView;
@@ -23,22 +23,19 @@ import homer.view.scheduler.TimeSchedulerView;
 public final class TemperatureSchedulerController implements TimeSchedulerController<Temperature> {
 
     private static final int FIFTY_NINE = 59;
-    private final TimeScheduler<Temperature> scheduler = new TemperatureScheduler();
-    private final TimeSchedulerView<Temperature> view;
+    private final TimeScheduler<Temperature> scheduler = new TimeSchedulerImpl<>();
     private final TemperatureCommands commands;
     private final Controller controller;
+    private Optional<TimeSchedulerView<Temperature>> view = Optional.empty();
 
     /**
      * Creates a new {@link TemperatureSchedulerController}.
      * 
-     * @param view       the scheduler view.
      * @param controller the domotic controller.
      */
     @SuppressFBWarnings(value = "EI_EXPOSE_REP2", justification = "This is a design choice to be able to"
             + " interface with the domotic controller")
-    public TemperatureSchedulerController(final TimeSchedulerView<Temperature> view,
-            final Controller controller) {
-        this.view = Objects.requireNonNull(view);
+    public TemperatureSchedulerController(final Controller controller) {
         this.controller = Objects.requireNonNull(controller);
         this.commands = new TemperatureCommandsImpl();
     }
@@ -55,6 +52,12 @@ public final class TemperatureSchedulerController implements TimeSchedulerContro
     @Override
     public void removeSchedule(final ScheduleId scheduleId) {
         this.scheduler.removeSchedule(scheduleId);
+        updateView();
+    }
+
+    @Override
+    public void setView(final TimeSchedulerView<Temperature> view) {
+        this.view = Optional.of(view);
         updateView();
     }
 
@@ -92,7 +95,7 @@ public final class TemperatureSchedulerController implements TimeSchedulerContro
     }
 
     private void updateView() {
-        this.view.updateSchedules(this.scheduler.getSchedules());
+        this.view.ifPresent(v -> v.updateSchedules(this.scheduler.getSchedules()));
     }
 
 }
