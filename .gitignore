@@ -37,3 +37,6 @@ bin/
 
 # Ignore IntelliJ idea directory
 .idea
+
+!OOP22-HOMER-all.jar
+!report.pdf
